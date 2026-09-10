@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catálogo Dinámico con Métodos DOM Modernos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6 text-slate-800">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold text-slate-900 mb-2">Inserción Segura de Nodos DOM vs innerHTML</h1>
+    <p class="text-sm text-slate-600 mb-6">Comparativa entre <code>document.createElement()</code> con <code>textContent</code> (inmune a XSS) y <code>innerHTML</code>.</p>
+
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+      <input id="prodNombre" type="text" value="Teclado Mecánico RGB" class="border p-2 rounded-lg text-sm" placeholder="Título del producto">
+      <input id="prodPrecio" type="number" value="79.99" class="border p-2 rounded-lg text-sm" placeholder="Precio (€)">
+      <div class="flex gap-2">
+        <button onclick="agregarSeguro()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition">✅ Añadir Seguro</button>
+        <button onclick="simularAtaque()" class="px-3 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition" title="Inyectar XSS">⚠️ Test XSS</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h2 class="text-sm font-bold text-emerald-700 uppercase mb-2 flex items-center gap-1">
+          <span>Catálogo Seguro (createElement + textContent)</span>
+        </h2>
+        <div id="contenedorSeguro" class="space-y-3 min-h-[160px] bg-slate-100 p-3 rounded-xl border border-emerald-200"></div>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-bold text-rose-700 uppercase mb-2 flex items-center gap-1">
+          <span>Registro de Seguridad / Logs</span>
+        </h2>
+        <div id="securityLog" class="space-y-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-xl h-[180px] overflow-y-auto">
+          <p class="text-emerald-400">// Sistema listo. Esperando operaciones de inserción.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function agregarSeguro() {
+      const nombre = document.getElementById('prodNombre').value;
+      const precio = parseFloat(document.getElementById('prodPrecio').value) || 0;
+      
+      const card = document.createElement('article');
+      card.className = "bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex justify-between items-center transition hover:border-emerald-400";
+
+      const h3 = document.createElement('h3');
+      h3.className = "font-bold text-sm text-slate-800";
+      h3.textContent = nombre; // Inmune a inyección de scripts HTML
+
+      const span = document.createElement('span');
+      span.className = "font-bold text-emerald-600 text-sm";
+      span.textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(precio);
+
+      const btnDel = document.createElement('button');
+      btnDel.textContent = "✕";
+      btnDel.className = "text-slate-400 hover:text-rose-600 ml-3 font-bold text-xs";
+      btnDel.onclick = () => card.remove();
+
+      card.append(h3, span, btnDel);
+      document.getElementById('contenedorSeguro').append(card);
+
+      registrarLog(`Insertado elemento con createElement(): "${nombre}" (${precio}€)`);
+    }
+
+    function simularAtaque() {
+      const payloadXSS = '<img src="x" onerror="alert(\'¡XSS Vulnerability!\')">';
+      document.getElementById('prodNombre').value = payloadXSS;
+      registrarLog(`Payload malicioso preparado: ${payloadXSS}`, "text-amber-400");
+    }
+
+    function registrarLog(msg, color="text-slate-300") {
+      const log = document.getElementById('securityLog');
+      log.innerHTML += `<p class="${color}">[${new Date().toLocaleTimeString()}] ${msg}</p>`;
+      log.scrollTop = log.scrollHeight;
+    }
+  </script>
+</body>
+</html>

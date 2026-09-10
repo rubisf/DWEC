@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Reto 1: e.preventDefault() y Coordenadas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+    <h2 class="text-lg font-bold text-indigo-400">🎯 Reto 1: submit con e.preventDefault() y e.clientX / e.clientY</h2>
+    <form id="form-coordenadas" class="space-y-2">
+      <input type="text" placeholder="Datos de formulario..." required class="p-2 bg-slate-950 border border-slate-700 rounded text-xs text-white w-full">
+      <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-1.5 px-4 rounded text-xs">Enviar Formulario</button>
+    </form>
+    <div id="out-coords" class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-emerald-300"></div>
+  </div>
+  <script>
+    document.getElementById('form-coordenadas').addEventListener('submit', (e) => {
+      e.preventDefault(); // Previene la recarga de página por defecto
+      const out = document.getElementById('out-coords');
+      out.innerHTML = `
+        <div>✅ e.preventDefault() ejecutado con éxito.</div>
+        <div class="text-amber-300">📍 Coordenadas del Puntero al hacer Envío: X: <strong>${e.clientX}px</strong> | Y: <strong>${e.clientY}px</strong></div>
+      `;
+    });
+  </script>
+</body>
+</html>

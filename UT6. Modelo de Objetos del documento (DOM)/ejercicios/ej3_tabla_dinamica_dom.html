@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tabla Dinámica DOM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6 text-slate-800">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <h1 class="text-xl font-bold text-slate-900 mb-1">Ordenación Dinámica de Tablas con Nodos DOM</h1>
+    <p class="text-xs text-slate-500 mb-4">Reordenación en caliente de elementos 'tr' mediante inserción en el DOM.</p>
+
+    <table class="w-full text-xs text-left border border-slate-200 rounded-xl overflow-hidden">
+      <thead class="bg-slate-100 text-slate-700 font-bold cursor-pointer select-none">
+        <tr>
+          <th onclick="ordenar(0)" class="p-3 hover:bg-slate-200">Nombre ⬍</th>
+          <th onclick="ordenar(1, true)" class="p-3 hover:bg-slate-200 text-right">Puntuación ⬍</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody" class="divide-y divide-slate-100">
+        <tr><td class="p-3">Daniel Ortega</td><td class="p-3 text-right font-mono">82</td></tr>
+        <tr><td class="p-3">Alicia Morales</td><td class="p-3 text-right font-mono">95</td></tr>
+        <tr><td class="p-3">Carlos Benítez</td><td class="p-3 text-right font-mono">68</td></tr>
+        <tr><td class="p-3">Zaira Ramos</td><td class="p-3 text-right font-mono">89</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    let ordenAsc = true;
+    function ordenar(colIdx, esNumero = false) {
+      const tbody = document.getElementById('tablaBody');
+      const filas = Array.from(tbody.querySelectorAll('tr'));
+
+      filas.sort((a, b) => {
+        const valA = a.children[colIdx].textContent.trim();
+        const valB = b.children[colIdx].textContent.trim();
+        if (esNumero) {
+          return ordenAsc ? parseFloat(valA) - parseFloat(valB) : parseFloat(valB) - parseFloat(valA);
+        }
+        return ordenAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      });
+
+      ordenAsc = !ordenAsc;
+      filas.forEach(f => tbody.append(f)); // Mueve los nodos al nuevo orden
+    }
+  </script>
+</body>
+</html>

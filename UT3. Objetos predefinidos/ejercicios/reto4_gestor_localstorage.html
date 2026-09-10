@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Reto 4: LocalStorage JSON</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+    <h2 class="text-lg font-bold text-sky-400">🎯 Reto 4: Serialización JSON en localStorage</h2>
+    <div id="out-storage" class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300"></div>
+  </div>
+  <script>
+    const config = { tema: "dark", idioma: "es", modulosActivos: ["DOM", "BOM", "ES6"] };
+    const out = document.getElementById('out-storage');
+    try {
+      localStorage.setItem("user_config", JSON.stringify(config));
+      const recuperado = JSON.parse(localStorage.getItem("user_config"));
+      out.innerHTML = `
+        <div class="text-emerald-400">✅ Guardado y deserializado con éxito desde localStorage:</div>
+        <div>Tema: ${recuperado.tema} | Idioma: ${recuperado.idioma} | Módulos: ${recuperado.modulosActivos.join(', ')}</div>
+      `;
+    } catch (e) {
+      out.innerHTML = `<div class="text-rose-400">❌ Error de Cuota en Storage: ${e.message}</div>`;
+    }
+  </script>
+</body>
+</html>

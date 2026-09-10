@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aggregation Pipeline de MongoDB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-mono text-xs">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-xl font-bold text-emerald-400 mb-1 font-sans">Visualizador de MongoDB Aggregation Pipeline</h1>
+    <p class="text-slate-400 mb-6 font-sans text-xs">Aplica paso a paso las etapas $match, $group y $sort a una colección de documentos BSON.</p>
+
+    <div class="flex gap-2 mb-4">
+      <button onclick="ejecutarEtapa(1)" id="btnE1" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 rounded font-bold">1. $match (status: "completado")</button>
+      <button onclick="ejecutarEtapa(2)" id="btnE2" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded font-bold">2. $group (por categoría + $sum)</button>
+      <button onclick="ejecutarEtapa(3)" id="btnE3" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded font-bold">3. $sort (total: -1)</button>
+    </div>
+
+    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+      <div class="flex justify-between text-slate-500 border-b border-slate-800 pb-1 mb-2">
+        <span id="etapaTitle">Colección Inicial db.ventas</span>
+        <span id="docCount" class="text-emerald-400 font-bold">4 documentos</span>
+      </div>
+      <pre id="outJson" class="text-slate-300 max-h-72 overflow-y-auto"></pre>
+    </div>
+  </div>
+
+  <script>
+    const DATOS_ORIGINALES = [
+      { id: 1, item: "Laptop", categoria: "Tecnología", precio: 800, status: "completado" },
+      { id: 2, item: "Silla", categoria: "Muebles", precio: 150, status: "cancelado" },
+      { id: 3, item: "Monitor", categoria: "Tecnología", precio: 250, status: "completado" },
+      { id: 4, item: "Mesa", categoria: "Muebles", precio: 200, status: "completado" }
+    ];
+
+    function ejecutarEtapa(num) {
+      const out = document.getElementById('outJson');
+      const title = document.getElementById('etapaTitle');
+      const count = document.getElementById('docCount');
+
+      if (num === 1) {
+        title.textContent = 'Etapa 1: { $match: { status: "completado" } }';
+        const filtrados = DATOS_ORIGINALES.filter(d => d.status === "completado");
+        count.textContent = `${filtrados.length} documentos filtrados`;
+        out.textContent = JSON.stringify(filtrados, null, 2);
+      } else if (num === 2) {
+        title.textContent = 'Etapa 2: { $group: { _id: "$categoria", totalVentas: { $sum: "$precio" } } }';
+        const agrupados = [
+          { _id: "Tecnología", totalVentas: 1050 },
+          { _id: "Muebles", totalVentas: 200 }
+        ];
+        count.textContent = `${agrupados.length} grupos generados`;
+        out.textContent = JSON.stringify(agrupados, null, 2);
+      } else if (num === 3) {
+        title.textContent = 'Etapa 3: { $sort: { totalVentas: -1 } }';
+        const ordenados = [
+          { _id: "Tecnología", totalVentas: 1050 },
+          { _id: "Muebles", totalVentas: 200 }
+        ];
+        count.textContent = `${ordenados.length} resultados finales ordenados`;
+        out.textContent = JSON.stringify(ordenados, null, 2);
+      }
+    }
+    ejecutarEtapa(1);
+  </script>
+</body>
+</html>

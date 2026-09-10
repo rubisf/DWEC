@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Reto 1: Refactorización SOLID (SRP)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+    <h2 class="text-lg font-bold text-indigo-400">🎯 Reto 1: Funciones Desacopladas (calcularIVA, formatearFactura, guardarRegistro)</h2>
+    <div id="out-srp" class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-indigo-300"></div>
+  </div>
+  <script>
+    // 1. Lógica pura de impuestos
+    const calcularIVA = (subtotal, tasa = 0.21) => subtotal * (1 + tasa);
+
+    // 2. Formateador de moneda
+    const formatearFactura = (total) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total);
+
+    // 3. Persistencia independiente
+    const guardarRegistro = (clave, valor) => localStorage.setItem(clave, JSON.stringify(valor));
+
+    const total = calcularIVA(150);
+    const totalFormateado = formatearFactura(total);
+    guardarRegistro('factura_demo', { subtotal: 150, total });
+
+    document.getElementById('out-srp').innerHTML = `
+      <div>💰 Base: €150 | Total con IVA: <strong>${totalFormateado}</strong></div>
+      <div class="text-emerald-400">💾 Guardado en localStorage['factura_demo']: ${localStorage.getItem('factura_demo')}</div>
+    `;
+  </script>
+</body>
+</html>

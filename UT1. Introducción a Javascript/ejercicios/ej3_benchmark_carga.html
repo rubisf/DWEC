@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Benchmark: Carga de Scripts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold text-indigo-400 mb-2">Simulador de Parseo HTML: Sync vs Defer vs Async vs Module</h1>
+    <p class="text-sm text-slate-400 mb-6">Comprende cómo los diferentes atributos de la etiqueta &lt;script&gt; impactan en el bloqueo del hilo principal y en la métrica First Contentful Paint.</p>
+
+    <div class="flex gap-3 mb-6">
+      <button onclick="simular('sync')" class="px-4 py-2 bg-rose-600 hover:bg-rose-500 rounded-lg text-xs font-bold">1. Script Síncrono (Bloquea)</button>
+      <button onclick="simular('defer')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold">2. Script Defer (Recomendado)</button>
+      <button onclick="simular('async')" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 rounded-lg text-xs font-bold">3. Script Async (Independiente)</button>
+      <button onclick="simular('module')" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-bold">4. Type="module" (ESM)</button>
+    </div>
+
+    <!-- Timeline visual -->
+    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-4 text-xs font-mono">
+      <div>
+        <div class="flex justify-between text-slate-400 mb-1">
+          <span>Parseo del Documento HTML</span>
+          <span id="label-html" class="font-bold text-slate-200">Inactivo</span>
+        </div>
+        <div class="w-full h-5 bg-slate-950 rounded overflow-hidden flex">
+          <div id="bar-html-1" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%;"></div>
+          <div id="bar-html-block" class="h-full bg-rose-600 transition-all duration-300" style="width: 0%;"></div>
+          <div id="bar-html-2" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex justify-between text-slate-400 mb-1">
+          <span>Descarga de Archivo JavaScript (Red)</span>
+          <span id="label-js" class="font-bold text-slate-200">Inactivo</span>
+        </div>
+        <div class="w-full h-5 bg-slate-950 rounded overflow-hidden">
+          <div id="bar-js" class="h-full bg-amber-400 transition-all duration-300" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex justify-between text-slate-400 mb-1">
+          <span>Ejecución del Script (Main Thread)</span>
+          <span id="label-exec" class="font-bold text-slate-200">Inactivo</span>
+        </div>
+        <div class="w-full h-5 bg-slate-950 rounded overflow-hidden">
+          <div id="bar-exec" class="h-full bg-emerald-500 transition-all duration-300" style="width: 0%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="conclusionBox" class="mt-4 p-4 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-300 leading-relaxed">
+      💡 Selecciona una estrategia de carga para ver la animación temporal de parseo y ejecución.
+    </div>
+  </div>
+
+  <script>
+    function simular(modo) {
+      const bHtml1 = document.getElementById('bar-html-1');
+      const bBlock = document.getElementById('bar-html-block');
+      const bHtml2 = document.getElementById('bar-html-2');
+      const bJs = document.getElementById('bar-js');
+      const bExec = document.getElementById('bar-exec');
+      const box = document.getElementById('conclusionBox');
+
+      // Reset
+      [bHtml1, bBlock, bHtml2, bJs, bExec].forEach(el => el.style.width = '0%');
+
+      if (modo === 'sync') {
+        bHtml1.style.width = "25%";
+        bBlock.style.width = "45%";
+        bHtml2.style.width = "30%";
+        bJs.style.width = "45%";
+        bExec.style.width = "45%";
+        box.innerHTML = `<span class="text-rose-400 font-bold">⚠️ Síncrono:</span> El parseo del HTML se DETIENE completamente mientras el script se descarga y ejecuta. La página permanece en blanco para el usuario.`;
+      } else if (modo === 'defer' || modo === 'module') {
+        bHtml1.style.width = "100%";
+        bBlock.style.width = "0%";
+        bHtml2.style.width = "0%";
+        bJs.style.width = "60%";
+        bExec.style.width = "25%";
+        box.innerHTML = `<span class="text-emerald-400 font-bold">✅ Defer / Module:</span> El HTML se parsea de principio a fin sin interrupciones mientras el JS se descarga en segundo plano. El script se ejecuta justo cuando el DOM está listo.`;
+      } else if (modo === 'async') {
+        bHtml1.style.width = "50%";
+        bBlock.style.width = "20%";
+        bHtml2.style.width = "30%";
+        bJs.style.width = "40%";
+        bExec.style.width = "20%";
+        box.innerHTML = `<span class="text-amber-400 font-bold">⚡ Async:</span> Se descarga en paralelo, pero en cuanto termina se ejecuta interrumpiendo el parseo. Adecuado para analíticas que no tocan el DOM.`;
+      }
+    }
+  </script>
+</body>
+</html>

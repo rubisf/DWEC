@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UT1: Introducción a JavaScript y Control de Versiones</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --accent: #2563eb;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--text-main); margin: 0; padding: 0; background: #f8fafc; }
+    .reveal { background: #f8fafc; }
+    .reveal h1, .reveal h2, .reveal h3 { text-transform: none !important; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    
+    /* Contenedor de Slide con padding inferior de 110px para evitar la barra de tareas del SO */
+    .slides section {
+      padding: 20px 36px 110px 36px !important;
+      text-align: left;
+      height: 100% !important;
+      max-height: 100% !important;
+      box-sizing: border-box;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      overflow-y: auto !important;
+    }
+
+    /* Scrollbars elegantes */
+    .slides section::-webkit-scrollbar,
+    .content-card::-webkit-scrollbar,
+    .reto-slide-container::-webkit-scrollbar,
+    .code-demo-card::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .slides section::-webkit-scrollbar-track,
+    .content-card::-webkit-scrollbar-track,
+    .reto-slide-container::-webkit-scrollbar-track,
+    .code-demo-card::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.04);
+      border-radius: 4px;
+    }
+    .slides section::-webkit-scrollbar-thumb,
+    .content-card::-webkit-scrollbar-thumb,
+    .reto-slide-container::-webkit-scrollbar-thumb,
+    .code-demo-card::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .slide-header { margin-bottom: 10px; flex-shrink: 0; }
+    .slide-header h2 {
+      font-size: 1.2em !important;
+      color: #0f172a;
+      margin: 4px 0 0 0 !important;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .badge-sub {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.50em;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-exercise {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    /* Portada Impactante */
+    .cover-slide {
+      background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, var(--accent) 100%) !important;
+      text-align: center !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #fff !important;
+    }
+    .cover-slide .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      font-size: 1.4em;
+      font-weight: 900;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .cover-slide h1 {
+      color: #ffffff !important;
+      font-size: 1.9em !important;
+      margin-bottom: 10px !important;
+      line-height: 1.2;
+    }
+    .cover-slide .subtitle {
+      color: #93c5fd;
+      font-size: 0.95em;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .cover-slide .tagline {
+      color: #cbd5e1;
+      font-size: 0.78em;
+      max-width: 850px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .cover-slide .cover-hint {
+      margin-top: 26px;
+      font-size: 0.68em;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.08);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Layout Índice */
+    .index-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-grow: 1;
+      align-content: start;
+      overflow-y: auto;
+    }
+    .index-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      box-sizing: border-box;
+    }
+    .index-badge {
+      background: #eff6ff;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9em;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid #dbeafe;
+    }
+    .index-info { flex-grow: 1; min-width: 0; }
+    .index-title { font-size: 0.78em; font-weight: 700; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+    .index-desc {
+      font-size: 0.65em;
+      line-height: 1.4;
+      color: #475569;
+      margin: 0;
+    }
+
+    /* Layout de Diapositiva Teórica con Bloque de Código */
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-shrink: 0;
+      align-items: stretch;
+    }
+    .content-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+    }
+    .primary-card { border-top: 3.5px solid var(--accent); }
+    .accent-card { border-top: 3.5px solid #059669; }
+    .card-tag {
+      font-size: 0.64em;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .card-text {
+      font-size: 0.72em;
+      line-height: 1.48;
+      color: #334155;
+      margin: 0;
+      flex-grow: 1;
+    }
+    .card-text p {
+      margin: 0 0 6px 0;
+    }
+    .card-text p:last-child {
+      margin-bottom: 0;
+    }
+    .card-text ul, .card-text ol {
+      margin: 6px 0 8px 0;
+      padding-left: 20px;
+    }
+    .card-text li {
+      margin-bottom: 5px;
+      line-height: 1.42;
+    }
+    .card-text li strong {
+      color: #0f172a;
+    }
+    .card-text code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Tarjeta de Código Demostrativo de Alto Contraste */
+    .code-demo-card {
+      margin-top: 10px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 10px 14px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .code-demo-tag {
+      font-size: 0.62em;
+      font-weight: 700;
+      color: #79c0ff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .code-demo-card pre {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      overflow-x: auto;
+    }
+    .code-demo-card code {
+      font-family: 'Fira Code', monospace !important;
+      font-size: 0.68em !important;
+      line-height: 1.45 !important;
+      color: #f0f6fc !important;
+      white-space: pre-wrap !important;
+    }
+
+    /* Contenedor de Reto Limpio */
+    .reto-slide-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+    .callout {
+      border-radius: 10px;
+      padding: 12px 14px;
+      border-left: 4px solid;
+    }
+    .callout.tip {
+      background: #f0fdf4;
+      border-color: #10b981;
+    }
+    .callout.info {
+      background: #eff6ff;
+      border-color: #3b82f6;
+    }
+    .callout-title {
+      font-weight: 700;
+      font-size: 0.74em;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+    .callout-body {
+      font-size: 0.72em;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .reto-action-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+      margin-top: 4px;
+    }
+    .reto-action-text { flex-grow: 1; }
+    .reto-action-text strong { font-size: 0.82em; color: #0f172a; display: block; margin-bottom: 2px; }
+    .reto-action-text p { font-size: 0.70em; color: #64748b; margin: 0; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #4f46e5;
+      color: #ffffff !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { background: #4338ca; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: #334155 !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    /* Slide Final Taller */
+    .final-workshop-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-grow: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    }
+    .final-ex-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .final-ex-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #f1f5f9;
+    }
+    .final-ex-badge {
+      background: #059669;
+      color: #fff;
+      font-size: 0.65em;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .final-ex-text strong { font-size: 0.76em; color: #0f172a; display: block; }
+    .final-ex-text p { font-size: 0.66em; color: #64748b; margin: 0; }
+    .final-action-bar { display: flex; gap: 12px; margin-top: auto; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <section class="cover-slide">
+        <div class="badge">01</div>
+        <h1>UT1: Introducción a JavaScript y Control de Versiones</h1>
+        <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
+        <div class="tagline">Fundamentos de la arquitectura web cliente-servidor de 3 capas, motores de ejecución (V8, SpiderMonkey), inclusión moderna de scripts y flujo profesional de trabajo con Git y GitHub.</div>
+        <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Índice Curricular</span>
+          <h2>📋 Contenidos y Epígrafes de la Unidad</h2>
+        </div>
+        <div class="index-grid">
+          
+          <div class="index-card">
+            <div class="index-badge">1</div>
+            <div class="index-info">
+              <div class="index-title">Arquitectura Web y Rol de JavaScript</div>
+              <p class="index-desc">JavaScript es el único lenguaje de programación del lado del cliente estandarizado por el W3C y ECMA que se ejecuta nativamente en los navegadores web. Opera dentro de una arquitectura web de 3 capas.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">2</div>
+            <div class="index-info">
+              <div class="index-title">Inclusión de Scripts en HTML: Defer vs Async vs Module</div>
+              <p class="index-desc">Existen 4 modos de incluir JavaScript en HTML, condicionando el acceso al DOM y el aislamiento de variables.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">3</div>
+            <div class="index-info">
+              <div class="index-title">Control de Versiones Distribuido con Git</div>
+              <p class="index-desc">Git es un DVCS (Sistema de Control de Versiones Distribuido) diseñado por Linus Torvalds que registra la evolución inmutable del código. El flujo de trabajo organiza las modificaciones a través de tres áreas fundamentales.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">4</div>
+            <div class="index-info">
+              <div class="index-title">Generación Básica de Contenido DOM con JavaScript</div>
+              <p class="index-desc">Existen 3 métodos principales para la inserción de HTML desde JavaScript.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Fundamentos de JavaScript</span>
+          <h2>⚡ Características Fundamentales de JavaScript</h2>
+        </div>
+        <div class="index-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+          <div class="index-card" style="border-left: 4px solid #ef4444; flex-direction: column; gap: 4px;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #b91c1c; display: flex; align-items: center; gap: 6px;">
+              <span>🎯 1. Interpretado (no compilado previo)</span>
+            </div>
+            <p style="font-size: 0.65em; color: #475569; margin: 0; line-height: 1.4;">
+              Se traduce y ejecuta al vuelo por el motor (V8, SpiderMonkey) mediante <strong>compilación JIT (Just-In-Time)</strong> sin requerir una compilación previa a ejecutable binario.
+            </p>
+          </div>
+
+          <div class="index-card" style="border-left: 4px solid #3b82f6; flex-direction: column; gap: 4px;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #1d4ed8; display: flex; align-items: center; gap: 6px;">
+              <span>⚡ 2. Basado en Eventos</span>
+            </div>
+            <p style="font-size: 0.65em; color: #475569; margin: 0; line-height: 1.4;">
+              Reacciona a las acciones del usuario (clicks, teclados, envíos de formulario) mediante escuchadores de eventos y la cola de tareas del <strong>Event Loop</strong>.
+            </p>
+          </div>
+
+          <div class="index-card" style="border-left: 4px solid #10b981; flex-direction: column; gap: 4px;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #047857; display: flex; align-items: center; gap: 6px;">
+              <span>🪶 3. Es Ligero</span>
+            </div>
+            <p style="font-size: 0.65em; color: #475569; margin: 0; line-height: 1.4;">
+              Sintaxis concisa de ejecución nativa directa en el cliente dentro del navegador sin requerir entornos pesados ni instalación de runtimes locales.
+            </p>
+          </div>
+
+          <div class="index-card" style="border-left: 4px solid #f59e0b; flex-direction: column; gap: 4px;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #b45309; display: flex; align-items: center; gap: 6px;">
+              <span>🏷️ 4. Tipado Dinámico y Débil</span>
+            </div>
+            <p style="font-size: 0.65em; color: #475569; margin: 0; line-height: 1.4;">
+              Las variables no se vinculan a un tipo de dato fijo (<code>let x = 10; x = "hola"</code>). El tipo de dato se evalúa en tiempo de ejecución.
+            </p>
+          </div>
+
+          <div class="index-card" style="border-left: 4px solid #8b5cf6; flex-direction: column; gap: 4px;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #6d28d9; display: flex; align-items: center; gap: 6px;">
+              <span>🔠 5. Sensible a Mayúsculas/Minúsculas</span>
+            </div>
+            <p style="font-size: 0.65em; color: #475569; margin: 0; line-height: 1.4;">
+              Lenguaje estrictamente <em>Case-Sensitive</em>: <code>miVariable</code>, <code>Mivariable</code> y <code>MIVARIABLE</code> representan tres identificadores independientes.
+            </p>
+          </div>
+
+          <div class="index-card" style="border-left: 4px solid #06b6d4; flex-direction: column; gap: 4px;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #0e7490; display: flex; align-items: center; gap: 6px;">
+              <span>🌐 6. Independiente de Plataforma</span>
+            </div>
+            <p style="font-size: 0.65em; color: #475569; margin: 0; line-height: 1.4;">
+              Multiplataforma por especificación W3C y ECMAScript. Se ejecuta de forma idéntica en Windows, macOS, Linux, iOS y Android dentro del navegador.
+            </p>
+          </div>
+
+          <div class="index-card" style="border-left: 4px solid #ec4899; flex-direction: column; gap: 4px; grid-column: span 3;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #be185d; display: flex; align-items: center; gap: 6px;">
+              <span>⏱️ 7. Procesamiento Asíncrono y No Bloqueante</span>
+            </div>
+            <p style="font-size: 0.65em; color: #475569; margin: 0; line-height: 1.4;">
+              Modelo monohilo (<em>Single Thread</em>) que delega tareas intensivas de red/disco en segundo plano mediante Promesas, Async/Await y Callbacks sin bloquear el renderizado ni la UI del usuario.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
+          <h2>1. Arquitectura Web y Rol de JavaScript</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>JavaScript es el único lenguaje de programación del lado del cliente estandarizado por el W3C y ECMA que se ejecuta nativamente en los navegadores web. Opera dentro de una <strong>arquitectura web de 3 capas</strong>:</p><ul class="concept-list"><li><strong>1. Capa de Presentación (Frontend):</strong> Formada por HTML5 (estructura), CSS3 (estilos) y JavaScript (lógica dinámica e interacción del cliente).</li><li><strong>2. Capa de Lógica de Negocio (Backend):</strong> Servidores de aplicaciones (Node.js, Java, Python) que procesan la lógica central y validaciones.</li><li><strong>3. Capa de Persistencia (Base de Datos):</strong> Almacenes relacionales (PostgreSQL) o NoSQL (MongoDB).</li></ul><p>Al descargar un script, el <strong>motor del navegador</strong> (V8, SpiderMonkey) construye el <strong>AST (Abstract Syntax Tree)</strong> y aplica <strong>compilación JIT (Just-In-Time)</strong> a código máquina nativo.</p></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>El entorno de ejecución cliente utiliza una arquitectura basada en eventos no bloqueante estructurada en los siguientes componentes:</p><ul class="concept-list"><li><strong>Call Stack (Pila de Llamadas):</strong> Pila LIFO donde se apilan y ejecutan las funciones secuencialmente en un único hilo de ejecución.</li><li><strong>Event Loop (Bucle de Eventos):</strong> Monitor continuo que mueve tareas pendientes desde las colas asíncronas cuando la pila se vacía.</li><li><strong>Jerarquía BOM (Browser Object Model):</strong> Encabezada por el objeto global <code>window</code>, expone las APIs del navegador (<code>navigator</code> para sistema, <code>location</code> para URLs, <code>history</code> para navegación).</li><li><strong>Jerarquía DOM (Document Object Model):</strong> Representada por <code>document</code>, convierte la estructura HTML en un árbol de objetos navegable en memoria.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo1_arquitectura_v8.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_arquitectura_v8.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT1 - Ejemplo 1: Arquitectura V8 y Entorno
+console.log(&quot;=== Inspección del Motor V8 y Entorno de Ejecución ===&quot;);
+if (typeof window !== &quot;undefined&quot;) {
+    console.log(&quot;Navegador User Agent:&quot;, navigator.userAgent);
+    console.log(&quot;Identidad globalThis === window:&quot;, window === globalThis);
+    console.log(&quot;Precisión de tiempo JIT:&quot;, performance.now().toFixed(2), &quot;ms&quot;);
+} else {
+    console.log(&quot;Entorno Node.js versión:&quot;, process.version);
+    console.log(&quot;Identidad globalThis === global:&quot;, global === globalThis);
+}
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
+          <h2>🎯 Reto: Inspección del Motor y Entorno de Ejecución</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Abre las herramientas de desarrollador (F12) en la pestaña &#x27;Console&#x27;. Averigua la versión del motor del navegador imprimiendo &#x27;navigator.userAgent&#x27;, evalúa una expresión aritmética estricta y comprueba si &#x27;window === globalThis&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
+          <h2>2. Inclusión de Scripts en HTML: Defer vs Async vs Module</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Existen 4 modos de incluir JavaScript en HTML, condicionando el acceso al DOM y el aislamiento de variables:</p><ul class="concept-list"><li><strong>1. <code>&lt;script&gt;</code> en <code>&lt;head&gt;</code> (Sync):</strong> Bloquea el HTML. ❌ <em>Acceso al DOM: FALLA (<code>null</code>)</em>. ❌ <em>Sobreescritura: ALTA</em> (contamina <code>window</code>).</li><li><strong>2. <code>&lt;script&gt;</code> al pie de <code>&lt;/body&gt;</code>:</strong> ✅ <em>Acceso al DOM: OK</em>. ❌ <em>Sobreescritura: ALTA</em> (si <code>script1.js</code> y <code>script2.js</code> usan la misma variable global <code>var usuario</code>, <code>script2</code> sobreescribe a <code>script1</code>).</li><li><strong>3. <code>&lt;script defer&gt;</code> en <code>&lt;head&gt;</code>:</strong> Descarga en paralelo y ejecuta tras el DOM. ✅ <em>Acceso al DOM: OK</em>. ❌ <em>Sobreescritura: ALTA</em> (sigue en <code>window</code>).</li><li><strong>4. <code>&lt;script type="module"&gt;</code> (ES Modules):</strong> ✅ <em>Acceso al DOM: OK (defer implícito)</em>. ✅ <em>Aislamiento: ABSOLUTO (Module Scope)</em>. Imposible sobreescribir variables desde fuera.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Con la llegada de ES Modules (ES6), la etiqueta <code>&lt;script type="module"&gt;</code> transforma el modelo de inclusión añadiendo 5 garantías nativas:</p><ul class="concept-list"><li><strong>1. Comportamiento <code>defer</code> automático:</strong> Los módulos se descargan en paralelo y ejecutan tras la construcción del DOM HTML.</li><li><strong>2. Ámbito Aislado de Módulo (Module Scope):</strong> Las variables declaradas en un módulo permanecen <strong>privadas</strong>. No ensucian <code>window</code> (<code>window.usuario === undefined</code>) ni se pueden sobreescribir desde otros ficheros scripts independientes.</li><li><strong>3. Modo Estricto (<code>'use strict'</code>) automático:</strong> Convierte errores silenciosos en excepciones explícitas y prohíbe variables no declaradas.</li><li><strong>4. Sintaxis nativa <code>import</code> / <code>export</code>:</strong> Permite modularizar código entre ficheros sin herramientas de empaquetado externas.</li><li><strong>5. Requisito CORS:</strong> Exige cargar el archivo bajo protocolo HTTP/HTTPS garantizando el origen cruzado seguro.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo2_modulos_es6.html" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_modulos_es6.html) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;/&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+  &lt;title&gt;Demostración Real: Modos de Inclusión JS y type=&quot;module&quot;&lt;/title&gt;
+  &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-slate-900 text-slate-100 p-6 font-sans min-h-screen&quot;&gt;
+  &lt;div class=&quot;max-w-4xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-2xl space-y-6&quot;&gt;
+    
+    &lt;div class=&quot;border-b border-slate-700 pb-4&quot;&gt;
+      &lt;span class=&quot;px-2.5 py-1 text-xs font-bold bg-indigo-500/20 text-indigo-300 rounded-lg border border-indigo-500/30 uppercase tracking-wider&quot;&gt;UT1 · Epígrafe 2&lt;/span&gt;
+      &lt;h1 class=&quot;text-2xl font-extrabold text-white mt-2&quot;&gt;📦 Comparativa de Modos de Inclusión de JavaScript y Beneficios de &lt;code class=&quot;text-amber-400&quot;&gt;type=&quot;module&quot;&lt;/code&gt;&lt;/h1&gt;
+      &lt;p class=&quot;text-xs text-slate-400 mt-1&quot;&gt;Análisis práctico: ¿Cómo influye la ubicación y el atributo de script en el acceso a elementos DOM y la contaminación/sobreescritura de variables globales?&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Tabla Comparativa de los 4 Modos --&gt;
+    &lt;div class=&quot;overflow-x-auto&quot;&gt;
+      &lt;table class=&quot;w-full text-left border-collapse text-xs&quot;&gt;
+        &lt;thead&gt;
+          &lt;tr class=&quot;bg-slate-950 text-indigo-300 border-b border-slate-700&quot;&gt;
+            &lt;th class=&quot;p-3&quot;&gt;Modo de Inclusión&lt;/th&gt;
+            &lt;th class=&quot;p-3&quot;&gt;Acceso al DOM&lt;/th&gt;
+            &lt;th class=&quot;p-3&quot;&gt;Ámbito de Variables&lt;/th&gt;
+            &lt;th class=&quot;p-3&quot;&gt;Riesgo de Sobreescritura&lt;/th&gt;
+            &lt;th class=&quot;p-3&quot;&gt;Modo Estricto&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody class=&quot;divide-y divide-slate-700/50 text-slate-300&quot;&gt;
+          &lt;tr class=&quot;hover:bg-slate-750&quot;&gt;
+            &lt;td class=&quot;p-3 font-mono text-amber-300&quot;&gt;1. &amp;lt;script&amp;gt; en &amp;lt;head&amp;gt; (Sync)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-red-400 font-bold&quot;&gt;❌ FALLA (null)&lt;/td&gt;
+            &lt;td class=&quot;p-3&quot;&gt;Global (&lt;code class=&quot;text-amber-300&quot;&gt;window&lt;/code&gt;)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-red-400 font-bold&quot;&gt;⚠️ ALTO (Sobreescribible)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-slate-500&quot;&gt;Opcional&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr class=&quot;hover:bg-slate-750&quot;&gt;
+            &lt;td class=&quot;p-3 font-mono text-blue-300&quot;&gt;2. &amp;lt;script&amp;gt; al pie de &amp;lt;/body&amp;gt;&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-emerald-400 font-bold&quot;&gt;✅ OK (DOM listo)&lt;/td&gt;
+            &lt;td class=&quot;p-3&quot;&gt;Global (&lt;code class=&quot;text-amber-300&quot;&gt;window&lt;/code&gt;)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-red-400 font-bold&quot;&gt;⚠️ ALTO (Colisión de scripts)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-slate-500&quot;&gt;Opcional&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr class=&quot;hover:bg-slate-750&quot;&gt;
+            &lt;td class=&quot;p-3 font-mono text-purple-300&quot;&gt;3. &amp;lt;script defer&amp;gt; en &amp;lt;head&amp;gt;&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-emerald-400 font-bold&quot;&gt;✅ OK (Deferido)&lt;/td&gt;
+            &lt;td class=&quot;p-3&quot;&gt;Global (&lt;code class=&quot;text-amber-300&quot;&gt;window&lt;/code&gt;)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-amber-400 font-bold&quot;&gt;⚠️ MEDIO (Mismo espacio)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-slate-500&quot;&gt;Opcional&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr class=&quot;bg-indigo-950/40 font-bold border-l-4 border-emerald-400&quot;&gt;
+            &lt;td class=&quot;p-3 font-mono text-emerald-400&quot;&gt;4. &amp;lt;script type=&quot;module&quot;&amp;gt; 🚀&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-emerald-400&quot;&gt;✅ OK (Defer implícito)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-emerald-300&quot;&gt;🔒 Aislado (Module Scope)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-emerald-400&quot;&gt;✅ NULO (Imposible sobreescribir)&lt;/td&gt;
+            &lt;td class=&quot;p-3 text-emerald-400&quot;&gt;✅ Automático (&#x27;use strict&#x27;)&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Demostración en Código y Salida Real --&gt;
+    &lt;div class=&quot;grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono&quot;&gt;
+      
+      &lt;!-- Script Tradicional: Sobreescritura Accidentada --&gt;
+      &lt;div class=&quot;bg-slate-950 p-4 rounded-xl border border-red-900/40 space-y-2&quot;&gt;
+        &lt;div class=&quot;text-red-400 font-bold border-b border-slate-800 pb-1 flex justify-between&quot;&gt;
+          &lt;span&gt;❌ Scripts Tradicionales (Sin Módulo)&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] text-red-400/80&quot;&gt;Colisión Global&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;pre class=&quot;text-slate-300 overflow-x-auto&quot;&gt;&lt;code&gt;// script1.js
+var usuario = &quot;Ana García&quot;; // En window.usuario
+
+// script2.js (Cargado después)
+var usuario = &quot;Pedro López&quot;; // ¡SOBREESCRIBE A ANA!
+
+console.log(window.usuario); // &quot;Pedro López&quot; 😱&lt;/code&gt;&lt;/pre&gt;
+        &lt;div class=&quot;p-2.5 bg-red-950/30 rounded border border-red-900/50 text-red-300 text-[11px]&quot;&gt;
+          &lt;strong&gt;Resultado:&lt;/strong&gt; Las variables se sobreescriben accidentalmente entre archivos distintos sin ningún aviso.
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- ES Modules: Aislamiento Seguro --&gt;
+      &lt;div class=&quot;bg-slate-950 p-4 rounded-xl border border-emerald-900/40 space-y-2&quot;&gt;
+        &lt;div class=&quot;text-emerald-400 font-bold border-b border-slate-800 pb-1 flex justify-between&quot;&gt;
+          &lt;span&gt;✅ ES Modules (type=&quot;module&quot;)&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] text-emerald-400/80&quot;&gt;Module Scope&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;pre class=&quot;text-slate-300 overflow-x-auto&quot;&gt;&lt;code&gt;// modulo1.js
+const usuario = &quot;Ana García&quot;; // Privada al módulo
+
+// modulo2.js
+const usuario = &quot;Pedro López&quot;; // Privada al módulo
+
+console.log(window.usuario); // undefined 🎉&lt;/code&gt;&lt;/pre&gt;
+        &lt;div class=&quot;p-2.5 bg-emerald-950/30 rounded border border-emerald-900/50 text-emerald-300 text-[11px]&quot;&gt;
+          &lt;strong&gt;Resultado:&lt;/strong&gt; Cada módulo tiene su propio espacio aislado. Imposible sobreescribir desde fuera.
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;!-- Salida Interactiva en Vivo --&gt;
+    &lt;div class=&quot;bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3&quot;&gt;
+      &lt;div class=&quot;text-xs font-bold text-amber-400 flex items-center justify-between&quot;&gt;
+        &lt;span&gt;▶️ Prueba de Ejecución en Vivo en este Navegador:&lt;/span&gt;
+        &lt;span class=&quot;text-[10px] text-slate-500&quot;&gt;Ejecutando script de Módulo&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;salida-demo&quot; class=&quot;text-xs font-mono space-y-1.5 text-slate-200&quot;&gt;
+        &lt;div class=&quot;text-slate-500 italic&quot;&gt;Evaluando variables globales vs variables de módulo...&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;script type=&quot;module&quot;&gt;
+    // Simulación de ámbito de módulo
+    const usuarioModulo = &quot;Ana García (Módulo Aislado)&quot;;
+    
+    // Intentar acceder al DOM directamente (demuestra defer automático)
+    const salida = document.getElementById(&#x27;salida-demo&#x27;);
+    
+    salida.innerHTML = `
+      &lt;div class=&quot;text-emerald-400&quot;&gt;✅ Acceso al DOM desde type=&quot;module&quot;: &lt;strong&gt;Éxito (se ejecutó tras construir el DOM)&lt;/strong&gt;&lt;/div&gt;
+      &lt;div class=&quot;text-indigo-300&quot;&gt;🔒 Variable de Módulo (const usuarioModulo): &lt;strong&gt;&quot;${usuarioModulo}&quot;&lt;/strong&gt;&lt;/div&gt;
+      &lt;div class=&quot;text-amber-300&quot;&gt;🌐 window.usuarioModulo en el objeto global: &lt;strong&gt;${window.usuarioModulo} (Totalmente Aislado)&lt;/strong&gt;&lt;/div&gt;
+      &lt;div class=&quot;text-slate-400 pt-2 border-t border-slate-800 mt-2 text-[11px]&quot;&gt;
+        💡 &lt;strong&gt;Conclusión:&lt;/strong&gt; ES Modules otorga aislamiento absoluto de variables, prevención de sobreescrituras accidentales y acceso 100% seguro a los elementos del DOM.
+      &lt;/div&gt;
+    `;
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
+          <h2>🎯 Reto: Carga Modular y Diferida en HTML5</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Crea una estructura HTML básica que cargue dos módulos JavaScript (un módulo de utilidades y un módulo principal) comprobando que las funciones exportadas sean accesibles sin contaminar el objeto global &#x27;window&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
+          <h2>3. Control de Versiones Distribuido con Git</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Git es un <strong>DVCS (Sistema de Control de Versiones Distribuido)</strong> diseñado por Linus Torvalds que registra la evolución inmutable del código. El flujo de trabajo organiza las modificaciones a través de tres áreas fundamentales:</p><ul class="concept-list"><li><strong>1. Working Directory (Directorio de Trabajo):</strong> Espacio de trabajo local donde se crean y modifican archivos activamente.</li><li><strong>2. Staging Area (Zona de Preparación / Index):</strong> Área intermedia donde se seleccionan y organizan las modificaciones con <code>git add</code> antes de confirmarlas.</li><li><strong>3. Repositorio Local (.git):</strong> Base de datos que almacena las instantáneas permanentes e inmutables mediante <code>git commit</code>.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Internamente, Git almacena la historia como un <strong>DAG (Grafo Acíclico Dirigido)</strong> de commits inmutables:</p><ul class="concept-list"><li><strong>Hashes Criptográficos (SHA-1/SHA-256):</strong> Cada commit recibe una suma de verificación única de 40 caracteres hexadecimales que garantiza la integridad del código.</li><li><strong>Objetos Internos:</strong> Commits que apuntan a árboles (<code>trees</code>) y bloques de contenido de archivos (<code>blobs</code>). Las ramas son punteros móviles ligeros a commits, haciendo que <code>git branch</code> o <code>git merge</code> tengan coste O(1).</li><li><strong>Flujo Profesional Distribuido:</strong> Trabajo con ramas de características (<code>feature branches</code>), sincronización remota con <code>git push</code> y revisiones continuas mediante Pull Requests (PR) en GitHub.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo3_git_workflow.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_git_workflow.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT1 - Ejemplo 3: Flujo de Trabajo con Git
+console.log(&quot;=== Trazabilidad del Grafo DAG en Git ===&quot;);
+const commits = [
+    { hash: &quot;a1b2c3d&quot;, msg: &quot;feat: inicializar estructura de proyecto&quot;, autor: &quot;Docente DAW&quot; },
+    { hash: &quot;e5f6g7h&quot;, msg: &quot;feat(auth): implementar módulo de inicio de sesión&quot;, autor: &quot;Dev Team&quot; }
+];
+commits.forEach((c, idx) =&gt; console.log(`[Commit #${idx + 1}] SHA: ${c.hash} | ${c.msg}`));
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
+          <h2>🎯 Reto: Secuencia de Trabajo Git y Ramas</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Escribe la secuencia exacta de comandos de terminal para inicializar un repositorio, configurar el usuario, crear la rama &#x27;develop&#x27;, realizar un commit con mensaje semántico y preparar la subida a GitHub.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
+          <h2>4. Generación Básica de Contenido DOM con JavaScript</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Existen 3 métodos principales para la inserción de HTML desde JavaScript:</p><ul class="concept-list"><li><strong><code>innerHTML</code>:</strong> Reemplaza el marcado interno completo (re-parseo total).</li><li><strong><code>createElement()</code> / <code>append()</code>:</strong> Construcción programática segura de nodos en memoria.</li><li><strong><code>insertAdjacentHTML()</code>:</strong> Inserción directa de plantillas HTML en 4 posiciones relativas sin destruir los nodos circundantes ni sus eventos.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Técnicas de Inserción HTML y Seguridad DOM:</strong></p><ul class="concept-list"><li><strong>1. <code>innerHTML</code>:</strong> Evalúa cadenas HTML. Rápido pero ⚠️ <em>vulnerable a XSS</em> si los datos provienen del usuario y ❌ <em>destruye listeners de eventos previos</em> al re-parsear el contenedor.</li><li><strong>2. <code>document.createElement()</code> + <code>append()</code>:</strong> ✅ <em>100% Inmune a XSS</em> al usar <code>textContent</code>. Genera nodos en memoria y los inserta conservando todos los escuchadores de eventos.</li><li><strong>3. <code>element.insertAdjacentHTML(posicion, html)</code>:</strong> Inyecta plantillas HTML sin destruir los nodos existentes. Admite 4 posiciones exactas: <ul style="margin-top:4px;"><li><code>'beforebegin'</code>: Antes del elemento.</li><li><code>'afterbegin'</code>: Primer hijo interno.</li><li><code>'beforeend'</code>: Último hijo interno.</li><li><code>'afterend'</code>: Después del elemento.</li></ul></li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo4_insercion_dom.html" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_insercion_dom.html) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT1 - Ejemplo 4: Inserción Segura en el DOM
+console.log(&quot;=== Métodos de Inserción DOM Segura ===&quot;);
+const nuevoElemento = document.createElement(&quot;div&quot;);
+nuevoElemento.className = &quot;tarjeta-info&quot;;
+nuevoElemento.textContent = &quot;Contenido seguro generado con textContent (Anti-XSS)&quot;;
+console.log(&quot;Elemento creado exitosamente en memoria:&quot;, nuevoElemento.nodeName);
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
+          <h2>🎯 Reto: Inserción Segura de Tarjetas Dinámicas</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Construye una función en JavaScript que reciba un título y una descripción de producto y los agregue a un contenedor &#x27;#catalogo&#x27; utilizando &#x27;createElement&#x27; y &#x27;append&#x27;, asignando clases CSS con &#x27;classList&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Taller Práctico</span>
+          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+        </div>
+        <div class="final-workshop-card">
+          <ul class="final-ex-list">
+            
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 1</span>
+        <div class="final-ex-text">
+          <strong>Simulador de Estados y Flujo Git</strong>
+          <p>Aplicación interactiva que permite a los alumnos añadir archivos al Working Tree, pasarlos a Staging Area con &#x27;git add&#x27;, y realizar un commit visualizando el grafo acíclico dirigido.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 2</span>
+        <div class="final-ex-text">
+          <strong>Catálogo Dinámico con Métodos DOM Modernos</strong>
+          <p>Componente web que inserta dinámicamente tarjetas de productos sanitizadas mediante createElement, insertAdjacentHTML y append, comparando el rendimiento y seguridad frente a innerHTML.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 3</span>
+        <div class="final-ex-text">
+          <strong>Benchmark de Carga: Sync vs Defer vs Module</strong>
+          <p>Herramienta que simula los tiempos de carga y parseo HTML demostrando visualmente el bloqueo de renderizado en scripts síncronos versus scripts diferidos con defer.</p>
+        </div>
+      </li>
+          </ul>
+          <div class="final-action-bar">
+            <a href="ejercicios.html" class="btn-primary">
+              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+            </a>
+            <a href="../index.html" class="btn-secondary">
+              🏠 Volver al Panel General
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: false,
+      hash: true,
+      transition: 'slide',
+      width: 1280,
+      height: 720,
+      margin: 0.04
+    });
+    hljs.highlightAll();
+  </script>
+</body>
+</html>

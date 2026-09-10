@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soluciones y Taller de Prácticas - UT6: Modelo de Objetos del Documento (DOM) y APIs REST</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .code-container {
+      background-color: #0d1117 !important;
+      border: 1px solid #30363d !important;
+      border-radius: 12px !important;
+    }
+    .code-container pre {
+      margin: 0 !important;
+      padding: 16px !important;
+      background-color: #0d1117 !important;
+    }
+    .code-container code {
+      background-color: #0d1117 !important;
+      color: #f0f6fc !important;
+      font-size: 13px !important;
+      line-height: 1.6 !important;
+    }
+    .hljs-keyword, .hljs-selector-tag, .hljs-subst { color: #ff7b72 !important; font-weight: 700; }
+    .hljs-string, .hljs-title, .hljs-section, .hljs-attribute, .hljs-literal, .hljs-type { color: #a5d6ff !important; }
+    .hljs-comment, .hljs-quote, .hljs-deletion, .hljs-meta { color: #8b949e !important; font-style: italic; }
+    .hljs-number, .hljs-regexp, .hljs-link { color: #79c0ff !important; }
+    .hljs-function, .hljs-title.function_ { color: #d2a8ff !important; }
+    .hljs-variable, .hljs-params { color: #ffa657 !important; }
+    .hljs-tag, .hljs-name { color: #7ee787 !important; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col antialiased">
+
+  <!-- Barra Superior -->
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+    <div class="flex items-center gap-4">
+      <a href="../index.html" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Volver al Panel Principal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      </a>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-md">UT6</span>
+          <h1 class="text-lg font-bold text-slate-800">UT6: Modelo de Objetos del Documento (DOM) y APIs REST</h1>
+        </div>
+        <p class="text-xs text-slate-500">Centro Oficial de Soluciones Explicadas, Código Fuente y Ejecución en Vivo</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="presentacion.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
+        🎬 Ver Presentación
+      </a>
+      <a href="../index.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+        🏠 Índice General
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal Split -->
+  <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto p-6 gap-6">
+    
+    <!-- Sidebar Ejercicios -->
+    <aside class="w-80 bg-white rounded-2xl border border-slate-200 p-4 flex flex-col shadow-sm flex-shrink-0">
+      <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 space-y-4">
+        
+        <div>
+          <h2 class="text-xs font-bold tracking-wider text-indigo-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🎯 Retos de Conceptos (4)
+          </h2>
+          
+          <button onclick="selectItem('reto-1')" id="nav-btn-reto-1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Inserción Optimizada con DocumentFragment</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 1</span>
+          </button>
+          <button onclick="selectItem('reto-2')" id="nav-btn-reto-2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Búsqueda y Destacado de Fila en Tabla</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 2</span>
+          </button>
+          <button onclick="selectItem('reto-3')" id="nav-btn-reto-3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Alternancia de Modo Oscuro con Dataset</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 3</span>
+          </button>
+          <button onclick="selectItem('reto-4')" id="nav-btn-reto-4" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Construcción de Endpoints Semánticos REST</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 4</span>
+          </button>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100">
+          <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🚀 Prácticas y Proyectos (3)
+          </h2>
+          
+          <button onclick="selectItem('ej1')" id="nav-btn-ej1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Gestor de Tareas Interactivo con Métodos DOM Modernos</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 1</span>
+          </button>
+          <button onclick="selectItem('ej2')" id="nav-btn-ej2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Simulador de Cliente API REST con Respuestas HTTP</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 2</span>
+          </button>
+          <button onclick="selectItem('ej3')" id="nav-btn-ej3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Constructor Dinámico de Tablas con Ordenación y Filtrado</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 3</span>
+          </button>
+        </div>
+
+      </div>
+      <div class="pt-4 border-t border-slate-100 mt-2 text-xs text-slate-400 text-center">
+        DWEC · Grado Superior DAW
+      </div>
+    </aside>
+
+    <!-- Panel de Actividad Seleccionada -->
+    <main class="flex-1 bg-white rounded-2xl border border-slate-200 flex flex-col shadow-sm overflow-hidden">
+      
+      <!-- Cabecera de Práctica/Reto -->
+      <div class="p-6 border-b border-slate-200 bg-slate-50/50 flex items-start justify-between">
+        <div>
+          <span id="ex-badge" class="px-2.5 py-1 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-lg">Cargando...</span>
+          <h2 id="ex-title" class="text-xl font-bold text-slate-900 mt-2">Cargando...</h2>
+          <p id="ex-subtitle" class="text-xs font-semibold text-slate-500 mt-1"></p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="switchTab('tab-view')" id="btn-tab-view" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm">
+            ▶️ Vista / Ejecución en Vivo
+          </button>
+          <button onclick="switchTab('tab-code')" id="btn-tab-code" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all">
+            💻 Código Fuente y Solución
+          </button>
+        </div>
+      </div>
+
+      <!-- Cuerpo del Visor -->
+      <div class="flex-1 p-6 overflow-y-auto custom-scrollbar relative flex flex-col">
+        
+        <!-- Bloque de Enunciado -->
+        <div class="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+          <h3 class="text-xs font-bold text-emerald-900 uppercase tracking-wider mb-1">📝 Enunciado de la Actividad</h3>
+          <p id="ex-instruction" class="text-xs text-emerald-800 leading-relaxed"></p>
+        </div>
+
+        <!-- Tab 1: Vista Previa / Ejecución en Vivo -->
+        <div id="tab-view" class="tab-content flex-1 flex flex-col min-h-0">
+          <div id="iframe-wrapper" class="flex-1 rounded-xl border border-slate-200 overflow-hidden bg-slate-50 min-h-[360px] relative">
+            <iframe id="preview-iframe" class="w-full h-full border-0" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+            <span id="preview-hint">💡 Entorno interactivo aislado en sandbox.</span>
+            <button onclick="reloadPreview()" class="text-indigo-600 hover:underline font-semibold flex items-center gap-1">
+              🔄 Recargar entorno
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Código Fuente y Solución Explicada con Alto Contraste -->
+        <div id="tab-code" class="tab-content hidden flex-1 flex flex-col space-y-4 min-h-0">
+          <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
+            <h3 class="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">💡 Explicación Paso a Paso de la Solución</h3>
+            <p id="ex-explanation" class="text-xs text-indigo-800 leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-500">Solución Oficial en Código Fuente (Alto Contraste)</span>
+            <button onclick="copyCode()" id="copy-btn" class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors flex items-center gap-1">
+              📋 Copiar Código
+            </button>
+          </div>
+          <div class="flex-1 code-container overflow-hidden p-2 text-xs overflow-y-auto custom-scrollbar">
+            <pre><code id="code-content" class="language-javascript"></code></pre>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Shell HTML aislado como Script de texto puro (sin parseo en el documento padre) -->
+  <script type="text/html" id="iframe-shell-template">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="utf-8"/>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+        body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 16px; margin: 0; font-size: 13px; }
+        .log-title { color: #d2a8ff; font-weight: bold; margin-bottom: 12px; font-size: 13px; border-bottom: 1px solid #30363d; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .log-line { border-bottom: 1px solid #21262d; padding: 6px 0; color: #7ee787; line-height: 1.5; font-family: monospace; }
+        .log-error { color: #ff7b72; font-weight: bold; }
+        .log-info { color: #79c0ff; }
+        .hidden { display: none !important; }
+      </style>
+    </head>
+    <body class="antialiased">
+      <div id="dom-stage" class="hidden mb-4 p-4 bg-slate-900 border border-slate-700/80 rounded-xl shadow-lg font-sans text-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-2.5 mb-3">
+          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🌐 Escenario DOM Interactivo (Ejecución en Vivo)</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono">Contenedores activos para manipulación DOM</span>
+        </div>
+        <div id="app" class="mb-3 empty:hidden"></div>
+        <div id="catalogo" class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3 empty:hidden"></div>
+        <div id="form-container" class="flex flex-wrap items-center gap-3 mb-3">
+          <form id="miForm" class="flex items-center gap-2">
+            <input id="password" type="password" placeholder="Prueba contraseña..." value="Abc12345" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors shadow-sm">Enviar Formulario</button>
+          </form>
+          <button id="btnTema" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs border border-slate-700 transition-colors">Modo: light</button>
+        </div>
+        <div id="lists-container" class="space-y-3">
+          <ul id="listaDinamica" class="flex flex-wrap gap-2 text-xs">
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 1 (Haz clic para eliminar)</span> 🗑️</li>
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 2 (Haz clic para eliminar)</span> 🗑️</li>
+          </ul>
+          <ul id="miLista" class="space-y-1.5 text-xs text-emerald-400 font-mono"></ul>
+        </div>
+      </div>
+      <div class="log-title"><span>▶️ Resultados de Ejecución en Consola / Salida Estándar:</span></div>
+      <div id="output"></div>
+    </body>
+    </html>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+
+  <script>
+    const ITEMS = [{"id": "reto-1", "type": "reto", "badge": "Reto Concepto 1", "title": "Inserción Optimizada con DocumentFragment", "subtitle": "Bloque 1: El Árbol DOM y Jerarquía de Nodos", "instruction": "Inserta 100 elementos '<li>' numerados dentro de una lista '<ul>' asegurando que el DOM sufra un solo proceso de renderizado mediante un DocumentFragment.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Renderizado con DocumentFragment</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Inserción de 100 Nodos con DocumentFragment (1 solo Reflow)</h2>\n    <ul id=\"lista-fragment\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono max-h-48 overflow-y-auto space-y-1\"></ul>\n    <div id=\"out-time\" class=\"text-xs font-mono text-emerald-400\"></div>\n  </div>\n  <script>\n    const ul = document.getElementById('lista-fragment');\n    const fragment = document.createDocumentFragment();\n    const t0 = performance.now();\n\n    for (let i = 1; i <= 100; i++) {\n      const li = document.createElement('li');\n      li.className = 'text-slate-300';\n      li.textContent = `Item #${i} insertado en DocumentFragment`;\n      fragment.appendChild(li);\n    }\n\n    ul.appendChild(fragment); // 1 sola inserción DOM\n    const t1 = performance.now();\n    document.getElementById('out-time').textContent = `✅ 100 nodos insertados en un solo reflow en: ${(t1 - t0).toFixed(3)} ms`;\n  <\/script>\n</body>\n</html>", "explanation": "1) 'document.createDocumentFragment()' crea un contenedor virtual en memoria.\n2) El bucle añade 100 nodos al fragmento.\n3) 'lista.append(fragmento)' inserta los 100 elementos realizando 1 solo reflow en el navegador.", "filename": "reto1_arbol_nodos_interactivo.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Renderizado con DocumentFragment</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Inserción de 100 Nodos con DocumentFragment (1 solo Reflow)</h2>\n    <ul id=\"lista-fragment\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono max-h-48 overflow-y-auto space-y-1\"></ul>\n    <div id=\"out-time\" class=\"text-xs font-mono text-emerald-400\"></div>\n  </div>\n  <script>\n    const ul = document.getElementById('lista-fragment');\n    const fragment = document.createDocumentFragment();\n    const t0 = performance.now();\n\n    for (let i = 1; i <= 100; i++) {\n      const li = document.createElement('li');\n      li.className = 'text-slate-300';\n      li.textContent = `Item #${i} insertado en DocumentFragment`;\n      fragment.appendChild(li);\n    }\n\n    ul.appendChild(fragment); // 1 sola inserción DOM\n    const t1 = performance.now();\n    document.getElementById('out-time').textContent = `✅ 100 nodos insertados en un solo reflow en: ${(t1 - t0).toFixed(3)} ms`;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-2", "type": "reto", "badge": "Reto Concepto 2", "title": "Búsqueda y Destacado de Fila en Tabla", "subtitle": "Bloque 2: Selección y Recorrido del DOM (QuerySelector y Closest)", "instruction": "Dado un botón de borrado dentro de una celda '<td>' de una tabla, escribe una función que localice la fila '<tr>' completa mediante 'closest('tr')' y le aplique una clase de advertencia antes de eliminarla.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Recorrido con closest('tr')</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Localizar Fila tr Ancestor con closest('tr')</h2>\n    <table class=\"w-full text-xs font-mono border-collapse\">\n      <thead>\n        <tr class=\"bg-slate-950 text-slate-400 text-left\">\n          <th class=\"p-2\">ID</th><th class=\"p-2\">Alumno</th><th class=\"p-2\">Acción</th>\n        </tr>\n      </thead>\n      <tbody id=\"tabla-body\">\n        <tr class=\"border-t border-slate-700\">\n          <td class=\"p-2\">101</td><td class=\"p-2\">Ana Gómez</td>\n          <td class=\"p-2\"><button onclick=\"eliminarFila(this)\" class=\"bg-rose-600 hover:bg-rose-500 text-white px-2 py-1 rounded\">Eliminar Fila</button></td>\n        </tr>\n      </tbody>\n    </table>\n    <div id=\"out-closest\" class=\"text-xs font-mono text-amber-300\"></div>\n  </div>\n  <script>\n    function eliminarFila(btn) {\n      const tr = btn.closest('tr');\n      if (tr) {\n        tr.classList.add('bg-rose-950', 'text-rose-300');\n        document.getElementById('out-closest').textContent = `Fila <tr> localizada con closest('tr') y eliminada.`;\n        setTimeout(() => tr.remove(), 400);\n      }\n    }\n  <\/script>\n</body>\n</html>", "explanation": "1) 'boton.closest('tr')' busca hacia arriba el elemento ancestor <tr> más cercano.\n2) 'classList.add' aplica animación CSS de salida.\n3) 'fila.remove()' elimina el nodo del DOM.", "filename": "reto2_buscador_selectores_css.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Recorrido con closest('tr')</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Localizar Fila tr Ancestor con closest('tr')</h2>\n    <table class=\"w-full text-xs font-mono border-collapse\">\n      <thead>\n        <tr class=\"bg-slate-950 text-slate-400 text-left\">\n          <th class=\"p-2\">ID</th><th class=\"p-2\">Alumno</th><th class=\"p-2\">Acción</th>\n        </tr>\n      </thead>\n      <tbody id=\"tabla-body\">\n        <tr class=\"border-t border-slate-700\">\n          <td class=\"p-2\">101</td><td class=\"p-2\">Ana Gómez</td>\n          <td class=\"p-2\"><button onclick=\"eliminarFila(this)\" class=\"bg-rose-600 hover:bg-rose-500 text-white px-2 py-1 rounded\">Eliminar Fila</button></td>\n        </tr>\n      </tbody>\n    </table>\n    <div id=\"out-closest\" class=\"text-xs font-mono text-amber-300\"></div>\n  </div>\n  <script>\n    function eliminarFila(btn) {\n      const tr = btn.closest('tr');\n      if (tr) {\n        tr.classList.add('bg-rose-950', 'text-rose-300');\n        document.getElementById('out-closest').textContent = `Fila <tr> localizada con closest('tr') y eliminada.`;\n        setTimeout(() => tr.remove(), 400);\n      }\n    }\n  <\/script>\n</body>\n</html>"}, {"id": "reto-3", "type": "reto", "badge": "Reto Concepto 3", "title": "Alternancia de Modo Oscuro con Dataset", "subtitle": "Bloque 3: Manipulación Dinámica Moderna: Clases, Atributos y Dataset", "instruction": "Crea una función que conmute el tema del documento alternando el atributo 'data-theme=\"dark\"' en la etiqueta '<html>' mediante dataset / setAttribute y actualice el texto de un botón indicador.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Dataset y Modo Oscuro</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Alternar data-theme mediante dataset</h2>\n    <button id=\"btn-theme\" onclick=\"alternarTema()\" class=\"bg-amber-600 hover:bg-amber-500 text-white font-bold py-1.5 px-4 rounded text-xs\">\n      Modo Actual: dark\n    </button>\n    <div id=\"out-theme\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-amber-300\"></div>\n  </div>\n  <script>\n    document.documentElement.dataset.theme = 'dark';\n    function alternarTema() {\n      const actual = document.documentElement.dataset.theme;\n      const nuevo = actual === 'dark' ? 'light' : 'dark';\n      document.documentElement.dataset.theme = nuevo;\n      document.getElementById('btn-theme').textContent = `Modo Actual: ${nuevo}`;\n      document.getElementById('out-theme').textContent = `Atributo html.dataset.theme actualizado a '${nuevo}'.`;\n    }\n  <\/script>\n</body>\n</html>", "explanation": "1) 'document.documentElement.dataset.theme' accede al atributo 'data-theme' de la etiqueta <html>.\n2) Permite cambiar los temas CSS globales mediante variables sin inyectar estilos en línea.", "filename": "reto3_tarjetas_dataset_fragment.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Dataset y Modo Oscuro</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Alternar data-theme mediante dataset</h2>\n    <button id=\"btn-theme\" onclick=\"alternarTema()\" class=\"bg-amber-600 hover:bg-amber-500 text-white font-bold py-1.5 px-4 rounded text-xs\">\n      Modo Actual: dark\n    </button>\n    <div id=\"out-theme\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-amber-300\"></div>\n  </div>\n  <script>\n    document.documentElement.dataset.theme = 'dark';\n    function alternarTema() {\n      const actual = document.documentElement.dataset.theme;\n      const nuevo = actual === 'dark' ? 'light' : 'dark';\n      document.documentElement.dataset.theme = nuevo;\n      document.getElementById('btn-theme').textContent = `Modo Actual: ${nuevo}`;\n      document.getElementById('out-theme').textContent = `Atributo html.dataset.theme actualizado a '${nuevo}'.`;\n    }\n  <\/script>\n</body>\n</html>"}, {"id": "reto-4", "type": "reto", "badge": "Reto Concepto 4", "title": "Construcción de Endpoints Semánticos REST", "subtitle": "Bloque 4: Fundamentos de APIs RESTful y Códigos de Respuesta", "instruction": "Diseña la estructura de URIs y métodos HTTP para un recurso 'alumnos': listar todos los alumnos (GET /alumnos), crear uno nuevo (POST /alumnos), obtener el alumno id 42 (GET /alumnos/42), actualizar teléfono (PATCH /alumnos/42) y darlo de baja (DELETE /alumnos/42).", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: APIs RESTful</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Especificación Semántica de Endpoints REST</h2>\n    <div class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300\">\n      <div>1. GET /api/v1/alumnos -> Listar todos los alumnos</div>\n      <div>2. POST /api/v1/alumnos -> Crear un nuevo alumno</div>\n      <div>3. GET /api/v1/alumnos/42 -> Obtener detalle del alumno ID 42</div>\n      <div>4. PATCH /api/v1/alumnos/42 -> Modificar parcialmente el teléfono del alumno</div>\n      <div>5. DELETE /api/v1/alumnos/42 -> Dar de baja al alumno ID 42</div>\n    </div>\n  </div>\n</body>\n</html>", "explanation": "1) Define la correspondencia entre verbos HTTP (GET, POST, PATCH, DELETE) y recursos REST semánticos.\n2) Especifica los códigos de respuesta estándar (200, 201, 204, 404).", "filename": "reto4_cliente_rest_simulado.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: APIs RESTful</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Especificación Semántica de Endpoints REST</h2>\n    <div class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300\">\n      <div>1. GET /api/v1/alumnos -> Listar todos los alumnos</div>\n      <div>2. POST /api/v1/alumnos -> Crear un nuevo alumno</div>\n      <div>3. GET /api/v1/alumnos/42 -> Obtener detalle del alumno ID 42</div>\n      <div>4. PATCH /api/v1/alumnos/42 -> Modificar parcialmente el teléfono del alumno</div>\n      <div>5. DELETE /api/v1/alumnos/42 -> Dar de baja al alumno ID 42</div>\n    </div>\n  </div>\n</body>\n</html>"}, {"id": "ej1", "type": "practica", "badge": "Práctica Guiada 1", "title": "Gestor de Tareas Interactivo con Métodos DOM Modernos", "subtitle": "Aplicación de lista de tareas que implementa creación con DocumentFragment, edición con dataset, eliminación con closest() y filtrado dinámico.", "instruction": "Aplicación de lista de tareas que implementa creación con DocumentFragment, edición con dataset, eliminación con closest() y filtrado dinámico.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Gestor DOM Moderno</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Manipulación DOM con DocumentFragment y Closest</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Uso de append, prepend, dataset y optimización de reflow.</p>\n\n    <div class=\"flex gap-2 mb-4\">\n      <button onclick=\"generarMasivo(5)\" class=\"px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold\">\n        +5 Nodos con DocumentFragment\n      </button>\n      <button onclick=\"marcarTodos()\" class=\"px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold\">\n        Alternar Clase Destacado\n      </button>\n    </div>\n\n    <div id=\"contenedorNodos\" class=\"space-y-2\"></div>\n  </div>\n\n  <script>\n    let contador = 1;\n    function generarMasivo(cantidad) {\n      const cont = document.getElementById('contenedorNodos');\n      const frag = document.createDocumentFragment(); // Evita reflows individuales\n\n      for (let i = 0; i < cantidad; i++) {\n        const div = document.createElement('div');\n        div.dataset.id = contador;\n        div.className = \"p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center text-xs transition\";\n        div.innerHTML = `\n          <span>Nodo #<strong>${contador}</strong> creado en memoria</span>\n          <button onclick=\"this.closest('div').remove()\" class=\"text-rose-600 font-bold hover:underline\">Eliminar</button>\n        `;\n        frag.append(div);\n        contador++;\n      }\n      cont.append(frag); // Renderizado único\n    }\n\n    function marcarTodos() {\n      const items = document.querySelectorAll('#contenedorNodos > div');\n      items.forEach(it => it.classList.toggle('border-indigo-400'));\n    }\n    generarMasivo(3);\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Gestor DOM Moderno</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Manipulación DOM con DocumentFragment y Closest</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Uso de append, prepend, dataset y optimización de reflow.</p>\n\n    <div class=\"flex gap-2 mb-4\">\n      <button onclick=\"generarMasivo(5)\" class=\"px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold\">\n        +5 Nodos con DocumentFragment\n      </button>\n      <button onclick=\"marcarTodos()\" class=\"px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold\">\n        Alternar Clase Destacado\n      </button>\n    </div>\n\n    <div id=\"contenedorNodos\" class=\"space-y-2\"></div>\n  </div>\n\n  <script>\n    let contador = 1;\n    function generarMasivo(cantidad) {\n      const cont = document.getElementById('contenedorNodos');\n      const frag = document.createDocumentFragment(); // Evita reflows individuales\n\n      for (let i = 0; i < cantidad; i++) {\n        const div = document.createElement('div');\n        div.dataset.id = contador;\n        div.className = \"p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center text-xs transition\";\n        div.innerHTML = `\n          <span>Nodo #<strong>${contador}</strong> creado en memoria</span>\n          <button onclick=\"this.closest('div').remove()\" class=\"text-rose-600 font-bold hover:underline\">Eliminar</button>\n        `;\n        frag.append(div);\n        contador++;\n      }\n      cont.append(frag); // Renderizado único\n    }\n\n    function marcarTodos() {\n      const items = document.querySelectorAll('#contenedorNodos > div');\n      items.forEach(it => it.classList.toggle('border-indigo-400'));\n    }\n    generarMasivo(3);\n  <\/script>\n</body>\n</html>\n", "explanation": "Gestor de tareas que permite añadir, completar, filtrar y eliminar tareas utilizando métodos DOM modernos (append, closest, dataset, classList).", "filename": "ej1_gestor_tareas_dom.html"}, {"id": "ej2", "type": "practica", "badge": "Práctica Guiada 2", "title": "Simulador de Cliente API REST con Respuestas HTTP", "subtitle": "Consola interactiva que simula operaciones GET, POST, PUT, DELETE sobre una colección de usuarios, mostrando cabeceras, códigos de estado (200, 201, 404) y cuerpo JSON.", "instruction": "Consola interactiva que simula operaciones GET, POST, PUT, DELETE sobre una colección de usuarios, mostrando cabeceras, códigos de estado (200, 201, 404) y cuerpo JSON.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Simulador de API REST</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-mono text-xs\">\n  <div class=\"max-w-3xl mx-auto\">\n    <h1 class=\"text-xl font-bold text-teal-400 mb-1 font-sans\">Simulador de Cliente y Endpoints RESTful</h1>\n    <p class=\"text-slate-400 mb-6 font-sans text-xs\">Prueba llamadas HTTP y analiza cabeceras y códigos de respuesta.</p>\n\n    <div class=\"grid grid-cols-4 gap-2 mb-4\">\n      <button onclick=\"simularReq('GET', '/api/v1/usuarios', 200)\" class=\"p-2 bg-blue-600 hover:bg-blue-500 rounded font-bold\">GET (200 OK)</button>\n      <button onclick=\"simularReq('POST', '/api/v1/usuarios', 201)\" class=\"p-2 bg-emerald-600 hover:bg-emerald-500 rounded font-bold\">POST (201 Created)</button>\n      <button onclick=\"simularReq('PUT', '/api/v1/usuarios/99', 404)\" class=\"p-2 bg-amber-600 hover:bg-amber-500 rounded font-bold\">PUT (404 Not Found)</button>\n      <button onclick=\"simularReq('DELETE', '/api/v1/usuarios/4', 204)\" class=\"p-2 bg-rose-600 hover:bg-rose-500 rounded font-bold\">DELETE (204 No Content)</button>\n    </div>\n\n    <div class=\"bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2\">\n      <div class=\"flex justify-between text-slate-500 border-b border-slate-800 pb-1\">\n        <span>RESPUESTA HTTP</span>\n        <span id=\"badgeStatus\" class=\"px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300\">LISTO</span>\n      </div>\n      <div id=\"endpointTxt\" class=\"text-teal-300 font-bold\"></div>\n      <div id=\"bodyJson\" class=\"text-slate-300 whitespace-pre\"></div>\n    </div>\n  </div>\n\n  <script>\n    function simularReq(metodo, url, status) {\n      document.getElementById('endpointTxt').textContent = `${metodo} ${url} HTTP/1.1`;\n      const badge = document.getElementById('badgeStatus');\n      badge.textContent = `${status}`;\n      badge.className = status < 300 ? \"px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700\" : \"px-2 py-0.5 rounded text-[10px] font-bold bg-rose-950 text-rose-300 border border-rose-700\";\n\n      let data = {};\n      if (status === 200) data = [{ id: 1, nombre: \"Lucía Santos\", rol: \"Admin\" }, { id: 2, nombre: \"Marcos Rey\", rol: \"Editor\" }];\n      else if (status === 201) data = { id: 3, nombre: \"Nuevo Usuario\", creadoEn: new Date().toISOString() };\n      else if (status === 404) data = { error: \"NotFoundError\", mensaje: \"El recurso solicitado no existe\" };\n      else if (status === 204) data = \"// 204 No Content: Registro eliminado sin cuerpo devuelto\";\n\n      document.getElementById('bodyJson').textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Simulador de API REST</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-mono text-xs\">\n  <div class=\"max-w-3xl mx-auto\">\n    <h1 class=\"text-xl font-bold text-teal-400 mb-1 font-sans\">Simulador de Cliente y Endpoints RESTful</h1>\n    <p class=\"text-slate-400 mb-6 font-sans text-xs\">Prueba llamadas HTTP y analiza cabeceras y códigos de respuesta.</p>\n\n    <div class=\"grid grid-cols-4 gap-2 mb-4\">\n      <button onclick=\"simularReq('GET', '/api/v1/usuarios', 200)\" class=\"p-2 bg-blue-600 hover:bg-blue-500 rounded font-bold\">GET (200 OK)</button>\n      <button onclick=\"simularReq('POST', '/api/v1/usuarios', 201)\" class=\"p-2 bg-emerald-600 hover:bg-emerald-500 rounded font-bold\">POST (201 Created)</button>\n      <button onclick=\"simularReq('PUT', '/api/v1/usuarios/99', 404)\" class=\"p-2 bg-amber-600 hover:bg-amber-500 rounded font-bold\">PUT (404 Not Found)</button>\n      <button onclick=\"simularReq('DELETE', '/api/v1/usuarios/4', 204)\" class=\"p-2 bg-rose-600 hover:bg-rose-500 rounded font-bold\">DELETE (204 No Content)</button>\n    </div>\n\n    <div class=\"bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2\">\n      <div class=\"flex justify-between text-slate-500 border-b border-slate-800 pb-1\">\n        <span>RESPUESTA HTTP</span>\n        <span id=\"badgeStatus\" class=\"px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300\">LISTO</span>\n      </div>\n      <div id=\"endpointTxt\" class=\"text-teal-300 font-bold\"></div>\n      <div id=\"bodyJson\" class=\"text-slate-300 whitespace-pre\"></div>\n    </div>\n  </div>\n\n  <script>\n    function simularReq(metodo, url, status) {\n      document.getElementById('endpointTxt').textContent = `${metodo} ${url} HTTP/1.1`;\n      const badge = document.getElementById('badgeStatus');\n      badge.textContent = `${status}`;\n      badge.className = status < 300 ? \"px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700\" : \"px-2 py-0.5 rounded text-[10px] font-bold bg-rose-950 text-rose-300 border border-rose-700\";\n\n      let data = {};\n      if (status === 200) data = [{ id: 1, nombre: \"Lucía Santos\", rol: \"Admin\" }, { id: 2, nombre: \"Marcos Rey\", rol: \"Editor\" }];\n      else if (status === 201) data = { id: 3, nombre: \"Nuevo Usuario\", creadoEn: new Date().toISOString() };\n      else if (status === 404) data = { error: \"NotFoundError\", mensaje: \"El recurso solicitado no existe\" };\n      else if (status === 204) data = \"// 204 No Content: Registro eliminado sin cuerpo devuelto\";\n\n      document.getElementById('bodyJson').textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Consola interactiva que simula un cliente HTTP REST haciendo peticiones GET, POST, PUT, DELETE a una API ficticia y mostrando códigos de respuesta HTTP.", "filename": "ej2_simulador_api_rest.html"}, {"id": "ej3", "type": "practica", "badge": "Práctica Guiada 3", "title": "Constructor Dinámico de Tablas con Ordenación y Filtrado", "subtitle": "Tabla interactiva que lee datos estructurados, permite ordenar columnas dinámicamente navegando por los nodos hermanos y resalta celdas mediante classList.", "instruction": "Tabla interactiva que lee datos estructurados, permite ordenar columnas dinámicamente navegando por los nodos hermanos y resalta celdas mediante classList.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Tabla Dinámica DOM</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Ordenación Dinámica de Tablas con Nodos DOM</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Reordenación en caliente de elementos 'tr' mediante inserción en el DOM.</p>\n\n    <table class=\"w-full text-xs text-left border border-slate-200 rounded-xl overflow-hidden\">\n      <thead class=\"bg-slate-100 text-slate-700 font-bold cursor-pointer select-none\">\n        <tr>\n          <th onclick=\"ordenar(0)\" class=\"p-3 hover:bg-slate-200\">Nombre ⬍</th>\n          <th onclick=\"ordenar(1, true)\" class=\"p-3 hover:bg-slate-200 text-right\">Puntuación ⬍</th>\n        </tr>\n      </thead>\n      <tbody id=\"tablaBody\" class=\"divide-y divide-slate-100\">\n        <tr><td class=\"p-3\">Daniel Ortega</td><td class=\"p-3 text-right font-mono\">82</td></tr>\n        <tr><td class=\"p-3\">Alicia Morales</td><td class=\"p-3 text-right font-mono\">95</td></tr>\n        <tr><td class=\"p-3\">Carlos Benítez</td><td class=\"p-3 text-right font-mono\">68</td></tr>\n        <tr><td class=\"p-3\">Zaira Ramos</td><td class=\"p-3 text-right font-mono\">89</td></tr>\n      </tbody>\n    </table>\n  </div>\n\n  <script>\n    let ordenAsc = true;\n    function ordenar(colIdx, esNumero = false) {\n      const tbody = document.getElementById('tablaBody');\n      const filas = Array.from(tbody.querySelectorAll('tr'));\n\n      filas.sort((a, b) => {\n        const valA = a.children[colIdx].textContent.trim();\n        const valB = b.children[colIdx].textContent.trim();\n        if (esNumero) {\n          return ordenAsc ? parseFloat(valA) - parseFloat(valB) : parseFloat(valB) - parseFloat(valA);\n        }\n        return ordenAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);\n      });\n\n      ordenAsc = !ordenAsc;\n      filas.forEach(f => tbody.append(f)); // Mueve los nodos al nuevo orden\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Tabla Dinámica DOM</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Ordenación Dinámica de Tablas con Nodos DOM</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Reordenación en caliente de elementos 'tr' mediante inserción en el DOM.</p>\n\n    <table class=\"w-full text-xs text-left border border-slate-200 rounded-xl overflow-hidden\">\n      <thead class=\"bg-slate-100 text-slate-700 font-bold cursor-pointer select-none\">\n        <tr>\n          <th onclick=\"ordenar(0)\" class=\"p-3 hover:bg-slate-200\">Nombre ⬍</th>\n          <th onclick=\"ordenar(1, true)\" class=\"p-3 hover:bg-slate-200 text-right\">Puntuación ⬍</th>\n        </tr>\n      </thead>\n      <tbody id=\"tablaBody\" class=\"divide-y divide-slate-100\">\n        <tr><td class=\"p-3\">Daniel Ortega</td><td class=\"p-3 text-right font-mono\">82</td></tr>\n        <tr><td class=\"p-3\">Alicia Morales</td><td class=\"p-3 text-right font-mono\">95</td></tr>\n        <tr><td class=\"p-3\">Carlos Benítez</td><td class=\"p-3 text-right font-mono\">68</td></tr>\n        <tr><td class=\"p-3\">Zaira Ramos</td><td class=\"p-3 text-right font-mono\">89</td></tr>\n      </tbody>\n    </table>\n  </div>\n\n  <script>\n    let ordenAsc = true;\n    function ordenar(colIdx, esNumero = false) {\n      const tbody = document.getElementById('tablaBody');\n      const filas = Array.from(tbody.querySelectorAll('tr'));\n\n      filas.sort((a, b) => {\n        const valA = a.children[colIdx].textContent.trim();\n        const valB = b.children[colIdx].textContent.trim();\n        if (esNumero) {\n          return ordenAsc ? parseFloat(valA) - parseFloat(valB) : parseFloat(valB) - parseFloat(valA);\n        }\n        return ordenAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);\n      });\n\n      ordenAsc = !ordenAsc;\n      filas.forEach(f => tbody.append(f)); // Mueve los nodos al nuevo orden\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Tabla dinámica interactiva con capacidades de ordenación por columnas, filtrado por texto e inserción masiva mediante DocumentFragment.", "filename": "ej3_tabla_dinamica_dom.html"}];
+    let currentItem = null;
+    let currentCode = "";
+
+    function resetIframe() {
+      const wrapper = document.getElementById('iframe-wrapper');
+      if (wrapper) wrapper.innerHTML = '';
+      const newIframe = document.createElement('iframe');
+      newIframe.id = 'preview-iframe';
+      newIframe.className = 'w-full h-full border-0';
+      newIframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-same-origin');
+      if (wrapper) wrapper.appendChild(newIframe);
+      return newIframe;
+    }
+
+    function selectItem(id) {
+      const item = ITEMS.find(x => x.id === id) || ITEMS[0];
+      currentItem = item;
+      
+      document.querySelectorAll('.exercise-nav-btn').forEach(btn => {
+        if (btn.id === 'nav-btn-' + item.id) {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between active bg-indigo-600 text-white shadow-sm";
+        } else {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100";
+        }
+      });
+
+      document.getElementById('ex-badge').textContent = item.badge;
+      document.getElementById('ex-title').textContent = item.title;
+      document.getElementById('ex-subtitle').textContent = item.subtitle;
+      document.getElementById('ex-instruction').textContent = item.instruction;
+      document.getElementById('ex-explanation').textContent = item.explanation || "Solución fundamentada en las mejores prácticas del estándar ES6+.";
+
+      const iframe = resetIframe();
+
+      if (item.filename) {
+        currentCode = item.code || item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = item.filename.endsWith('.html') ? "language-html" : "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Solución externa oficial ejecutable en iframe: /ejercicios/" + item.filename;
+        iframe.src = './ejercicios/' + item.filename;
+      } else {
+        currentCode = item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Entorno de ejecución inmediata de la solución en JavaScript.";
+
+        const shellTpl = document.getElementById('iframe-shell-template');
+        const iframeDoc = iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(shellTpl ? shellTpl.textContent : '');
+        iframeDoc.close();
+
+        // Inyectar runner directamente
+        iframe.contentWindow.runSolution = function(rawCode) {
+          const doc = iframe.contentWindow.document;
+          const output = doc.getElementById("output");
+          const domStage = doc.getElementById("dom-stage");
+          if (output) output.innerHTML = "";
+
+          function log(...args) {
+            const p = doc.createElement("div");
+            p.className = "log-line";
+            p.textContent = args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+            output.appendChild(p);
+          }
+
+          const customConsole = {
+            log: log,
+            error: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-error";
+              p.textContent = "❌ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            },
+            info: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-info";
+              p.textContent = "ℹ️ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            }
+          };
+
+          const isDomCode = /document\.|querySelector|getElementById|createElement|addEventListener|dataset|innerHTML|outerHTML|#catalogo|#miForm|#password|#btnTema|#listaDinamica|#miLista|#app|@Component|<[a-z]/i.test(rawCode);
+
+          if (domStage) {
+            if (isDomCode) domStage.classList.remove("hidden");
+            else domStage.classList.add("hidden");
+          }
+
+          const NL = String.fromCharCode(10);
+
+          if (rawCode.trim().startsWith("git ")) {
+            log("💻 [Simulador de Consola Git Terminal]");
+            rawCode.split(NL).forEach(cmd => { if (cmd.trim()) log("$ " + cmd); });
+            log("✅ Secuencia Git ejecutada correctamente en el repositorio local.");
+            return;
+          }
+
+          if (rawCode.includes("db.ventas.aggregate")) {
+            log("🍃 [Simulador de Shell MongoDB]");
+            log("> " + rawCode);
+            log("📊 [Resultado del Pipeline de Agregación]:");
+            log([{ _id: "Electrónica", totalVentas: 15420.50 }, { _id: "Hogar", totalVentas: 8300.00 }, { _id: "Deportes", totalVentas: 4150.00 }]);
+            return;
+          }
+
+          if (rawCode.includes("@Component")) {
+            log("🅰️ [Compilador Angular v18 Standalone]");
+            log("✨ Componente Standalone ContadorComponent compilado e inyectado.");
+            log("Selector: <app-contador>");
+            log("Estado inicial: total = 0");
+            const appEl = doc.getElementById("app");
+            if (appEl) {
+              appEl.innerHTML = '<div class="p-3 bg-slate-950 border border-indigo-500/50 rounded-lg text-xs font-sans mb-2"><div class="font-bold text-indigo-400 mb-1">🅰️ Componente Angular ContadorComponent (Live Render):</div><div class="flex items-center gap-3"><span id="ng-counter" class="text-sm font-semibold text-white">Contador: 0</span><button id="ng-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded text-xs transition-colors">+1</button></div></div>';
+              const btn = doc.getElementById('ng-btn');
+              if (btn) btn.onclick = function() {
+                const c = doc.getElementById('ng-counter');
+                let val = parseInt(c.textContent.replace('Contador: ',''))+1;
+                c.textContent = 'Contador: ' + val;
+              };
+            }
+            return;
+          }
+
+          if (rawCode.trim().startsWith("/*") && rawCode.includes("/api/")) {
+            log("🌐 [Router REST API - Especificación de Endpoints]");
+            rawCode.split(NL).forEach(line => { if (line.trim() && !line.includes("/*") && !line.includes("*/")) log(line.trim()); });
+            log("✅ Servidor de API REST semántico preparado.");
+            return;
+          }
+
+          try {
+            const runFn = iframe.contentWindow.Function('console', 'log', 'document', rawCode);
+            const res = runFn(customConsole, log, doc);
+            if (res !== undefined) log("⬅️ Retorno:", res);
+          } catch (err1) {
+            try {
+              const res = iframe.contentWindow.eval(rawCode);
+              if (res !== undefined) log("⬅️ Retorno:", res);
+            } catch (err2) {
+              customConsole.error("Error de Ejecución:", err2.message);
+            }
+          }
+        };
+
+        if (iframe.contentWindow && typeof iframe.contentWindow.runSolution === 'function') {
+          iframe.contentWindow.runSolution(item.solution || '');
+        }
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      const btnView = document.getElementById('btn-tab-view');
+      const btnCode = document.getElementById('btn-tab-code');
+
+      if (tabId === 'tab-view') {
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      } else {
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      }
+    }
+
+    function reloadPreview() {
+      if (currentItem) selectItem(currentItem.id);
+    }
+
+    function copyCode() {
+      if (!currentCode) return;
+      navigator.clipboard.writeText(currentCode).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = "✅ ¡Copiado!";
+        setTimeout(() => { btn.textContent = "📋 Copiar Código"; }, 2000);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const itemId = params.get('item') || window.location.hash.replace('#', '');
+      selectItem(itemId || ITEMS[0].id);
+    });
+  </script>
+
+</body>
+</html>

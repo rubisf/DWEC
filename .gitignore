@@ -1,0 +1,9 @@
+# Ignorar todos los archivos PDF
+*.pdf
+**/*.pdf
+
+# Archivos de sistema y temporales
+.DS_Store
+Thumbs.db
+*.tmp
+*.log

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pipeline Funcional de Datos JSON</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6 text-slate-800">
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <h1 class="text-xl font-bold text-slate-900 mb-1">Pipeline Funcional: Filter, Reduce y toSorted</h1>
+    <p class="text-xs text-slate-500 mb-4">Procesamiento inmutable de un dataset de transacciones.</p>
+
+    <div class="grid grid-cols-3 gap-3 mb-4">
+      <button onclick="filtrarCategoria('todas')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-xs font-bold rounded-lg">Todas</button>
+      <button onclick="filtrarCategoria('Hardware')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-xs font-bold rounded-lg">Solo Hardware</button>
+      <button onclick="ordenarImporte()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg">Ordenar por Importe 🔽</button>
+    </div>
+
+    <div class="border border-slate-200 rounded-xl overflow-hidden mb-4">
+      <table class="w-full text-xs text-left">
+        <thead class="bg-slate-100 text-slate-600 font-bold">
+          <tr><th class="p-3">ID</th><th class="p-3">Producto</th><th class="p-3">Categoría</th><th class="p-3 text-right">Precio</th></tr>
+        </thead>
+        <tbody id="tablaVentas" class="divide-y divide-slate-100"></tbody>
+      </table>
+    </div>
+
+    <div class="p-3 bg-indigo-50 rounded-xl flex justify-between items-center text-xs font-bold text-indigo-900">
+      <span>Total Facturado de los Elementos Filtrados:</span>
+      <span id="totalFacturado" class="text-base">0,00 €</span>
+    </div>
+  </div>
+
+  <script>
+    const VENTAS = [
+      { id: 101, prod: "Monitor 4K Dell", cat: "Hardware", precio: 349.99 },
+      { id: 102, prod: "Licencia WebStorm", cat: "Software", precio: 69.00 },
+      { id: 103, prod: "Teclado Mecánico", cat: "Hardware", precio: 119.50 },
+      { id: 104, prod: "Suscripción Cloud", cat: "Servicios", precio: 24.00 },
+      { id: 105, prod: "Ratón Ergonómico", cat: "Hardware", precio: 45.00 }
+    ];
+
+    let datasetActual = [...VENTAS];
+
+    function render() {
+      const tbody = document.getElementById('tablaVentas');
+      tbody.innerHTML = datasetActual.map(v => `
+        <tr>
+          <td class="p-3 font-mono text-slate-400">#${v.id}</td>
+          <td class="p-3 font-semibold text-slate-800">${v.prod}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600">${v.cat}</span></td>
+          <td class="p-3 text-right font-bold text-slate-800">${v.precio.toFixed(2)} €</td>
+        </tr>
+      `).join('');
+
+      const total = datasetActual.reduce((acc, item) => acc + item.precio, 0);
+      document.getElementById('totalFacturado').textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total);
+    }
+
+    function filtrarCategoria(cat) {
+      if (cat === 'todas') datasetActual = [...VENTAS];
+      else datasetActual = VENTAS.filter(v => v.cat === cat);
+      render();
+    }
+
+    function ordenarImporte() {
+      // Método inmutable toSorted
+      datasetActual = datasetActual.toSorted((a, b) => b.precio - a.precio);
+      render();
+    }
+    render();
+  </script>
+</body>
+</html>

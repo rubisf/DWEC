@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demostración Real: Modos de Inclusión JS y type="module"</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans min-h-screen">
+  <div class="max-w-4xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-2xl space-y-6">
+    
+    <div class="border-b border-slate-700 pb-4">
+      <span class="px-2.5 py-1 text-xs font-bold bg-indigo-500/20 text-indigo-300 rounded-lg border border-indigo-500/30 uppercase tracking-wider">UT1 · Epígrafe 2</span>
+      <h1 class="text-2xl font-extrabold text-white mt-2">📦 Comparativa de Modos de Inclusión de JavaScript y Beneficios de <code class="text-amber-400">type="module"</code></h1>
+      <p class="text-xs text-slate-400 mt-1">Análisis práctico: ¿Cómo influye la ubicación y el atributo de script en el acceso a elementos DOM y la contaminación/sobreescritura de variables globales?</p>
+    </div>
+
+    <!-- Tabla Comparativa de los 4 Modos -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse text-xs">
+        <thead>
+          <tr class="bg-slate-950 text-indigo-300 border-b border-slate-700">
+            <th class="p-3">Modo de Inclusión</th>
+            <th class="p-3">Acceso al DOM</th>
+            <th class="p-3">Ámbito de Variables</th>
+            <th class="p-3">Riesgo de Sobreescritura</th>
+            <th class="p-3">Modo Estricto</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-700/50 text-slate-300">
+          <tr class="hover:bg-slate-750">
+            <td class="p-3 font-mono text-amber-300">1. &lt;script&gt; en &lt;head&gt; (Sync)</td>
+            <td class="p-3 text-red-400 font-bold">❌ FALLA (null)</td>
+            <td class="p-3">Global (<code class="text-amber-300">window</code>)</td>
+            <td class="p-3 text-red-400 font-bold">⚠️ ALTO (Sobreescribible)</td>
+            <td class="p-3 text-slate-500">Opcional</td>
+          </tr>
+          <tr class="hover:bg-slate-750">
+            <td class="p-3 font-mono text-blue-300">2. &lt;script&gt; al pie de &lt;/body&gt;</td>
+            <td class="p-3 text-emerald-400 font-bold">✅ OK (DOM listo)</td>
+            <td class="p-3">Global (<code class="text-amber-300">window</code>)</td>
+            <td class="p-3 text-red-400 font-bold">⚠️ ALTO (Colisión de scripts)</td>
+            <td class="p-3 text-slate-500">Opcional</td>
+          </tr>
+          <tr class="hover:bg-slate-750">
+            <td class="p-3 font-mono text-purple-300">3. &lt;script defer&gt; en &lt;head&gt;</td>
+            <td class="p-3 text-emerald-400 font-bold">✅ OK (Deferido)</td>
+            <td class="p-3">Global (<code class="text-amber-300">window</code>)</td>
+            <td class="p-3 text-amber-400 font-bold">⚠️ MEDIO (Mismo espacio)</td>
+            <td class="p-3 text-slate-500">Opcional</td>
+          </tr>
+          <tr class="bg-indigo-950/40 font-bold border-l-4 border-emerald-400">
+            <td class="p-3 font-mono text-emerald-400">4. &lt;script type="module"&gt; 🚀</td>
+            <td class="p-3 text-emerald-400">✅ OK (Defer implícito)</td>
+            <td class="p-3 text-emerald-300">🔒 Aislado (Module Scope)</td>
+            <td class="p-3 text-emerald-400">✅ NULO (Imposible sobreescribir)</td>
+            <td class="p-3 text-emerald-400">✅ Automático ('use strict')</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Demostración en Código y Salida Real -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+      
+      <!-- Script Tradicional: Sobreescritura Accidentada -->
+      <div class="bg-slate-950 p-4 rounded-xl border border-red-900/40 space-y-2">
+        <div class="text-red-400 font-bold border-b border-slate-800 pb-1 flex justify-between">
+          <span>❌ Scripts Tradicionales (Sin Módulo)</span>
+          <span class="text-[10px] text-red-400/80">Colisión Global</span>
+        </div>
+        <pre class="text-slate-300 overflow-x-auto"><code>// script1.js
+var usuario = "Ana García"; // En window.usuario
+
+// script2.js (Cargado después)
+var usuario = "Pedro López"; // ¡SOBREESCRIBE A ANA!
+
+console.log(window.usuario); // "Pedro López" 😱</code></pre>
+        <div class="p-2.5 bg-red-950/30 rounded border border-red-900/50 text-red-300 text-[11px]">
+          <strong>Resultado:</strong> Las variables se sobreescriben accidentalmente entre archivos distintos sin ningún aviso.
+        </div>
+      </div>
+
+      <!-- ES Modules: Aislamiento Seguro -->
+      <div class="bg-slate-950 p-4 rounded-xl border border-emerald-900/40 space-y-2">
+        <div class="text-emerald-400 font-bold border-b border-slate-800 pb-1 flex justify-between">
+          <span>✅ ES Modules (type="module")</span>
+          <span class="text-[10px] text-emerald-400/80">Module Scope</span>
+        </div>
+        <pre class="text-slate-300 overflow-x-auto"><code>// modulo1.js
+const usuario = "Ana García"; // Privada al módulo
+
+// modulo2.js
+const usuario = "Pedro López"; // Privada al módulo
+
+console.log(window.usuario); // undefined 🎉</code></pre>
+        <div class="p-2.5 bg-emerald-950/30 rounded border border-emerald-900/50 text-emerald-300 text-[11px]">
+          <strong>Resultado:</strong> Cada módulo tiene su propio espacio aislado. Imposible sobreescribir desde fuera.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Salida Interactiva en Vivo -->
+    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+      <div class="text-xs font-bold text-amber-400 flex items-center justify-between">
+        <span>▶️ Prueba de Ejecución en Vivo en este Navegador:</span>
+        <span class="text-[10px] text-slate-500">Ejecutando script de Módulo</span>
+      </div>
+      <div id="salida-demo" class="text-xs font-mono space-y-1.5 text-slate-200">
+        <div class="text-slate-500 italic">Evaluando variables globales vs variables de módulo...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    // Simulación de ámbito de módulo
+    const usuarioModulo = "Ana García (Módulo Aislado)";
+    
+    // Intentar acceder al DOM directamente (demuestra defer automático)
+    const salida = document.getElementById('salida-demo');
+    
+    salida.innerHTML = `
+      <div class="text-emerald-400">✅ Acceso al DOM desde type="module": <strong>Éxito (se ejecutó tras construir el DOM)</strong></div>
+      <div class="text-indigo-300">🔒 Variable de Módulo (const usuarioModulo): <strong>"${usuarioModulo}"</strong></div>
+      <div class="text-amber-300">🌐 window.usuarioModulo en el objeto global: <strong>${window.usuarioModulo} (Totalmente Aislado)</strong></div>
+      <div class="text-slate-400 pt-2 border-t border-slate-800 mt-2 text-[11px]">
+        💡 <strong>Conclusión:</strong> ES Modules otorga aislamiento absoluto de variables, prevención de sobreescrituras accidentales y acceso 100% seguro a los elementos del DOM.
+      </div>
+    `;
+  </script>
+</body>
+</html>
+

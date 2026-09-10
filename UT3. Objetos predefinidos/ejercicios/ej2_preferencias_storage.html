@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestor de Almacenamiento Web</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body id="bodyEl" class="p-6 transition-colors duration-300 bg-slate-50 text-slate-800">
+  <div class="max-w-2xl mx-auto bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-xl font-bold dark:text-white">Persistencia con localStorage</h1>
+      <button onclick="toggleTheme()" id="themeBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700 dark:text-white">🌓 Modo Oscuro</button>
+    </div>
+
+    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Guarda notas rápidas que persisten al recargar o cerrar la pestaña.</p>
+
+    <textarea id="notaInput" rows="3" placeholder="Escribe algo aquí..." class="w-full border dark:border-slate-600 dark:bg-slate-900 dark:text-white p-3 rounded-xl text-sm mb-3"></textarea>
+    
+    <div class="flex justify-between items-center text-xs">
+      <button onclick="guardarNota()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold">💾 Guardar Nota</button>
+      <span id="statusTxt" class="text-slate-400"></span>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('dwec_theme', isDark ? 'dark' : 'light');
+    }
+
+    function guardarNota() {
+      const txt = document.getElementById('notaInput').value;
+      localStorage.setItem('dwec_nota', txt);
+      document.getElementById('statusTxt').textContent = "✅ Guardado en localStorage a las " + new Date().toLocaleTimeString();
+    }
+
+    // Restaurar estado inicial
+    if (localStorage.getItem('dwec_theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+    const notaGuardada = localStorage.getItem('dwec_nota');
+    if (notaGuardada) {
+      document.getElementById('notaInput').value = notaGuardada;
+      document.getElementById('statusTxt').textContent = "Restaurado desde sesión previa.";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestor DOM Moderno</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6 text-slate-800">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <h1 class="text-xl font-bold text-slate-900 mb-1">Manipulación DOM con DocumentFragment y Closest</h1>
+    <p class="text-xs text-slate-500 mb-4">Uso de append, prepend, dataset y optimización de reflow.</p>
+
+    <div class="flex gap-2 mb-4">
+      <button onclick="generarMasivo(5)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold">
+        +5 Nodos con DocumentFragment
+      </button>
+      <button onclick="marcarTodos()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold">
+        Alternar Clase Destacado
+      </button>
+    </div>
+
+    <div id="contenedorNodos" class="space-y-2"></div>
+  </div>
+
+  <script>
+    let contador = 1;
+    function generarMasivo(cantidad) {
+      const cont = document.getElementById('contenedorNodos');
+      const frag = document.createDocumentFragment(); // Evita reflows individuales
+
+      for (let i = 0; i < cantidad; i++) {
+        const div = document.createElement('div');
+        div.dataset.id = contador;
+        div.className = "p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center text-xs transition";
+        div.innerHTML = `
+          <span>Nodo #<strong>${contador}</strong> creado en memoria</span>
+          <button onclick="this.closest('div').remove()" class="text-rose-600 font-bold hover:underline">Eliminar</button>
+        `;
+        frag.append(div);
+        contador++;
+      }
+      cont.append(frag); // Renderizado único
+    }
+
+    function marcarTodos() {
+      const items = document.querySelectorAll('#contenedorNodos > div');
+      items.forEach(it => it.classList.toggle('border-indigo-400'));
+    }
+    generarMasivo(3);
+  </script>
+</body>
+</html>

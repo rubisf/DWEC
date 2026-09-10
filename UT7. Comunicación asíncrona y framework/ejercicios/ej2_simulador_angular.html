@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador de Data-Binding Angular</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6 text-slate-800">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <h1 class="text-xl font-bold text-slate-900 mb-1">Simulador de Enlaces de Datos (Angular)</h1>
+    <p class="text-xs text-slate-500 mb-6">Emulación visual de las sintaxis {{ }}, [propiedad], (evento) y [(ngModel)].</p>
+
+    <!-- Two-Way Binding emulado -->
+    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 mb-4 space-y-3">
+      <span class="text-xs font-bold text-rose-600 block">1. Two-Way Data Binding: [(ngModel)]="nombre"</span>
+      <input id="inputNg" oninput="sincronizar(this.value)" type="text" value="Ana María" class="w-full border p-2 rounded-lg text-sm bg-white">
+      <div class="text-sm font-semibold text-slate-700">
+        Interpolación en Template: <code>Hola, {{ <span id="outNombre" class="text-rose-600">Ana María</span> }}</code>
+      </div>
+    </div>
+
+    <!-- Event & Property Binding -->
+    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+      <span class="text-xs font-bold text-indigo-600 block">2. Event Binding (click) & Property Binding [disabled]</span>
+      <div class="flex items-center gap-3">
+        <button onclick="toggleEstado()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold">
+          (click)="toggleEstado()"
+        </button>
+        <button id="btnDisabled" class="px-4 py-2 bg-slate-200 text-slate-400 rounded-lg text-xs font-bold" disabled>
+          [disabled]="estaBloqueado"
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let bloqueado = true;
+    function sincronizar(val) {
+      document.getElementById('outNombre').textContent = val || '...';
+    }
+    function toggleEstado() {
+      bloqueado = !bloqueado;
+      const btn = document.getElementById('btnDisabled');
+      btn.disabled = bloqueado;
+      if (bloqueado) {
+        btn.className = "px-4 py-2 bg-slate-200 text-slate-400 rounded-lg text-xs font-bold";
+        btn.textContent = '[disabled]="true" (Inactivo)';
+      } else {
+        btn.className = "px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold";
+        btn.textContent = '[disabled]="false" (¡Habilitado!)';
+      }
+    }
+  </script>
+</body>
+</html>

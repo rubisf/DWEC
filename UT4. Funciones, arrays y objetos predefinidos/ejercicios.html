@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soluciones y Taller de Prácticas - UT4: Funciones Avanzadas, Arrays, POO y Patrones de Diseño</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .code-container {
+      background-color: #0d1117 !important;
+      border: 1px solid #30363d !important;
+      border-radius: 12px !important;
+    }
+    .code-container pre {
+      margin: 0 !important;
+      padding: 16px !important;
+      background-color: #0d1117 !important;
+    }
+    .code-container code {
+      background-color: #0d1117 !important;
+      color: #f0f6fc !important;
+      font-size: 13px !important;
+      line-height: 1.6 !important;
+    }
+    .hljs-keyword, .hljs-selector-tag, .hljs-subst { color: #ff7b72 !important; font-weight: 700; }
+    .hljs-string, .hljs-title, .hljs-section, .hljs-attribute, .hljs-literal, .hljs-type { color: #a5d6ff !important; }
+    .hljs-comment, .hljs-quote, .hljs-deletion, .hljs-meta { color: #8b949e !important; font-style: italic; }
+    .hljs-number, .hljs-regexp, .hljs-link { color: #79c0ff !important; }
+    .hljs-function, .hljs-title.function_ { color: #d2a8ff !important; }
+    .hljs-variable, .hljs-params { color: #ffa657 !important; }
+    .hljs-tag, .hljs-name { color: #7ee787 !important; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col antialiased">
+
+  <!-- Barra Superior -->
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+    <div class="flex items-center gap-4">
+      <a href="../index.html" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Volver al Panel Principal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      </a>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-md">UT4</span>
+          <h1 class="text-lg font-bold text-slate-800">UT4: Funciones Avanzadas, Arrays, POO y Patrones de Diseño</h1>
+        </div>
+        <p class="text-xs text-slate-500">Centro Oficial de Soluciones Explicadas, Código Fuente y Ejecución en Vivo</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="presentacion.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
+        🎬 Ver Presentación
+      </a>
+      <a href="../index.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+        🏠 Índice General
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal Split -->
+  <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto p-6 gap-6">
+    
+    <!-- Sidebar Ejercicios -->
+    <aside class="w-80 bg-white rounded-2xl border border-slate-200 p-4 flex flex-col shadow-sm flex-shrink-0">
+      <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 space-y-4">
+        
+        <div>
+          <h2 class="text-xs font-bold tracking-wider text-indigo-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🎯 Retos de Conceptos (4)
+          </h2>
+          
+          <button onclick="selectItem('reto-1')" id="nav-btn-reto-1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Generador de Contadores Privados con Closures</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 1</span>
+          </button>
+          <button onclick="selectItem('reto-2')" id="nav-btn-reto-2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Pipeline de Procesamiento de Pedidos</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 2</span>
+          </button>
+          <button onclick="selectItem('reto-3')" id="nav-btn-reto-3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Jerarquía de Clases con Encapsulamiento Privado</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 3</span>
+          </button>
+          <button onclick="selectItem('reto-4')" id="nav-btn-reto-4" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Implementación del Patrón Observer (Pub/Sub)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 4</span>
+          </button>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100">
+          <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🚀 Prácticas y Proyectos (3)
+          </h2>
+          
+          <button onclick="selectItem('ej1')" id="nav-btn-ej1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Visualizador del Patrón Observer (Pub/Sub)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 1</span>
+          </button>
+          <button onclick="selectItem('ej2')" id="nav-btn-ej2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Catálogo POO con Clases, Herencia y Campos Privados</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 2</span>
+          </button>
+          <button onclick="selectItem('ej3')" id="nav-btn-ej3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Pipeline de Filtrado y Agregación de Datos JSON</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 3</span>
+          </button>
+        </div>
+
+      </div>
+      <div class="pt-4 border-t border-slate-100 mt-2 text-xs text-slate-400 text-center">
+        DWEC · Grado Superior DAW
+      </div>
+    </aside>
+
+    <!-- Panel de Actividad Seleccionada -->
+    <main class="flex-1 bg-white rounded-2xl border border-slate-200 flex flex-col shadow-sm overflow-hidden">
+      
+      <!-- Cabecera de Práctica/Reto -->
+      <div class="p-6 border-b border-slate-200 bg-slate-50/50 flex items-start justify-between">
+        <div>
+          <span id="ex-badge" class="px-2.5 py-1 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-lg">Cargando...</span>
+          <h2 id="ex-title" class="text-xl font-bold text-slate-900 mt-2">Cargando...</h2>
+          <p id="ex-subtitle" class="text-xs font-semibold text-slate-500 mt-1"></p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="switchTab('tab-view')" id="btn-tab-view" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm">
+            ▶️ Vista / Ejecución en Vivo
+          </button>
+          <button onclick="switchTab('tab-code')" id="btn-tab-code" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all">
+            💻 Código Fuente y Solución
+          </button>
+        </div>
+      </div>
+
+      <!-- Cuerpo del Visor -->
+      <div class="flex-1 p-6 overflow-y-auto custom-scrollbar relative flex flex-col">
+        
+        <!-- Bloque de Enunciado -->
+        <div class="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+          <h3 class="text-xs font-bold text-emerald-900 uppercase tracking-wider mb-1">📝 Enunciado de la Actividad</h3>
+          <p id="ex-instruction" class="text-xs text-emerald-800 leading-relaxed"></p>
+        </div>
+
+        <!-- Tab 1: Vista Previa / Ejecución en Vivo -->
+        <div id="tab-view" class="tab-content flex-1 flex flex-col min-h-0">
+          <div id="iframe-wrapper" class="flex-1 rounded-xl border border-slate-200 overflow-hidden bg-slate-50 min-h-[360px] relative">
+            <iframe id="preview-iframe" class="w-full h-full border-0" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+            <span id="preview-hint">💡 Entorno interactivo aislado en sandbox.</span>
+            <button onclick="reloadPreview()" class="text-indigo-600 hover:underline font-semibold flex items-center gap-1">
+              🔄 Recargar entorno
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Código Fuente y Solución Explicada con Alto Contraste -->
+        <div id="tab-code" class="tab-content hidden flex-1 flex flex-col space-y-4 min-h-0">
+          <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
+            <h3 class="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">💡 Explicación Paso a Paso de la Solución</h3>
+            <p id="ex-explanation" class="text-xs text-indigo-800 leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-500">Solución Oficial en Código Fuente (Alto Contraste)</span>
+            <button onclick="copyCode()" id="copy-btn" class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors flex items-center gap-1">
+              📋 Copiar Código
+            </button>
+          </div>
+          <div class="flex-1 code-container overflow-hidden p-2 text-xs overflow-y-auto custom-scrollbar">
+            <pre><code id="code-content" class="language-javascript"></code></pre>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Shell HTML aislado como Script de texto puro (sin parseo en el documento padre) -->
+  <script type="text/html" id="iframe-shell-template">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="utf-8"/>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+        body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 16px; margin: 0; font-size: 13px; }
+        .log-title { color: #d2a8ff; font-weight: bold; margin-bottom: 12px; font-size: 13px; border-bottom: 1px solid #30363d; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .log-line { border-bottom: 1px solid #21262d; padding: 6px 0; color: #7ee787; line-height: 1.5; font-family: monospace; }
+        .log-error { color: #ff7b72; font-weight: bold; }
+        .log-info { color: #79c0ff; }
+        .hidden { display: none !important; }
+      </style>
+    </head>
+    <body class="antialiased">
+      <div id="dom-stage" class="hidden mb-4 p-4 bg-slate-900 border border-slate-700/80 rounded-xl shadow-lg font-sans text-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-2.5 mb-3">
+          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🌐 Escenario DOM Interactivo (Ejecución en Vivo)</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono">Contenedores activos para manipulación DOM</span>
+        </div>
+        <div id="app" class="mb-3 empty:hidden"></div>
+        <div id="catalogo" class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3 empty:hidden"></div>
+        <div id="form-container" class="flex flex-wrap items-center gap-3 mb-3">
+          <form id="miForm" class="flex items-center gap-2">
+            <input id="password" type="password" placeholder="Prueba contraseña..." value="Abc12345" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors shadow-sm">Enviar Formulario</button>
+          </form>
+          <button id="btnTema" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs border border-slate-700 transition-colors">Modo: light</button>
+        </div>
+        <div id="lists-container" class="space-y-3">
+          <ul id="listaDinamica" class="flex flex-wrap gap-2 text-xs">
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 1 (Haz clic para eliminar)</span> 🗑️</li>
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 2 (Haz clic para eliminar)</span> 🗑️</li>
+          </ul>
+          <ul id="miLista" class="space-y-1.5 text-xs text-emerald-400 font-mono"></ul>
+        </div>
+      </div>
+      <div class="log-title"><span>▶️ Resultados de Ejecución en Consola / Salida Estándar:</span></div>
+      <div id="output"></div>
+    </body>
+    </html>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+
+  <script>
+    const ITEMS = [{"id": "reto-1", "type": "reto", "badge": "Reto Concepto 1", "title": "Generador de Contadores Privados con Closures", "subtitle": "Bloque 1: Funciones de Orden Superior, Closures y Callbacks", "instruction": "Crea una función 'crearContador(inicial)' que retorne un objeto con métodos 'incrementar()', 'decrementar()' y 'obtenerValor()', garantizando que la variable interna no sea accesible ni modificable directamente desde el exterior mediante Closure.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Contadores Privados con Closures</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Encapsulamiento con Closures (incrementar, decrementar, obtenerValor)</h2>\n    <div id=\"out-closure\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-indigo-300\"></div>\n  </div>\n  <script>\n    function crearContador(inicial = 0) {\n      let valorPrivado = inicial; // Variable encapsulada en el ámbito léxico\n      return {\n        incrementar: () => ++valorPrivado,\n        decrementar: () => --valorPrivado,\n        obtenerValor: () => valorPrivado\n      };\n    }\n\n    const miContador = crearContador(10);\n    miContador.incrementar();\n    miContador.incrementar();\n    miContador.decrementar();\n\n    const out = document.getElementById('out-closure');\n    out.innerHTML = `\n      <div>Valor actual del contador: <strong>${miContador.obtenerValor()}</strong></div>\n      <div class=\"text-slate-400\">miContador.valorPrivado === <code>${typeof miContador.valorPrivado}</code> (Estado verdaderamente privado ✅)</div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) 'cuenta' se declara dentro de 'crearContador' y queda atrapada en el closure retornado.\n2) Ninguna referencia externa puede modificar 'cuenta' excepto a través de los métodos expuestos.", "filename": "reto1_contador_private_closure.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Contadores Privados con Closures</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Encapsulamiento con Closures (incrementar, decrementar, obtenerValor)</h2>\n    <div id=\"out-closure\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-indigo-300\"></div>\n  </div>\n  <script>\n    function crearContador(inicial = 0) {\n      let valorPrivado = inicial; // Variable encapsulada en el ámbito léxico\n      return {\n        incrementar: () => ++valorPrivado,\n        decrementar: () => --valorPrivado,\n        obtenerValor: () => valorPrivado\n      };\n    }\n\n    const miContador = crearContador(10);\n    miContador.incrementar();\n    miContador.incrementar();\n    miContador.decrementar();\n\n    const out = document.getElementById('out-closure');\n    out.innerHTML = `\n      <div>Valor actual del contador: <strong>${miContador.obtenerValor()}</strong></div>\n      <div class=\"text-slate-400\">miContador.valorPrivado === <code>${typeof miContador.valorPrivado}</code> (Estado verdaderamente privado ✅)</div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-2", "type": "reto", "badge": "Reto Concepto 2", "title": "Pipeline de Procesamiento de Pedidos", "subtitle": "Bloque 2: Arrays y Métodos Funcionales Modernos", "instruction": "Dado un array de objetos con pedidos (id, cliente, productos, pagado, importe), filtra los pedidos pagados con 'filter', calcula el total facturado con 'reduce' y genera un nuevo array ordenado por importe descendente con 'toSorted'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Pipeline de Arrays (filter, reduce, toSorted)</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Pipeline Funcional (filter, reduce, toSorted)</h2>\n    <div id=\"out-pipeline\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const pedidos = [\n      { id: 1, cliente: \"Ana\", pagado: true, importe: 120 },\n      { id: 2, cliente: \"Carlos\", pagado: false, importe: 85 },\n      { id: 3, cliente: \"Beatriz\", pagado: true, importe: 250 }\n    ];\n\n    // 1. Filtrar pagados\n    const pagados = pedidos.filter(p => p.pagado);\n\n    // 2. Totalizar con reduce\n    const totalFacturado = pagados.reduce((acc, p) => acc + p.importe, 0);\n\n    // 3. Ordenar inmutablemente con toSorted / sort copia\n    const ordenadosDesc = [...pagados].sort((a, b) => b.importe - a.importe);\n\n    const out = document.getElementById('out-pipeline');\n    out.innerHTML = `\n      <div class=\"text-emerald-300\">💰 Total Facturado (reduce): <strong>€${totalFacturado}</strong></div>\n      <div class=\"text-amber-300\">📊 Pedidos Pagados Ordenados (Importe Descendente):</div>\n      ${ordenadosDesc.map(p => `<div class=\"text-slate-300 pl-3\">- Cliente: ${p.cliente} (€${p.importe})</div>`).join('')}\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) '.filter()' selecciona solo pedidos con 'pagado: true'.\n2) '.reduce()' suma los importes.\n3) '.toSorted()' devuelve una copia ordenada de mayor a menor sin modificar el array original.", "filename": "reto2_pipeline_analisis_arrays.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Pipeline de Arrays (filter, reduce, toSorted)</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Pipeline Funcional (filter, reduce, toSorted)</h2>\n    <div id=\"out-pipeline\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const pedidos = [\n      { id: 1, cliente: \"Ana\", pagado: true, importe: 120 },\n      { id: 2, cliente: \"Carlos\", pagado: false, importe: 85 },\n      { id: 3, cliente: \"Beatriz\", pagado: true, importe: 250 }\n    ];\n\n    // 1. Filtrar pagados\n    const pagados = pedidos.filter(p => p.pagado);\n\n    // 2. Totalizar con reduce\n    const totalFacturado = pagados.reduce((acc, p) => acc + p.importe, 0);\n\n    // 3. Ordenar inmutablemente con toSorted / sort copia\n    const ordenadosDesc = [...pagados].sort((a, b) => b.importe - a.importe);\n\n    const out = document.getElementById('out-pipeline');\n    out.innerHTML = `\n      <div class=\"text-emerald-300\">💰 Total Facturado (reduce): <strong>€${totalFacturado}</strong></div>\n      <div class=\"text-amber-300\">📊 Pedidos Pagados Ordenados (Importe Descendente):</div>\n      ${ordenadosDesc.map(p => `<div class=\"text-slate-300 pl-3\">- Cliente: ${p.cliente} (€${p.importe})</div>`).join('')}\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-3", "type": "reto", "badge": "Reto Concepto 3", "title": "Jerarquía de Clases con Encapsulamiento Privado", "subtitle": "Bloque 3: Programación Orientada a Objetos: Clases ES6 y Herencia", "instruction": "Diseña una clase 'Empleado' con salario privado ('#salario') y una subclase 'Desarrollador' que añada el lenguaje principal y un método para calcular la nómina anual con bonificación usando 'extends' y 'super'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: POO Clases y Campos Privados</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Clases ES6, Campos Privados (#salario), extends y super</h2>\n    <div id=\"out-poo\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-amber-300\"></div>\n  </div>\n  <script>\n    class Empleado {\n      #salario; // Campo privado nativo\n      constructor(nombre, salarioBase) {\n        this.nombre = nombre;\n        this.#salario = salarioBase;\n      }\n      getSalarioBase() { return this.#salario; }\n    }\n\n    class Desarrollador extends Empleado {\n      constructor(nombre, salarioBase, lenguajePrincipal) {\n        super(nombre, salarioBase);\n        this.lenguajePrincipal = lenguajePrincipal;\n      }\n      calcularNominaAnual(bono = 2000) {\n        return (this.getSalarioBase() * 12) + bono;\n      }\n    }\n\n    const dev = new Desarrollador(\"Marta\", 2500, \"JavaScript/TypeScript\");\n    const out = document.getElementById('out-poo');\n    out.innerHTML = `\n      <div>👩‍💻 Desarrolladora: <strong>${dev.nombre}</strong> (${dev.lenguajePrincipal})</div>\n      <div>💵 Salario Base Mensual: €${dev.getSalarioBase()}</div>\n      <div class=\"text-emerald-400 font-bold\">💳 Nómina Anual con Bono: €${dev.calcularNominaAnual()}</div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) '#salario' es un campo privado nativo en ES6.\n2) 'extends Empleado' establece la herencia prototípica.\n3) 'super()' invoca el constructor padre.", "filename": "reto3_sistema_empleados_poo.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: POO Clases y Campos Privados</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Clases ES6, Campos Privados (#salario), extends y super</h2>\n    <div id=\"out-poo\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-amber-300\"></div>\n  </div>\n  <script>\n    class Empleado {\n      #salario; // Campo privado nativo\n      constructor(nombre, salarioBase) {\n        this.nombre = nombre;\n        this.#salario = salarioBase;\n      }\n      getSalarioBase() { return this.#salario; }\n    }\n\n    class Desarrollador extends Empleado {\n      constructor(nombre, salarioBase, lenguajePrincipal) {\n        super(nombre, salarioBase);\n        this.lenguajePrincipal = lenguajePrincipal;\n      }\n      calcularNominaAnual(bono = 2000) {\n        return (this.getSalarioBase() * 12) + bono;\n      }\n    }\n\n    const dev = new Desarrollador(\"Marta\", 2500, \"JavaScript/TypeScript\");\n    const out = document.getElementById('out-poo');\n    out.innerHTML = `\n      <div>👩‍💻 Desarrolladora: <strong>${dev.nombre}</strong> (${dev.lenguajePrincipal})</div>\n      <div>💵 Salario Base Mensual: €${dev.getSalarioBase()}</div>\n      <div class=\"text-emerald-400 font-bold\">💳 Nómina Anual con Bono: €${dev.calcularNominaAnual()}</div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-4", "type": "reto", "badge": "Reto Concepto 4", "title": "Implementación del Patrón Observer (Pub/Sub)", "subtitle": "Bloque 4: Catálogo de Patrones de Diseño en JavaScript", "instruction": "Crea una clase 'GestorEventos' (PubSub / Observer) con métodos 'suscribir(evento, callback)' y 'emitir(evento, datos)' para comunicar dos componentes desacoplados.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: Patrón Observer (PubSub)</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Patrón Observer Desacoplado (suscribir / emitir)</h2>\n    <div id=\"out-pubsub\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300\"></div>\n  </div>\n  <script>\n    class GestorEventos {\n      constructor() { this.eventos = {}; }\n      suscribir(evento, callback) {\n        if (!this.eventos[evento]) this.eventos[evento] = [];\n        this.eventos[evento].push(callback);\n      }\n      emitir(evento, datos) {\n        if (this.eventos[evento]) {\n          this.eventos[evento].forEach(cb => cb(datos));\n        }\n      }\n    }\n\n    const busEventos = new GestorEventos();\n    const out = document.getElementById('out-pubsub');\n\n    busEventos.suscribir('pedido_creado', (data) => {\n      out.innerHTML += `<div class=\"text-emerald-400\">📩 Componente Notificaciones: Pedido #${data.id} creado por €${data.total}</div>`;\n    });\n\n    busEventos.emitir('pedido_creado', { id: 1042, total: 99.95 });\n  <\/script>\n</body>\n</html>", "explanation": "1) 'suscribir()' registra funciones callback por nombre de evento.\n2) 'emitir()' recorre la lista de observadores ejecutándolos con los datos asociados, desacoplando los componentes.", "filename": "reto4_patron_pubsub_notificaciones.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: Patrón Observer (PubSub)</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Patrón Observer Desacoplado (suscribir / emitir)</h2>\n    <div id=\"out-pubsub\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300\"></div>\n  </div>\n  <script>\n    class GestorEventos {\n      constructor() { this.eventos = {}; }\n      suscribir(evento, callback) {\n        if (!this.eventos[evento]) this.eventos[evento] = [];\n        this.eventos[evento].push(callback);\n      }\n      emitir(evento, datos) {\n        if (this.eventos[evento]) {\n          this.eventos[evento].forEach(cb => cb(datos));\n        }\n      }\n    }\n\n    const busEventos = new GestorEventos();\n    const out = document.getElementById('out-pubsub');\n\n    busEventos.suscribir('pedido_creado', (data) => {\n      out.innerHTML += `<div class=\"text-emerald-400\">📩 Componente Notificaciones: Pedido #${data.id} creado por €${data.total}</div>`;\n    });\n\n    busEventos.emitir('pedido_creado', { id: 1042, total: 99.95 });\n  <\/script>\n</body>\n</html>"}, {"id": "ej1", "type": "practica", "badge": "Práctica Guiada 1", "title": "Visualizador del Patrón Observer (Pub/Sub)", "subtitle": "Panel interactivo donde múltiples componentes visuales (gráfica, panel de logs, alertas) reaccionan en tiempo real a emisiones de datos desacopladas.", "instruction": "Panel interactivo donde múltiples componentes visuales (gráfica, panel de logs, alertas) reaccionan en tiempo real a emisiones de datos desacopladas.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Patrón Observer (Pub/Sub)</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-3xl mx-auto\">\n    <h1 class=\"text-xl font-bold text-purple-400 mb-1\">Patrón de Diseño Observer (Pub / Sub)</h1>\n    <p class=\"text-xs text-slate-400 mb-6\">Múltiples componentes desacoplados reaccionan en tiempo real a las emisiones de un sensor central.</p>\n\n    <!-- Emisor -->\n    <div class=\"bg-slate-800 p-4 rounded-xl border border-purple-500/40 mb-6 flex items-center gap-4\">\n      <span class=\"text-sm font-bold text-slate-300\">Simulador de Sensor Térmico:</span>\n      <input id=\"tempSlider\" oninput=\"actualizarSensor(this.value)\" type=\"range\" min=\"10\" max=\"90\" value=\"25\" class=\"flex-1\">\n      <span id=\"tempDisplay\" class=\"font-mono font-bold text-purple-400 text-lg w-16 text-right\">25 °C</span>\n    </div>\n\n    <!-- Suscriptores -->\n    <div class=\"grid grid-cols-2 gap-4\">\n      <!-- Suscriptor 1: Gauge -->\n      <div class=\"bg-slate-800 p-4 rounded-xl border border-slate-700\">\n        <h2 class=\"text-xs font-bold uppercase text-slate-400 mb-2\">Suscriptor A: Indicador Gráfico</h2>\n        <div class=\"h-6 bg-slate-950 rounded-full overflow-hidden p-1\">\n          <div id=\"gaugeBar\" class=\"h-full bg-emerald-500 rounded-full transition-all duration-300\" style=\"width: 25%;\"></div>\n        </div>\n        <p id=\"gaugeStatus\" class=\"text-xs text-slate-400 mt-2 font-semibold\">Temperatura Normal</p>\n      </div>\n\n      <!-- Suscriptor 2: Log histórico -->\n      <div class=\"bg-slate-800 p-4 rounded-xl border border-slate-700\">\n        <h2 class=\"text-xs font-bold uppercase text-slate-400 mb-2\">Suscriptor B: Registro de Auditoría</h2>\n        <div id=\"observerLog\" class=\"h-28 overflow-y-auto space-y-1 text-[11px] font-mono text-slate-300 bg-slate-950 p-2 rounded-lg\"></div>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    // 1. Clase Observer Central (EventBus)\n    class SensorTermico {\n      constructor() { this.oyentes = []; }\n      suscribir(fn) { this.oyentes.push(fn); }\n      notificar(temp) { this.oyentes.forEach(fn => fn(temp)); }\n    }\n\n    const sensor = new SensorTermico();\n\n    // 2. Suscriptor A: Barra visual\n    sensor.suscribir((temp) => {\n      const bar = document.getElementById('gaugeBar');\n      const status = document.getElementById('gaugeStatus');\n      bar.style.width = temp + \"%\";\n      if (temp > 60) {\n        bar.className = \"h-full bg-rose-500 rounded-full transition-all\";\n        status.textContent = \"🔥 ¡ALERTA: Sobrecalentamiento detectado!\";\n        status.className = \"text-xs text-rose-400 mt-2 font-bold\";\n      } else {\n        bar.className = \"h-full bg-emerald-500 rounded-full transition-all\";\n        status.textContent = \"✅ Temperatura en rango nominal.\";\n        status.className = \"text-xs text-emerald-400 mt-2 font-semibold\";\n      }\n    });\n\n    // 3. Suscriptor B: Histórico\n    sensor.suscribir((temp) => {\n      const log = document.getElementById('observerLog');\n      log.innerHTML += `<p>[${new Date().toLocaleTimeString()}] Temperatura = ${temp}°C</p>`;\n      log.scrollTop = log.scrollHeight;\n    });\n\n    function actualizarSensor(val) {\n      document.getElementById('tempDisplay').textContent = val + \" °C\";\n      sensor.notificar(parseInt(val, 10));\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Patrón Observer (Pub/Sub)</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-3xl mx-auto\">\n    <h1 class=\"text-xl font-bold text-purple-400 mb-1\">Patrón de Diseño Observer (Pub / Sub)</h1>\n    <p class=\"text-xs text-slate-400 mb-6\">Múltiples componentes desacoplados reaccionan en tiempo real a las emisiones de un sensor central.</p>\n\n    <!-- Emisor -->\n    <div class=\"bg-slate-800 p-4 rounded-xl border border-purple-500/40 mb-6 flex items-center gap-4\">\n      <span class=\"text-sm font-bold text-slate-300\">Simulador de Sensor Térmico:</span>\n      <input id=\"tempSlider\" oninput=\"actualizarSensor(this.value)\" type=\"range\" min=\"10\" max=\"90\" value=\"25\" class=\"flex-1\">\n      <span id=\"tempDisplay\" class=\"font-mono font-bold text-purple-400 text-lg w-16 text-right\">25 °C</span>\n    </div>\n\n    <!-- Suscriptores -->\n    <div class=\"grid grid-cols-2 gap-4\">\n      <!-- Suscriptor 1: Gauge -->\n      <div class=\"bg-slate-800 p-4 rounded-xl border border-slate-700\">\n        <h2 class=\"text-xs font-bold uppercase text-slate-400 mb-2\">Suscriptor A: Indicador Gráfico</h2>\n        <div class=\"h-6 bg-slate-950 rounded-full overflow-hidden p-1\">\n          <div id=\"gaugeBar\" class=\"h-full bg-emerald-500 rounded-full transition-all duration-300\" style=\"width: 25%;\"></div>\n        </div>\n        <p id=\"gaugeStatus\" class=\"text-xs text-slate-400 mt-2 font-semibold\">Temperatura Normal</p>\n      </div>\n\n      <!-- Suscriptor 2: Log histórico -->\n      <div class=\"bg-slate-800 p-4 rounded-xl border border-slate-700\">\n        <h2 class=\"text-xs font-bold uppercase text-slate-400 mb-2\">Suscriptor B: Registro de Auditoría</h2>\n        <div id=\"observerLog\" class=\"h-28 overflow-y-auto space-y-1 text-[11px] font-mono text-slate-300 bg-slate-950 p-2 rounded-lg\"></div>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    // 1. Clase Observer Central (EventBus)\n    class SensorTermico {\n      constructor() { this.oyentes = []; }\n      suscribir(fn) { this.oyentes.push(fn); }\n      notificar(temp) { this.oyentes.forEach(fn => fn(temp)); }\n    }\n\n    const sensor = new SensorTermico();\n\n    // 2. Suscriptor A: Barra visual\n    sensor.suscribir((temp) => {\n      const bar = document.getElementById('gaugeBar');\n      const status = document.getElementById('gaugeStatus');\n      bar.style.width = temp + \"%\";\n      if (temp > 60) {\n        bar.className = \"h-full bg-rose-500 rounded-full transition-all\";\n        status.textContent = \"🔥 ¡ALERTA: Sobrecalentamiento detectado!\";\n        status.className = \"text-xs text-rose-400 mt-2 font-bold\";\n      } else {\n        bar.className = \"h-full bg-emerald-500 rounded-full transition-all\";\n        status.textContent = \"✅ Temperatura en rango nominal.\";\n        status.className = \"text-xs text-emerald-400 mt-2 font-semibold\";\n      }\n    });\n\n    // 3. Suscriptor B: Histórico\n    sensor.suscribir((temp) => {\n      const log = document.getElementById('observerLog');\n      log.innerHTML += `<p>[${new Date().toLocaleTimeString()}] Temperatura = ${temp}°C</p>`;\n      log.scrollTop = log.scrollHeight;\n    });\n\n    function actualizarSensor(val) {\n      document.getElementById('tempDisplay').textContent = val + \" °C\";\n      sensor.notificar(parseInt(val, 10));\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Implementa el patrón Pub/Sub con una clase GestorEventos. Varios componentes visuales (gráficos, alertas, tablas) se suscriben a eventos emitidos por un generador de métricas.", "filename": "ej1_patron_observer.html"}, {"id": "ej2", "type": "practica", "badge": "Práctica Guiada 2", "title": "Catálogo POO con Clases, Herencia y Campos Privados", "subtitle": "Sistema de gestión de inventario para una tienda electrónica con jerarquía de clases Empleado, Gerente y Productos con campos privados # y métodos polimórficos.", "instruction": "Sistema de gestión de inventario para una tienda electrónica con jerarquía de clases Empleado, Gerente y Productos con campos privados # y métodos polimórficos.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>POO con Clases y Campos Privados</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Jerarquía POO con Campos Privados #</h1>\n    <p class=\"text-xs text-slate-500 mb-6\">Clases Empleado y Desarrollador con encapsulación estricta en JavaScript moderno.</p>\n\n    <div class=\"p-4 bg-slate-900 text-slate-200 rounded-xl font-mono text-xs mb-4\" id=\"pooConsole\"></div>\n    <button onclick=\"ejecutarDemoPOO()\" class=\"px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg text-xs transition\">Instanciar Clases y Evaluar Privacidad</button>\n  </div>\n\n  <script>\n    class Empleado {\n      #salario; // Campo privado nativo ES2022+\n      constructor(nombre, salario) {\n        this.nombre = nombre;\n        this.#salario = salario;\n      }\n      get salarioBase() { return this.#salario; }\n      presentarse() { return `Empleado: ${this.nombre}`; }\n    }\n\n    class DesarrolladorSenior extends Empleado {\n      constructor(nombre, salario, lenguaje) {\n        super(nombre, salario);\n        this.lenguaje = lenguaje;\n      }\n      presentarse() {\n        return `${super.presentarse()} | Especialidad: ${this.lenguaje}`;\n      }\n      calcularBonus(porcentaje) {\n        return this.salarioBase * (porcentaje / 100);\n      }\n    }\n\n    function ejecutarDemoPOO() {\n      const dev = new DesarrolladorSenior(\"Elena Gómez\", 48000, \"TypeScript / Angular\");\n      const out = document.getElementById('pooConsole');\n      out.innerHTML = `\n        <p class=\"text-purple-400\">// Instancia creada con éxito:</p>\n        <p>${dev.presentarse()}</p>\n        <p>Salario Base (vía Getter): ${dev.salarioBase} €</p>\n        <p>Bonus 10%: ${dev.calcularBonus(10)} €</p>\n        <p class=\"text-rose-400 mt-2\">// Intento de acceso directo al campo privado dev.#salario:</p>\n        <p class=\"text-slate-400\">&gt; SyntaxError: Private field '#salario' must be declared in an enclosing class.</p>\n      `;\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>POO con Clases y Campos Privados</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Jerarquía POO con Campos Privados #</h1>\n    <p class=\"text-xs text-slate-500 mb-6\">Clases Empleado y Desarrollador con encapsulación estricta en JavaScript moderno.</p>\n\n    <div class=\"p-4 bg-slate-900 text-slate-200 rounded-xl font-mono text-xs mb-4\" id=\"pooConsole\"></div>\n    <button onclick=\"ejecutarDemoPOO()\" class=\"px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg text-xs transition\">Instanciar Clases y Evaluar Privacidad</button>\n  </div>\n\n  <script>\n    class Empleado {\n      #salario; // Campo privado nativo ES2022+\n      constructor(nombre, salario) {\n        this.nombre = nombre;\n        this.#salario = salario;\n      }\n      get salarioBase() { return this.#salario; }\n      presentarse() { return `Empleado: ${this.nombre}`; }\n    }\n\n    class DesarrolladorSenior extends Empleado {\n      constructor(nombre, salario, lenguaje) {\n        super(nombre, salario);\n        this.lenguaje = lenguaje;\n      }\n      presentarse() {\n        return `${super.presentarse()} | Especialidad: ${this.lenguaje}`;\n      }\n      calcularBonus(porcentaje) {\n        return this.salarioBase * (porcentaje / 100);\n      }\n    }\n\n    function ejecutarDemoPOO() {\n      const dev = new DesarrolladorSenior(\"Elena Gómez\", 48000, \"TypeScript / Angular\");\n      const out = document.getElementById('pooConsole');\n      out.innerHTML = `\n        <p class=\"text-purple-400\">// Instancia creada con éxito:</p>\n        <p>${dev.presentarse()}</p>\n        <p>Salario Base (vía Getter): ${dev.salarioBase} €</p>\n        <p>Bonus 10%: ${dev.calcularBonus(10)} €</p>\n        <p class=\"text-rose-400 mt-2\">// Intento de acceso directo al campo privado dev.#salario:</p>\n        <p class=\"text-slate-400\">&gt; SyntaxError: Private field '#salario' must be declared in an enclosing class.</p>\n      `;\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Sistema de gestión de inventario con jerarquía de clases POO (Producto, ProductoElectronico), utilizando campos privados (#precio, #stock) y getters/setters validados.", "filename": "ej2_inventario_poo.html"}, {"id": "ej3", "type": "practica", "badge": "Práctica Guiada 3", "title": "Pipeline de Filtrado y Agregación de Datos JSON", "subtitle": "Aplicación de análisis de ventas que carga un dataset JSON y permite transformar, agrupar y ordenar datos utilizando métodos inmutables modernos (.toSorted, reduce, filter).", "instruction": "Aplicación de análisis de ventas que carga un dataset JSON y permite transformar, agrupar y ordenar datos utilizando métodos inmutables modernos (.toSorted, reduce, filter).", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Pipeline Funcional de Datos JSON</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Pipeline Funcional: Filter, Reduce y toSorted</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Procesamiento inmutable de un dataset de transacciones.</p>\n\n    <div class=\"grid grid-cols-3 gap-3 mb-4\">\n      <button onclick=\"filtrarCategoria('todas')\" class=\"px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-xs font-bold rounded-lg\">Todas</button>\n      <button onclick=\"filtrarCategoria('Hardware')\" class=\"px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-xs font-bold rounded-lg\">Solo Hardware</button>\n      <button onclick=\"ordenarImporte()\" class=\"px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg\">Ordenar por Importe 🔽</button>\n    </div>\n\n    <div class=\"border border-slate-200 rounded-xl overflow-hidden mb-4\">\n      <table class=\"w-full text-xs text-left\">\n        <thead class=\"bg-slate-100 text-slate-600 font-bold\">\n          <tr><th class=\"p-3\">ID</th><th class=\"p-3\">Producto</th><th class=\"p-3\">Categoría</th><th class=\"p-3 text-right\">Precio</th></tr>\n        </thead>\n        <tbody id=\"tablaVentas\" class=\"divide-y divide-slate-100\"></tbody>\n      </table>\n    </div>\n\n    <div class=\"p-3 bg-indigo-50 rounded-xl flex justify-between items-center text-xs font-bold text-indigo-900\">\n      <span>Total Facturado de los Elementos Filtrados:</span>\n      <span id=\"totalFacturado\" class=\"text-base\">0,00 €</span>\n    </div>\n  </div>\n\n  <script>\n    const VENTAS = [\n      { id: 101, prod: \"Monitor 4K Dell\", cat: \"Hardware\", precio: 349.99 },\n      { id: 102, prod: \"Licencia WebStorm\", cat: \"Software\", precio: 69.00 },\n      { id: 103, prod: \"Teclado Mecánico\", cat: \"Hardware\", precio: 119.50 },\n      { id: 104, prod: \"Suscripción Cloud\", cat: \"Servicios\", precio: 24.00 },\n      { id: 105, prod: \"Ratón Ergonómico\", cat: \"Hardware\", precio: 45.00 }\n    ];\n\n    let datasetActual = [...VENTAS];\n\n    function render() {\n      const tbody = document.getElementById('tablaVentas');\n      tbody.innerHTML = datasetActual.map(v => `\n        <tr>\n          <td class=\"p-3 font-mono text-slate-400\">#${v.id}</td>\n          <td class=\"p-3 font-semibold text-slate-800\">${v.prod}</td>\n          <td class=\"p-3\"><span class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-600\">${v.cat}</span></td>\n          <td class=\"p-3 text-right font-bold text-slate-800\">${v.precio.toFixed(2)} €</td>\n        </tr>\n      `).join('');\n\n      const total = datasetActual.reduce((acc, item) => acc + item.precio, 0);\n      document.getElementById('totalFacturado').textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total);\n    }\n\n    function filtrarCategoria(cat) {\n      if (cat === 'todas') datasetActual = [...VENTAS];\n      else datasetActual = VENTAS.filter(v => v.cat === cat);\n      render();\n    }\n\n    function ordenarImporte() {\n      // Método inmutable toSorted\n      datasetActual = datasetActual.toSorted((a, b) => b.precio - a.precio);\n      render();\n    }\n    render();\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Pipeline Funcional de Datos JSON</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Pipeline Funcional: Filter, Reduce y toSorted</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Procesamiento inmutable de un dataset de transacciones.</p>\n\n    <div class=\"grid grid-cols-3 gap-3 mb-4\">\n      <button onclick=\"filtrarCategoria('todas')\" class=\"px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-xs font-bold rounded-lg\">Todas</button>\n      <button onclick=\"filtrarCategoria('Hardware')\" class=\"px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-xs font-bold rounded-lg\">Solo Hardware</button>\n      <button onclick=\"ordenarImporte()\" class=\"px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg\">Ordenar por Importe 🔽</button>\n    </div>\n\n    <div class=\"border border-slate-200 rounded-xl overflow-hidden mb-4\">\n      <table class=\"w-full text-xs text-left\">\n        <thead class=\"bg-slate-100 text-slate-600 font-bold\">\n          <tr><th class=\"p-3\">ID</th><th class=\"p-3\">Producto</th><th class=\"p-3\">Categoría</th><th class=\"p-3 text-right\">Precio</th></tr>\n        </thead>\n        <tbody id=\"tablaVentas\" class=\"divide-y divide-slate-100\"></tbody>\n      </table>\n    </div>\n\n    <div class=\"p-3 bg-indigo-50 rounded-xl flex justify-between items-center text-xs font-bold text-indigo-900\">\n      <span>Total Facturado de los Elementos Filtrados:</span>\n      <span id=\"totalFacturado\" class=\"text-base\">0,00 €</span>\n    </div>\n  </div>\n\n  <script>\n    const VENTAS = [\n      { id: 101, prod: \"Monitor 4K Dell\", cat: \"Hardware\", precio: 349.99 },\n      { id: 102, prod: \"Licencia WebStorm\", cat: \"Software\", precio: 69.00 },\n      { id: 103, prod: \"Teclado Mecánico\", cat: \"Hardware\", precio: 119.50 },\n      { id: 104, prod: \"Suscripción Cloud\", cat: \"Servicios\", precio: 24.00 },\n      { id: 105, prod: \"Ratón Ergonómico\", cat: \"Hardware\", precio: 45.00 }\n    ];\n\n    let datasetActual = [...VENTAS];\n\n    function render() {\n      const tbody = document.getElementById('tablaVentas');\n      tbody.innerHTML = datasetActual.map(v => `\n        <tr>\n          <td class=\"p-3 font-mono text-slate-400\">#${v.id}</td>\n          <td class=\"p-3 font-semibold text-slate-800\">${v.prod}</td>\n          <td class=\"p-3\"><span class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-600\">${v.cat}</span></td>\n          <td class=\"p-3 text-right font-bold text-slate-800\">${v.precio.toFixed(2)} €</td>\n        </tr>\n      `).join('');\n\n      const total = datasetActual.reduce((acc, item) => acc + item.precio, 0);\n      document.getElementById('totalFacturado').textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total);\n    }\n\n    function filtrarCategoria(cat) {\n      if (cat === 'todas') datasetActual = [...VENTAS];\n      else datasetActual = VENTAS.filter(v => v.cat === cat);\n      render();\n    }\n\n    function ordenarImporte() {\n      // Método inmutable toSorted\n      datasetActual = datasetActual.toSorted((a, b) => b.precio - a.precio);\n      render();\n    }\n    render();\n  <\/script>\n</body>\n</html>\n", "explanation": "Carga un conjunto de datos JSON y aplica pipelines funcionales inmutables (map, filter, reduce, toSorted) visualizando las transformaciones paso a paso.", "filename": "ej3_pipeline_json.html"}];
+    let currentItem = null;
+    let currentCode = "";
+
+    function resetIframe() {
+      const wrapper = document.getElementById('iframe-wrapper');
+      if (wrapper) wrapper.innerHTML = '';
+      const newIframe = document.createElement('iframe');
+      newIframe.id = 'preview-iframe';
+      newIframe.className = 'w-full h-full border-0';
+      newIframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-same-origin');
+      if (wrapper) wrapper.appendChild(newIframe);
+      return newIframe;
+    }
+
+    function selectItem(id) {
+      const item = ITEMS.find(x => x.id === id) || ITEMS[0];
+      currentItem = item;
+      
+      document.querySelectorAll('.exercise-nav-btn').forEach(btn => {
+        if (btn.id === 'nav-btn-' + item.id) {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between active bg-indigo-600 text-white shadow-sm";
+        } else {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100";
+        }
+      });
+
+      document.getElementById('ex-badge').textContent = item.badge;
+      document.getElementById('ex-title').textContent = item.title;
+      document.getElementById('ex-subtitle').textContent = item.subtitle;
+      document.getElementById('ex-instruction').textContent = item.instruction;
+      document.getElementById('ex-explanation').textContent = item.explanation || "Solución fundamentada en las mejores prácticas del estándar ES6+.";
+
+      const iframe = resetIframe();
+
+      if (item.filename) {
+        currentCode = item.code || item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = item.filename.endsWith('.html') ? "language-html" : "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Solución externa oficial ejecutable en iframe: /ejercicios/" + item.filename;
+        iframe.src = './ejercicios/' + item.filename;
+      } else {
+        currentCode = item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Entorno de ejecución inmediata de la solución en JavaScript.";
+
+        const shellTpl = document.getElementById('iframe-shell-template');
+        const iframeDoc = iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(shellTpl ? shellTpl.textContent : '');
+        iframeDoc.close();
+
+        // Inyectar runner directamente
+        iframe.contentWindow.runSolution = function(rawCode) {
+          const doc = iframe.contentWindow.document;
+          const output = doc.getElementById("output");
+          const domStage = doc.getElementById("dom-stage");
+          if (output) output.innerHTML = "";
+
+          function log(...args) {
+            const p = doc.createElement("div");
+            p.className = "log-line";
+            p.textContent = args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+            output.appendChild(p);
+          }
+
+          const customConsole = {
+            log: log,
+            error: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-error";
+              p.textContent = "❌ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            },
+            info: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-info";
+              p.textContent = "ℹ️ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            }
+          };
+
+          const isDomCode = /document\.|querySelector|getElementById|createElement|addEventListener|dataset|innerHTML|outerHTML|#catalogo|#miForm|#password|#btnTema|#listaDinamica|#miLista|#app|@Component|<[a-z]/i.test(rawCode);
+
+          if (domStage) {
+            if (isDomCode) domStage.classList.remove("hidden");
+            else domStage.classList.add("hidden");
+          }
+
+          const NL = String.fromCharCode(10);
+
+          if (rawCode.trim().startsWith("git ")) {
+            log("💻 [Simulador de Consola Git Terminal]");
+            rawCode.split(NL).forEach(cmd => { if (cmd.trim()) log("$ " + cmd); });
+            log("✅ Secuencia Git ejecutada correctamente en el repositorio local.");
+            return;
+          }
+
+          if (rawCode.includes("db.ventas.aggregate")) {
+            log("🍃 [Simulador de Shell MongoDB]");
+            log("> " + rawCode);
+            log("📊 [Resultado del Pipeline de Agregación]:");
+            log([{ _id: "Electrónica", totalVentas: 15420.50 }, { _id: "Hogar", totalVentas: 8300.00 }, { _id: "Deportes", totalVentas: 4150.00 }]);
+            return;
+          }
+
+          if (rawCode.includes("@Component")) {
+            log("🅰️ [Compilador Angular v18 Standalone]");
+            log("✨ Componente Standalone ContadorComponent compilado e inyectado.");
+            log("Selector: <app-contador>");
+            log("Estado inicial: total = 0");
+            const appEl = doc.getElementById("app");
+            if (appEl) {
+              appEl.innerHTML = '<div class="p-3 bg-slate-950 border border-indigo-500/50 rounded-lg text-xs font-sans mb-2"><div class="font-bold text-indigo-400 mb-1">🅰️ Componente Angular ContadorComponent (Live Render):</div><div class="flex items-center gap-3"><span id="ng-counter" class="text-sm font-semibold text-white">Contador: 0</span><button id="ng-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded text-xs transition-colors">+1</button></div></div>';
+              const btn = doc.getElementById('ng-btn');
+              if (btn) btn.onclick = function() {
+                const c = doc.getElementById('ng-counter');
+                let val = parseInt(c.textContent.replace('Contador: ',''))+1;
+                c.textContent = 'Contador: ' + val;
+              };
+            }
+            return;
+          }
+
+          if (rawCode.trim().startsWith("/*") && rawCode.includes("/api/")) {
+            log("🌐 [Router REST API - Especificación de Endpoints]");
+            rawCode.split(NL).forEach(line => { if (line.trim() && !line.includes("/*") && !line.includes("*/")) log(line.trim()); });
+            log("✅ Servidor de API REST semántico preparado.");
+            return;
+          }
+
+          try {
+            const runFn = iframe.contentWindow.Function('console', 'log', 'document', rawCode);
+            const res = runFn(customConsole, log, doc);
+            if (res !== undefined) log("⬅️ Retorno:", res);
+          } catch (err1) {
+            try {
+              const res = iframe.contentWindow.eval(rawCode);
+              if (res !== undefined) log("⬅️ Retorno:", res);
+            } catch (err2) {
+              customConsole.error("Error de Ejecución:", err2.message);
+            }
+          }
+        };
+
+        if (iframe.contentWindow && typeof iframe.contentWindow.runSolution === 'function') {
+          iframe.contentWindow.runSolution(item.solution || '');
+        }
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      const btnView = document.getElementById('btn-tab-view');
+      const btnCode = document.getElementById('btn-tab-code');
+
+      if (tabId === 'tab-view') {
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      } else {
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      }
+    }
+
+    function reloadPreview() {
+      if (currentItem) selectItem(currentItem.id);
+    }
+
+    function copyCode() {
+      if (!currentCode) return;
+      navigator.clipboard.writeText(currentCode).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = "✅ ¡Copiado!";
+        setTimeout(() => { btn.textContent = "📋 Copiar Código"; }, 2000);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const itemId = params.get('item') || window.location.hash.replace('#', '');
+      selectItem(itemId || ITEMS[0].id);
+    });
+  </script>
+
+</body>
+</html>

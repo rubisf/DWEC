@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Métricas de Estudiantes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6 text-slate-800">
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <h1 class="text-xl font-bold text-slate-900 mb-1">Métricas de Alumnos con Operador Spread y Arrow Functions</h1>
+    <p class="text-xs text-slate-500 mb-4">Manipulación inmutable de colecciones numéricas.</p>
+
+    <div class="flex gap-2 mb-4">
+      <input id="nuevaNota" type="number" step="0.1" min="0" max="10" placeholder="Añadir nota (0-10)" class="border p-2 rounded-lg text-sm flex-1">
+      <button onclick="agregarNota()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-bold">Insertar con Spread</button>
+    </div>
+
+    <div class="mb-4">
+      <span class="text-xs font-bold text-slate-400 uppercase">Array de Notas en Memoria:</span>
+      <div id="arrayContainer" class="flex flex-wrap gap-2 mt-1"></div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3 text-center">
+      <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+        <span class="text-xs text-slate-500 block">Nota Media</span>
+        <strong id="mediaOut" class="text-lg text-indigo-600">0.0</strong>
+      </div>
+      <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+        <span class="text-xs text-slate-500 block">Máxima</span>
+        <strong id="maxOut" class="text-lg text-emerald-600">0.0</strong>
+      </div>
+      <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+        <span class="text-xs text-slate-500 block">Porcentaje Aprobados</span>
+        <strong id="aprobadosOut" class="text-lg text-amber-600">0%</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let notas = [4.5, 7.8, 9.2, 3.5, 6.0, 8.4];
+
+    const calcularMedia = arr => arr.length ? (arr.reduce((acc, n) => acc + n, 0) / arr.length).toFixed(2) : 0;
+    const obtenerMaximo = arr => arr.length ? Math.max(...arr).toFixed(1) : 0;
+    const porcentajeAprobados = arr => {
+      if (!arr.length) return 0;
+      const aprob = arr.filter(n => n >= 5.0).length;
+      return Math.round((aprob / arr.length) * 100);
+    };
+
+    function render() {
+      document.getElementById('arrayContainer').innerHTML = notas.map(n => `
+        <span class="px-2.5 py-1 rounded-md text-xs font-bold ${n >= 5 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">${n}</span>
+      `).join('');
+
+      document.getElementById('mediaOut').textContent = calcularMedia(notas);
+      document.getElementById('maxOut').textContent = obtenerMaximo(notas);
+      document.getElementById('aprobadosOut').textContent = porcentajeAprobados(notas) + "%";
+    }
+
+    function agregarNota() {
+      const input = document.getElementById('nuevaNota');
+      const val = parseFloat(input.value);
+      if (!isNaN(val) && val >= 0 && val <= 10) {
+        // Clonación inmutable con operador spread
+        notas = [...notas, val];
+        input.value = "";
+        render();
+      }
+    }
+    render();
+  </script>
+</body>
+</html>

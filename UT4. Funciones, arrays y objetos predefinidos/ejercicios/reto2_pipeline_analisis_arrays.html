@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Reto 2: Pipeline de Arrays (filter, reduce, toSorted)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+    <h2 class="text-lg font-bold text-emerald-400">🎯 Reto 2: Pipeline Funcional (filter, reduce, toSorted)</h2>
+    <div id="out-pipeline" class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2"></div>
+  </div>
+  <script>
+    const pedidos = [
+      { id: 1, cliente: "Ana", pagado: true, importe: 120 },
+      { id: 2, cliente: "Carlos", pagado: false, importe: 85 },
+      { id: 3, cliente: "Beatriz", pagado: true, importe: 250 }
+    ];
+
+    // 1. Filtrar pagados
+    const pagados = pedidos.filter(p => p.pagado);
+
+    // 2. Totalizar con reduce
+    const totalFacturado = pagados.reduce((acc, p) => acc + p.importe, 0);
+
+    // 3. Ordenar inmutablemente con toSorted / sort copia
+    const ordenadosDesc = [...pagados].sort((a, b) => b.importe - a.importe);
+
+    const out = document.getElementById('out-pipeline');
+    out.innerHTML = `
+      <div class="text-emerald-300">💰 Total Facturado (reduce): <strong>€${totalFacturado}</strong></div>
+      <div class="text-amber-300">📊 Pedidos Pagados Ordenados (Importe Descendente):</div>
+      ${ordenadosDesc.map(p => `<div class="text-slate-300 pl-3">- Cliente: ${p.cliente} (€${p.importe})</div>`).join('')}
+    `;
+  </script>
+</body>
+</html>

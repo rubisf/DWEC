@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UT3: Objetos Predefinidos del Lenguaje y del Navegador</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --accent: #d97706;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--text-main); margin: 0; padding: 0; background: #f8fafc; }
+    .reveal { background: #f8fafc; }
+    .reveal h1, .reveal h2, .reveal h3 { text-transform: none !important; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    
+    /* Contenedor de Slide con padding inferior de 110px para evitar la barra de tareas del SO */
+    .slides section {
+      padding: 20px 36px 110px 36px !important;
+      text-align: left;
+      height: 100% !important;
+      max-height: 100% !important;
+      box-sizing: border-box;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      overflow-y: auto !important;
+    }
+
+    /* Scrollbars elegantes */
+    .slides section::-webkit-scrollbar,
+    .content-card::-webkit-scrollbar,
+    .reto-slide-container::-webkit-scrollbar,
+    .code-demo-card::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .slides section::-webkit-scrollbar-track,
+    .content-card::-webkit-scrollbar-track,
+    .reto-slide-container::-webkit-scrollbar-track,
+    .code-demo-card::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.04);
+      border-radius: 4px;
+    }
+    .slides section::-webkit-scrollbar-thumb,
+    .content-card::-webkit-scrollbar-thumb,
+    .reto-slide-container::-webkit-scrollbar-thumb,
+    .code-demo-card::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .slide-header { margin-bottom: 10px; flex-shrink: 0; }
+    .slide-header h2 {
+      font-size: 1.2em !important;
+      color: #0f172a;
+      margin: 4px 0 0 0 !important;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .badge-sub {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.50em;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-exercise {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    /* Portada Impactante */
+    .cover-slide {
+      background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, var(--accent) 100%) !important;
+      text-align: center !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #fff !important;
+    }
+    .cover-slide .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      font-size: 1.4em;
+      font-weight: 900;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .cover-slide h1 {
+      color: #ffffff !important;
+      font-size: 1.9em !important;
+      margin-bottom: 10px !important;
+      line-height: 1.2;
+    }
+    .cover-slide .subtitle {
+      color: #93c5fd;
+      font-size: 0.95em;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .cover-slide .tagline {
+      color: #cbd5e1;
+      font-size: 0.78em;
+      max-width: 850px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .cover-slide .cover-hint {
+      margin-top: 26px;
+      font-size: 0.68em;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.08);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Layout Índice */
+    .index-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-grow: 1;
+      align-content: start;
+      overflow-y: auto;
+    }
+    .index-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      box-sizing: border-box;
+    }
+    .index-badge {
+      background: #eff6ff;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9em;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid #dbeafe;
+    }
+    .index-info { flex-grow: 1; min-width: 0; }
+    .index-title { font-size: 0.78em; font-weight: 700; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+    .index-desc {
+      font-size: 0.65em;
+      line-height: 1.4;
+      color: #475569;
+      margin: 0;
+    }
+
+    /* Layout de Diapositiva Teórica con Bloque de Código */
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-shrink: 0;
+      align-items: stretch;
+    }
+    .content-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+    }
+    .primary-card { border-top: 3.5px solid var(--accent); }
+    .accent-card { border-top: 3.5px solid #059669; }
+    .card-tag {
+      font-size: 0.64em;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .card-text {
+      font-size: 0.72em;
+      line-height: 1.48;
+      color: #334155;
+      margin: 0;
+      flex-grow: 1;
+    }
+    .card-text p {
+      margin: 0 0 6px 0;
+    }
+    .card-text p:last-child {
+      margin-bottom: 0;
+    }
+    .card-text ul, .card-text ol {
+      margin: 6px 0 8px 0;
+      padding-left: 20px;
+    }
+    .card-text li {
+      margin-bottom: 5px;
+      line-height: 1.42;
+    }
+    .card-text li strong {
+      color: #0f172a;
+    }
+    .card-text code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Tarjeta de Código Demostrativo de Alto Contraste */
+    .code-demo-card {
+      margin-top: 10px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 10px 14px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .code-demo-tag {
+      font-size: 0.62em;
+      font-weight: 700;
+      color: #79c0ff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .code-demo-card pre {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      overflow-x: auto;
+    }
+    .code-demo-card code {
+      font-family: 'Fira Code', monospace !important;
+      font-size: 0.68em !important;
+      line-height: 1.45 !important;
+      color: #f0f6fc !important;
+      white-space: pre-wrap !important;
+    }
+
+    /* Contenedor de Reto Limpio */
+    .reto-slide-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+    .callout {
+      border-radius: 10px;
+      padding: 12px 14px;
+      border-left: 4px solid;
+    }
+    .callout.tip {
+      background: #f0fdf4;
+      border-color: #10b981;
+    }
+    .callout.info {
+      background: #eff6ff;
+      border-color: #3b82f6;
+    }
+    .callout-title {
+      font-weight: 700;
+      font-size: 0.74em;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+    .callout-body {
+      font-size: 0.72em;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .reto-action-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+      margin-top: 4px;
+    }
+    .reto-action-text { flex-grow: 1; }
+    .reto-action-text strong { font-size: 0.82em; color: #0f172a; display: block; margin-bottom: 2px; }
+    .reto-action-text p { font-size: 0.70em; color: #64748b; margin: 0; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #4f46e5;
+      color: #ffffff !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { background: #4338ca; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: #334155 !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    /* Slide Final Taller */
+    .final-workshop-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-grow: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    }
+    .final-ex-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .final-ex-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #f1f5f9;
+    }
+    .final-ex-badge {
+      background: #059669;
+      color: #fff;
+      font-size: 0.65em;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .final-ex-text strong { font-size: 0.76em; color: #0f172a; display: block; }
+    .final-ex-text p { font-size: 0.66em; color: #64748b; margin: 0; }
+    .final-action-bar { display: flex; gap: 12px; margin-top: auto; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <section class="cover-slide">
+        <div class="badge">03</div>
+        <h1>UT3: Objetos Predefinidos del Lenguaje y del Navegador</h1>
+        <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
+        <div class="tagline">Objetos estándar del lenguaje (Date, Math, Number, String, RegExp, Intl), jerarquía BOM (Window, Navigator, Location) y almacenamiento en el cliente (Cookies seguras, Web Storage, IndexedDB).</div>
+        <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Índice Curricular</span>
+          <h2>📋 Contenidos y Epígrafes de la Unidad</h2>
+        </div>
+        <div class="index-grid">
+          
+          <div class="index-card">
+            <div class="index-badge">1</div>
+            <div class="index-info">
+              <div class="index-title">Objetos Nativos del Núcleo de JavaScript</div>
+              <p class="index-desc">El núcleo de JavaScript proporciona un conjunto de objetos predefinidos estándar para manipular datos numéricos, fechas y estructuras de datos.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">2</div>
+            <div class="index-info">
+              <div class="index-title">Expresiones Regulares (RegExp) en Validación</div>
+              <p class="index-desc">Las Expresiones Regulares (RegExp) son patrones utilizados para la búsqueda, extracción y validación de cadenas de texto.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">3</div>
+            <div class="index-info">
+              <div class="index-title">Jerarquía BOM (Browser Object Model)</div>
+              <p class="index-desc">El BOM (Browser Object Model) permite a JavaScript interactuar con el entorno de software proporcionado por el navegador web.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">4</div>
+            <div class="index-info">
+              <div class="index-title">Almacenamiento en Cliente: Storage vs IndexedDB vs Cookies</div>
+              <p class="index-desc">JavaScript dispone de distintos mecanismos para almacenar información de forma persistente en el navegador del cliente.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
+          <h2>1. Objetos Nativos del Núcleo de JavaScript</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>El núcleo de JavaScript proporciona un conjunto de objetos predefinidos estándar para manipular datos numéricos, fechas y estructuras de datos:</p><ul class="concept-list"><li><strong>Objeto <code>Object</code>:</strong> Base de todos los objetos. Métodos como <code>Object.keys()</code>, <code>Object.values()</code> y <code>Object.entries()</code> permiten inspeccionar propiedades.</li><li><strong>Objeto <code>Math</code>:</strong> Proporciona constantes matemáticas (<code>Math.PI</code>) y funciones estáticas para cálculos (<code>Math.round</code>, <code>Math.floor</code>, <code>Math.random</code>).</li><li><strong>Objeto <code>Date</code>:</strong> Gestiona instantes temporales basados en marcas de tiempo UNIX (milisegundos desde el 1 de enero de 1970 UTC).</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Estructuras de datos modernas introducidas en ES6 y la API de precisión temporal:</p><ul class="concept-list"><li><strong><code>Map</code> y <code>Set</code>:</strong> <code>Map</code> almacena pares clave-valor permitiendo claves de cualquier tipo (incluidos objetos); <code>Set</code> almacena colecciones de valores únicos sin duplicados.</li><li><strong><code>WeakMap</code> y <code>WeakSet</code>:</strong> Mantienen referencias débiles a los objetos clave, permitiendo que el <strong>Garbage Collector (Recolector de Basura)</strong> libere memoria cuando no existen otras referencias activas.</li><li><strong>API <code>performance.now()</code>:</strong> Proporciona marcas de tiempo de alta resolución con precisión de microsegundos para medir rendimiento de código.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo1_objetos_nativos.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_objetos_nativos.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT3 - Ejemplo 1: Objetos Nativos
+const datos = { id: 101, activo: true };
+console.log(&quot;Keys:&quot;, Object.keys(datos));
+console.log(&quot;Values:&quot;, Object.values(datos));
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
+          <h2>🎯 Reto: Frecuencias y Unicidad con Map y Set</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Crea una función que tome una lista de nombres con duplicados y devuelva un objeto Map con el recuento de frecuencias de cada nombre y un Set con los nombres únicos.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
+          <h2>2. Expresiones Regulares (RegExp) en Validación</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Las <strong>Expresiones Regulares (RegExp)</strong> son patrones utilizados para la búsqueda, extracción y validación de cadenas de texto:</p><ul class="concept-list"><li><strong>Sintaxis y Banderas (Flags):</strong> Se delimitan entre barras (<code>/patron/flags</code>). Banderas comunes: <code>g</code> (búsqueda global), <code>i</code> (insensible a mayúsculas/minúsculas), <code>m</code> (multilínea) y <code>u</code> (soporte Unicode nativo).</li><li><strong>Clases de Caracteres y Cuantificadores:</strong> <code>\d</code> (dígito), <code>\w</code> (alfanumérico), <code>+</code> (1 o más), <code>*</code> (0 o más), <code>?</code> (0 o 1), <code>{n,m}</code> (rango de repeticiones).</li><li><strong>Métodos Clave:</strong> <code>RegExp.prototype.test(str)</code> devuelve un booleano; <code>String.prototype.match(regex)</code> o <code>matchAll()</code> extraen las coincidencias.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Técnicas avanzadas de captura y aserciones en expresiones regulares según los estándares actuales:</p><ul class="concept-list"><li><strong>Grupos de Captura Nombrados:</strong> Sintaxis <code>(?&lt;nombre&gt;patron)</code> para extraer subcadenas directamente asociadas a claves en el objeto result.groups.</li><li><strong>Lookahead y Lookbehind (Aserciones de Mirada):</strong> Permiten validar condiciones antes o después del patrón sin incluir ese texto en la coincidencia final (ej. <code>(?&lt;=USD)\d+</code>).</li><li><strong>Seguridad en Validación:</strong> Evitar patrones vulnerables a ataques ReDoS (Regular Expression Denial of Service) mediante cuantificadores no codiciosos y estructuras no anidadas.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo2_regexp_validador.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_regexp_validador.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT3 - Ejemplo 2: RegExp
+const patronEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+console.log(&quot;¿Email válido?:&quot;, patronEmail.test(&quot;alumno@estudiante.daw.es&quot;));
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
+          <h2>🎯 Reto: Validación Estricta de Contraseñas con RegExp</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Escribe una Expresión Regular para validar contraseñas seguras (mínimo 8 caracteres, al menos una mayúscula y un número) y prueba su funcionamiento con &#x27;RegExp.prototype.test()&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
+          <h2>3. Jerarquía BOM (Browser Object Model)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>El <strong>BOM (Browser Object Model)</strong> permite a JavaScript interactuar con el entorno de software proporcionado por el navegador web:</p><ul class="concept-list"><li><strong>Objeto Global <code>window</code>:</strong> Representa la ventana o pestaña activa del navegador y actúa como contenedor del ámbito global.</li><li><strong>Objeto <code>navigator</code>:</strong> Proporciona información sobre el agente de usuario, estado de red (<code>navigator.onLine</code>), geolocalización y permisos.</li><li><strong>Objeto <code>location</code>:</strong> Permite leer y manipular la URL actual de la página (<code>href</code>, <code>pathname</code>, <code>search</code>) y forzar redirecciones.</li><li><strong>Objeto <code>history</code>:</strong> Controla el historial de navegación de la pestaña mediante <code>history.pushState()</code> y <code>history.back()</code>.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>APIs de rendimiento y temporización expuestas a través del objeto <code>window</code>:</p><ul class="concept-list"><li><strong>Temporizadores:</strong> <code>setTimeout</code> y <code>setInterval</code> ejecutan código tras un retardo. Deben cancelarse con <code>clearTimeout</code> y <code>clearInterval</code> para evitar fugas de memoria.</li><li><strong><code>requestAnimationFrame(callback)</code>:</strong> Sincroniza la ejecución de animaciones de código con la tasa de refresco del monitor (habitualmente 60Hz/120Hz), logrando un rendimiento fluido sin sobrecargar la CPU/GPU.</li><li><strong>Manejadores de Diálogo:</strong> Uso de diálogos no bloqueantes modernos (<code>&lt;dialog&gt;</code> HTML5) frente a los métodos bloqueantes heredados (<code>alert</code>, <code>confirm</code>, <code>prompt</code>).</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo3_bom_navegacion.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_bom_navegacion.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT3 - Ejemplo 3: BOM
+console.log(&quot;Location href:&quot;, window.location ? window.location.href : &quot;SSR&quot;);
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
+          <h2>🎯 Reto: Interacción con Entorno Cliente y BOM</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Construir un script que obtenga la resolución de pantalla del usuario, compruebe si está online (&#x27;navigator.onLine&#x27;) y mantenga la navegación usando el historial del BOM (&#x27;history&#x27;).</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
+          <h2>4. Almacenamiento en Cliente: Storage vs IndexedDB vs Cookies</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>JavaScript dispone de distintos mecanismos para almacenar información de forma persistente en el navegador del cliente:</p><ul class="concept-list"><li><strong>Cookies HTTP:</strong> Cadenas de texto pequeñas (máx. 4KB) que se envían automáticamente al servidor en cada petición HTTP. Susceptibles a ataques si no llevan las banderas <code>HttpOnly</code>, <code>Secure</code> y <code>SameSite</code>.</li><li><strong>Web Storage API (<code>localStorage</code> / <code>sessionStorage</code>):</strong> Almacenamiento clave-valor de hasta 5MB-10MB por origen. <code>localStorage</code> persiste indefinidamente; <code>sessionStorage</code> se destruye al cerrar la pestaña. Síncrono y bloqueante.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Persistencia estructurada asíncrona de gran capacidad en aplicaciones cliente:</p><ul class="concept-list"><li><strong>IndexedDB:</strong> Base de datos transaccional NoSQL orientada a objetos en el cliente. Permite almacenar gigabytes de datos estructurados, blobs y archivos, ofreciendo índices de búsqueda asíncronos y no bloqueantes.</li><li><strong>Políticas de Origen Mismo (Same-Origin Policy):</strong> El almacenamiento está estrictamente aislado por protocolo, dominio y puerto. Dominio A no puede leer el <code>localStorage</code> de Dominio B.</li><li><strong>Seguridad en Almacenamiento:</strong> No almacenar tokens JWT o credenciales sensibles en <code>localStorage</code> debido al riesgo de extracción ante ataques de inyección XSS.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo4_storage_indexeddb.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_storage_indexeddb.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT3 - Ejemplo 4: Storage vs IndexedDB
+if (typeof localStorage !== &#x27;undefined&#x27;) {
+    localStorage.setItem(&quot;tema_preferido&quot;, &quot;dark&quot;);
+    console.log(&quot;Tema en localStorage:&quot;, localStorage.getItem(&quot;tema_preferido&quot;));
+}
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
+          <h2>🎯 Reto: Gestor de Sesión y Preferencias con localStorage</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Escribe un gestor de preferencias que serialice un objeto de configuración de usuario en JSON dentro de &#x27;localStorage&#x27;, con manejo robusto de excepciones (cuota excedida).</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Taller Práctico</span>
+          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+        </div>
+        <div class="final-workshop-card">
+          <ul class="final-ex-list">
+            
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 1</span>
+        <div class="final-ex-text">
+          <strong>Suite de Validación con RegExp e Intl</strong>
+          <p>Formulario interactivo de registro que valida en vivo DNI, NIE, correos electrónicos corporativos y formatea salarios y fechas según estándares locales españoles.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 2</span>
+        <div class="final-ex-text">
+          <strong>Gestor de Preferencias (Theme / Offline) con Web Storage</strong>
+          <p>Aplicación que guarda modo oscuro/claro, preferencias de usuario y detecta cambios de conectividad (online/offline) con sincronización en Storage.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 3</span>
+        <div class="final-ex-text">
+          <strong>Base de Datos de Clientes con IndexedDB Transaccional</strong>
+          <p>Mini-sistema CRUD que almacena registros complejos con índices de búsqueda en IndexedDB del navegador, soportando operaciones asíncronas de inserción y consulta.</p>
+        </div>
+      </li>
+          </ul>
+          <div class="final-action-bar">
+            <a href="ejercicios.html" class="btn-primary">
+              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+            </a>
+            <a href="../index.html" class="btn-secondary">
+              🏠 Volver al Panel General
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: false,
+      hash: true,
+      transition: 'slide',
+      width: 1280,
+      height: 720,
+      margin: 0.04
+    });
+    hljs.highlightAll();
+  </script>
+</body>
+</html>

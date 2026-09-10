@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patrón Observer (Pub/Sub)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-xl font-bold text-purple-400 mb-1">Patrón de Diseño Observer (Pub / Sub)</h1>
+    <p class="text-xs text-slate-400 mb-6">Múltiples componentes desacoplados reaccionan en tiempo real a las emisiones de un sensor central.</p>
+
+    <!-- Emisor -->
+    <div class="bg-slate-800 p-4 rounded-xl border border-purple-500/40 mb-6 flex items-center gap-4">
+      <span class="text-sm font-bold text-slate-300">Simulador de Sensor Térmico:</span>
+      <input id="tempSlider" oninput="actualizarSensor(this.value)" type="range" min="10" max="90" value="25" class="flex-1">
+      <span id="tempDisplay" class="font-mono font-bold text-purple-400 text-lg w-16 text-right">25 °C</span>
+    </div>
+
+    <!-- Suscriptores -->
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Suscriptor 1: Gauge -->
+      <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+        <h2 class="text-xs font-bold uppercase text-slate-400 mb-2">Suscriptor A: Indicador Gráfico</h2>
+        <div class="h-6 bg-slate-950 rounded-full overflow-hidden p-1">
+          <div id="gaugeBar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width: 25%;"></div>
+        </div>
+        <p id="gaugeStatus" class="text-xs text-slate-400 mt-2 font-semibold">Temperatura Normal</p>
+      </div>
+
+      <!-- Suscriptor 2: Log histórico -->
+      <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+        <h2 class="text-xs font-bold uppercase text-slate-400 mb-2">Suscriptor B: Registro de Auditoría</h2>
+        <div id="observerLog" class="h-28 overflow-y-auto space-y-1 text-[11px] font-mono text-slate-300 bg-slate-950 p-2 rounded-lg"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Clase Observer Central (EventBus)
+    class SensorTermico {
+      constructor() { this.oyentes = []; }
+      suscribir(fn) { this.oyentes.push(fn); }
+      notificar(temp) { this.oyentes.forEach(fn => fn(temp)); }
+    }
+
+    const sensor = new SensorTermico();
+
+    // 2. Suscriptor A: Barra visual
+    sensor.suscribir((temp) => {
+      const bar = document.getElementById('gaugeBar');
+      const status = document.getElementById('gaugeStatus');
+      bar.style.width = temp + "%";
+      if (temp > 60) {
+        bar.className = "h-full bg-rose-500 rounded-full transition-all";
+        status.textContent = "🔥 ¡ALERTA: Sobrecalentamiento detectado!";
+        status.className = "text-xs text-rose-400 mt-2 font-bold";
+      } else {
+        bar.className = "h-full bg-emerald-500 rounded-full transition-all";
+        status.textContent = "✅ Temperatura en rango nominal.";
+        status.className = "text-xs text-emerald-400 mt-2 font-semibold";
+      }
+    });
+
+    // 3. Suscriptor B: Histórico
+    sensor.suscribir((temp) => {
+      const log = document.getElementById('observerLog');
+      log.innerHTML += `<p>[${new Date().toLocaleTimeString()}] Temperatura = ${temp}°C</p>`;
+      log.scrollTop = log.scrollHeight;
+    });
+
+    function actualizarSensor(val) {
+      document.getElementById('tempDisplay').textContent = val + " °C";
+      sensor.notificar(parseInt(val, 10));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Reto 4: Patrón Observer (PubSub)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+    <h2 class="text-lg font-bold text-sky-400">🎯 Reto 4: Patrón Observer Desacoplado (suscribir / emitir)</h2>
+    <div id="out-pubsub" class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300"></div>
+  </div>
+  <script>
+    class GestorEventos {
+      constructor() { this.eventos = {}; }
+      suscribir(evento, callback) {
+        if (!this.eventos[evento]) this.eventos[evento] = [];
+        this.eventos[evento].push(callback);
+      }
+      emitir(evento, datos) {
+        if (this.eventos[evento]) {
+          this.eventos[evento].forEach(cb => cb(datos));
+        }
+      }
+    }
+
+    const busEventos = new GestorEventos();
+    const out = document.getElementById('out-pubsub');
+
+    busEventos.suscribir('pedido_creado', (data) => {
+      out.innerHTML += `<div class="text-emerald-400">📩 Componente Notificaciones: Pedido #${data.id} creado por €${data.total}</div>`;
+    });
+
+    busEventos.emitir('pedido_creado', { id: 1042, total: 99.95 });
+  </script>
+</body>
+</html>

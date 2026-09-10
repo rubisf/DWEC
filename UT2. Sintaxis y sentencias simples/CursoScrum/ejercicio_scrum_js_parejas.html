@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Práctica Ágil por Parejas: Mini Sprint Scrum con JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .code-font { font-family: 'Fira Code', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6">
+
+  <div class="max-w-5xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <header class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-8 opacity-10 font-bold text-9xl text-amber-500 select-none">⚡</div>
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-full text-xs font-bold uppercase tracking-wider">
+            Taller Práctico en Parejas (2 Estudiantes)
+          </span>
+          <span class="px-3 py-1 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 rounded-full text-xs font-bold uppercase tracking-wider">
+            Duración: 1 Sprint (45 min)
+          </span>
+        </div>
+        <a href="presentacion_scrum.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold transition-all">
+          🎬 Volver a la Presentación de Scrum
+        </a>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white">
+        🛠️ Práctica Ágil: Mini Sprint Scrum con JavaScript Sencillo
+      </h1>
+      <p class="text-slate-400 text-sm mt-2 max-w-3xl leading-relaxed">
+        <strong>Objetivo:</strong> Experimentar un ciclo Scrum real en parejas creando una aplicación web interactiva (<em>TaskSprint JS</em>). Aprenderéis a distribuir roles, desglosar la Pila de Producto en Historias de Usuario, estimar tiempos con Planning Poker, gestionar un Tablero Kanban y entregar un incremento funcional en un Sprint de 45 minutos.
+      </p>
+    </header>
+
+    <!-- Asignación de Roles por Parejas -->
+    <section class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-xl">
+      <h2 class="text-xl font-bold text-amber-400 mb-4 flex items-center gap-2">
+        👥 1. Distribución de Roles por Parejas (Grupos de 2)
+      </h2>
+      <p class="text-xs text-slate-400 mb-6">
+        Cada pareja se dividirá los roles de Scrum. Ambos estudiantes actuarán como <strong>Desarrolladores (Developers)</strong> para escribir el código JavaScript, pero cada uno asumirá la responsabilidad de un rol de facilitación:
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Estudiante A -->
+        <div class="bg-slate-950 border border-indigo-900/50 rounded-2xl p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <span class="text-sm font-bold text-indigo-400">👤 ESTUDIANTE A</span>
+            <span class="px-2.5 py-0.5 bg-indigo-500/20 text-indigo-300 rounded text-xs font-semibold">Product Owner + Dev</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 leading-relaxed">
+            <li>📌 <strong>Responsabilidad Ágil (PO):</strong> Redacta los Criterios de Aceptación, prioriza las Historias de Usuario y aprueba el resultado final verificando la <em>Definition of Done (DoD)</em>.</li>
+            <li>💻 <strong>Responsabilidad Técnica (Dev 1):</strong> Programa el Formulario de Alta de Tareas (US-01) y la Sección de Métricas y Contadores (US-04).</li>
+          </ul>
+        </div>
+
+        <!-- Estudiante B -->
+        <div class="bg-slate-950 border border-emerald-900/50 rounded-2xl p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <span class="text-sm font-bold text-emerald-400">🛡️ ESTUDIANTE B</span>
+            <span class="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs font-semibold">Scrum Master + Dev</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 leading-relaxed">
+            <li>📌 <strong>Responsabilidad Ágil (SM):</strong> Dibuja/gestiona el Tablero Kanban (Por Hacer ➔ En Proceso ➔ Hecho), controla el tiempo del Sprint (Timebox) y lidera la Daily de 2 minutos.</li>
+            <li>💻 <strong>Responsabilidad Técnica (Dev 2):</strong> Programa la lista dinámica con cambio de estado de tareas (US-02) y los botones de filtro por estado (US-03).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Backlog e Historias de Usuario -->
+    <section class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-xl">
+      <h2 class="text-xl font-bold text-indigo-400 mb-4 flex items-center gap-2">
+        📦 2. Pila de Producto (Product Backlog - TaskSprint JS)
+      </h2>
+      <p class="text-xs text-slate-400 mb-6">
+        La aplicación consiste en un mini gestor de tareas sencillo en JavaScript. El Product Owner debe revisar las 4 Historias de Usuario:
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        
+        <!-- US-01 -->
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-400">US-01 • Alta de Tarea</span>
+            <span class="text-[10px] text-slate-500 bg-slate-900 px-2 py-0.5 rounded">Asignado: Estudiante A</span>
+          </div>
+          <p class="text-xs text-slate-200">
+            <em>"Como alumno, quiero introducir el texto de una tarea en un campo de texto y pulsar 'Añadir' para guardarla en el sistema."</em>
+          </p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-900">
+            🎯 <strong>Criterio de Aceptación:</strong> Si el campo está vacío, no se añade nada. El input se limpia tras añadir.
+          </div>
+        </div>
+
+        <!-- US-02 -->
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-400">US-02 • Renderizado y Estado</span>
+            <span class="text-[10px] text-slate-500 bg-slate-900 px-2 py-0.5 rounded">Asignado: Estudiante B</span>
+          </div>
+          <p class="text-xs text-slate-200">
+            <em>"Como usuario, quiero ver la lista de tareas agregadas y poder pulsar un botón para alternar su estado entre 'Pendiente' y 'Completada'."</em>
+          </p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-900">
+            🎯 <strong>Criterio de Aceptación:</strong> Las tareas completadas cambian visualmente (ej. texto tachado o fondo verde).
+          </div>
+        </div>
+
+        <!-- US-03 -->
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-purple-400">US-03 • Filtros de Vista</span>
+            <span class="text-[10px] text-slate-500 bg-slate-900 px-2 py-0.5 rounded">Asignado: Estudiante B</span>
+          </div>
+          <p class="text-xs text-slate-200">
+            <em>"Como usuario, quiero pulsar botones de filtro ('Todas', 'Pendientes', 'Completadas') para ver solo las tareas correspondientes."</em>
+          </p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-900">
+            🎯 <strong>Criterio de Aceptación:</strong> Al pulsar cada botón, se filtra dinámicamente el array con <code class="text-indigo-300">Array.prototype.filter()</code>.
+          </div>
+        </div>
+
+        <!-- US-04 -->
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-blue-400">US-04 • Resumen de Métricas</span>
+            <span class="text-[10px] text-slate-500 bg-slate-900 px-2 py-0.5 rounded">Asignado: Estudiante A</span>
+          </div>
+          <p class="text-xs text-slate-200">
+            <em>"Como usuario, quiero ver un contador superior que indique el total de tareas y cuántas han sido completadas (ej: '2 de 5 completadas')."</em>
+          </p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-900">
+            🎯 <strong>Criterio de Aceptación:</strong> El contador se recalcula automáticamente cada vez que se añade o cambia una tarea.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Fases de la Dinámica del Sprint -->
+    <section class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-xl space-y-6">
+      <h2 class="text-xl font-bold text-emerald-400">⏱️ 3. Fases de la Dinámica de la Práctica (45 Minutos Totales)</h2>
+
+      <div class="space-y-4 text-xs">
+        
+        <!-- Fase 1 -->
+        <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
+          <h3 class="font-bold text-amber-400 text-sm mb-2">Fase 1: Sprint Planning y Planning Poker por Parejas (10 minutos)</h3>
+          <ol class="list-decimal pl-4 space-y-1.5 text-slate-300">
+            <li>Ambos estudiantes leen juntos las 4 Historias de Usuario.</li>
+            <li>Realizan una estimación con <strong>Planning Poker</strong> asignando Puntos de Historia (1, 2, 3 o 5) a cada US según su complejidad.</li>
+            <li>Acuerdan la <strong>Definition of Done (DoD)</strong>: <em>"Código ejecutable sin errores en consola, variables declaradas con let/const y funcionalidad probada en navegador."</em></li>
+            <li>El Scrum Master (Estudiante B) crea las 4 tarjetas en el Tablero Kanban (físico en papel o digital).</li>
+          </ol>
+        </div>
+
+        <!-- Fase 2 -->
+        <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
+          <h3 class="font-bold text-indigo-400 text-sm mb-2">Fase 2: Ejecución del Sprint (25 minutos)</h3>
+          <ol class="list-decimal pl-4 space-y-1.5 text-slate-300">
+            <li>Cada desarrollador programa sus funciones JavaScript correspondientes (Estudiante A: US-01 y US-04; Estudiante B: US-02 y US-03).</li>
+            <li><strong>Daily Standup Express (Minuto 12 del Sprint - 2 minutos):</strong> Se realiza una breve reunión de 2 min de pie respondiendo:
+              <ul class="list-disc pl-5 text-slate-400 mt-1">
+                <li>¿Qué función tengo ya lista?</li>
+                <li>¿Qué voy a programar ahora?</li>
+                <li>¿Tengo algún bloqueo de integración de código?</li>
+              </ul>
+            </li>
+            <li>A medida que se completa una US, se mueve en el Kanban de <em>En Proceso</em> ➔ <em>Hecho</em>.</li>
+          </ol>
+        </div>
+
+        <!-- Fase 3 -->
+        <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
+          <h3 class="font-bold text-purple-400 text-sm mb-2">Fase 3: Sprint Review y Retrospectiva Kaizen (10 minutos)</h3>
+          <ol class="list-decimal pl-4 space-y-1.5 text-slate-300">
+            <li><strong>Sprint Review (5 min):</strong> La pareja demuestra la aplicación funcionando al profesor o a otra pareja de clase. El PO valida que cumple la DoD.</li>
+            <li><strong>Retrospectiva (5 min):</strong> La pareja responde a 3 preguntas de mejora continua:
+              <ul class="list-disc pl-5 text-slate-400 mt-1">
+                <li>¿Acertamos en la estimación de Puntos de Historia?</li>
+                <li>¿Tuvimos problemas al integrar el código de ambos en el mismo fichero HTML/JS?</li>
+                <li>¿Qué acuerdo técnico tomaríamos para el próximo Sprint?</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Plantilla de Código JavaScript Base -->
+    <section class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-xl">
+      <h2 class="text-xl font-bold text-blue-400 mb-3">💻 4. Plantilla de Código Base (TaskSprint JS)</h2>
+      <p class="text-xs text-slate-400 mb-4">
+        Podéis utilizar esta plantilla HTML/JS minimalista para trabajar juntos en la solución:
+      </p>
+
+      <pre class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs code-font text-emerald-400 overflow-x-auto"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"/&gt;
+  &lt;title&gt;TaskSprint JS - Ejercicio Scrum&lt;/title&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-900 text-slate-100 p-6 font-sans"&gt;
+
+  &lt;div class="max-w-md mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 space-y-4 shadow-xl"&gt;
+    &lt;h2 class="text-lg font-bold text-amber-400"&gt;⚡ TaskSprint JS&lt;/h2&gt;
+
+    &lt;!-- US-04: Métricas (Estudiante A) --&gt;
+    &lt;div id="metricas" class="text-xs text-slate-400 font-semibold bg-slate-900 p-3 rounded-xl border border-slate-700"&gt;
+      📊 Cargando estadísticas...
+    &lt;/div&gt;
+
+    &lt;!-- US-01: Formulario de Alta (Estudiante A) --&gt;
+    &lt;form id="form-tarea" class="flex gap-2"&gt;
+      &lt;input type="text" id="input-tarea" placeholder="Nueva tarea..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"/&gt;
+      &lt;button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition-colors"&gt;Añadir&lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;!-- US-03: Botones de Filtro (Estudiante B) --&gt;
+    &lt;div class="flex gap-1 text-xs"&gt;
+      &lt;button id="btn-todas" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-1.5 rounded-lg transition-colors"&gt;Todas&lt;/button&gt;
+      &lt;button id="btn-pendientes" class="flex-1 bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-1.5 rounded-lg transition-colors"&gt;Pendientes&lt;/button&gt;
+      &lt;button id="btn-completadas" class="flex-1 bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-1.5 rounded-lg transition-colors"&gt;Completadas&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- US-02: Lista Dinámica (Estudiante B) --&gt;
+    &lt;ul id="lista-tareas" class="space-y-2 pt-2"&gt;
+      &lt;!-- Las tareas se dibujan dinámicamente aquí --&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    // Estado global de la aplicación (Array de Objetos)
+    const tareas = [
+      { id: 1, texto: 'Aprender roles de Scrum', completada: true },
+      { id: 2, texto: 'Estimar historias con Planning Poker', completada: false }
+    ];
+
+    let filtroActual = 'todas'; // 'todas' | 'pendientes' | 'completadas'
+
+    // ==========================================
+    // CÓDIGO DEL ESTUDIANTE A (US-01 y US-04)
+    // ==========================================
+    function actualizarMetricas() {
+      const total = tareas.length;
+      const completadas = tareas.filter(t => t.completada).length;
+      const elMetricas = document.getElementById('metricas');
+      elMetricas.textContent = `📊 Estado del Sprint: ${completadas} de ${total} tareas completadas`;
+    }
+
+    document.getElementById('form-tarea').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('input-tarea');
+      const texto = input.value.trim();
+      if (!texto) return;
+
+      tareas.push({ id: Date.now(), texto: texto, completada: false });
+      input.value = '';
+      
+      renderizar();
+      actualizarMetricas();
+    });
+
+    // ==========================================
+    // CÓDIGO DEL ESTUDIANTE B (US-02 y US-03)
+    // ==========================================
+    function renderizar() {
+      const lista = document.getElementById('lista-tareas');
+      lista.innerHTML = '';
+
+      let tareasFiltradas = tareas;
+      if (filtroActual === 'pendientes') tareasFiltradas = tareas.filter(t => !t.completada);
+      if (filtroActual === 'completadas') tareasFiltradas = tareas.filter(t => t.completada);
+
+      tareasFiltradas.forEach(t => {
+        const li = document.createElement('li');
+        li.className = `flex items-center justify-between p-3 rounded-xl border text-xs ${t.completada ? 'bg-emerald-950/40 border-emerald-800/60 text-emerald-300 line-through' : 'bg-slate-900 border-slate-700 text-slate-200'}`;
+        
+        li.innerHTML = `
+          <span>${t.texto}</span>
+          <button onclick="alternarEstado(${t.id})" class="px-2.5 py-1 rounded-lg text-[10px] font-bold ${t.completada ? 'bg-slate-800 text-slate-400' : 'bg-emerald-600 text-white'} transition-colors">
+            ${t.completada ? 'Reabrir' : 'Completar'}
+          </button>
+        `;
+        lista.appendChild(li);
+      });
+    }
+
+    function alternarEstado(id) {
+      const tarea = tareas.find(t => t.id === id);
+      if (tarea) {
+        tarea.completada = !tarea.completada;
+        renderizar();
+        actualizarMetricas();
+      }
+    }
+
+    document.getElementById('btn-todas').addEventListener('click', () => { filtroActual = 'todas'; renderizar(); });
+    document.getElementById('btn-pendientes').addEventListener('click', () => { filtroActual = 'pendientes'; renderizar(); });
+    document.getElementById('btn-completadas').addEventListener('click', () => { filtroActual = 'completadas'; renderizar(); });
+
+    // Inicialización al cargar la página
+    renderizar();
+    actualizarMetricas();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+  </div>
+
+</body>
+</html>

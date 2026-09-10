@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Reto 2: Mini-Router SPA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+    <h2 class="text-lg font-bold text-emerald-400">🎯 Reto 2: Router SPA con window.location.hash y hashchange</h2>
+    <div class="flex gap-2 text-xs font-bold">
+      <a href="#inicio" class="px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-emerald-400">#inicio</a>
+      <a href="#productos" class="px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-emerald-400">#productos</a>
+      <a href="#contacto" class="px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-emerald-400">#contacto</a>
+    </div>
+    <div id="app" class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-slate-200"></div>
+  </div>
+  <script>
+    const rutas = {
+      '#inicio': '🏠 Vista de Inicio SPA',
+      '#productos': '📦 Catálogo de Productos SPA',
+      '#contacto': '📧 Formulario de Contacto SPA'
+    };
+
+    function renderRuta() {
+      const hash = window.location.hash || '#inicio';
+      const cont = document.getElementById('app');
+      cont.textContent = rutas[hash] || '⚠️ Ruta no encontrada';
+    }
+
+    window.addEventListener('hashchange', renderRuta);
+    renderRuta();
+  </script>
+</body>
+</html>

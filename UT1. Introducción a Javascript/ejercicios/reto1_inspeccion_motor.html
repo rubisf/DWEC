@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Reto 1: Inspección del Motor V8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+    <h2 class="text-lg font-bold text-indigo-400">🎯 Reto 1: Inspección del Motor V8 y Entorno</h2>
+    <div class="space-y-3 font-mono text-xs">
+      <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+        <span class="text-indigo-400 font-bold">navigator.userAgent:</span>
+        <div id="ua-output" class="text-slate-300 mt-1 break-all"></div>
+      </div>
+      <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+        <span class="text-emerald-400 font-bold">window === globalThis:</span>
+        <span id="global-output" class="text-white font-bold ml-2"></span>
+      </div>
+      <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+        <span class="text-amber-400 font-bold">Expresión aritmética estricta (2 ** 10 / 2):</span>
+        <span id="calc-output" class="text-amber-300 ml-2"></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    console.log("Navegador UserAgent:", navigator.userAgent);
+    console.log("¿window === globalThis?:", window === globalThis);
+    document.getElementById('ua-output').textContent = navigator.userAgent;
+    document.getElementById('global-output').textContent = String(window === globalThis);
+    document.getElementById('calc-output').textContent = (2 ** 10 / 2) + " (Resultado estricto)";
+  </script>
+</body>
+</html>

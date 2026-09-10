@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UT2: Sintaxis, Sentencias Simples y Principios de Diseño</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --accent: #059669;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--text-main); margin: 0; padding: 0; background: #f8fafc; }
+    .reveal { background: #f8fafc; }
+    .reveal h1, .reveal h2, .reveal h3 { text-transform: none !important; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    
+    /* Contenedor de Slide con padding inferior de 110px para evitar la barra de tareas del SO */
+    .slides section {
+      padding: 20px 36px 110px 36px !important;
+      text-align: left;
+      height: 100% !important;
+      max-height: 100% !important;
+      box-sizing: border-box;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      overflow-y: auto !important;
+    }
+
+    /* Scrollbars elegantes */
+    .slides section::-webkit-scrollbar,
+    .content-card::-webkit-scrollbar,
+    .reto-slide-container::-webkit-scrollbar,
+    .code-demo-card::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .slides section::-webkit-scrollbar-track,
+    .content-card::-webkit-scrollbar-track,
+    .reto-slide-container::-webkit-scrollbar-track,
+    .code-demo-card::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.04);
+      border-radius: 4px;
+    }
+    .slides section::-webkit-scrollbar-thumb,
+    .content-card::-webkit-scrollbar-thumb,
+    .reto-slide-container::-webkit-scrollbar-thumb,
+    .code-demo-card::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .slide-header { margin-bottom: 10px; flex-shrink: 0; }
+    .slide-header h2 {
+      font-size: 1.2em !important;
+      color: #0f172a;
+      margin: 4px 0 0 0 !important;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .badge-sub {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.50em;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-exercise {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    /* Portada Impactante */
+    .cover-slide {
+      background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, var(--accent) 100%) !important;
+      text-align: center !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #fff !important;
+    }
+    .cover-slide .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      font-size: 1.4em;
+      font-weight: 900;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .cover-slide h1 {
+      color: #ffffff !important;
+      font-size: 1.9em !important;
+      margin-bottom: 10px !important;
+      line-height: 1.2;
+    }
+    .cover-slide .subtitle {
+      color: #93c5fd;
+      font-size: 0.95em;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .cover-slide .tagline {
+      color: #cbd5e1;
+      font-size: 0.78em;
+      max-width: 850px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .cover-slide .cover-hint {
+      margin-top: 26px;
+      font-size: 0.68em;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.08);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Layout Índice */
+    .index-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-grow: 1;
+      align-content: start;
+      overflow-y: auto;
+    }
+    .index-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      box-sizing: border-box;
+    }
+    .index-badge {
+      background: #eff6ff;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9em;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid #dbeafe;
+    }
+    .index-info { flex-grow: 1; min-width: 0; }
+    .index-title { font-size: 0.78em; font-weight: 700; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+    .index-desc {
+      font-size: 0.65em;
+      line-height: 1.4;
+      color: #475569;
+      margin: 0;
+    }
+
+    /* Layout de Diapositiva Teórica con Bloque de Código */
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-shrink: 0;
+      align-items: stretch;
+    }
+    .content-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+    }
+    .primary-card { border-top: 3.5px solid var(--accent); }
+    .accent-card { border-top: 3.5px solid #059669; }
+    .card-tag {
+      font-size: 0.64em;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .card-text {
+      font-size: 0.72em;
+      line-height: 1.48;
+      color: #334155;
+      margin: 0;
+      flex-grow: 1;
+    }
+    .card-text p {
+      margin: 0 0 6px 0;
+    }
+    .card-text p:last-child {
+      margin-bottom: 0;
+    }
+    .card-text ul, .card-text ol {
+      margin: 6px 0 8px 0;
+      padding-left: 20px;
+    }
+    .card-text li {
+      margin-bottom: 5px;
+      line-height: 1.42;
+    }
+    .card-text li strong {
+      color: #0f172a;
+    }
+    .card-text code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Tarjeta de Código Demostrativo de Alto Contraste */
+    .code-demo-card {
+      margin-top: 10px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 10px 14px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .code-demo-tag {
+      font-size: 0.62em;
+      font-weight: 700;
+      color: #79c0ff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .code-demo-card pre {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      overflow-x: auto;
+    }
+    .code-demo-card code {
+      font-family: 'Fira Code', monospace !important;
+      font-size: 0.68em !important;
+      line-height: 1.45 !important;
+      color: #f0f6fc !important;
+      white-space: pre-wrap !important;
+    }
+
+    /* Contenedor de Reto Limpio */
+    .reto-slide-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+    .callout {
+      border-radius: 10px;
+      padding: 12px 14px;
+      border-left: 4px solid;
+    }
+    .callout.tip {
+      background: #f0fdf4;
+      border-color: #10b981;
+    }
+    .callout.info {
+      background: #eff6ff;
+      border-color: #3b82f6;
+    }
+    .callout-title {
+      font-weight: 700;
+      font-size: 0.74em;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+    .callout-body {
+      font-size: 0.72em;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .reto-action-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+      margin-top: 4px;
+    }
+    .reto-action-text { flex-grow: 1; }
+    .reto-action-text strong { font-size: 0.82em; color: #0f172a; display: block; margin-bottom: 2px; }
+    .reto-action-text p { font-size: 0.70em; color: #64748b; margin: 0; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #4f46e5;
+      color: #ffffff !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { background: #4338ca; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: #334155 !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    /* Slide Final Taller */
+    .final-workshop-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-grow: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    }
+    .final-ex-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .final-ex-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #f1f5f9;
+    }
+    .final-ex-badge {
+      background: #059669;
+      color: #fff;
+      font-size: 0.65em;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .final-ex-text strong { font-size: 0.76em; color: #0f172a; display: block; }
+    .final-ex-text p { font-size: 0.66em; color: #64748b; margin: 0; }
+    .final-action-bar { display: flex; gap: 12px; margin-top: auto; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <section class="cover-slide">
+        <div class="badge">02</div>
+        <h1>UT2: Sintaxis, Sentencias Simples y Principios de Diseño</h1>
+        <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
+        <div class="tagline">Metodologías ágiles (Scrum), principios de arquitectura de software (SOLID, DRY, KISS), variables de bloque (let/const), coerción de tipos, funciones flecha, modo estricto y contexto this.</div>
+        <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Índice Curricular</span>
+          <h2>📋 Contenidos y Epígrafes de la Unidad</h2>
+        </div>
+        <div class="index-grid">
+          
+          <div class="index-card">
+            <div class="index-badge">1</div>
+            <div class="index-info">
+              <div class="index-title">Metodologías Ágiles (Scrum) y Principios de Diseño (SOLID)</div>
+              <p class="index-desc">El desarrollo web profesional requiere combinar metodologías de trabajo ágiles con principios de diseño de software de alta calidad.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">2</div>
+            <div class="index-info">
+              <div class="index-title">Tipos Primitivos, Objetos y Declaración de Variables (let / const)</div>
+              <p class="index-desc">JavaScript maneja una distinción clara entre tipos de datos primitivos por valor y objetos complejos por referencia.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">3</div>
+            <div class="index-info">
+              <div class="index-title">Estructuras de Control, Bucles Modernos y Operador Spread</div>
+              <p class="index-desc">El control de flujo en JavaScript se estructura mediante condicionales y estructuras repetitivas optimizadas.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">4</div>
+            <div class="index-info">
+              <div class="index-title">Funciones Clásicas, Funciones Flecha y Contexto &#x27;this&#x27;</div>
+              <p class="index-desc">Las funciones son bloques de construcción fundamentales y ciudadanos de primera clase (First-Class Citizens) en JavaScript.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
+          <h2>1. Metodologías Ágiles (Scrum) y Principios de Diseño (SOLID)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>El desarrollo web profesional requiere combinar metodologías de trabajo ágiles con principios de diseño de software de alta calidad:</p><ul class="concept-list"><li><strong>Metodología Ágil Scrum:</strong> Marco de trabajo iterativo enfocado en entregas continuas de valor mediante <em>Sprints</em> (ciclos de 1 a 4 semanas), refinamiento de historias de usuario en el Backlog y reuniones diarias de sincronización (Daily Standups).</li><li><strong>Clean Code (Código Limpio):</strong> Principios de legibilidad que exigen nombres autoexplicativos para variables y funciones, funciones pequeñas orientadas a una sola responsabilidad y ausencia de efectos secundarios ocultos.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>La arquitectura del código se rige por los 5 principios de diseño orientado a objetos <strong>SOLID</strong> adaptados a JavaScript:</p><ul class="concept-list"><li><strong>S (Single Responsibility):</strong> Principio de Responsabilidad Única. Cada módulo o clase debe tener una sola razón para cambiar.</li><li><strong>O (Open/Closed):</strong> Abierto para la extensión, cerrado para la modificación. Extender funcionalidad mediante herencia o composición sin alterar código testeado.</li><li><strong>L (Liskov Substitution):</strong> Las clases derivadas deben poder sustituir a sus clases base sin alterar el comportamiento correcto del programa.</li><li><strong>I (Interface Segregation):</strong> Los clientes no deben verse obligados a depender de interfaces o métodos que no utilizan.</li><li><strong>D (Dependency Inversion):</strong> Inversión de Dependencias. Módulos de alto nivel no deben depender de detalles de bajo nivel, sino de abstracciones.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo1_scrum_solid.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_scrum_solid.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT2 - Ejemplo 1: Scrum y SOLID
+class GeneradorInforme {
+    crearReporteSprint(sprintNumero, historias) {
+        return { sprint: `Sprint #${sprintNumero}`, totalHistorias: historias.length, fecha: new Date().toISOString() };
+    }
+}
+class FormateadorJSON {
+    exportar(datos) { return JSON.stringify(datos, null, 2); }
+}
+const generador = new GeneradorInforme();
+const formateador = new FormateadorJSON();
+console.log(formateador.exportar(generador.crearReporteSprint(4, [&quot;US1: Login JWT&quot;, &quot;US2: Dashboard UI&quot;])));
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
+          <h2>🎯 Reto: Refactorización hacia Responsabilidad Única (SRP)</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Toma una función que realiza cálculos de impuestos, formatea la salida en HTML y guarda en el almacenamiento local. Sepárala en tres funciones puras y desacopladas (calcularIVA, formatearFactura, guardarRegistro) aplicando SRP.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
+          <h2>2. Tipos Primitivos, Objetos y Declaración de Variables (let / const)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>JavaScript maneja una distinción clara entre tipos de datos primitivos por valor y objetos complejos por referencia:</p><ul class="concept-list"><li><strong>Tipos Primitivos (Inmutables):</strong> <code>number</code>, <code>string</code>, <code>boolean</code>, <code>undefined</code>, <code>null</code>, <code>symbol</code> y <code>bigint</code>. Se comparan y copian directamente por su valor en memoria.</li><li><strong>Tipos por Referencia (Mutables):</strong> Objetos, Arrays y Funciones. Se almacenan en la memoria Heap y las variables guardan una referencia (puntero) a la dirección de memoria.</li><li><strong>Declaración con <code>let</code> y <code>const</code>:</strong> Reemplazan a <code>var</code> introduciendo ámbito de bloque (Block Scope) e impidiendo el <strong>Hoisting perjudicial</strong> (elevación implícita que dejaba variables con valor <code>undefined</code>). La <strong>TDZ (Temporal Dead Zone)</strong> prohíbe acceder a <code>let</code>/<code>const</code> antes de su línea de declaración.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Manejo de conversiones y coerciones de tipos según el estándar ECMAScript:</p><ul class="concept-list"><li><strong>Coerción Implícita:</strong> Conversión automática de tipos realizada por el intérprete (ej. <code>'5' - 2 = 3</code> pero <code>'5' + 2 = '52'</code>).</li><li><strong>Igualdad Estricta (<code>===</code>):</strong> Compara tanto el valor como el tipo de dato sin realizar coerción implícita, evitando fallos lógicos respecto a la igualdad débil (<code>==</code>).</li><li><strong>Valores Falsy:</strong> Valores que se evalúan a <code>false</code> en contextos booleanos: <code>false</code>, <code>0</code>, <code></code>, <code>null</code>, <code>undefined</code> y <code>NaN</code>.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo2_scope_tdz.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_scope_tdz.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT2 - Ejemplo 2: Scope y TDZ
+function probarScope() {
+    if (true) {
+        let variableLet = &quot;Aislada en el bloque (let)&quot;;
+        console.log(&quot;Dentro del bloque:&quot;, variableLet);
+    }
+}
+probarScope();
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
+          <h2>🎯 Reto: Diferenciación de Scope y Mutabilidad</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Declara un array con &#x27;const&#x27;. Demuestra que se pueden modificar sus elementos internos (.push), pero que reasignar la variable arroja un TypeError. Explica qué ocurre en un bucle &#x27;for&#x27; con &#x27;let&#x27; vs &#x27;var&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
+          <h2>3. Estructuras de Control, Bucles Modernos y Operador Spread</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>El control de flujo en JavaScript se estructura mediante condicionales y estructuras repetitivas optimizadas:</p><ul class="concept-list"><li><strong>Bucle <code>for...of</code>:</strong> Diseñado para iterar directamente sobre los valores de objetos iterables (Arrays, Cadenas, Sets, Maps).</li><li><strong>Bucle <code>for...in</code>:</strong> Diseñado exclusivamente para recorrer las llaves o propiedades enumerables de un objeto.</li><li><strong>Operador Spread (<code>...</code>):</strong> Desempaqueta y expande los elementos de un array u objeto iterable dentro de un nuevo contenedor (permite clonado superficial y concatenación).</li><li><strong>Operador Rest (<code>...</code>):</strong> Agrupa múltiples argumentos sobrantes pasados a una función dentro de un array formal.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Operadores de cortocircuito y evaluación de valores nulos introducidos en las especificaciones modernas:</p><ul class="concept-list"><li><strong>Operador de Fusión Nula (<code>??</code>):</strong> Devuelve el operando de la derecha solo si el de la izquierda es <code>null</code> o <code>undefined</code> (a diferencia de <code>||</code> que salta con cualquier valor falsy como <code>0</code> o <code></code>).</li><li><strong>Encadenamiento Opcional (<code>?.</code>):</strong> Permite leer propiedades anidadas de un objeto sin lanzar un error <code>TypeError</code> si una referencia intermedia es nula.</li><li><strong>Desestructuración (Destructuring):</strong> Sintaxis que permite extraer valores de arrays u objetos y asignarlos directamente a variables individuales.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo3_bucles_spread.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_bucles_spread.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT2 - Ejemplo 3: Bucles y Spread
+const productos = [{ id: 1, nombre: &quot;Teclado&quot;, precio: 85 }, { id: 2, nombre: &quot;Ratón&quot;, precio: 45 }];
+for (const prod of productos) { console.log(`Producto: ${prod.nombre} | Precio: €${prod.precio}`); }
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
+          <h2>🎯 Reto: Clonación Inmutable y Filtrado con Bucles Modernos</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Dado un array de puntuaciones, clónalo inmutablemente con spread (...), añade dos nuevas notas y calcula la media de los aprobados utilizando un bucle &#x27;for...of&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
+          <h2>4. Funciones Clásicas, Funciones Flecha y Contexto &#x27;this&#x27;</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Las funciones son bloques de construcción fundamentales y ciudadanos de primera clase (First-Class Citizens) en JavaScript:</p><ul class="concept-list"><li><strong>Declaraciones y Expresiones de Función:</strong> Las declaraciones se elevan (Hoisting) al inicio del ámbito; las expresiones asociadas a variables se evalúan en tiempo de ejecución.</li><li><strong>Funciones Flecha (Arrow Functions):</strong> Sintaxis compacta (<code>(args) =&gt; expr</code>) que carece de su propio objeto <code>arguments</code> y realiza un <strong>enlace léxico del contexto <code>this</code></strong>.</li><li><strong>Comportamiento del Contexto <code>this</code>:</strong> En funciones clásicas, <code>this</code> se determina dinámicamente según cómo se invoca la función (el objeto que la llama). En Arrow Functions, <code>this</code> se hereda del ámbito padre envolvente en el momento de su creación.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Métodos explícitos para la vinculación del contexto de ejecución (Explicit Binding):</p><ul class="concept-list"><li><strong><code>Function.prototype.call(thisArg, arg1, arg2)</code>:</strong> Invoca la función inmediatamente fijando <code>this</code> y pasando argumentos individualmente.</li><li><strong><code>Function.prototype.apply(thisArg, [argsArray])</code>:</strong> Invoca la función fijando <code>this</code> y pasando los argumentos empaquetados en un array.</li><li><strong><code>Function.prototype.bind(thisArg)</code>:</strong> Devuelve una nueva función con el contexto <code>this</code> permanentemente enlazado para ser ejecutada en el futuro.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo4_arrow_this.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_arrow_this.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT2 - Ejemplo 4: Arrow Functions y Contexto this
+const usuario = {
+    nombre: &quot;Rubén&quot;,
+    lenguajes: [&quot;JavaScript&quot;, &quot;TypeScript&quot;],
+    mostrarLenguajes() {
+        this.lenguajes.forEach(lang =&gt; console.log(`${this.nombre} programa en ${lang}`));
+    }
+};
+usuario.mostrarLenguajes();
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
+          <h2>🎯 Reto: Control del Contexto &#x27;this&#x27; con call, apply y bind</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Escribe una función &#x27;presentar(rol)&#x27; y ejecútala cambiando explícitamente el contexto &#x27;this&#x27; con call(), apply() y bind() hacia dos objetos persona distintos.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Taller Práctico</span>
+          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+        </div>
+        <div class="final-workshop-card">
+          <ul class="final-ex-list">
+            
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 1</span>
+        <div class="final-ex-text">
+          <strong>Calculadora de Facturas con Principios SOLID</strong>
+          <p>Módulo interactivo que calcula impuestos, aplica descuentos por tipo de cliente y exporta datos desacoplando la lógica de negocio, la validación y el renderizado en pantalla.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 2</span>
+        <div class="final-ex-text">
+          <strong>Laboratorio de Scope, Hoisting y Modo Estricto</strong>
+          <p>Simulador de consola interactivo donde los alumnos experimentan con variables var, let, const en bloques anidados y comprueban las excepciones del modo estricto en tiempo real.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 3</span>
+        <div class="final-ex-text">
+          <strong>Dashboard de Métricas con Funciones Flecha y Spread</strong>
+          <p>Panel dinámico para calcular estadísticas de estudiantes (máximos, mínimos, medias y dispersión) manipulando arrays inmutables con sintaxis moderna ES6+.</p>
+        </div>
+      </li>
+          </ul>
+          <div class="final-action-bar">
+            <a href="ejercicios.html" class="btn-primary">
+              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+            </a>
+            <a href="../index.html" class="btn-secondary">
+              🏠 Volver al Panel General
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: false,
+      hash: true,
+      transition: 'slide',
+      width: 1280,
+      height: 720,
+      margin: 0.04
+    });
+    hljs.highlightAll();
+  </script>
+</body>
+</html>

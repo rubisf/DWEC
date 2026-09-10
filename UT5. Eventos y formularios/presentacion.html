@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UT5: Gestión de Eventos y Formularios Web</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --accent: #0284c7;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--text-main); margin: 0; padding: 0; background: #f8fafc; }
+    .reveal { background: #f8fafc; }
+    .reveal h1, .reveal h2, .reveal h3 { text-transform: none !important; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    
+    /* Contenedor de Slide con padding inferior de 110px para evitar la barra de tareas del SO */
+    .slides section {
+      padding: 20px 36px 110px 36px !important;
+      text-align: left;
+      height: 100% !important;
+      max-height: 100% !important;
+      box-sizing: border-box;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      overflow-y: auto !important;
+    }
+
+    /* Scrollbars elegantes */
+    .slides section::-webkit-scrollbar,
+    .content-card::-webkit-scrollbar,
+    .reto-slide-container::-webkit-scrollbar,
+    .code-demo-card::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .slides section::-webkit-scrollbar-track,
+    .content-card::-webkit-scrollbar-track,
+    .reto-slide-container::-webkit-scrollbar-track,
+    .code-demo-card::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.04);
+      border-radius: 4px;
+    }
+    .slides section::-webkit-scrollbar-thumb,
+    .content-card::-webkit-scrollbar-thumb,
+    .reto-slide-container::-webkit-scrollbar-thumb,
+    .code-demo-card::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .slide-header { margin-bottom: 10px; flex-shrink: 0; }
+    .slide-header h2 {
+      font-size: 1.2em !important;
+      color: #0f172a;
+      margin: 4px 0 0 0 !important;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .badge-sub {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.50em;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-exercise {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    /* Portada Impactante */
+    .cover-slide {
+      background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, var(--accent) 100%) !important;
+      text-align: center !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #fff !important;
+    }
+    .cover-slide .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      font-size: 1.4em;
+      font-weight: 900;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .cover-slide h1 {
+      color: #ffffff !important;
+      font-size: 1.9em !important;
+      margin-bottom: 10px !important;
+      line-height: 1.2;
+    }
+    .cover-slide .subtitle {
+      color: #93c5fd;
+      font-size: 0.95em;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .cover-slide .tagline {
+      color: #cbd5e1;
+      font-size: 0.78em;
+      max-width: 850px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .cover-slide .cover-hint {
+      margin-top: 26px;
+      font-size: 0.68em;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.08);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Layout Índice */
+    .index-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-grow: 1;
+      align-content: start;
+      overflow-y: auto;
+    }
+    .index-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      box-sizing: border-box;
+    }
+    .index-badge {
+      background: #eff6ff;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9em;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid #dbeafe;
+    }
+    .index-info { flex-grow: 1; min-width: 0; }
+    .index-title { font-size: 0.78em; font-weight: 700; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+    .index-desc {
+      font-size: 0.65em;
+      line-height: 1.4;
+      color: #475569;
+      margin: 0;
+    }
+
+    /* Layout de Diapositiva Teórica con Bloque de Código */
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-shrink: 0;
+      align-items: stretch;
+    }
+    .content-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+    }
+    .primary-card { border-top: 3.5px solid var(--accent); }
+    .accent-card { border-top: 3.5px solid #059669; }
+    .card-tag {
+      font-size: 0.64em;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .card-text {
+      font-size: 0.72em;
+      line-height: 1.48;
+      color: #334155;
+      margin: 0;
+      flex-grow: 1;
+    }
+    .card-text p {
+      margin: 0 0 6px 0;
+    }
+    .card-text p:last-child {
+      margin-bottom: 0;
+    }
+    .card-text ul, .card-text ol {
+      margin: 6px 0 8px 0;
+      padding-left: 20px;
+    }
+    .card-text li {
+      margin-bottom: 5px;
+      line-height: 1.42;
+    }
+    .card-text li strong {
+      color: #0f172a;
+    }
+    .card-text code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Tarjeta de Código Demostrativo de Alto Contraste */
+    .code-demo-card {
+      margin-top: 10px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 10px 14px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .code-demo-tag {
+      font-size: 0.62em;
+      font-weight: 700;
+      color: #79c0ff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .code-demo-card pre {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      overflow-x: auto;
+    }
+    .code-demo-card code {
+      font-family: 'Fira Code', monospace !important;
+      font-size: 0.68em !important;
+      line-height: 1.45 !important;
+      color: #f0f6fc !important;
+      white-space: pre-wrap !important;
+    }
+
+    /* Contenedor de Reto Limpio */
+    .reto-slide-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+    .callout {
+      border-radius: 10px;
+      padding: 12px 14px;
+      border-left: 4px solid;
+    }
+    .callout.tip {
+      background: #f0fdf4;
+      border-color: #10b981;
+    }
+    .callout.info {
+      background: #eff6ff;
+      border-color: #3b82f6;
+    }
+    .callout-title {
+      font-weight: 700;
+      font-size: 0.74em;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+    .callout-body {
+      font-size: 0.72em;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .reto-action-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+      margin-top: 4px;
+    }
+    .reto-action-text { flex-grow: 1; }
+    .reto-action-text strong { font-size: 0.82em; color: #0f172a; display: block; margin-bottom: 2px; }
+    .reto-action-text p { font-size: 0.70em; color: #64748b; margin: 0; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #4f46e5;
+      color: #ffffff !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { background: #4338ca; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: #334155 !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    /* Slide Final Taller */
+    .final-workshop-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-grow: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    }
+    .final-ex-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .final-ex-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #f1f5f9;
+    }
+    .final-ex-badge {
+      background: #059669;
+      color: #fff;
+      font-size: 0.65em;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .final-ex-text strong { font-size: 0.76em; color: #0f172a; display: block; }
+    .final-ex-text p { font-size: 0.66em; color: #64748b; margin: 0; }
+    .final-action-bar { display: flex; gap: 12px; margin-top: auto; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <section class="cover-slide">
+        <div class="badge">05</div>
+        <h1>UT5: Gestión de Eventos y Formularios Web</h1>
+        <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
+        <div class="tagline">Modelo de eventos W3C, fases de captura y burbujeo, delegación de eventos, interacción de teclado/ratón y validación avanzada de formularios con la Constraint Validation API.</div>
+        <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Índice Curricular</span>
+          <h2>📋 Contenidos y Epígrafes de la Unidad</h2>
+        </div>
+        <div class="index-grid">
+          
+          <div class="index-card">
+            <div class="index-badge">1</div>
+            <div class="index-info">
+              <div class="index-title">Modelo de Eventos W3C y addEventListener</div>
+              <p class="index-desc">El modelo de eventos estandarizado por el W3C permite gestionar las interacciones del usuario de forma desacoplada.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">2</div>
+            <div class="index-info">
+              <div class="index-title">Fases de Propagación: Captura, Burbujeo y Delegación</div>
+              <p class="index-desc">Cuando ocurre un evento en un elemento anidado, este se propaga a través del árbol DOM en tres fases consecutivas.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">3</div>
+            <div class="index-info">
+              <div class="index-title">Eventos de Ratón, Teclado e Interacción</div>
+              <p class="index-desc">JavaScript expone eventos específicos para gestionar interacciones ricas de usuario.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">4</div>
+            <div class="index-info">
+              <div class="index-title">Validación de Formularios y Constraint Validation API</div>
+              <p class="index-desc">La validación de formularios en el cliente es la primera línea de defensa para mejorar la experiencia de usuario.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
+          <h2>1. Modelo de Eventos W3C y addEventListener</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>El modelo de eventos estandarizado por el W3C permite gestionar las interacciones del usuario de forma desacoplada:</p><ul class="concept-list"><li><strong>Método <code>addEventListener(event, listener, options)</code>:</strong> Vincula un manejador de eventos a un elemento DOM sin sobrescribir otros listeners existentes.</li><li><strong>Desvinculación con <code>removeEventListener()</code>:</strong> Elimina un evento previamente adjuntado. Requiere pasar exactamente la misma referencia de función.</li><li><strong>Objeto <code>Event</code>:</strong> Contiene información sobre el evento desencadenado (<code>e.target</code> elemento origen, <code>e.type</code> tipo de evento, <code>e.timeStamp</code> marca de tiempo).</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Opciones de registro avanzadas e interrupción del comportamiento por defecto:</p><ul class="concept-list"><li><strong><code>event.preventDefault()</code>:</strong> Cancela la acción predeterminada que el navegador ejecutaría para ese evento (ej. evitar el envío de un formulario o la navegación de un enlace).</li><li><strong>Opción <code>{ once: true }</code>:</strong> Garantiza que el manejador se ejecute una sola vez y se desvincule automáticamente del DOM.</li><li><strong>Opción <code>{ passive: true }</code>:</strong> Indica al navegador que el listener nunca llamará a <code>preventDefault()</code>, optimizando drásticamente el rendimiento de desplazamientos (scroll).</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo1_event_listeners.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_event_listeners.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT5 - Ejemplo 1: Event Listeners
+if (typeof document !== &#x27;undefined&#x27;) {
+    const btn = document.createElement(&quot;button&quot;);
+    btn.addEventListener(&quot;click&quot;, (e) =&gt; console.log(&quot;Clic registrado en:&quot;, e.target), { once: true });
+}
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
+          <h2>🎯 Reto: Prevención de Envío y Captura de Coordenadas</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Asocia un evento &#x27;submit&#x27; a un formulario para prevenir su recarga por defecto con &#x27;e.preventDefault()&#x27; e imprime las coordenadas exactas del puntero en el momento del envío mediante &#x27;e.clientX&#x27; y &#x27;e.clientY&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
+          <h2>2. Fases de Propagación: Captura, Burbujeo y Delegación</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Cuando ocurre un evento en un elemento anidado, este se propaga a través del árbol DOM en tres fases consecutivas:</p><ul class="concept-list"><li><strong>1. Fase de Captura (Capturing Phase):</strong> El evento desciende desde el objeto <code>window</code> y la raíz del DOM hasta llegar al elemento objetivo.</li><li><strong>2. Fase del Objetivo (Target Phase):</strong> El evento alcanza directamente al nodo desencadenante (<code>e.target</code>).</li><li><strong>3. Fase de Burbujeo (Bubbling Phase):</strong> El evento asciende consecutivamente desde el objetivo de vuelta hasta la raíz del documento HTML.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Técnicas avanzadas de optimización mediante delegación de eventos:</p><ul class="concept-list"><li><strong>Delegación de Eventos (Event Delegation):</strong> Patrón que consiste en registrar un único manejador de eventos en un contenedor padre en lugar de adjuntar cientos de listeners a elementos hijos. Aprovecha la fase de burbujeo y gestiona elementos dinámicos mediante <code>e.target.closest(selector)</code>.</li><li><strong><code>event.stopPropagation()</code>:</strong> Detiene inmediatamente la propagación del evento hacia los elementos superiores en la fase de burbujeo.</li><li><strong><code>event.stopImmediatePropagation()</code>:</strong> Cancela la propagación y evita que otros listeners registrados en el mismo elemento se ejecuten.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo2_propagacion_delegacion.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_propagacion_delegacion.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT5 - Ejemplo 2: Delegación de Eventos
+if (typeof document !== &#x27;undefined&#x27;) {
+    document.addEventListener(&quot;click&quot;, (e) =&gt; {
+        const item = e.target.closest(&quot;.item-lista&quot;);
+        if (item) console.log(&quot;Elemento seleccionado por delegación:&quot;, item.dataset.id);
+    });
+}
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
+          <h2>🎯 Reto: Implementación de Delegación de Eventos</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Crea una lista dinámica &#x27;&lt;ul&gt;&#x27; donde los nuevos elementos &#x27;&lt;li&gt;&#x27; puedan eliminarse al hacer clic sobre ellos, utilizando un solo &#x27;addEventListener&#x27; colocado en la etiqueta &#x27;&lt;ul&gt;&#x27; mediante delegación de eventos con &#x27;e.target.closest()&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
+          <h2>3. Eventos de Ratón, Teclado e Interacción</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>JavaScript expone eventos específicos para gestionar interacciones ricas de usuario:</p><ul class="concept-list"><li><strong>Eventos de Ratón y Puntero:</strong> <code>click</code>, <code>dblclick</code>, <code>pointerdown</code>, <code>pointermove</code>, <code>pointerup</code>. La Pointer Events API unifica ratón, pantallas táctiles y lápices ópticos.</li><li><strong>Eventos de Teclado:</strong> <code>keydown</code> y <code>keyup</code>. La propiedad <code>e.key</code> devuelve el valor del carácter presionado y <code>e.code</code> el código físico de la tecla.</li><li><strong>Eventos de Foco y Formulario:</strong> <code>focus</code>, <code>blur</code>, <code>change</code> (al perder el foco habiendo cambiado el valor) e <code>input</code> (disparado inmediatamente en cada pulsación).</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Técnicas de control de tasa de ejecución (Throttling y Debouncing):</p><ul class="concept-list"><li><strong>Debouncing (Antirrebote):</strong> Pospone la ejecución de una función hasta que haya transcurrido un tiempo determinado de inactividad tras la última llamada (ideal para campos de búsqueda de texto).</li><li><strong>Throttling (Limitación de Tasa):</strong> Limita la frecuencia máxima con la que una función puede ejecutarse a intervalos regulares fijados (ideal para eventos de <code>scroll</code> o <code>resize</code>).</li><li><strong>Accesibilidad (A11y):</strong> Asegurar que todas las interacciones de ratón tengan su equivalente funcional navegable mediante teclado.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo3_eventos_teclado_raton.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_eventos_teclado_raton.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT5 - Ejemplo 3: Keydown Events
+if (typeof document !== &#x27;undefined&#x27;) {
+    document.addEventListener(&quot;keydown&quot;, (e) =&gt; {
+        console.log(`Tecla: ${e.key} | Código: ${e.code}`);
+    });
+}
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
+          <h2>🎯 Reto: Manejador de Atajos de Teclado Accesible</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Crea un listener global que detecte cuando el usuario pulsa &#x27;Ctrl + Enter&#x27; (e.ctrlKey &amp;&amp; e.key === &#x27;Enter&#x27;) para enviar un mensaje o la tecla &#x27;Escape&#x27; (e.key === &#x27;Escape&#x27;) para cerrar un modal.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
+          <h2>4. Validación de Formularios y Constraint Validation API</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La validación de formularios en el cliente es la primera línea de defensa para mejorar la experiencia de usuario:</p><ul class="concept-list"><li><strong>Atributos de Validación HTML5:</strong> <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code> (expresiones regulares) y tipos específicos (<code>type="email"</code>, <code>type="number"</code>).</li><li><strong>Evento <code>submit</code>:</strong> Captura el intento de envío del formulario en el contenedor <code>&lt;form&gt;</code> para validar datos antes de llamar a <code>e.preventDefault()</code> si existen errores.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Validación programática avanzada con la <strong>Constraint Validation API</strong>:</p><ul class="concept-list"><li><strong><code>element.checkValidity()</code>:</strong> Evalúa si el campo cumple todas las restricciones devolviendo un booleano.</li><li><strong>Objeto <code>element.validity</code>:</strong> Expone propiedades booleanas detalladas de error (<code>valueMissing</code>, <code>typeMismatch</code>, <code>patternMismatch</code>, <code>tooShort</code>, <code>rangeUnderflow</code>).</li><li><strong><code>element.setCustomValidity(mensaje)</code>:</strong> Asigna un mensaje de error personalizado. Pasar una cadena vacía (<code></code>) marca el campo como válido.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo4_constraint_validation.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_constraint_validation.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT5 - Ejemplo 4: Constraint Validation
+if (typeof document !== &#x27;undefined&#x27;) {
+    const input = document.createElement(&quot;input&quot;);
+    input.type = &quot;email&quot;;
+    input.value = &quot;correo-invalido&quot;;
+    console.log(&quot;¿Input email válido?:&quot;, input.checkValidity());
+}
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
+          <h2>🎯 Reto: Validación con Mensajes Personalizados y FormData</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Valida un campo de contraseña verificando que tenga al menos 8 caracteres y contenga un número. Si no cumple, asígnale un mensaje de error personalizado con &#x27;setCustomValidity()&#x27; y extrae los datos del formulario con &#x27;FormData&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Taller Práctico</span>
+          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+        </div>
+        <div class="final-workshop-card">
+          <ul class="final-ex-list">
+            
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 1</span>
+        <div class="final-ex-text">
+          <strong>Formulario de Alta con Constraint Validation API</strong>
+          <p>Formulario completo de registro con feedback visual en tiempo real de validez, mensajes de error personalizados y extracción automática de datos con FormData.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 2</span>
+        <div class="final-ex-text">
+          <strong>Visualizador Interactivo de Fases de Eventos</strong>
+          <p>Herramienta didáctica con elementos anidados de colores (Abuelo, Padre, Hijo) que ilustra paso a paso la fase de captura, diana y burbujeo con paradas opcionales de stopPropagation.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 3</span>
+        <div class="final-ex-text">
+          <strong>Tablero Kanban con Delegación y Atajos de Teclado</strong>
+          <p>Aplicación de tareas interactivas donde las tarjetas se crean, editan y eliminan utilizando delegación de eventos optimizada y navegación por teclado (Enter, Escape, Delete).</p>
+        </div>
+      </li>
+          </ul>
+          <div class="final-action-bar">
+            <a href="ejercicios.html" class="btn-primary">
+              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+            </a>
+            <a href="../index.html" class="btn-secondary">
+              🏠 Volver al Panel General
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: false,
+      hash: true,
+      transition: 'slide',
+      width: 1280,
+      height: 720,
+      margin: 0.04
+    });
+    hljs.highlightAll();
+  </script>
+</body>
+</html>

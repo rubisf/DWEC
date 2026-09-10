@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soluciones y Taller de Prácticas - UT1: Introducción a JavaScript y Control de Versiones</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .code-container {
+      background-color: #0d1117 !important;
+      border: 1px solid #30363d !important;
+      border-radius: 12px !important;
+    }
+    .code-container pre {
+      margin: 0 !important;
+      padding: 16px !important;
+      background-color: #0d1117 !important;
+    }
+    .code-container code {
+      background-color: #0d1117 !important;
+      color: #f0f6fc !important;
+      font-size: 13px !important;
+      line-height: 1.6 !important;
+    }
+    .hljs-keyword, .hljs-selector-tag, .hljs-subst { color: #ff7b72 !important; font-weight: 700; }
+    .hljs-string, .hljs-title, .hljs-section, .hljs-attribute, .hljs-literal, .hljs-type { color: #a5d6ff !important; }
+    .hljs-comment, .hljs-quote, .hljs-deletion, .hljs-meta { color: #8b949e !important; font-style: italic; }
+    .hljs-number, .hljs-regexp, .hljs-link { color: #79c0ff !important; }
+    .hljs-function, .hljs-title.function_ { color: #d2a8ff !important; }
+    .hljs-variable, .hljs-params { color: #ffa657 !important; }
+    .hljs-tag, .hljs-name { color: #7ee787 !important; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col antialiased">
+
+  <!-- Barra Superior -->
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+    <div class="flex items-center gap-4">
+      <a href="../index.html" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Volver al Panel Principal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      </a>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-md">UT1</span>
+          <h1 class="text-lg font-bold text-slate-800">UT1: Introducción a JavaScript y Control de Versiones</h1>
+        </div>
+        <p class="text-xs text-slate-500">Centro Oficial de Soluciones Explicadas, Código Fuente y Ejecución en Vivo</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="presentacion.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
+        🎬 Ver Presentación
+      </a>
+      <a href="../index.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+        🏠 Índice General
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal Split -->
+  <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto p-6 gap-6">
+    
+    <!-- Sidebar Ejercicios -->
+    <aside class="w-80 bg-white rounded-2xl border border-slate-200 p-4 flex flex-col shadow-sm flex-shrink-0">
+      <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 space-y-4">
+        
+        <div>
+          <h2 class="text-xs font-bold tracking-wider text-indigo-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🎯 Retos de Conceptos (4)
+          </h2>
+          
+          <button onclick="selectItem('reto-1')" id="nav-btn-reto-1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Inspección del Motor y Entorno de Ejecución</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 1</span>
+          </button>
+          <button onclick="selectItem('reto-2')" id="nav-btn-reto-2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Carga Modular y Diferida en HTML5</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 2</span>
+          </button>
+          <button onclick="selectItem('reto-3')" id="nav-btn-reto-3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Secuencia de Trabajo Git y Ramas</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 3</span>
+          </button>
+          <button onclick="selectItem('reto-4')" id="nav-btn-reto-4" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Inserción Segura de Tarjetas Dinámicas</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 4</span>
+          </button>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100">
+          <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🚀 Prácticas y Proyectos (3)
+          </h2>
+          
+          <button onclick="selectItem('ej1')" id="nav-btn-ej1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Simulador de Estados y Flujo Git</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 1</span>
+          </button>
+          <button onclick="selectItem('ej2')" id="nav-btn-ej2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Catálogo Dinámico con Métodos DOM Modernos</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 2</span>
+          </button>
+          <button onclick="selectItem('ej3')" id="nav-btn-ej3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Benchmark de Carga: Sync vs Defer vs Module</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 3</span>
+          </button>
+        </div>
+
+      </div>
+      <div class="pt-4 border-t border-slate-100 mt-2 text-xs text-slate-400 text-center">
+        DWEC · Grado Superior DAW
+      </div>
+    </aside>
+
+    <!-- Panel de Actividad Seleccionada -->
+    <main class="flex-1 bg-white rounded-2xl border border-slate-200 flex flex-col shadow-sm overflow-hidden">
+      
+      <!-- Cabecera de Práctica/Reto -->
+      <div class="p-6 border-b border-slate-200 bg-slate-50/50 flex items-start justify-between">
+        <div>
+          <span id="ex-badge" class="px-2.5 py-1 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-lg">Cargando...</span>
+          <h2 id="ex-title" class="text-xl font-bold text-slate-900 mt-2">Cargando...</h2>
+          <p id="ex-subtitle" class="text-xs font-semibold text-slate-500 mt-1"></p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="switchTab('tab-view')" id="btn-tab-view" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm">
+            ▶️ Vista / Ejecución en Vivo
+          </button>
+          <button onclick="switchTab('tab-code')" id="btn-tab-code" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all">
+            💻 Código Fuente y Solución
+          </button>
+        </div>
+      </div>
+
+      <!-- Cuerpo del Visor -->
+      <div class="flex-1 p-6 overflow-y-auto custom-scrollbar relative flex flex-col">
+        
+        <!-- Bloque de Enunciado -->
+        <div class="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+          <h3 class="text-xs font-bold text-emerald-900 uppercase tracking-wider mb-1">📝 Enunciado de la Actividad</h3>
+          <p id="ex-instruction" class="text-xs text-emerald-800 leading-relaxed"></p>
+        </div>
+
+        <!-- Tab 1: Vista Previa / Ejecución en Vivo -->
+        <div id="tab-view" class="tab-content flex-1 flex flex-col min-h-0">
+          <div id="iframe-wrapper" class="flex-1 rounded-xl border border-slate-200 overflow-hidden bg-slate-50 min-h-[360px] relative">
+            <iframe id="preview-iframe" class="w-full h-full border-0" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+            <span id="preview-hint">💡 Entorno interactivo aislado en sandbox.</span>
+            <button onclick="reloadPreview()" class="text-indigo-600 hover:underline font-semibold flex items-center gap-1">
+              🔄 Recargar entorno
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Código Fuente y Solución Explicada con Alto Contraste -->
+        <div id="tab-code" class="tab-content hidden flex-1 flex flex-col space-y-4 min-h-0">
+          <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
+            <h3 class="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">💡 Explicación Paso a Paso de la Solución</h3>
+            <p id="ex-explanation" class="text-xs text-indigo-800 leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-500">Solución Oficial en Código Fuente (Alto Contraste)</span>
+            <button onclick="copyCode()" id="copy-btn" class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors flex items-center gap-1">
+              📋 Copiar Código
+            </button>
+          </div>
+          <div class="flex-1 code-container overflow-hidden p-2 text-xs overflow-y-auto custom-scrollbar">
+            <pre><code id="code-content" class="language-javascript"></code></pre>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Shell HTML aislado como Script de texto puro (sin parseo en el documento padre) -->
+  <script type="text/html" id="iframe-shell-template">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="utf-8"/>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+        body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 16px; margin: 0; font-size: 13px; }
+        .log-title { color: #d2a8ff; font-weight: bold; margin-bottom: 12px; font-size: 13px; border-bottom: 1px solid #30363d; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .log-line { border-bottom: 1px solid #21262d; padding: 6px 0; color: #7ee787; line-height: 1.5; font-family: monospace; }
+        .log-error { color: #ff7b72; font-weight: bold; }
+        .log-info { color: #79c0ff; }
+        .hidden { display: none !important; }
+      </style>
+    </head>
+    <body class="antialiased">
+      <div id="dom-stage" class="hidden mb-4 p-4 bg-slate-900 border border-slate-700/80 rounded-xl shadow-lg font-sans text-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-2.5 mb-3">
+          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🌐 Escenario DOM Interactivo (Ejecución en Vivo)</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono">Contenedores activos para manipulación DOM</span>
+        </div>
+        <div id="app" class="mb-3 empty:hidden"></div>
+        <div id="catalogo" class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3 empty:hidden"></div>
+        <div id="form-container" class="flex flex-wrap items-center gap-3 mb-3">
+          <form id="miForm" class="flex items-center gap-2">
+            <input id="password" type="password" placeholder="Prueba contraseña..." value="Abc12345" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors shadow-sm">Enviar Formulario</button>
+          </form>
+          <button id="btnTema" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs border border-slate-700 transition-colors">Modo: light</button>
+        </div>
+        <div id="lists-container" class="space-y-3">
+          <ul id="listaDinamica" class="flex flex-wrap gap-2 text-xs">
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 1 (Haz clic para eliminar)</span> 🗑️</li>
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 2 (Haz clic para eliminar)</span> 🗑️</li>
+          </ul>
+          <ul id="miLista" class="space-y-1.5 text-xs text-emerald-400 font-mono"></ul>
+        </div>
+      </div>
+      <div class="log-title"><span>▶️ Resultados de Ejecución en Consola / Salida Estándar:</span></div>
+      <div id="output"></div>
+    </body>
+    </html>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+
+  <script>
+    const ITEMS = [{"id": "reto-1", "type": "reto", "badge": "Reto Concepto 1", "title": "Inspección del Motor y Entorno de Ejecución", "subtitle": "Bloque 1: Arquitectura Web y Rol de JavaScript", "instruction": "Abre las herramientas de desarrollador (F12) en la pestaña 'Console'. Averigua la versión del motor del navegador imprimiendo 'navigator.userAgent', evalúa una expresión aritmética estricta y comprueba si 'window === globalThis'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Inspección del Motor V8</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Inspección del Motor V8 y Entorno</h2>\n    <div class=\"space-y-3 font-mono text-xs\">\n      <div class=\"p-3 bg-slate-950 rounded-xl border border-slate-800\">\n        <span class=\"text-indigo-400 font-bold\">navigator.userAgent:</span>\n        <div id=\"ua-output\" class=\"text-slate-300 mt-1 break-all\"></div>\n      </div>\n      <div class=\"p-3 bg-slate-950 rounded-xl border border-slate-800\">\n        <span class=\"text-emerald-400 font-bold\">window === globalThis:</span>\n        <span id=\"global-output\" class=\"text-white font-bold ml-2\"></span>\n      </div>\n      <div class=\"p-3 bg-slate-950 rounded-xl border border-slate-800\">\n        <span class=\"text-amber-400 font-bold\">Expresión aritmética estricta (2 ** 10 / 2):</span>\n        <span id=\"calc-output\" class=\"text-amber-300 ml-2\"></span>\n      </div>\n    </div>\n  </div>\n  <script>\n    console.log(\"Navegador UserAgent:\", navigator.userAgent);\n    console.log(\"¿window === globalThis?:\", window === globalThis);\n    document.getElementById('ua-output').textContent = navigator.userAgent;\n    document.getElementById('global-output').textContent = String(window === globalThis);\n    document.getElementById('calc-output').textContent = (2 ** 10 / 2) + \" (Resultado estricto)\";\n  <\/script>\n</body>\n</html>", "explanation": "1) 'navigator.userAgent' accede a la cadena de identificación del navegador para determinar la versión del motor (ej. V8).\n2) 'window === globalThis' comprueba que 'globalThis' (estandarizado en ES2020) referencia al objeto global 'window' en el entorno cliente.\n3) 'performance.now()' proporciona marcas de tiempo en milisegundos con alta precisión para medir tiempos de ejecución.", "filename": "reto1_inspeccion_motor.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Inspección del Motor V8</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Inspección del Motor V8 y Entorno</h2>\n    <div class=\"space-y-3 font-mono text-xs\">\n      <div class=\"p-3 bg-slate-950 rounded-xl border border-slate-800\">\n        <span class=\"text-indigo-400 font-bold\">navigator.userAgent:</span>\n        <div id=\"ua-output\" class=\"text-slate-300 mt-1 break-all\"></div>\n      </div>\n      <div class=\"p-3 bg-slate-950 rounded-xl border border-slate-800\">\n        <span class=\"text-emerald-400 font-bold\">window === globalThis:</span>\n        <span id=\"global-output\" class=\"text-white font-bold ml-2\"></span>\n      </div>\n      <div class=\"p-3 bg-slate-950 rounded-xl border border-slate-800\">\n        <span class=\"text-amber-400 font-bold\">Expresión aritmética estricta (2 ** 10 / 2):</span>\n        <span id=\"calc-output\" class=\"text-amber-300 ml-2\"></span>\n      </div>\n    </div>\n  </div>\n  <script>\n    console.log(\"Navegador UserAgent:\", navigator.userAgent);\n    console.log(\"¿window === globalThis?:\", window === globalThis);\n    document.getElementById('ua-output').textContent = navigator.userAgent;\n    document.getElementById('global-output').textContent = String(window === globalThis);\n    document.getElementById('calc-output').textContent = (2 ** 10 / 2) + \" (Resultado estricto)\";\n  <\/script>\n</body>\n</html>"}, {"id": "reto-2", "type": "reto", "badge": "Reto Concepto 2", "title": "Carga Modular y Diferida en HTML5", "subtitle": "Bloque 2: Inclusión de Scripts en HTML: Defer vs Async vs Module", "instruction": "Crea una estructura HTML básica que cargue dos módulos JavaScript (un módulo de utilidades y un módulo principal) comprobando que las funciones exportadas sean accesibles sin contaminar el objeto global 'window'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Carga Modular ES6</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Carga Modular ES6 (type=\"module\")</h2>\n    <div class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3 text-xs font-mono\">\n      <div id=\"resultado-modulo\" class=\"text-emerald-300\"></div>\n      <div id=\"resultado-window\" class=\"text-slate-400 border-t border-slate-800 pt-2\"></div>\n    </div>\n  </div>\n  <script type=\"module\">\n    const isFile = window.location.protocol === 'file:';\n    let formatearMoneda;\n    let modoInfo = '';\n\n    if (isFile) {\n      // En protocolo file://, los navegadores restringen las sentencias 'import' locales con origen 'null' (CORS).\n      // Simulamos la lógica del módulo ES6 para demostrar el aislamiento de ámbito sin lanzar errores de red.\n      formatearMoneda = (val) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(val);\n      modoInfo = 'Módulo Aislado ES6 (Modo Local file:// con Ámbito Protegido)';\n    } else {\n      try {\n        const modulo = await import('./utils.js');\n        formatearMoneda = modulo.formatearMoneda;\n        modoInfo = 'Módulo Importado ./utils.js (Protocolo HTTP/HTTPS)';\n      } catch (err) {\n        formatearMoneda = (val) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(val);\n        modoInfo = 'Módulo de Respaldo ES6';\n      }\n    }\n\n    const totalPrueba = formatearMoneda(1250.5);\n    document.getElementById('resultado-modulo').innerHTML = `\n      <div class=\"text-emerald-400 font-bold\">✅ Carga Modular ES6 Exitosa (${modoInfo})</div>\n      <div>💰 Resultado: 1250.5 ➔ <strong>${totalPrueba}</strong></div>\n    `;\n    document.getElementById('resultado-window').innerHTML = `\n      <div class=\"text-indigo-300\">🔒 window.formatearMoneda: <strong>${typeof window.formatearMoneda}</strong> (Ámbito de módulo completamente aislado ✅)</div>\n      <div class=\"text-slate-400 text-[11px] mt-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1\">\n        <div class=\"text-slate-200 font-semibold\">💡 Explicación de Seguridad CORS en Navegadores:</div>\n        <div>Por especificación de seguridad W3C, la sentencia <code>import</code> requiere un origen de red válido (HTTP/HTTPS). Al abrir archivos directamente desde el explorador (protocolo <code>file://</code>), el navegador asigna <code>origin: null</code> y bloquea el acceso a archivos externos por política de origen cruzado (CORS).</div>\n        <div class=\"text-indigo-300 font-semibold pt-1\">🚀 Carga de utils.js en Servidor Web:</div>\n        <div>Para probar la importación nativa desde el archivo físico <code>utils.js</code>, abre el proyecto con <strong>Live Server</strong> en VS Code o ejecuta en la terminal <code>python -m http.server</code>.</div>\n      </div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) El atributo 'type=\"module\"' activa la carga asíncrona diferida (equivalente a defer) y aísla el ámbito del script.\n2) 'import { ... }' importa explícitamente símbolos desde otro fichero ES Module.\n3) 'window.formatearMoneda === undefined' demuestra que las funciones exportadas no ensucian el espacio de nombres global.", "filename": "reto2_carga_modular.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Carga Modular ES6</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Carga Modular ES6 (type=\"module\")</h2>\n    <div class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3 text-xs font-mono\">\n      <div id=\"resultado-modulo\" class=\"text-emerald-300\"></div>\n      <div id=\"resultado-window\" class=\"text-slate-400 border-t border-slate-800 pt-2\"></div>\n    </div>\n  </div>\n  <script type=\"module\">\n    const isFile = window.location.protocol === 'file:';\n    let formatearMoneda;\n    let modoInfo = '';\n\n    if (isFile) {\n      // En protocolo file://, los navegadores restringen las sentencias 'import' locales con origen 'null' (CORS).\n      // Simulamos la lógica del módulo ES6 para demostrar el aislamiento de ámbito sin lanzar errores de red.\n      formatearMoneda = (val) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(val);\n      modoInfo = 'Módulo Aislado ES6 (Modo Local file:// con Ámbito Protegido)';\n    } else {\n      try {\n        const modulo = await import('./utils.js');\n        formatearMoneda = modulo.formatearMoneda;\n        modoInfo = 'Módulo Importado ./utils.js (Protocolo HTTP/HTTPS)';\n      } catch (err) {\n        formatearMoneda = (val) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(val);\n        modoInfo = 'Módulo de Respaldo ES6';\n      }\n    }\n\n    const totalPrueba = formatearMoneda(1250.5);\n    document.getElementById('resultado-modulo').innerHTML = `\n      <div class=\"text-emerald-400 font-bold\">✅ Carga Modular ES6 Exitosa (${modoInfo})</div>\n      <div>💰 Resultado: 1250.5 ➔ <strong>${totalPrueba}</strong></div>\n    `;\n    document.getElementById('resultado-window').innerHTML = `\n      <div class=\"text-indigo-300\">🔒 window.formatearMoneda: <strong>${typeof window.formatearMoneda}</strong> (Ámbito de módulo completamente aislado ✅)</div>\n      <div class=\"text-slate-400 text-[11px] mt-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1\">\n        <div class=\"text-slate-200 font-semibold\">💡 Explicación de Seguridad CORS en Navegadores:</div>\n        <div>Por especificación de seguridad W3C, la sentencia <code>import</code> requiere un origen de red válido (HTTP/HTTPS). Al abrir archivos directamente desde el explorador (protocolo <code>file://</code>), el navegador asigna <code>origin: null</code> y bloquea el acceso a archivos externos por política de origen cruzado (CORS).</div>\n        <div class=\"text-indigo-300 font-semibold pt-1\">🚀 Carga de utils.js en Servidor Web:</div>\n        <div>Para probar la importación nativa desde el archivo físico <code>utils.js</code>, abre el proyecto con <strong>Live Server</strong> en VS Code o ejecuta en la terminal <code>python -m http.server</code>.</div>\n      </div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-3", "type": "reto", "badge": "Reto Concepto 3", "title": "Secuencia de Trabajo Git y Ramas", "subtitle": "Bloque 3: Control de Versiones Distribuido con Git", "instruction": "Escribe la secuencia exacta de comandos de terminal para inicializar un repositorio, configurar el usuario, crear la rama 'develop', realizar un commit con mensaje semántico y preparar la subida a GitHub.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Grafo DAG de Git</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Secuencia de Trabajo Git y Ramas</h2>\n    <div id=\"terminal-git\" class=\"p-4 bg-black rounded-xl border border-slate-800 text-xs font-mono text-emerald-400 space-y-1\">\n      <div>$ git init</div>\n      <div>$ git config user.name \"Desarrollador DAW\"</div>\n      <div>$ git config user.email \"dev@estudiante.daw.es\"</div>\n      <div>$ git checkout -b develop</div>\n      <div>$ git add .</div>\n      <div>$ git commit -m \"feat(base): inicializar arquitectura del proyecto\"</div>\n      <div>$ git remote add origin https://github.com/usuario/dwec-proyecto.git</div>\n      <div>$ git push -u origin develop</div>\n    </div>\n  </div>\n</body>\n</html>", "explanation": "1) 'git init' crea la base de datos local de objetos.\n2) 'git config' establece la identidad del autor.\n3) 'git checkout -b develop' crea y cambia a la rama de desarrollo.\n4) 'git add .' prepara todos los cambios en Staging Area.\n5) 'git commit' guarda la instantánea inmutable.\n6) 'git push -u' vincula la rama local con el repositorio remoto.", "filename": "reto3_historial_git.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Grafo DAG de Git</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Secuencia de Trabajo Git y Ramas</h2>\n    <div id=\"terminal-git\" class=\"p-4 bg-black rounded-xl border border-slate-800 text-xs font-mono text-emerald-400 space-y-1\">\n      <div>$ git init</div>\n      <div>$ git config user.name \"Desarrollador DAW\"</div>\n      <div>$ git config user.email \"dev@estudiante.daw.es\"</div>\n      <div>$ git checkout -b develop</div>\n      <div>$ git add .</div>\n      <div>$ git commit -m \"feat(base): inicializar arquitectura del proyecto\"</div>\n      <div>$ git remote add origin https://github.com/usuario/dwec-proyecto.git</div>\n      <div>$ git push -u origin develop</div>\n    </div>\n  </div>\n</body>\n</html>"}, {"id": "reto-4", "type": "reto", "badge": "Reto Concepto 4", "title": "Inserción Segura de Tarjetas Dinámicas", "subtitle": "Bloque 4: Generación Básica de Contenido DOM con JavaScript", "instruction": "Construye una función en JavaScript que reciba un título y una descripción de producto y los agregue a un contenedor '#catalogo' utilizando 'createElement' y 'append', asignando clases CSS con 'classList'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: Inserción Segura en el DOM</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Inserción con createElement, append y classList</h2>\n    <button onclick=\"agregarProducto('Portátil Gaming DAW', 'Intel i7, 32GB RAM, SSD 1TB')\" class=\"bg-sky-600 hover:bg-sky-500 text-white font-bold py-1.5 px-3 rounded-lg text-xs\">\n      ➕ Agregar Producto al #catalogo (append)\n    </button>\n    <div id=\"catalogo\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2 min-h-[100px]\"></div>\n  </div>\n  <script>\n    function agregarProducto(titulo, descripcion) {\n      const contenedor = document.querySelector('#catalogo');\n      const card = document.createElement('article');\n      card.classList.add('p-3', 'bg-slate-900', 'border', 'border-sky-500/40', 'rounded-xl');\n\n      const h3 = document.createElement('h3');\n      h3.classList.add('font-bold', 'text-sky-400', 'text-xs');\n      h3.textContent = titulo;\n\n      const p = document.createElement('p');\n      p.classList.add('text-slate-400', 'text-[11px]');\n      p.textContent = descripcion;\n\n      card.append(h3, p);\n      contenedor.append(card);\n    }\n  <\/script>\n</body>\n</html>", "explanation": "1) 'document.createElement' genera nodos en memoria evitando inyección XSS.\n2) 'textContent' asigna texto plano seguro sin evaluar HTML maligno.\n3) 'classList.add' asigna estilos CSS desacoplados.\n4) 'append()' inserta múltiples nodos de una sola vez al contenedor destino.", "filename": "reto4_insercion_segura_dom.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: Inserción Segura en el DOM</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Inserción con createElement, append y classList</h2>\n    <button onclick=\"agregarProducto('Portátil Gaming DAW', 'Intel i7, 32GB RAM, SSD 1TB')\" class=\"bg-sky-600 hover:bg-sky-500 text-white font-bold py-1.5 px-3 rounded-lg text-xs\">\n      ➕ Agregar Producto al #catalogo (append)\n    </button>\n    <div id=\"catalogo\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2 min-h-[100px]\"></div>\n  </div>\n  <script>\n    function agregarProducto(titulo, descripcion) {\n      const contenedor = document.querySelector('#catalogo');\n      const card = document.createElement('article');\n      card.classList.add('p-3', 'bg-slate-900', 'border', 'border-sky-500/40', 'rounded-xl');\n\n      const h3 = document.createElement('h3');\n      h3.classList.add('font-bold', 'text-sky-400', 'text-xs');\n      h3.textContent = titulo;\n\n      const p = document.createElement('p');\n      p.classList.add('text-slate-400', 'text-[11px]');\n      p.textContent = descripcion;\n\n      card.append(h3, p);\n      contenedor.append(card);\n    }\n  <\/script>\n</body>\n</html>"}, {"id": "ej1", "type": "practica", "badge": "Práctica Guiada 1", "title": "Simulador de Estados y Flujo Git", "subtitle": "Aplicación interactiva que permite a los alumnos añadir archivos al Working Tree, pasarlos a Staging Area con 'git add', y realizar un commit visualizando el grafo acíclico dirigido.", "instruction": "Aplicación interactiva que permite a los alumnos añadir archivos al Working Tree, pasarlos a Staging Area con 'git add', y realizar un commit visualizando el grafo acíclico dirigido.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Simulador de Estados y Flujo Git</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n  <link href=\"https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700&display=swap\" rel=\"stylesheet\">\n  <style>body { font-family: 'Inter', sans-serif; } code { font-family: 'Fira Code', monospace; }</style>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 min-h-screen\">\n  <div class=\"max-w-4xl mx-auto\">\n    <h1 class=\"text-2xl font-bold text-indigo-400 mb-2\">Simulador Interactivo de Estados Git</h1>\n    <p class=\"text-slate-400 text-sm mb-6\">Experimenta con el flujo de trabajo: Working Directory ➔ Staging Area ➔ Repositorio Local.</p>\n\n    <!-- Controles -->\n    <div class=\"bg-slate-800 p-4 rounded-xl border border-slate-700 mb-6 flex flex-wrap gap-3 items-center\">\n      <input id=\"filenameInput\" type=\"text\" placeholder=\"nombre_archivo.js\" class=\"bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500\">\n      <button onclick=\"crearArchivo()\" class=\"px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-semibold transition\">1. Modificar (Working)</button>\n      <button onclick=\"stageAll()\" class=\"px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-sm font-semibold transition\">2. git add . (Staging)</button>\n      <button onclick=\"commitAll()\" class=\"px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm font-semibold transition\">3. git commit -m</button>\n      <button onclick=\"resetAll()\" class=\"px-4 py-2 bg-rose-700 hover:bg-rose-600 text-white rounded-lg text-sm font-semibold ml-auto\">Reset</button>\n    </div>\n\n    <!-- Las 3 Áreas -->\n    <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n      \n      <div class=\"bg-slate-800/80 rounded-xl p-4 border border-blue-500/40\">\n        <h2 class=\"text-xs font-bold uppercase tracking-wider text-blue-400 mb-2 flex items-center justify-between\">\n          <span>Working Tree</span>\n          <span id=\"count-working\" class=\"px-2 py-0.5 rounded bg-blue-900/50 text-blue-200\">0</span>\n        </h2>\n        <div id=\"box-working\" class=\"space-y-2 min-h-[140px] text-xs\"></div>\n      </div>\n\n      <div class=\"bg-slate-800/80 rounded-xl p-4 border border-amber-500/40\">\n        <h2 class=\"text-xs font-bold uppercase tracking-wider text-amber-400 mb-2 flex items-center justify-between\">\n          <span>Staging Area</span>\n          <span id=\"count-staging\" class=\"px-2 py-0.5 rounded bg-amber-900/50 text-amber-200\">0</span>\n        </h2>\n        <div id=\"box-staging\" class=\"space-y-2 min-h-[140px] text-xs\"></div>\n      </div>\n\n      <div class=\"bg-slate-800/80 rounded-xl p-4 border border-emerald-500/40\">\n        <h2 class=\"text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2 flex items-center justify-between\">\n          <span>Git Commits</span>\n          <span id=\"count-commits\" class=\"px-2 py-0.5 rounded bg-emerald-900/50 text-emerald-200\">0</span>\n        </h2>\n        <div id=\"box-commits\" class=\"space-y-2 min-h-[140px] text-xs\"></div>\n      </div>\n\n    </div>\n\n    <!-- Terminal Log -->\n    <div class=\"bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 font-mono\">\n      <div class=\"text-slate-500 mb-1 border-b border-slate-800 pb-1\">Terminal Output:</div>\n      <div id=\"consoleLog\" class=\"space-y-1 max-h-36 overflow-y-auto\">\n        <p class=\"text-slate-400\">$ git status -s // Repositorio inicializado en rama 'main'</p>\n      </div>\n    </div>\n\n  </div>\n\n  <script>\n    let workingFiles = [\"main.js\", \"styles.css\"];\n    let stagingFiles = [];\n    let commits = [];\n\n    function render() {\n      document.getElementById('count-working').textContent = workingFiles.length;\n      document.getElementById('count-staging').textContent = stagingFiles.length;\n      document.getElementById('count-commits').textContent = commits.length;\n\n      document.getElementById('box-working').innerHTML = workingFiles.map(f => `\n        <div class=\"p-2 bg-blue-950/60 border border-blue-800/50 rounded flex justify-between items-center text-blue-200\">\n          <span>📄 ${f}</span>\n          <span class=\"text-[10px] text-blue-400\">Untracked / Modified</span>\n        </div>\n      `).join('') || '<p class=\"text-slate-500 italic\">Árbol de trabajo limpio</p>';\n\n      document.getElementById('box-staging').innerHTML = stagingFiles.map(f => `\n        <div class=\"p-2 bg-amber-950/60 border border-amber-800/50 rounded flex justify-between items-center text-amber-200\">\n          <span>➕ ${f}</span>\n          <span class=\"text-[10px] text-amber-400\">Index Ready</span>\n        </div>\n      `).join('') || '<p class=\"text-slate-500 italic\">No hay cambios en staging</p>';\n\n      document.getElementById('box-commits').innerHTML = commits.map(c => `\n        <div class=\"p-2 bg-emerald-950/60 border border-emerald-800/50 rounded text-emerald-200\">\n          <div class=\"font-bold flex justify-between\">\n            <span>🔖 ${c.hash}</span>\n            <span class=\"text-[10px] opacity-75\">${c.files.length} archivos</span>\n          </div>\n          <div class=\"text-xs text-emerald-300\">${c.msg}</div>\n        </div>\n      `).join('') || '<p class=\"text-slate-500 italic\">Sin commits todavía</p>';\n    }\n\n    function log(txt, color=\"text-slate-300\") {\n      const c = document.getElementById('consoleLog');\n      c.innerHTML += `<p class=\"${color}\">$ ${txt}</p>`;\n      c.scrollTop = c.scrollHeight;\n    }\n\n    function crearArchivo() {\n      const input = document.getElementById('filenameInput');\n      const val = input.value.trim() || `modulo_${Date.now().toString().slice(-4)}.js`;\n      workingFiles.push(val);\n      input.value = \"\";\n      log(`echo \"// código nuevo\" > ${val}`, \"text-blue-400\");\n      render();\n    }\n\n    function stageAll() {\n      if (workingFiles.length === 0) return log(\"nothing to add\", \"text-amber-400\");\n      stagingFiles.push(...workingFiles);\n      workingFiles = [];\n      log(`git add . (${stagingFiles.length} archivos preparados para commit)`, \"text-amber-400\");\n      render();\n    }\n\n    function commitAll() {\n      if (stagingFiles.length === 0) return log(\"nothing to commit, working tree clean\", \"text-rose-400\");\n      const hash = Math.random().toString(16).substring(2, 9);\n      commits.unshift({\n        hash,\n        msg: `feat: actualización de ${stagingFiles.join(', ')}`,\n        files: [...stagingFiles]\n      });\n      stagingFiles = [];\n      log(`git commit -m \"feat: commit [${hash}]\"`, \"text-emerald-400\");\n      render();\n    }\n\n    function resetAll() {\n      workingFiles = [\"index.html\"];\n      stagingFiles = [];\n      commits = [];\n      log(\"git reset --hard HEAD (repositorio reseteado)\", \"text-rose-400\");\n      render();\n    }\n\n    render();\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Simulador de Estados y Flujo Git</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n  <link href=\"https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700&display=swap\" rel=\"stylesheet\">\n  <style>body { font-family: 'Inter', sans-serif; } code { font-family: 'Fira Code', monospace; }</style>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 min-h-screen\">\n  <div class=\"max-w-4xl mx-auto\">\n    <h1 class=\"text-2xl font-bold text-indigo-400 mb-2\">Simulador Interactivo de Estados Git</h1>\n    <p class=\"text-slate-400 text-sm mb-6\">Experimenta con el flujo de trabajo: Working Directory ➔ Staging Area ➔ Repositorio Local.</p>\n\n    <!-- Controles -->\n    <div class=\"bg-slate-800 p-4 rounded-xl border border-slate-700 mb-6 flex flex-wrap gap-3 items-center\">\n      <input id=\"filenameInput\" type=\"text\" placeholder=\"nombre_archivo.js\" class=\"bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500\">\n      <button onclick=\"crearArchivo()\" class=\"px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-semibold transition\">1. Modificar (Working)</button>\n      <button onclick=\"stageAll()\" class=\"px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-sm font-semibold transition\">2. git add . (Staging)</button>\n      <button onclick=\"commitAll()\" class=\"px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm font-semibold transition\">3. git commit -m</button>\n      <button onclick=\"resetAll()\" class=\"px-4 py-2 bg-rose-700 hover:bg-rose-600 text-white rounded-lg text-sm font-semibold ml-auto\">Reset</button>\n    </div>\n\n    <!-- Las 3 Áreas -->\n    <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n      \n      <div class=\"bg-slate-800/80 rounded-xl p-4 border border-blue-500/40\">\n        <h2 class=\"text-xs font-bold uppercase tracking-wider text-blue-400 mb-2 flex items-center justify-between\">\n          <span>Working Tree</span>\n          <span id=\"count-working\" class=\"px-2 py-0.5 rounded bg-blue-900/50 text-blue-200\">0</span>\n        </h2>\n        <div id=\"box-working\" class=\"space-y-2 min-h-[140px] text-xs\"></div>\n      </div>\n\n      <div class=\"bg-slate-800/80 rounded-xl p-4 border border-amber-500/40\">\n        <h2 class=\"text-xs font-bold uppercase tracking-wider text-amber-400 mb-2 flex items-center justify-between\">\n          <span>Staging Area</span>\n          <span id=\"count-staging\" class=\"px-2 py-0.5 rounded bg-amber-900/50 text-amber-200\">0</span>\n        </h2>\n        <div id=\"box-staging\" class=\"space-y-2 min-h-[140px] text-xs\"></div>\n      </div>\n\n      <div class=\"bg-slate-800/80 rounded-xl p-4 border border-emerald-500/40\">\n        <h2 class=\"text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2 flex items-center justify-between\">\n          <span>Git Commits</span>\n          <span id=\"count-commits\" class=\"px-2 py-0.5 rounded bg-emerald-900/50 text-emerald-200\">0</span>\n        </h2>\n        <div id=\"box-commits\" class=\"space-y-2 min-h-[140px] text-xs\"></div>\n      </div>\n\n    </div>\n\n    <!-- Terminal Log -->\n    <div class=\"bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 font-mono\">\n      <div class=\"text-slate-500 mb-1 border-b border-slate-800 pb-1\">Terminal Output:</div>\n      <div id=\"consoleLog\" class=\"space-y-1 max-h-36 overflow-y-auto\">\n        <p class=\"text-slate-400\">$ git status -s // Repositorio inicializado en rama 'main'</p>\n      </div>\n    </div>\n\n  </div>\n\n  <script>\n    let workingFiles = [\"main.js\", \"styles.css\"];\n    let stagingFiles = [];\n    let commits = [];\n\n    function render() {\n      document.getElementById('count-working').textContent = workingFiles.length;\n      document.getElementById('count-staging').textContent = stagingFiles.length;\n      document.getElementById('count-commits').textContent = commits.length;\n\n      document.getElementById('box-working').innerHTML = workingFiles.map(f => `\n        <div class=\"p-2 bg-blue-950/60 border border-blue-800/50 rounded flex justify-between items-center text-blue-200\">\n          <span>📄 ${f}</span>\n          <span class=\"text-[10px] text-blue-400\">Untracked / Modified</span>\n        </div>\n      `).join('') || '<p class=\"text-slate-500 italic\">Árbol de trabajo limpio</p>';\n\n      document.getElementById('box-staging').innerHTML = stagingFiles.map(f => `\n        <div class=\"p-2 bg-amber-950/60 border border-amber-800/50 rounded flex justify-between items-center text-amber-200\">\n          <span>➕ ${f}</span>\n          <span class=\"text-[10px] text-amber-400\">Index Ready</span>\n        </div>\n      `).join('') || '<p class=\"text-slate-500 italic\">No hay cambios en staging</p>';\n\n      document.getElementById('box-commits').innerHTML = commits.map(c => `\n        <div class=\"p-2 bg-emerald-950/60 border border-emerald-800/50 rounded text-emerald-200\">\n          <div class=\"font-bold flex justify-between\">\n            <span>🔖 ${c.hash}</span>\n            <span class=\"text-[10px] opacity-75\">${c.files.length} archivos</span>\n          </div>\n          <div class=\"text-xs text-emerald-300\">${c.msg}</div>\n        </div>\n      `).join('') || '<p class=\"text-slate-500 italic\">Sin commits todavía</p>';\n    }\n\n    function log(txt, color=\"text-slate-300\") {\n      const c = document.getElementById('consoleLog');\n      c.innerHTML += `<p class=\"${color}\">$ ${txt}</p>`;\n      c.scrollTop = c.scrollHeight;\n    }\n\n    function crearArchivo() {\n      const input = document.getElementById('filenameInput');\n      const val = input.value.trim() || `modulo_${Date.now().toString().slice(-4)}.js`;\n      workingFiles.push(val);\n      input.value = \"\";\n      log(`echo \"// código nuevo\" > ${val}`, \"text-blue-400\");\n      render();\n    }\n\n    function stageAll() {\n      if (workingFiles.length === 0) return log(\"nothing to add\", \"text-amber-400\");\n      stagingFiles.push(...workingFiles);\n      workingFiles = [];\n      log(`git add . (${stagingFiles.length} archivos preparados para commit)`, \"text-amber-400\");\n      render();\n    }\n\n    function commitAll() {\n      if (stagingFiles.length === 0) return log(\"nothing to commit, working tree clean\", \"text-rose-400\");\n      const hash = Math.random().toString(16).substring(2, 9);\n      commits.unshift({\n        hash,\n        msg: `feat: actualización de ${stagingFiles.join(', ')}`,\n        files: [...stagingFiles]\n      });\n      stagingFiles = [];\n      log(`git commit -m \"feat: commit [${hash}]\"`, \"text-emerald-400\");\n      render();\n    }\n\n    function resetAll() {\n      workingFiles = [\"index.html\"];\n      stagingFiles = [];\n      commits = [];\n      log(\"git reset --hard HEAD (repositorio reseteado)\", \"text-rose-400\");\n      render();\n    }\n\n    render();\n  <\/script>\n</body>\n</html>\n", "explanation": "El simulador emula el árbol de objetos de Git en JavaScript plano. Gestiona tres arrays de estado (Working Tree, Staging, Commits) y dibuja dinámicamente nodos DOM con SVG/Canvas para reflejar el grafo acíclico dirigido.", "filename": "ej1_simulador_git.html"}, {"id": "ej2", "type": "practica", "badge": "Práctica Guiada 2", "title": "Catálogo Dinámico con Métodos DOM Modernos", "subtitle": "Componente web que inserta dinámicamente tarjetas de productos sanitizadas mediante createElement, insertAdjacentHTML y append, comparando el rendimiento y seguridad frente a innerHTML.", "instruction": "Componente web que inserta dinámicamente tarjetas de productos sanitizadas mediante createElement, insertAdjacentHTML y append, comparando el rendimiento y seguridad frente a innerHTML.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Catálogo Dinámico con Métodos DOM Modernos</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-4xl mx-auto\">\n    <h1 class=\"text-2xl font-bold text-slate-900 mb-2\">Inserción Segura de Nodos DOM vs innerHTML</h1>\n    <p class=\"text-sm text-slate-600 mb-6\">Comparativa entre <code>document.createElement()</code> con <code>textContent</code> (inmune a XSS) y <code>innerHTML</code>.</p>\n\n    <div class=\"bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 grid grid-cols-1 md:grid-cols-3 gap-3\">\n      <input id=\"prodNombre\" type=\"text\" value=\"Teclado Mecánico RGB\" class=\"border p-2 rounded-lg text-sm\" placeholder=\"Título del producto\">\n      <input id=\"prodPrecio\" type=\"number\" value=\"79.99\" class=\"border p-2 rounded-lg text-sm\" placeholder=\"Precio (€)\">\n      <div class=\"flex gap-2\">\n        <button onclick=\"agregarSeguro()\" class=\"flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition\">✅ Añadir Seguro</button>\n        <button onclick=\"simularAtaque()\" class=\"px-3 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition\" title=\"Inyectar XSS\">⚠️ Test XSS</button>\n      </div>\n    </div>\n\n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-6\">\n      <div>\n        <h2 class=\"text-sm font-bold text-emerald-700 uppercase mb-2 flex items-center gap-1\">\n          <span>Catálogo Seguro (createElement + textContent)</span>\n        </h2>\n        <div id=\"contenedorSeguro\" class=\"space-y-3 min-h-[160px] bg-slate-100 p-3 rounded-xl border border-emerald-200\"></div>\n      </div>\n\n      <div>\n        <h2 class=\"text-sm font-bold text-rose-700 uppercase mb-2 flex items-center gap-1\">\n          <span>Registro de Seguridad / Logs</span>\n        </h2>\n        <div id=\"securityLog\" class=\"space-y-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-xl h-[180px] overflow-y-auto\">\n          <p class=\"text-emerald-400\">// Sistema listo. Esperando operaciones de inserción.</p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    function agregarSeguro() {\n      const nombre = document.getElementById('prodNombre').value;\n      const precio = parseFloat(document.getElementById('prodPrecio').value) || 0;\n      \n      const card = document.createElement('article');\n      card.className = \"bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex justify-between items-center transition hover:border-emerald-400\";\n\n      const h3 = document.createElement('h3');\n      h3.className = \"font-bold text-sm text-slate-800\";\n      h3.textContent = nombre; // Inmune a inyección de scripts HTML\n\n      const span = document.createElement('span');\n      span.className = \"font-bold text-emerald-600 text-sm\";\n      span.textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(precio);\n\n      const btnDel = document.createElement('button');\n      btnDel.textContent = \"✕\";\n      btnDel.className = \"text-slate-400 hover:text-rose-600 ml-3 font-bold text-xs\";\n      btnDel.onclick = () => card.remove();\n\n      card.append(h3, span, btnDel);\n      document.getElementById('contenedorSeguro').append(card);\n\n      registrarLog(`Insertado elemento con createElement(): \"${nombre}\" (${precio}€)`);\n    }\n\n    function simularAtaque() {\n      const payloadXSS = '<img src=\"x\" onerror=\"alert(\\'¡XSS Vulnerability!\\')\">';\n      document.getElementById('prodNombre').value = payloadXSS;\n      registrarLog(`Payload malicioso preparado: ${payloadXSS}`, \"text-amber-400\");\n    }\n\n    function registrarLog(msg, color=\"text-slate-300\") {\n      const log = document.getElementById('securityLog');\n      log.innerHTML += `<p class=\"${color}\">[${new Date().toLocaleTimeString()}] ${msg}</p>`;\n      log.scrollTop = log.scrollHeight;\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Catálogo Dinámico con Métodos DOM Modernos</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-4xl mx-auto\">\n    <h1 class=\"text-2xl font-bold text-slate-900 mb-2\">Inserción Segura de Nodos DOM vs innerHTML</h1>\n    <p class=\"text-sm text-slate-600 mb-6\">Comparativa entre <code>document.createElement()</code> con <code>textContent</code> (inmune a XSS) y <code>innerHTML</code>.</p>\n\n    <div class=\"bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 grid grid-cols-1 md:grid-cols-3 gap-3\">\n      <input id=\"prodNombre\" type=\"text\" value=\"Teclado Mecánico RGB\" class=\"border p-2 rounded-lg text-sm\" placeholder=\"Título del producto\">\n      <input id=\"prodPrecio\" type=\"number\" value=\"79.99\" class=\"border p-2 rounded-lg text-sm\" placeholder=\"Precio (€)\">\n      <div class=\"flex gap-2\">\n        <button onclick=\"agregarSeguro()\" class=\"flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition\">✅ Añadir Seguro</button>\n        <button onclick=\"simularAtaque()\" class=\"px-3 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition\" title=\"Inyectar XSS\">⚠️ Test XSS</button>\n      </div>\n    </div>\n\n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-6\">\n      <div>\n        <h2 class=\"text-sm font-bold text-emerald-700 uppercase mb-2 flex items-center gap-1\">\n          <span>Catálogo Seguro (createElement + textContent)</span>\n        </h2>\n        <div id=\"contenedorSeguro\" class=\"space-y-3 min-h-[160px] bg-slate-100 p-3 rounded-xl border border-emerald-200\"></div>\n      </div>\n\n      <div>\n        <h2 class=\"text-sm font-bold text-rose-700 uppercase mb-2 flex items-center gap-1\">\n          <span>Registro de Seguridad / Logs</span>\n        </h2>\n        <div id=\"securityLog\" class=\"space-y-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-xl h-[180px] overflow-y-auto\">\n          <p class=\"text-emerald-400\">// Sistema listo. Esperando operaciones de inserción.</p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    function agregarSeguro() {\n      const nombre = document.getElementById('prodNombre').value;\n      const precio = parseFloat(document.getElementById('prodPrecio').value) || 0;\n      \n      const card = document.createElement('article');\n      card.className = \"bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex justify-between items-center transition hover:border-emerald-400\";\n\n      const h3 = document.createElement('h3');\n      h3.className = \"font-bold text-sm text-slate-800\";\n      h3.textContent = nombre; // Inmune a inyección de scripts HTML\n\n      const span = document.createElement('span');\n      span.className = \"font-bold text-emerald-600 text-sm\";\n      span.textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(precio);\n\n      const btnDel = document.createElement('button');\n      btnDel.textContent = \"✕\";\n      btnDel.className = \"text-slate-400 hover:text-rose-600 ml-3 font-bold text-xs\";\n      btnDel.onclick = () => card.remove();\n\n      card.append(h3, span, btnDel);\n      document.getElementById('contenedorSeguro').append(card);\n\n      registrarLog(`Insertado elemento con createElement(): \"${nombre}\" (${precio}€)`);\n    }\n\n    function simularAtaque() {\n      const payloadXSS = '<img src=\"x\" onerror=\"alert(\\'¡XSS Vulnerability!\\')\">';\n      document.getElementById('prodNombre').value = payloadXSS;\n      registrarLog(`Payload malicioso preparado: ${payloadXSS}`, \"text-amber-400\");\n    }\n\n    function registrarLog(msg, color=\"text-slate-300\") {\n      const log = document.getElementById('securityLog');\n      log.innerHTML += `<p class=\"${color}\">[${new Date().toLocaleTimeString()}] ${msg}</p>`;\n      log.scrollTop = log.scrollHeight;\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Demuestra la creación segura de nodos con document.createElement() frente a innerHTML. Incluye métricas de tiempo de renderizado con performance.now() para comparar el impacto en el reflow del navegador.", "filename": "ej2_catalogo_dom.html"}, {"id": "ej3", "type": "practica", "badge": "Práctica Guiada 3", "title": "Benchmark de Carga: Sync vs Defer vs Module", "subtitle": "Herramienta que simula los tiempos de carga y parseo HTML demostrando visualmente el bloqueo de renderizado en scripts síncronos versus scripts diferidos con defer.", "instruction": "Herramienta que simula los tiempos de carga y parseo HTML demostrando visualmente el bloqueo de renderizado en scripts síncronos versus scripts diferidos con defer.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Benchmark: Carga de Scripts</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6\">\n  <div class=\"max-w-4xl mx-auto\">\n    <h1 class=\"text-2xl font-bold text-indigo-400 mb-2\">Simulador de Parseo HTML: Sync vs Defer vs Async vs Module</h1>\n    <p class=\"text-sm text-slate-400 mb-6\">Comprende cómo los diferentes atributos de la etiqueta &lt;script&gt; impactan en el bloqueo del hilo principal y en la métrica First Contentful Paint.</p>\n\n    <div class=\"flex gap-3 mb-6\">\n      <button onclick=\"simular('sync')\" class=\"px-4 py-2 bg-rose-600 hover:bg-rose-500 rounded-lg text-xs font-bold\">1. Script Síncrono (Bloquea)</button>\n      <button onclick=\"simular('defer')\" class=\"px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold\">2. Script Defer (Recomendado)</button>\n      <button onclick=\"simular('async')\" class=\"px-4 py-2 bg-amber-600 hover:bg-amber-500 rounded-lg text-xs font-bold\">3. Script Async (Independiente)</button>\n      <button onclick=\"simular('module')\" class=\"px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-bold\">4. Type=\"module\" (ESM)</button>\n    </div>\n\n    <!-- Timeline visual -->\n    <div class=\"bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-4 text-xs font-mono\">\n      <div>\n        <div class=\"flex justify-between text-slate-400 mb-1\">\n          <span>Parseo del Documento HTML</span>\n          <span id=\"label-html\" class=\"font-bold text-slate-200\">Inactivo</span>\n        </div>\n        <div class=\"w-full h-5 bg-slate-950 rounded overflow-hidden flex\">\n          <div id=\"bar-html-1\" class=\"h-full bg-blue-500 transition-all duration-300\" style=\"width: 0%;\"></div>\n          <div id=\"bar-html-block\" class=\"h-full bg-rose-600 transition-all duration-300\" style=\"width: 0%;\"></div>\n          <div id=\"bar-html-2\" class=\"h-full bg-blue-500 transition-all duration-300\" style=\"width: 0%;\"></div>\n        </div>\n      </div>\n\n      <div>\n        <div class=\"flex justify-between text-slate-400 mb-1\">\n          <span>Descarga de Archivo JavaScript (Red)</span>\n          <span id=\"label-js\" class=\"font-bold text-slate-200\">Inactivo</span>\n        </div>\n        <div class=\"w-full h-5 bg-slate-950 rounded overflow-hidden\">\n          <div id=\"bar-js\" class=\"h-full bg-amber-400 transition-all duration-300\" style=\"width: 0%;\"></div>\n        </div>\n      </div>\n\n      <div>\n        <div class=\"flex justify-between text-slate-400 mb-1\">\n          <span>Ejecución del Script (Main Thread)</span>\n          <span id=\"label-exec\" class=\"font-bold text-slate-200\">Inactivo</span>\n        </div>\n        <div class=\"w-full h-5 bg-slate-950 rounded overflow-hidden\">\n          <div id=\"bar-exec\" class=\"h-full bg-emerald-500 transition-all duration-300\" style=\"width: 0%;\"></div>\n        </div>\n      </div>\n    </div>\n\n    <div id=\"conclusionBox\" class=\"mt-4 p-4 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-300 leading-relaxed\">\n      💡 Selecciona una estrategia de carga para ver la animación temporal de parseo y ejecución.\n    </div>\n  </div>\n\n  <script>\n    function simular(modo) {\n      const bHtml1 = document.getElementById('bar-html-1');\n      const bBlock = document.getElementById('bar-html-block');\n      const bHtml2 = document.getElementById('bar-html-2');\n      const bJs = document.getElementById('bar-js');\n      const bExec = document.getElementById('bar-exec');\n      const box = document.getElementById('conclusionBox');\n\n      // Reset\n      [bHtml1, bBlock, bHtml2, bJs, bExec].forEach(el => el.style.width = '0%');\n\n      if (modo === 'sync') {\n        bHtml1.style.width = \"25%\";\n        bBlock.style.width = \"45%\";\n        bHtml2.style.width = \"30%\";\n        bJs.style.width = \"45%\";\n        bExec.style.width = \"45%\";\n        box.innerHTML = `<span class=\"text-rose-400 font-bold\">⚠️ Síncrono:</span> El parseo del HTML se DETIENE completamente mientras el script se descarga y ejecuta. La página permanece en blanco para el usuario.`;\n      } else if (modo === 'defer' || modo === 'module') {\n        bHtml1.style.width = \"100%\";\n        bBlock.style.width = \"0%\";\n        bHtml2.style.width = \"0%\";\n        bJs.style.width = \"60%\";\n        bExec.style.width = \"25%\";\n        box.innerHTML = `<span class=\"text-emerald-400 font-bold\">✅ Defer / Module:</span> El HTML se parsea de principio a fin sin interrupciones mientras el JS se descarga en segundo plano. El script se ejecuta justo cuando el DOM está listo.`;\n      } else if (modo === 'async') {\n        bHtml1.style.width = \"50%\";\n        bBlock.style.width = \"20%\";\n        bHtml2.style.width = \"30%\";\n        bJs.style.width = \"40%\";\n        bExec.style.width = \"20%\";\n        box.innerHTML = `<span class=\"text-amber-400 font-bold\">⚡ Async:</span> Se descarga en paralelo, pero en cuanto termina se ejecuta interrumpiendo el parseo. Adecuado para analíticas que no tocan el DOM.`;\n      }\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Benchmark: Carga de Scripts</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6\">\n  <div class=\"max-w-4xl mx-auto\">\n    <h1 class=\"text-2xl font-bold text-indigo-400 mb-2\">Simulador de Parseo HTML: Sync vs Defer vs Async vs Module</h1>\n    <p class=\"text-sm text-slate-400 mb-6\">Comprende cómo los diferentes atributos de la etiqueta &lt;script&gt; impactan en el bloqueo del hilo principal y en la métrica First Contentful Paint.</p>\n\n    <div class=\"flex gap-3 mb-6\">\n      <button onclick=\"simular('sync')\" class=\"px-4 py-2 bg-rose-600 hover:bg-rose-500 rounded-lg text-xs font-bold\">1. Script Síncrono (Bloquea)</button>\n      <button onclick=\"simular('defer')\" class=\"px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold\">2. Script Defer (Recomendado)</button>\n      <button onclick=\"simular('async')\" class=\"px-4 py-2 bg-amber-600 hover:bg-amber-500 rounded-lg text-xs font-bold\">3. Script Async (Independiente)</button>\n      <button onclick=\"simular('module')\" class=\"px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-bold\">4. Type=\"module\" (ESM)</button>\n    </div>\n\n    <!-- Timeline visual -->\n    <div class=\"bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-4 text-xs font-mono\">\n      <div>\n        <div class=\"flex justify-between text-slate-400 mb-1\">\n          <span>Parseo del Documento HTML</span>\n          <span id=\"label-html\" class=\"font-bold text-slate-200\">Inactivo</span>\n        </div>\n        <div class=\"w-full h-5 bg-slate-950 rounded overflow-hidden flex\">\n          <div id=\"bar-html-1\" class=\"h-full bg-blue-500 transition-all duration-300\" style=\"width: 0%;\"></div>\n          <div id=\"bar-html-block\" class=\"h-full bg-rose-600 transition-all duration-300\" style=\"width: 0%;\"></div>\n          <div id=\"bar-html-2\" class=\"h-full bg-blue-500 transition-all duration-300\" style=\"width: 0%;\"></div>\n        </div>\n      </div>\n\n      <div>\n        <div class=\"flex justify-between text-slate-400 mb-1\">\n          <span>Descarga de Archivo JavaScript (Red)</span>\n          <span id=\"label-js\" class=\"font-bold text-slate-200\">Inactivo</span>\n        </div>\n        <div class=\"w-full h-5 bg-slate-950 rounded overflow-hidden\">\n          <div id=\"bar-js\" class=\"h-full bg-amber-400 transition-all duration-300\" style=\"width: 0%;\"></div>\n        </div>\n      </div>\n\n      <div>\n        <div class=\"flex justify-between text-slate-400 mb-1\">\n          <span>Ejecución del Script (Main Thread)</span>\n          <span id=\"label-exec\" class=\"font-bold text-slate-200\">Inactivo</span>\n        </div>\n        <div class=\"w-full h-5 bg-slate-950 rounded overflow-hidden\">\n          <div id=\"bar-exec\" class=\"h-full bg-emerald-500 transition-all duration-300\" style=\"width: 0%;\"></div>\n        </div>\n      </div>\n    </div>\n\n    <div id=\"conclusionBox\" class=\"mt-4 p-4 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-300 leading-relaxed\">\n      💡 Selecciona una estrategia de carga para ver la animación temporal de parseo y ejecución.\n    </div>\n  </div>\n\n  <script>\n    function simular(modo) {\n      const bHtml1 = document.getElementById('bar-html-1');\n      const bBlock = document.getElementById('bar-html-block');\n      const bHtml2 = document.getElementById('bar-html-2');\n      const bJs = document.getElementById('bar-js');\n      const bExec = document.getElementById('bar-exec');\n      const box = document.getElementById('conclusionBox');\n\n      // Reset\n      [bHtml1, bBlock, bHtml2, bJs, bExec].forEach(el => el.style.width = '0%');\n\n      if (modo === 'sync') {\n        bHtml1.style.width = \"25%\";\n        bBlock.style.width = \"45%\";\n        bHtml2.style.width = \"30%\";\n        bJs.style.width = \"45%\";\n        bExec.style.width = \"45%\";\n        box.innerHTML = `<span class=\"text-rose-400 font-bold\">⚠️ Síncrono:</span> El parseo del HTML se DETIENE completamente mientras el script se descarga y ejecuta. La página permanece en blanco para el usuario.`;\n      } else if (modo === 'defer' || modo === 'module') {\n        bHtml1.style.width = \"100%\";\n        bBlock.style.width = \"0%\";\n        bHtml2.style.width = \"0%\";\n        bJs.style.width = \"60%\";\n        bExec.style.width = \"25%\";\n        box.innerHTML = `<span class=\"text-emerald-400 font-bold\">✅ Defer / Module:</span> El HTML se parsea de principio a fin sin interrupciones mientras el JS se descarga en segundo plano. El script se ejecuta justo cuando el DOM está listo.`;\n      } else if (modo === 'async') {\n        bHtml1.style.width = \"50%\";\n        bBlock.style.width = \"20%\";\n        bHtml2.style.width = \"30%\";\n        bJs.style.width = \"40%\";\n        bExec.style.width = \"20%\";\n        box.innerHTML = `<span class=\"text-amber-400 font-bold\">⚡ Async:</span> Se descarga en paralelo, pero en cuanto termina se ejecuta interrumpiendo el parseo. Adecuado para analíticas que no tocan el DOM.`;\n      }\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Simula tres peticiones de red mediante setTimeout para ilustrar la diferencia entre scripts síncronos bloqueantes, scripts diferidos con defer y módulos ES.", "filename": "ej3_benchmark_carga.html"}];
+    let currentItem = null;
+    let currentCode = "";
+
+    function resetIframe() {
+      const wrapper = document.getElementById('iframe-wrapper');
+      if (wrapper) wrapper.innerHTML = '';
+      const newIframe = document.createElement('iframe');
+      newIframe.id = 'preview-iframe';
+      newIframe.className = 'w-full h-full border-0';
+      newIframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-same-origin');
+      if (wrapper) wrapper.appendChild(newIframe);
+      return newIframe;
+    }
+
+    function selectItem(id) {
+      const item = ITEMS.find(x => x.id === id) || ITEMS[0];
+      currentItem = item;
+      
+      document.querySelectorAll('.exercise-nav-btn').forEach(btn => {
+        if (btn.id === 'nav-btn-' + item.id) {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between active bg-indigo-600 text-white shadow-sm";
+        } else {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100";
+        }
+      });
+
+      document.getElementById('ex-badge').textContent = item.badge;
+      document.getElementById('ex-title').textContent = item.title;
+      document.getElementById('ex-subtitle').textContent = item.subtitle;
+      document.getElementById('ex-instruction').textContent = item.instruction;
+      document.getElementById('ex-explanation').textContent = item.explanation || "Solución fundamentada en las mejores prácticas del estándar ES6+.";
+
+      const iframe = resetIframe();
+
+      if (item.filename) {
+        currentCode = item.code || item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = item.filename.endsWith('.html') ? "language-html" : "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Solución externa oficial ejecutable en iframe: /ejercicios/" + item.filename;
+        iframe.src = './ejercicios/' + item.filename;
+      } else {
+        currentCode = item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Entorno de ejecución inmediata de la solución en JavaScript.";
+
+        const shellTpl = document.getElementById('iframe-shell-template');
+        const iframeDoc = iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(shellTpl ? shellTpl.textContent : '');
+        iframeDoc.close();
+
+        // Inyectar runner directamente
+        iframe.contentWindow.runSolution = function(rawCode) {
+          const doc = iframe.contentWindow.document;
+          const output = doc.getElementById("output");
+          const domStage = doc.getElementById("dom-stage");
+          if (output) output.innerHTML = "";
+
+          function log(...args) {
+            const p = doc.createElement("div");
+            p.className = "log-line";
+            p.textContent = args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+            output.appendChild(p);
+          }
+
+          const customConsole = {
+            log: log,
+            error: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-error";
+              p.textContent = "❌ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            },
+            info: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-info";
+              p.textContent = "ℹ️ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            }
+          };
+
+          const isDomCode = /document\.|querySelector|getElementById|createElement|addEventListener|dataset|innerHTML|outerHTML|#catalogo|#miForm|#password|#btnTema|#listaDinamica|#miLista|#app|@Component|<[a-z]/i.test(rawCode);
+
+          if (domStage) {
+            if (isDomCode) domStage.classList.remove("hidden");
+            else domStage.classList.add("hidden");
+          }
+
+          const NL = String.fromCharCode(10);
+
+          if (rawCode.trim().startsWith("git ")) {
+            log("💻 [Simulador de Consola Git Terminal]");
+            rawCode.split(NL).forEach(cmd => { if (cmd.trim()) log("$ " + cmd); });
+            log("✅ Secuencia Git ejecutada correctamente en el repositorio local.");
+            return;
+          }
+
+          if (rawCode.includes("db.ventas.aggregate")) {
+            log("🍃 [Simulador de Shell MongoDB]");
+            log("> " + rawCode);
+            log("📊 [Resultado del Pipeline de Agregación]:");
+            log([{ _id: "Electrónica", totalVentas: 15420.50 }, { _id: "Hogar", totalVentas: 8300.00 }, { _id: "Deportes", totalVentas: 4150.00 }]);
+            return;
+          }
+
+          if (rawCode.includes("@Component")) {
+            log("🅰️ [Compilador Angular v18 Standalone]");
+            log("✨ Componente Standalone ContadorComponent compilado e inyectado.");
+            log("Selector: <app-contador>");
+            log("Estado inicial: total = 0");
+            const appEl = doc.getElementById("app");
+            if (appEl) {
+              appEl.innerHTML = '<div class="p-3 bg-slate-950 border border-indigo-500/50 rounded-lg text-xs font-sans mb-2"><div class="font-bold text-indigo-400 mb-1">🅰️ Componente Angular ContadorComponent (Live Render):</div><div class="flex items-center gap-3"><span id="ng-counter" class="text-sm font-semibold text-white">Contador: 0</span><button id="ng-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded text-xs transition-colors">+1</button></div></div>';
+              const btn = doc.getElementById('ng-btn');
+              if (btn) btn.onclick = function() {
+                const c = doc.getElementById('ng-counter');
+                let val = parseInt(c.textContent.replace('Contador: ',''))+1;
+                c.textContent = 'Contador: ' + val;
+              };
+            }
+            return;
+          }
+
+          if (rawCode.trim().startsWith("/*") && rawCode.includes("/api/")) {
+            log("🌐 [Router REST API - Especificación de Endpoints]");
+            rawCode.split(NL).forEach(line => { if (line.trim() && !line.includes("/*") && !line.includes("*/")) log(line.trim()); });
+            log("✅ Servidor de API REST semántico preparado.");
+            return;
+          }
+
+          try {
+            const runFn = iframe.contentWindow.Function('console', 'log', 'document', rawCode);
+            const res = runFn(customConsole, log, doc);
+            if (res !== undefined) log("⬅️ Retorno:", res);
+          } catch (err1) {
+            try {
+              const res = iframe.contentWindow.eval(rawCode);
+              if (res !== undefined) log("⬅️ Retorno:", res);
+            } catch (err2) {
+              customConsole.error("Error de Ejecución:", err2.message);
+            }
+          }
+        };
+
+        if (iframe.contentWindow && typeof iframe.contentWindow.runSolution === 'function') {
+          iframe.contentWindow.runSolution(item.solution || '');
+        }
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      const btnView = document.getElementById('btn-tab-view');
+      const btnCode = document.getElementById('btn-tab-code');
+
+      if (tabId === 'tab-view') {
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      } else {
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      }
+    }
+
+    function reloadPreview() {
+      if (currentItem) selectItem(currentItem.id);
+    }
+
+    function copyCode() {
+      if (!currentCode) return;
+      navigator.clipboard.writeText(currentCode).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = "✅ ¡Copiado!";
+        setTimeout(() => { btn.textContent = "📋 Copiar Código"; }, 2000);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const itemId = params.get('item') || window.location.hash.replace('#', '');
+      selectItem(itemId || ITEMS[0].id);
+    });
+  </script>
+
+</body>
+</html>

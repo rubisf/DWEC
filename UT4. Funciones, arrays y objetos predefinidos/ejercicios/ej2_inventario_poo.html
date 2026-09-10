@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>POO con Clases y Campos Privados</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6 text-slate-800">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <h1 class="text-xl font-bold text-slate-900 mb-1">Jerarquía POO con Campos Privados #</h1>
+    <p class="text-xs text-slate-500 mb-6">Clases Empleado y Desarrollador con encapsulación estricta en JavaScript moderno.</p>
+
+    <div class="p-4 bg-slate-900 text-slate-200 rounded-xl font-mono text-xs mb-4" id="pooConsole"></div>
+    <button onclick="ejecutarDemoPOO()" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg text-xs transition">Instanciar Clases y Evaluar Privacidad</button>
+  </div>
+
+  <script>
+    class Empleado {
+      #salario; // Campo privado nativo ES2022+
+      constructor(nombre, salario) {
+        this.nombre = nombre;
+        this.#salario = salario;
+      }
+      get salarioBase() { return this.#salario; }
+      presentarse() { return `Empleado: ${this.nombre}`; }
+    }
+
+    class DesarrolladorSenior extends Empleado {
+      constructor(nombre, salario, lenguaje) {
+        super(nombre, salario);
+        this.lenguaje = lenguaje;
+      }
+      presentarse() {
+        return `${super.presentarse()} | Especialidad: ${this.lenguaje}`;
+      }
+      calcularBonus(porcentaje) {
+        return this.salarioBase * (porcentaje / 100);
+      }
+    }
+
+    function ejecutarDemoPOO() {
+      const dev = new DesarrolladorSenior("Elena Gómez", 48000, "TypeScript / Angular");
+      const out = document.getElementById('pooConsole');
+      out.innerHTML = `
+        <p class="text-purple-400">// Instancia creada con éxito:</p>
+        <p>${dev.presentarse()}</p>
+        <p>Salario Base (vía Getter): ${dev.salarioBase} €</p>
+        <p>Bonus 10%: ${dev.calcularBonus(10)} €</p>
+        <p class="text-rose-400 mt-2">// Intento de acceso directo al campo privado dev.#salario:</p>
+        <p class="text-slate-400">&gt; SyntaxError: Private field '#salario' must be declared in an enclosing class.</p>
+      `;
+    }
+  </script>
+</body>
+</html>

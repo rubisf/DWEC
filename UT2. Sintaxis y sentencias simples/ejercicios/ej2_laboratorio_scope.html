@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laboratorio de Scope y Hoisting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-mono text-xs">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-xl font-bold text-indigo-400 mb-2 font-sans">Laboratorio de Scope: Var vs Let vs Const</h1>
+    <p class="text-slate-400 mb-4 font-sans text-sm">Comprueba cómo se comportan las variables dentro de bloques condicionales y bucles.</p>
+
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <button onclick="testVar()" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-left">
+        <span class="text-amber-400 font-bold block mb-1">Test 1: Comportamiento 'var'</span>
+        <span class="text-slate-400 text-[11px]">Ámbito de función, filtrado fuera de bloque if/for</span>
+      </button>
+
+      <button onclick="testLet()" class="p-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-left">
+        <span class="text-emerald-400 font-bold block mb-1">Test 2: Comportamiento 'let/const'</span>
+        <span class="text-slate-400 text-[11px]">Ámbito de bloque estricto {} y Temporal Dead Zone</span>
+      </button>
+    </div>
+
+    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+      <div class="text-slate-500 mb-2 border-b border-slate-800 pb-1 flex justify-between">
+        <span>CONSOLA DE EJECUCIÓN</span>
+        <button onclick="document.getElementById('out').innerHTML=''" class="text-slate-400 hover:text-white">Limpiar</button>
+      </div>
+      <div id="out" class="space-y-1 min-h-[160px] text-slate-300"></div>
+    </div>
+  </div>
+
+  <script>
+    const out = document.getElementById('out');
+    function print(t, color="text-slate-300") {
+      out.innerHTML += `<p class="${color}">&gt; ${t}</p>`;
+    }
+
+    function testVar() {
+      print("--- Ejecutando Test con VAR ---", "text-amber-400");
+      if (true) {
+        var animal = "León";
+      }
+      print("Fuera del if: animal = " + animal + " (¡Se escapó del bloque!)", "text-amber-300");
+      
+      for (var i = 0; i < 3; i++) {}
+      print("Fuera del for: i = " + i + " (Variable contamina el scope)", "text-rose-400");
+    }
+
+    function testLet() {
+      print("--- Ejecutando Test con LET / CONST ---", "text-emerald-400");
+      if (true) {
+        let ave = "Águila";
+        const pi = 3.1416;
+        print("Dentro del bloque: ave = " + ave + ", pi = " + pi, "text-emerald-300");
+      }
+      try {
+        console.log(ave);
+      } catch (err) {
+        print("Fuera del bloque: " + err.name + ": " + err.message + " (¡Protegido por bloque!)", "text-emerald-400");
+      }
+    }
+  </script>
+</body>
+</html>

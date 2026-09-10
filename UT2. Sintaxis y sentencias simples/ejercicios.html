@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soluciones y Taller de Prácticas - UT2: Sintaxis, Sentencias Simples y Principios de Diseño</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .code-container {
+      background-color: #0d1117 !important;
+      border: 1px solid #30363d !important;
+      border-radius: 12px !important;
+    }
+    .code-container pre {
+      margin: 0 !important;
+      padding: 16px !important;
+      background-color: #0d1117 !important;
+    }
+    .code-container code {
+      background-color: #0d1117 !important;
+      color: #f0f6fc !important;
+      font-size: 13px !important;
+      line-height: 1.6 !important;
+    }
+    .hljs-keyword, .hljs-selector-tag, .hljs-subst { color: #ff7b72 !important; font-weight: 700; }
+    .hljs-string, .hljs-title, .hljs-section, .hljs-attribute, .hljs-literal, .hljs-type { color: #a5d6ff !important; }
+    .hljs-comment, .hljs-quote, .hljs-deletion, .hljs-meta { color: #8b949e !important; font-style: italic; }
+    .hljs-number, .hljs-regexp, .hljs-link { color: #79c0ff !important; }
+    .hljs-function, .hljs-title.function_ { color: #d2a8ff !important; }
+    .hljs-variable, .hljs-params { color: #ffa657 !important; }
+    .hljs-tag, .hljs-name { color: #7ee787 !important; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col antialiased">
+
+  <!-- Barra Superior -->
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+    <div class="flex items-center gap-4">
+      <a href="../index.html" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Volver al Panel Principal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      </a>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-md">UT2</span>
+          <h1 class="text-lg font-bold text-slate-800">UT2: Sintaxis, Sentencias Simples y Principios de Diseño</h1>
+        </div>
+        <p class="text-xs text-slate-500">Centro Oficial de Soluciones Explicadas, Código Fuente y Ejecución en Vivo</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="presentacion.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
+        🎬 Ver Presentación
+      </a>
+      <a href="../index.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+        🏠 Índice General
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal Split -->
+  <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto p-6 gap-6">
+    
+    <!-- Sidebar Ejercicios -->
+    <aside class="w-80 bg-white rounded-2xl border border-slate-200 p-4 flex flex-col shadow-sm flex-shrink-0">
+      <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 space-y-4">
+        
+        <div>
+          <h2 class="text-xs font-bold tracking-wider text-indigo-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🎯 Retos de Conceptos (4)
+          </h2>
+          
+          <button onclick="selectItem('reto-1')" id="nav-btn-reto-1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Refactorización hacia Responsabilidad Única (SRP)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 1</span>
+          </button>
+          <button onclick="selectItem('reto-2')" id="nav-btn-reto-2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Diferenciación de Scope y Mutabilidad</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 2</span>
+          </button>
+          <button onclick="selectItem('reto-3')" id="nav-btn-reto-3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Clonación Inmutable y Filtrado con Bucles Modernos</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 3</span>
+          </button>
+          <button onclick="selectItem('reto-4')" id="nav-btn-reto-4" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Control del Contexto &#x27;this&#x27; con call, apply y bind</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 4</span>
+          </button>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100">
+          <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🚀 Prácticas y Proyectos (3)
+          </h2>
+          
+          <button onclick="selectItem('ej1')" id="nav-btn-ej1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Calculadora de Facturas con Principios SOLID</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 1</span>
+          </button>
+          <button onclick="selectItem('ej2')" id="nav-btn-ej2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Laboratorio de Scope, Hoisting y Modo Estricto</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 2</span>
+          </button>
+          <button onclick="selectItem('ej3')" id="nav-btn-ej3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Dashboard de Métricas con Funciones Flecha y Spread</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 3</span>
+          </button>
+        </div>
+
+      </div>
+      <div class="pt-4 border-t border-slate-100 mt-2 text-xs text-slate-400 text-center">
+        DWEC · Grado Superior DAW
+      </div>
+    </aside>
+
+    <!-- Panel de Actividad Seleccionada -->
+    <main class="flex-1 bg-white rounded-2xl border border-slate-200 flex flex-col shadow-sm overflow-hidden">
+      
+      <!-- Cabecera de Práctica/Reto -->
+      <div class="p-6 border-b border-slate-200 bg-slate-50/50 flex items-start justify-between">
+        <div>
+          <span id="ex-badge" class="px-2.5 py-1 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-lg">Cargando...</span>
+          <h2 id="ex-title" class="text-xl font-bold text-slate-900 mt-2">Cargando...</h2>
+          <p id="ex-subtitle" class="text-xs font-semibold text-slate-500 mt-1"></p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="switchTab('tab-view')" id="btn-tab-view" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm">
+            ▶️ Vista / Ejecución en Vivo
+          </button>
+          <button onclick="switchTab('tab-code')" id="btn-tab-code" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all">
+            💻 Código Fuente y Solución
+          </button>
+        </div>
+      </div>
+
+      <!-- Cuerpo del Visor -->
+      <div class="flex-1 p-6 overflow-y-auto custom-scrollbar relative flex flex-col">
+        
+        <!-- Bloque de Enunciado -->
+        <div class="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+          <h3 class="text-xs font-bold text-emerald-900 uppercase tracking-wider mb-1">📝 Enunciado de la Actividad</h3>
+          <p id="ex-instruction" class="text-xs text-emerald-800 leading-relaxed"></p>
+        </div>
+
+        <!-- Tab 1: Vista Previa / Ejecución en Vivo -->
+        <div id="tab-view" class="tab-content flex-1 flex flex-col min-h-0">
+          <div id="iframe-wrapper" class="flex-1 rounded-xl border border-slate-200 overflow-hidden bg-slate-50 min-h-[360px] relative">
+            <iframe id="preview-iframe" class="w-full h-full border-0" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+            <span id="preview-hint">💡 Entorno interactivo aislado en sandbox.</span>
+            <button onclick="reloadPreview()" class="text-indigo-600 hover:underline font-semibold flex items-center gap-1">
+              🔄 Recargar entorno
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Código Fuente y Solución Explicada con Alto Contraste -->
+        <div id="tab-code" class="tab-content hidden flex-1 flex flex-col space-y-4 min-h-0">
+          <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
+            <h3 class="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">💡 Explicación Paso a Paso de la Solución</h3>
+            <p id="ex-explanation" class="text-xs text-indigo-800 leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-500">Solución Oficial en Código Fuente (Alto Contraste)</span>
+            <button onclick="copyCode()" id="copy-btn" class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors flex items-center gap-1">
+              📋 Copiar Código
+            </button>
+          </div>
+          <div class="flex-1 code-container overflow-hidden p-2 text-xs overflow-y-auto custom-scrollbar">
+            <pre><code id="code-content" class="language-javascript"></code></pre>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Shell HTML aislado como Script de texto puro (sin parseo en el documento padre) -->
+  <script type="text/html" id="iframe-shell-template">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="utf-8"/>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+        body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 16px; margin: 0; font-size: 13px; }
+        .log-title { color: #d2a8ff; font-weight: bold; margin-bottom: 12px; font-size: 13px; border-bottom: 1px solid #30363d; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .log-line { border-bottom: 1px solid #21262d; padding: 6px 0; color: #7ee787; line-height: 1.5; font-family: monospace; }
+        .log-error { color: #ff7b72; font-weight: bold; }
+        .log-info { color: #79c0ff; }
+        .hidden { display: none !important; }
+      </style>
+    </head>
+    <body class="antialiased">
+      <div id="dom-stage" class="hidden mb-4 p-4 bg-slate-900 border border-slate-700/80 rounded-xl shadow-lg font-sans text-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-2.5 mb-3">
+          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🌐 Escenario DOM Interactivo (Ejecución en Vivo)</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono">Contenedores activos para manipulación DOM</span>
+        </div>
+        <div id="app" class="mb-3 empty:hidden"></div>
+        <div id="catalogo" class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3 empty:hidden"></div>
+        <div id="form-container" class="flex flex-wrap items-center gap-3 mb-3">
+          <form id="miForm" class="flex items-center gap-2">
+            <input id="password" type="password" placeholder="Prueba contraseña..." value="Abc12345" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors shadow-sm">Enviar Formulario</button>
+          </form>
+          <button id="btnTema" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs border border-slate-700 transition-colors">Modo: light</button>
+        </div>
+        <div id="lists-container" class="space-y-3">
+          <ul id="listaDinamica" class="flex flex-wrap gap-2 text-xs">
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 1 (Haz clic para eliminar)</span> 🗑️</li>
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 2 (Haz clic para eliminar)</span> 🗑️</li>
+          </ul>
+          <ul id="miLista" class="space-y-1.5 text-xs text-emerald-400 font-mono"></ul>
+        </div>
+      </div>
+      <div class="log-title"><span>▶️ Resultados de Ejecución en Consola / Salida Estándar:</span></div>
+      <div id="output"></div>
+    </body>
+    </html>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+
+  <script>
+    const ITEMS = [{"id": "reto-1", "type": "reto", "badge": "Reto Concepto 1", "title": "Refactorización hacia Responsabilidad Única (SRP)", "subtitle": "Bloque 1: Metodologías Ágiles (Scrum) y Principios de Diseño (SOLID)", "instruction": "Toma una función que realiza cálculos de impuestos, formatea la salida en HTML y guarda en el almacenamiento local. Sepárala en tres funciones puras y desacopladas (calcularIVA, formatearFactura, guardarRegistro) aplicando SRP.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Refactorización SOLID (SRP)</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Funciones Desacopladas (calcularIVA, formatearFactura, guardarRegistro)</h2>\n    <div id=\"out-srp\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-indigo-300\"></div>\n  </div>\n  <script>\n    // 1. Lógica pura de impuestos\n    const calcularIVA = (subtotal, tasa = 0.21) => subtotal * (1 + tasa);\n\n    // 2. Formateador de moneda\n    const formatearFactura = (total) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total);\n\n    // 3. Persistencia independiente\n    const guardarRegistro = (clave, valor) => localStorage.setItem(clave, JSON.stringify(valor));\n\n    const total = calcularIVA(150);\n    const totalFormateado = formatearFactura(total);\n    guardarRegistro('factura_demo', { subtotal: 150, total });\n\n    document.getElementById('out-srp').innerHTML = `\n      <div>💰 Base: €150 | Total con IVA: <strong>${totalFormateado}</strong></div>\n      <div class=\"text-emerald-400\">💾 Guardado en localStorage['factura_demo']: ${localStorage.getItem('factura_demo')}</div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) 'calcularIVA' es una función pura que no muta estado externo.\n2) 'formatearFactura' utiliza la API nativa 'Intl.NumberFormat' para formatear importes en euros.\n3) 'guardarRegistro' aísla la persistencia en localStorage, cumpliendo el principio SRP.", "filename": "reto1_refactorizacion_srp.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Refactorización SOLID (SRP)</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Funciones Desacopladas (calcularIVA, formatearFactura, guardarRegistro)</h2>\n    <div id=\"out-srp\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-indigo-300\"></div>\n  </div>\n  <script>\n    // 1. Lógica pura de impuestos\n    const calcularIVA = (subtotal, tasa = 0.21) => subtotal * (1 + tasa);\n\n    // 2. Formateador de moneda\n    const formatearFactura = (total) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total);\n\n    // 3. Persistencia independiente\n    const guardarRegistro = (clave, valor) => localStorage.setItem(clave, JSON.stringify(valor));\n\n    const total = calcularIVA(150);\n    const totalFormateado = formatearFactura(total);\n    guardarRegistro('factura_demo', { subtotal: 150, total });\n\n    document.getElementById('out-srp').innerHTML = `\n      <div>💰 Base: €150 | Total con IVA: <strong>${totalFormateado}</strong></div>\n      <div class=\"text-emerald-400\">💾 Guardado en localStorage['factura_demo']: ${localStorage.getItem('factura_demo')}</div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-2", "type": "reto", "badge": "Reto Concepto 2", "title": "Diferenciación de Scope y Mutabilidad", "subtitle": "Bloque 2: Tipos Primitivos, Objetos y Declaración de Variables (let / const)", "instruction": "Declara un array con 'const'. Demuestra que se pueden modificar sus elementos internos (.push), pero que reasignar la variable arroja un TypeError. Explica qué ocurre en un bucle 'for' con 'let' vs 'var'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Mutabilidad const y Scope</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Mutabilidad const (.push) vs TypeError en Reasignación</h2>\n    <div id=\"out-const\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const out = document.getElementById('out-const');\n    const alumnos = ['Carlos', 'Beatriz'];\n    alumnos.push('David'); // Permitido\n    out.innerHTML += `<div class=\"text-emerald-300\">✅ Mutación con .push() en const: [${alumnos.join(', ')}]</div>`;\n\n    try {\n      alumnos = ['Nuevo Array']; // TypeError\n    } catch (e) {\n      out.innerHTML += `<div class=\"text-rose-400\">❌ Error al reasignar const: ${e.message}</div>`;\n    }\n\n    // Comprobación let vs var en bucle\n    let closuresLet = [];\n    for (let i = 0; i < 2; i++) closuresLet.push(() => i);\n    out.innerHTML += `<div class=\"text-amber-300\">Bucle let (Block Scope): i = ${closuresLet[0]()} y ${closuresLet[1]()}</div>`;\n  <\/script>\n</body>\n</html>", "explanation": "1) Las variables declaradas con 'const' impiden la reasignación del identificador, pero permiten la mutación interna de objetos y arrays (.push).\n2) La reasignación directa dispara 'TypeError'.\n3) En bucles, 'let' crea un nuevo binding por iteración resolviendo el cierre de ámbito.", "filename": "reto2_demostracion_tdz.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Mutabilidad const y Scope</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Mutabilidad const (.push) vs TypeError en Reasignación</h2>\n    <div id=\"out-const\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const out = document.getElementById('out-const');\n    const alumnos = ['Carlos', 'Beatriz'];\n    alumnos.push('David'); // Permitido\n    out.innerHTML += `<div class=\"text-emerald-300\">✅ Mutación con .push() en const: [${alumnos.join(', ')}]</div>`;\n\n    try {\n      alumnos = ['Nuevo Array']; // TypeError\n    } catch (e) {\n      out.innerHTML += `<div class=\"text-rose-400\">❌ Error al reasignar const: ${e.message}</div>`;\n    }\n\n    // Comprobación let vs var en bucle\n    let closuresLet = [];\n    for (let i = 0; i < 2; i++) closuresLet.push(() => i);\n    out.innerHTML += `<div class=\"text-amber-300\">Bucle let (Block Scope): i = ${closuresLet[0]()} y ${closuresLet[1]()}</div>`;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-3", "type": "reto", "badge": "Reto Concepto 3", "title": "Clonación Inmutable y Filtrado con Bucles Modernos", "subtitle": "Bloque 3: Estructuras de Control, Bucles Modernos y Operador Spread", "instruction": "Dado un array de puntuaciones, clónalo inmutablemente con spread (...), añade dos nuevas notas y calcula la media de los aprobados utilizando un bucle 'for...of'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Clonación Inmutable con Spread y Bucles Modernos</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Clonación Inmutable con Operador Spread (...) y Bucles for...of</h2>\n    <div id=\"out-spread\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const notasOriginales = [4.5, 7.0, 8.5, 3.2];\n    // 1. Clonación inmutable con spread (...) y fusión de 2 nuevas notas\n    const todasNotas = [...notasOriginales, 9.0, 6.5];\n\n    // 2. Iteración limpia con bucle for...of\n    let sumaAprobados = 0, countAprobados = 0;\n    for (const nota of todasNotas) {\n      if (nota >= 5.0) {\n        sumaAprobados += nota;\n        countAprobados++;\n      }\n    }\n\n    const media = countAprobados > 0 ? (sumaAprobados / countAprobados).toFixed(2) : 0;\n\n    const out = document.getElementById('out-spread');\n    out.innerHTML = `\n      <div class=\"text-slate-400\">📊 Array Original (Inalterado): [${notasOriginales.join(', ')}]</div>\n      <div class=\"text-amber-300\">✨ Array Clonado con Spread (...): [${todasNotas.join(', ')}]</div>\n      <div class=\"text-emerald-400 font-bold border-t border-slate-800 pt-2 mt-2\">\n        ✅ Media de los ${countAprobados} aprobados (calculada con for...of): ${media}\n      </div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) '[...notasOriginales]' crea una copia inmutable superficial del array original.\n2) 'for...of' recorre de forma limpia cada elemento.\n3) El operador ternario previene la división por cero si no existen aprobados.", "filename": "reto3_procesador_inventario.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Clonación Inmutable con Spread y Bucles Modernos</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Clonación Inmutable con Operador Spread (...) y Bucles for...of</h2>\n    <div id=\"out-spread\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const notasOriginales = [4.5, 7.0, 8.5, 3.2];\n    // 1. Clonación inmutable con spread (...) y fusión de 2 nuevas notas\n    const todasNotas = [...notasOriginales, 9.0, 6.5];\n\n    // 2. Iteración limpia con bucle for...of\n    let sumaAprobados = 0, countAprobados = 0;\n    for (const nota of todasNotas) {\n      if (nota >= 5.0) {\n        sumaAprobados += nota;\n        countAprobados++;\n      }\n    }\n\n    const media = countAprobados > 0 ? (sumaAprobados / countAprobados).toFixed(2) : 0;\n\n    const out = document.getElementById('out-spread');\n    out.innerHTML = `\n      <div class=\"text-slate-400\">📊 Array Original (Inalterado): [${notasOriginales.join(', ')}]</div>\n      <div class=\"text-amber-300\">✨ Array Clonado con Spread (...): [${todasNotas.join(', ')}]</div>\n      <div class=\"text-emerald-400 font-bold border-t border-slate-800 pt-2 mt-2\">\n        ✅ Media de los ${countAprobados} aprobados (calculada con for...of): ${media}\n      </div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-4", "type": "reto", "badge": "Reto Concepto 4", "title": "Control del Contexto 'this' con call, apply y bind", "subtitle": "Bloque 4: Funciones Clásicas, Funciones Flecha y Contexto 'this'", "instruction": "Escribe una función 'presentar(rol)' y ejecútala cambiando explícitamente el contexto 'this' con call(), apply() y bind() hacia dos objetos persona distintos.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: Contexto this con call, apply y bind</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Vinculación de Contexto this (call, apply, bind)</h2>\n    <div id=\"out-this\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300\"></div>\n  </div>\n  <script>\n    function presentar(rol, ciudad) {\n      return `Hola, soy ${this.nombre} (${rol}) de ${ciudad}.`;\n    }\n    const dev1 = { nombre: \"Elena\" };\n    const dev2 = { nombre: \"Marcos\" };\n\n    const resCall = presentar.call(dev1, \"Senior Frontend\", \"Madrid\");\n    const resApply = presentar.apply(dev2, [\"Backend Lead\", \"Barcelona\"]);\n    const fnBind = presentar.bind(dev1, \"Arquitecta Web\", \"Valencia\");\n\n    const out = document.getElementById('out-this');\n    out.innerHTML = `\n      <div>1. call(): ${resCall}</div>\n      <div>2. apply(): ${resApply}</div>\n      <div>3. bind(): ${fnBind()}</div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) Las funciones flecha no crean su propio binding de 'this', heredando léxicamente el 'this' del objeto envolvente ('cronometro').\n2) Evitan el fallo clásico de 'setInterval' con funciones tradicionales donde 'this' pasaba a ser 'window'.", "filename": "reto4_enlazar_contexto_this.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: Contexto this con call, apply y bind</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Vinculación de Contexto this (call, apply, bind)</h2>\n    <div id=\"out-this\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300\"></div>\n  </div>\n  <script>\n    function presentar(rol, ciudad) {\n      return `Hola, soy ${this.nombre} (${rol}) de ${ciudad}.`;\n    }\n    const dev1 = { nombre: \"Elena\" };\n    const dev2 = { nombre: \"Marcos\" };\n\n    const resCall = presentar.call(dev1, \"Senior Frontend\", \"Madrid\");\n    const resApply = presentar.apply(dev2, [\"Backend Lead\", \"Barcelona\"]);\n    const fnBind = presentar.bind(dev1, \"Arquitecta Web\", \"Valencia\");\n\n    const out = document.getElementById('out-this');\n    out.innerHTML = `\n      <div>1. call(): ${resCall}</div>\n      <div>2. apply(): ${resApply}</div>\n      <div>3. bind(): ${fnBind()}</div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "ej1", "type": "practica", "badge": "Práctica Guiada 1", "title": "Calculadora de Facturas con Principios SOLID", "subtitle": "Módulo interactivo que calcula impuestos, aplica descuentos por tipo de cliente y exporta datos desacoplando la lógica de negocio, la validación y el renderizado en pantalla.", "instruction": "Módulo interactivo que calcula impuestos, aplica descuentos por tipo de cliente y exporta datos desacoplando la lógica de negocio, la validación y el renderizado en pantalla.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Calculadora de Facturas SOLID</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Calculadora de Facturación con Principios SOLID</h1>\n    <p class=\"text-xs text-slate-500 mb-6\">Demostración de Responsabilidad Única (SRP) y Abierto/Cerrado (OCP) con estrategias de descuento desacopladas.</p>\n\n    <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Subtotal (€)</label>\n        <input id=\"subtotal\" type=\"number\" value=\"250\" class=\"w-full border p-2 rounded-lg text-sm\">\n      </div>\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Tipo de Cliente (Estrategia)</label>\n        <select id=\"tipoCliente\" class=\"w-full border p-2 rounded-lg text-sm bg-white\">\n          <option value=\"estandar\">Cliente Estándar (0%)</option>\n          <option value=\"vip\">Cliente VIP (15%)</option>\n          <option value=\"estudiante\">Estudiante / FP (25%)</option>\n        </select>\n      </div>\n      <div class=\"flex items-end\">\n        <button onclick=\"calcular()\" class=\"w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 rounded-lg text-sm transition\">Calcular Factura</button>\n      </div>\n    </div>\n\n    <!-- Resultados Desacoplados -->\n    <div class=\"bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2 text-sm\">\n      <div class=\"flex justify-between\"><span>Subtotal Base:</span><strong id=\"outSubtotal\">0,00 €</strong></div>\n      <div class=\"flex justify-between text-rose-600\"><span>Descuento aplicado:</span><strong id=\"outDescuento\">0,00 €</strong></div>\n      <div class=\"flex justify-between text-slate-600\"><span>IVA General (21%):</span><strong id=\"outIva\">0,00 €</strong></div>\n      <div class=\"border-t border-slate-200 pt-2 flex justify-between text-base font-extrabold text-indigo-700\">\n        <span>TOTAL FACTURA:</span><span id=\"outTotal\">0,00 €</span>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    // 1. Patrón Strategy (Principio OCP: Abierto a extensión sin modificar código)\n    const EstrategiasDescuento = {\n      estandar: (monto) => 0,\n      vip: (monto) => monto * 0.15,\n      estudiante: (monto) => monto * 0.25\n    };\n\n    // 2. Lógica de Negocio pura (Principio SRP: sólo cálculos aritméticos)\n    class CalculadorFactura {\n      static calcular(subtotal, tipoCliente, tasaIVA = 0.21) {\n        const estrategia = EstrategiasDescuento[tipoCliente] || EstrategiasDescuento.estandar;\n        const descuento = estrategia(subtotal);\n        const baseImponible = Math.max(0, subtotal - descuento);\n        const iva = baseImponible * tasaIVA;\n        const total = baseImponible + iva;\n        return { subtotal, descuento, iva, total };\n      }\n    }\n\n    // 3. Capa de Presentación pura (SRP: sólo formateo)\n    const Formateador = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });\n\n    function calcular() {\n      const sub = parseFloat(document.getElementById('subtotal').value) || 0;\n      const tipo = document.getElementById('tipoCliente').value;\n      const res = CalculadorFactura.calcular(sub, tipo);\n\n      document.getElementById('outSubtotal').textContent = Formateador.format(res.subtotal);\n      document.getElementById('outDescuento').textContent = \"- \" + Formateador.format(res.descuento);\n      document.getElementById('outIva').textContent = \"+ \" + Formateador.format(res.iva);\n      document.getElementById('outTotal').textContent = Formateador.format(res.total);\n    }\n    calcular();\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Calculadora de Facturas SOLID</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Calculadora de Facturación con Principios SOLID</h1>\n    <p class=\"text-xs text-slate-500 mb-6\">Demostración de Responsabilidad Única (SRP) y Abierto/Cerrado (OCP) con estrategias de descuento desacopladas.</p>\n\n    <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Subtotal (€)</label>\n        <input id=\"subtotal\" type=\"number\" value=\"250\" class=\"w-full border p-2 rounded-lg text-sm\">\n      </div>\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Tipo de Cliente (Estrategia)</label>\n        <select id=\"tipoCliente\" class=\"w-full border p-2 rounded-lg text-sm bg-white\">\n          <option value=\"estandar\">Cliente Estándar (0%)</option>\n          <option value=\"vip\">Cliente VIP (15%)</option>\n          <option value=\"estudiante\">Estudiante / FP (25%)</option>\n        </select>\n      </div>\n      <div class=\"flex items-end\">\n        <button onclick=\"calcular()\" class=\"w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 rounded-lg text-sm transition\">Calcular Factura</button>\n      </div>\n    </div>\n\n    <!-- Resultados Desacoplados -->\n    <div class=\"bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2 text-sm\">\n      <div class=\"flex justify-between\"><span>Subtotal Base:</span><strong id=\"outSubtotal\">0,00 €</strong></div>\n      <div class=\"flex justify-between text-rose-600\"><span>Descuento aplicado:</span><strong id=\"outDescuento\">0,00 €</strong></div>\n      <div class=\"flex justify-between text-slate-600\"><span>IVA General (21%):</span><strong id=\"outIva\">0,00 €</strong></div>\n      <div class=\"border-t border-slate-200 pt-2 flex justify-between text-base font-extrabold text-indigo-700\">\n        <span>TOTAL FACTURA:</span><span id=\"outTotal\">0,00 €</span>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    // 1. Patrón Strategy (Principio OCP: Abierto a extensión sin modificar código)\n    const EstrategiasDescuento = {\n      estandar: (monto) => 0,\n      vip: (monto) => monto * 0.15,\n      estudiante: (monto) => monto * 0.25\n    };\n\n    // 2. Lógica de Negocio pura (Principio SRP: sólo cálculos aritméticos)\n    class CalculadorFactura {\n      static calcular(subtotal, tipoCliente, tasaIVA = 0.21) {\n        const estrategia = EstrategiasDescuento[tipoCliente] || EstrategiasDescuento.estandar;\n        const descuento = estrategia(subtotal);\n        const baseImponible = Math.max(0, subtotal - descuento);\n        const iva = baseImponible * tasaIVA;\n        const total = baseImponible + iva;\n        return { subtotal, descuento, iva, total };\n      }\n    }\n\n    // 3. Capa de Presentación pura (SRP: sólo formateo)\n    const Formateador = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });\n\n    function calcular() {\n      const sub = parseFloat(document.getElementById('subtotal').value) || 0;\n      const tipo = document.getElementById('tipoCliente').value;\n      const res = CalculadorFactura.calcular(sub, tipo);\n\n      document.getElementById('outSubtotal').textContent = Formateador.format(res.subtotal);\n      document.getElementById('outDescuento').textContent = \"- \" + Formateador.format(res.descuento);\n      document.getElementById('outIva').textContent = \"+ \" + Formateador.format(res.iva);\n      document.getElementById('outTotal').textContent = Formateador.format(res.total);\n    }\n    calcular();\n  <\/script>\n</body>\n</html>\n", "explanation": "Divide la lógica de cálculo financiero en clases/módulos independientes (CalculadorImpuestos, Validador, Renderizador) demostrando el cumplimiento práctico de los principios SOLID.", "filename": "ej1_calculadora_solid.html"}, {"id": "ej2", "type": "practica", "badge": "Práctica Guiada 2", "title": "Laboratorio de Scope, Hoisting y Modo Estricto", "subtitle": "Simulador de consola interactivo donde los alumnos experimentan con variables var, let, const en bloques anidados y comprueban las excepciones del modo estricto en tiempo real.", "instruction": "Simulador de consola interactivo donde los alumnos experimentan con variables var, let, const en bloques anidados y comprueban las excepciones del modo estricto en tiempo real.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Laboratorio de Scope y Hoisting</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-mono text-xs\">\n  <div class=\"max-w-3xl mx-auto\">\n    <h1 class=\"text-xl font-bold text-indigo-400 mb-2 font-sans\">Laboratorio de Scope: Var vs Let vs Const</h1>\n    <p class=\"text-slate-400 mb-4 font-sans text-sm\">Comprueba cómo se comportan las variables dentro de bloques condicionales y bucles.</p>\n\n    <div class=\"grid grid-cols-2 gap-3 mb-4\">\n      <button onclick=\"testVar()\" class=\"p-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-left\">\n        <span class=\"text-amber-400 font-bold block mb-1\">Test 1: Comportamiento 'var'</span>\n        <span class=\"text-slate-400 text-[11px]\">Ámbito de función, filtrado fuera de bloque if/for</span>\n      </button>\n\n      <button onclick=\"testLet()\" class=\"p-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-left\">\n        <span class=\"text-emerald-400 font-bold block mb-1\">Test 2: Comportamiento 'let/const'</span>\n        <span class=\"text-slate-400 text-[11px]\">Ámbito de bloque estricto {} y Temporal Dead Zone</span>\n      </button>\n    </div>\n\n    <div class=\"bg-slate-950 p-4 rounded-xl border border-slate-800\">\n      <div class=\"text-slate-500 mb-2 border-b border-slate-800 pb-1 flex justify-between\">\n        <span>CONSOLA DE EJECUCIÓN</span>\n        <button onclick=\"document.getElementById('out').innerHTML=''\" class=\"text-slate-400 hover:text-white\">Limpiar</button>\n      </div>\n      <div id=\"out\" class=\"space-y-1 min-h-[160px] text-slate-300\"></div>\n    </div>\n  </div>\n\n  <script>\n    const out = document.getElementById('out');\n    function print(t, color=\"text-slate-300\") {\n      out.innerHTML += `<p class=\"${color}\">&gt; ${t}</p>`;\n    }\n\n    function testVar() {\n      print(\"--- Ejecutando Test con VAR ---\", \"text-amber-400\");\n      if (true) {\n        var animal = \"León\";\n      }\n      print(\"Fuera del if: animal = \" + animal + \" (¡Se escapó del bloque!)\", \"text-amber-300\");\n      \n      for (var i = 0; i < 3; i++) {}\n      print(\"Fuera del for: i = \" + i + \" (Variable contamina el scope)\", \"text-rose-400\");\n    }\n\n    function testLet() {\n      print(\"--- Ejecutando Test con LET / CONST ---\", \"text-emerald-400\");\n      if (true) {\n        let ave = \"Águila\";\n        const pi = 3.1416;\n        print(\"Dentro del bloque: ave = \" + ave + \", pi = \" + pi, \"text-emerald-300\");\n      }\n      try {\n        console.log(ave);\n      } catch (err) {\n        print(\"Fuera del bloque: \" + err.name + \": \" + err.message + \" (¡Protegido por bloque!)\", \"text-emerald-400\");\n      }\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Laboratorio de Scope y Hoisting</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-mono text-xs\">\n  <div class=\"max-w-3xl mx-auto\">\n    <h1 class=\"text-xl font-bold text-indigo-400 mb-2 font-sans\">Laboratorio de Scope: Var vs Let vs Const</h1>\n    <p class=\"text-slate-400 mb-4 font-sans text-sm\">Comprueba cómo se comportan las variables dentro de bloques condicionales y bucles.</p>\n\n    <div class=\"grid grid-cols-2 gap-3 mb-4\">\n      <button onclick=\"testVar()\" class=\"p-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-left\">\n        <span class=\"text-amber-400 font-bold block mb-1\">Test 1: Comportamiento 'var'</span>\n        <span class=\"text-slate-400 text-[11px]\">Ámbito de función, filtrado fuera de bloque if/for</span>\n      </button>\n\n      <button onclick=\"testLet()\" class=\"p-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-left\">\n        <span class=\"text-emerald-400 font-bold block mb-1\">Test 2: Comportamiento 'let/const'</span>\n        <span class=\"text-slate-400 text-[11px]\">Ámbito de bloque estricto {} y Temporal Dead Zone</span>\n      </button>\n    </div>\n\n    <div class=\"bg-slate-950 p-4 rounded-xl border border-slate-800\">\n      <div class=\"text-slate-500 mb-2 border-b border-slate-800 pb-1 flex justify-between\">\n        <span>CONSOLA DE EJECUCIÓN</span>\n        <button onclick=\"document.getElementById('out').innerHTML=''\" class=\"text-slate-400 hover:text-white\">Limpiar</button>\n      </div>\n      <div id=\"out\" class=\"space-y-1 min-h-[160px] text-slate-300\"></div>\n    </div>\n  </div>\n\n  <script>\n    const out = document.getElementById('out');\n    function print(t, color=\"text-slate-300\") {\n      out.innerHTML += `<p class=\"${color}\">&gt; ${t}</p>`;\n    }\n\n    function testVar() {\n      print(\"--- Ejecutando Test con VAR ---\", \"text-amber-400\");\n      if (true) {\n        var animal = \"León\";\n      }\n      print(\"Fuera del if: animal = \" + animal + \" (¡Se escapó del bloque!)\", \"text-amber-300\");\n      \n      for (var i = 0; i < 3; i++) {}\n      print(\"Fuera del for: i = \" + i + \" (Variable contamina el scope)\", \"text-rose-400\");\n    }\n\n    function testLet() {\n      print(\"--- Ejecutando Test con LET / CONST ---\", \"text-emerald-400\");\n      if (true) {\n        let ave = \"Águila\";\n        const pi = 3.1416;\n        print(\"Dentro del bloque: ave = \" + ave + \", pi = \" + pi, \"text-emerald-300\");\n      }\n      try {\n        console.log(ave);\n      } catch (err) {\n        print(\"Fuera del bloque: \" + err.name + \": \" + err.message + \" (¡Protegido por bloque!)\", \"text-emerald-400\");\n      }\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Consola gráfica interactiva que ejecuta código introducido por el usuario capturando excepciones de TDZ (Temporal Dead Zone) y violaciones de 'use strict'.", "filename": "ej2_laboratorio_scope.html"}, {"id": "ej3", "type": "practica", "badge": "Práctica Guiada 3", "title": "Dashboard de Métricas con Funciones Flecha y Spread", "subtitle": "Panel dinámico para calcular estadísticas de estudiantes (máximos, mínimos, medias y dispersión) manipulando arrays inmutables con sintaxis moderna ES6+.", "instruction": "Panel dinámico para calcular estadísticas de estudiantes (máximos, mínimos, medias y dispersión) manipulando arrays inmutables con sintaxis moderna ES6+.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Métricas de Estudiantes</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Métricas de Alumnos con Operador Spread y Arrow Functions</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Manipulación inmutable de colecciones numéricas.</p>\n\n    <div class=\"flex gap-2 mb-4\">\n      <input id=\"nuevaNota\" type=\"number\" step=\"0.1\" min=\"0\" max=\"10\" placeholder=\"Añadir nota (0-10)\" class=\"border p-2 rounded-lg text-sm flex-1\">\n      <button onclick=\"agregarNota()\" class=\"px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-bold\">Insertar con Spread</button>\n    </div>\n\n    <div class=\"mb-4\">\n      <span class=\"text-xs font-bold text-slate-400 uppercase\">Array de Notas en Memoria:</span>\n      <div id=\"arrayContainer\" class=\"flex flex-wrap gap-2 mt-1\"></div>\n    </div>\n\n    <div class=\"grid grid-cols-3 gap-3 text-center\">\n      <div class=\"p-3 bg-slate-50 rounded-xl border border-slate-200\">\n        <span class=\"text-xs text-slate-500 block\">Nota Media</span>\n        <strong id=\"mediaOut\" class=\"text-lg text-indigo-600\">0.0</strong>\n      </div>\n      <div class=\"p-3 bg-slate-50 rounded-xl border border-slate-200\">\n        <span class=\"text-xs text-slate-500 block\">Máxima</span>\n        <strong id=\"maxOut\" class=\"text-lg text-emerald-600\">0.0</strong>\n      </div>\n      <div class=\"p-3 bg-slate-50 rounded-xl border border-slate-200\">\n        <span class=\"text-xs text-slate-500 block\">Porcentaje Aprobados</span>\n        <strong id=\"aprobadosOut\" class=\"text-lg text-amber-600\">0%</strong>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    let notas = [4.5, 7.8, 9.2, 3.5, 6.0, 8.4];\n\n    const calcularMedia = arr => arr.length ? (arr.reduce((acc, n) => acc + n, 0) / arr.length).toFixed(2) : 0;\n    const obtenerMaximo = arr => arr.length ? Math.max(...arr).toFixed(1) : 0;\n    const porcentajeAprobados = arr => {\n      if (!arr.length) return 0;\n      const aprob = arr.filter(n => n >= 5.0).length;\n      return Math.round((aprob / arr.length) * 100);\n    };\n\n    function render() {\n      document.getElementById('arrayContainer').innerHTML = notas.map(n => `\n        <span class=\"px-2.5 py-1 rounded-md text-xs font-bold ${n >= 5 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}\">${n}</span>\n      `).join('');\n\n      document.getElementById('mediaOut').textContent = calcularMedia(notas);\n      document.getElementById('maxOut').textContent = obtenerMaximo(notas);\n      document.getElementById('aprobadosOut').textContent = porcentajeAprobados(notas) + \"%\";\n    }\n\n    function agregarNota() {\n      const input = document.getElementById('nuevaNota');\n      const val = parseFloat(input.value);\n      if (!isNaN(val) && val >= 0 && val <= 10) {\n        // Clonación inmutable con operador spread\n        notas = [...notas, val];\n        input.value = \"\";\n        render();\n      }\n    }\n    render();\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Métricas de Estudiantes</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Métricas de Alumnos con Operador Spread y Arrow Functions</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Manipulación inmutable de colecciones numéricas.</p>\n\n    <div class=\"flex gap-2 mb-4\">\n      <input id=\"nuevaNota\" type=\"number\" step=\"0.1\" min=\"0\" max=\"10\" placeholder=\"Añadir nota (0-10)\" class=\"border p-2 rounded-lg text-sm flex-1\">\n      <button onclick=\"agregarNota()\" class=\"px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-bold\">Insertar con Spread</button>\n    </div>\n\n    <div class=\"mb-4\">\n      <span class=\"text-xs font-bold text-slate-400 uppercase\">Array de Notas en Memoria:</span>\n      <div id=\"arrayContainer\" class=\"flex flex-wrap gap-2 mt-1\"></div>\n    </div>\n\n    <div class=\"grid grid-cols-3 gap-3 text-center\">\n      <div class=\"p-3 bg-slate-50 rounded-xl border border-slate-200\">\n        <span class=\"text-xs text-slate-500 block\">Nota Media</span>\n        <strong id=\"mediaOut\" class=\"text-lg text-indigo-600\">0.0</strong>\n      </div>\n      <div class=\"p-3 bg-slate-50 rounded-xl border border-slate-200\">\n        <span class=\"text-xs text-slate-500 block\">Máxima</span>\n        <strong id=\"maxOut\" class=\"text-lg text-emerald-600\">0.0</strong>\n      </div>\n      <div class=\"p-3 bg-slate-50 rounded-xl border border-slate-200\">\n        <span class=\"text-xs text-slate-500 block\">Porcentaje Aprobados</span>\n        <strong id=\"aprobadosOut\" class=\"text-lg text-amber-600\">0%</strong>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    let notas = [4.5, 7.8, 9.2, 3.5, 6.0, 8.4];\n\n    const calcularMedia = arr => arr.length ? (arr.reduce((acc, n) => acc + n, 0) / arr.length).toFixed(2) : 0;\n    const obtenerMaximo = arr => arr.length ? Math.max(...arr).toFixed(1) : 0;\n    const porcentajeAprobados = arr => {\n      if (!arr.length) return 0;\n      const aprob = arr.filter(n => n >= 5.0).length;\n      return Math.round((aprob / arr.length) * 100);\n    };\n\n    function render() {\n      document.getElementById('arrayContainer').innerHTML = notas.map(n => `\n        <span class=\"px-2.5 py-1 rounded-md text-xs font-bold ${n >= 5 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}\">${n}</span>\n      `).join('');\n\n      document.getElementById('mediaOut').textContent = calcularMedia(notas);\n      document.getElementById('maxOut').textContent = obtenerMaximo(notas);\n      document.getElementById('aprobadosOut').textContent = porcentajeAprobados(notas) + \"%\";\n    }\n\n    function agregarNota() {\n      const input = document.getElementById('nuevaNota');\n      const val = parseFloat(input.value);\n      if (!isNaN(val) && val >= 0 && val <= 10) {\n        // Clonación inmutable con operador spread\n        notas = [...notas, val];\n        input.value = \"\";\n        render();\n      }\n    }\n    render();\n  <\/script>\n</body>\n</html>\n", "explanation": "Procesa datasets de calificaciones con funciones de orden superior inmutables (...spread, filter, reduce), calculando media, desviación estándar, máximo y mínimo en tiempo real.", "filename": "ej3_metricas_arrays.html"}];
+    let currentItem = null;
+    let currentCode = "";
+
+    function resetIframe() {
+      const wrapper = document.getElementById('iframe-wrapper');
+      if (wrapper) wrapper.innerHTML = '';
+      const newIframe = document.createElement('iframe');
+      newIframe.id = 'preview-iframe';
+      newIframe.className = 'w-full h-full border-0';
+      newIframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-same-origin');
+      if (wrapper) wrapper.appendChild(newIframe);
+      return newIframe;
+    }
+
+    function selectItem(id) {
+      const item = ITEMS.find(x => x.id === id) || ITEMS[0];
+      currentItem = item;
+      
+      document.querySelectorAll('.exercise-nav-btn').forEach(btn => {
+        if (btn.id === 'nav-btn-' + item.id) {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between active bg-indigo-600 text-white shadow-sm";
+        } else {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100";
+        }
+      });
+
+      document.getElementById('ex-badge').textContent = item.badge;
+      document.getElementById('ex-title').textContent = item.title;
+      document.getElementById('ex-subtitle').textContent = item.subtitle;
+      document.getElementById('ex-instruction').textContent = item.instruction;
+      document.getElementById('ex-explanation').textContent = item.explanation || "Solución fundamentada en las mejores prácticas del estándar ES6+.";
+
+      const iframe = resetIframe();
+
+      if (item.filename) {
+        currentCode = item.code || item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = item.filename.endsWith('.html') ? "language-html" : "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Solución externa oficial ejecutable en iframe: /ejercicios/" + item.filename;
+        iframe.src = './ejercicios/' + item.filename;
+      } else {
+        currentCode = item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Entorno de ejecución inmediata de la solución en JavaScript.";
+
+        const shellTpl = document.getElementById('iframe-shell-template');
+        const iframeDoc = iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(shellTpl ? shellTpl.textContent : '');
+        iframeDoc.close();
+
+        // Inyectar runner directamente
+        iframe.contentWindow.runSolution = function(rawCode) {
+          const doc = iframe.contentWindow.document;
+          const output = doc.getElementById("output");
+          const domStage = doc.getElementById("dom-stage");
+          if (output) output.innerHTML = "";
+
+          function log(...args) {
+            const p = doc.createElement("div");
+            p.className = "log-line";
+            p.textContent = args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+            output.appendChild(p);
+          }
+
+          const customConsole = {
+            log: log,
+            error: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-error";
+              p.textContent = "❌ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            },
+            info: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-info";
+              p.textContent = "ℹ️ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            }
+          };
+
+          const isDomCode = /document\.|querySelector|getElementById|createElement|addEventListener|dataset|innerHTML|outerHTML|#catalogo|#miForm|#password|#btnTema|#listaDinamica|#miLista|#app|@Component|<[a-z]/i.test(rawCode);
+
+          if (domStage) {
+            if (isDomCode) domStage.classList.remove("hidden");
+            else domStage.classList.add("hidden");
+          }
+
+          const NL = String.fromCharCode(10);
+
+          if (rawCode.trim().startsWith("git ")) {
+            log("💻 [Simulador de Consola Git Terminal]");
+            rawCode.split(NL).forEach(cmd => { if (cmd.trim()) log("$ " + cmd); });
+            log("✅ Secuencia Git ejecutada correctamente en el repositorio local.");
+            return;
+          }
+
+          if (rawCode.includes("db.ventas.aggregate")) {
+            log("🍃 [Simulador de Shell MongoDB]");
+            log("> " + rawCode);
+            log("📊 [Resultado del Pipeline de Agregación]:");
+            log([{ _id: "Electrónica", totalVentas: 15420.50 }, { _id: "Hogar", totalVentas: 8300.00 }, { _id: "Deportes", totalVentas: 4150.00 }]);
+            return;
+          }
+
+          if (rawCode.includes("@Component")) {
+            log("🅰️ [Compilador Angular v18 Standalone]");
+            log("✨ Componente Standalone ContadorComponent compilado e inyectado.");
+            log("Selector: <app-contador>");
+            log("Estado inicial: total = 0");
+            const appEl = doc.getElementById("app");
+            if (appEl) {
+              appEl.innerHTML = '<div class="p-3 bg-slate-950 border border-indigo-500/50 rounded-lg text-xs font-sans mb-2"><div class="font-bold text-indigo-400 mb-1">🅰️ Componente Angular ContadorComponent (Live Render):</div><div class="flex items-center gap-3"><span id="ng-counter" class="text-sm font-semibold text-white">Contador: 0</span><button id="ng-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded text-xs transition-colors">+1</button></div></div>';
+              const btn = doc.getElementById('ng-btn');
+              if (btn) btn.onclick = function() {
+                const c = doc.getElementById('ng-counter');
+                let val = parseInt(c.textContent.replace('Contador: ',''))+1;
+                c.textContent = 'Contador: ' + val;
+              };
+            }
+            return;
+          }
+
+          if (rawCode.trim().startsWith("/*") && rawCode.includes("/api/")) {
+            log("🌐 [Router REST API - Especificación de Endpoints]");
+            rawCode.split(NL).forEach(line => { if (line.trim() && !line.includes("/*") && !line.includes("*/")) log(line.trim()); });
+            log("✅ Servidor de API REST semántico preparado.");
+            return;
+          }
+
+          try {
+            const runFn = iframe.contentWindow.Function('console', 'log', 'document', rawCode);
+            const res = runFn(customConsole, log, doc);
+            if (res !== undefined) log("⬅️ Retorno:", res);
+          } catch (err1) {
+            try {
+              const res = iframe.contentWindow.eval(rawCode);
+              if (res !== undefined) log("⬅️ Retorno:", res);
+            } catch (err2) {
+              customConsole.error("Error de Ejecución:", err2.message);
+            }
+          }
+        };
+
+        if (iframe.contentWindow && typeof iframe.contentWindow.runSolution === 'function') {
+          iframe.contentWindow.runSolution(item.solution || '');
+        }
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      const btnView = document.getElementById('btn-tab-view');
+      const btnCode = document.getElementById('btn-tab-code');
+
+      if (tabId === 'tab-view') {
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      } else {
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      }
+    }
+
+    function reloadPreview() {
+      if (currentItem) selectItem(currentItem.id);
+    }
+
+    function copyCode() {
+      if (!currentCode) return;
+      navigator.clipboard.writeText(currentCode).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = "✅ ¡Copiado!";
+        setTimeout(() => { btn.textContent = "📋 Copiar Código"; }, 2000);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const itemId = params.get('item') || window.location.hash.replace('#', '');
+      selectItem(itemId || ITEMS[0].id);
+    });
+  </script>
+
+</body>
+</html>

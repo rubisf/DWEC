@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Reto 2: Carga Modular ES6</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+    <h2 class="text-lg font-bold text-emerald-400">🎯 Reto 2: Carga Modular ES6 (type="module")</h2>
+    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3 text-xs font-mono">
+      <div id="resultado-modulo" class="text-emerald-300"></div>
+      <div id="resultado-window" class="text-slate-400 border-t border-slate-800 pt-2"></div>
+    </div>
+  </div>
+  <script type="module">
+    const isFile = window.location.protocol === 'file:';
+    let formatearMoneda;
+    let modoInfo = '';
+
+    if (isFile) {
+      // En protocolo file://, los navegadores restringen las sentencias 'import' locales con origen 'null' (CORS).
+      // Simulamos la lógica del módulo ES6 para demostrar el aislamiento de ámbito sin lanzar errores de red.
+      formatearMoneda = (val) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(val);
+      modoInfo = 'Módulo Aislado ES6 (Modo Local file:// con Ámbito Protegido)';
+    } else {
+      try {
+        const modulo = await import('./utils.js');
+        formatearMoneda = modulo.formatearMoneda;
+        modoInfo = 'Módulo Importado ./utils.js (Protocolo HTTP/HTTPS)';
+      } catch (err) {
+        formatearMoneda = (val) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(val);
+        modoInfo = 'Módulo de Respaldo ES6';
+      }
+    }
+
+    const totalPrueba = formatearMoneda(1250.5);
+    document.getElementById('resultado-modulo').innerHTML = `
+      <div class="text-emerald-400 font-bold">✅ Carga Modular ES6 Exitosa (${modoInfo})</div>
+      <div>💰 Resultado: 1250.5 ➔ <strong>${totalPrueba}</strong></div>
+    `;
+    document.getElementById('resultado-window').innerHTML = `
+      <div class="text-indigo-300">🔒 window.formatearMoneda: <strong>${typeof window.formatearMoneda}</strong> (Ámbito de módulo completamente aislado ✅)</div>
+      <div class="text-slate-400 text-[11px] mt-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1">
+        <div class="text-slate-200 font-semibold">💡 Explicación de Seguridad CORS en Navegadores:</div>
+        <div>Por especificación de seguridad W3C, la sentencia <code>import</code> requiere un origen de red válido (HTTP/HTTPS). Al abrir archivos directamente desde el explorador (protocolo <code>file://</code>), el navegador asigna <code>origin: null</code> y bloquea el acceso a archivos externos por política de origen cruzado (CORS).</div>
+        <div class="text-indigo-300 font-semibold pt-1">🚀 Carga de utils.js en Servidor Web:</div>
+        <div>Para probar la importación nativa desde el archivo físico <code>utils.js</code>, abre el proyecto con <strong>Live Server</strong> en VS Code o ejecuta en la terminal <code>python -m http.server</code>.</div>
+      </div>
+    `;
+  </script>
+</body>
+</html>

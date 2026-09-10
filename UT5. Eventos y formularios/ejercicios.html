@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soluciones y Taller de Prácticas - UT5: Gestión de Eventos y Formularios Web</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .code-container {
+      background-color: #0d1117 !important;
+      border: 1px solid #30363d !important;
+      border-radius: 12px !important;
+    }
+    .code-container pre {
+      margin: 0 !important;
+      padding: 16px !important;
+      background-color: #0d1117 !important;
+    }
+    .code-container code {
+      background-color: #0d1117 !important;
+      color: #f0f6fc !important;
+      font-size: 13px !important;
+      line-height: 1.6 !important;
+    }
+    .hljs-keyword, .hljs-selector-tag, .hljs-subst { color: #ff7b72 !important; font-weight: 700; }
+    .hljs-string, .hljs-title, .hljs-section, .hljs-attribute, .hljs-literal, .hljs-type { color: #a5d6ff !important; }
+    .hljs-comment, .hljs-quote, .hljs-deletion, .hljs-meta { color: #8b949e !important; font-style: italic; }
+    .hljs-number, .hljs-regexp, .hljs-link { color: #79c0ff !important; }
+    .hljs-function, .hljs-title.function_ { color: #d2a8ff !important; }
+    .hljs-variable, .hljs-params { color: #ffa657 !important; }
+    .hljs-tag, .hljs-name { color: #7ee787 !important; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col antialiased">
+
+  <!-- Barra Superior -->
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+    <div class="flex items-center gap-4">
+      <a href="../index.html" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Volver al Panel Principal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      </a>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-md">UT5</span>
+          <h1 class="text-lg font-bold text-slate-800">UT5: Gestión de Eventos y Formularios Web</h1>
+        </div>
+        <p class="text-xs text-slate-500">Centro Oficial de Soluciones Explicadas, Código Fuente y Ejecución en Vivo</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="presentacion.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
+        🎬 Ver Presentación
+      </a>
+      <a href="../index.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+        🏠 Índice General
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal Split -->
+  <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto p-6 gap-6">
+    
+    <!-- Sidebar Ejercicios -->
+    <aside class="w-80 bg-white rounded-2xl border border-slate-200 p-4 flex flex-col shadow-sm flex-shrink-0">
+      <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 space-y-4">
+        
+        <div>
+          <h2 class="text-xs font-bold tracking-wider text-indigo-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🎯 Retos de Conceptos (4)
+          </h2>
+          
+          <button onclick="selectItem('reto-1')" id="nav-btn-reto-1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Prevención de Envío y Captura de Coordenadas</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 1</span>
+          </button>
+          <button onclick="selectItem('reto-2')" id="nav-btn-reto-2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Implementación de Delegación de Eventos</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 2</span>
+          </button>
+          <button onclick="selectItem('reto-3')" id="nav-btn-reto-3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Manejador de Atajos de Teclado Accesible</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 3</span>
+          </button>
+          <button onclick="selectItem('reto-4')" id="nav-btn-reto-4" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Validación con Mensajes Personalizados y FormData</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 4</span>
+          </button>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100">
+          <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🚀 Prácticas y Proyectos (3)
+          </h2>
+          
+          <button onclick="selectItem('ej1')" id="nav-btn-ej1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Formulario de Alta con Constraint Validation API</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 1</span>
+          </button>
+          <button onclick="selectItem('ej2')" id="nav-btn-ej2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Visualizador Interactivo de Fases de Eventos</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 2</span>
+          </button>
+          <button onclick="selectItem('ej3')" id="nav-btn-ej3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Tablero Kanban con Delegación y Atajos de Teclado</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 3</span>
+          </button>
+        </div>
+
+      </div>
+      <div class="pt-4 border-t border-slate-100 mt-2 text-xs text-slate-400 text-center">
+        DWEC · Grado Superior DAW
+      </div>
+    </aside>
+
+    <!-- Panel de Actividad Seleccionada -->
+    <main class="flex-1 bg-white rounded-2xl border border-slate-200 flex flex-col shadow-sm overflow-hidden">
+      
+      <!-- Cabecera de Práctica/Reto -->
+      <div class="p-6 border-b border-slate-200 bg-slate-50/50 flex items-start justify-between">
+        <div>
+          <span id="ex-badge" class="px-2.5 py-1 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-lg">Cargando...</span>
+          <h2 id="ex-title" class="text-xl font-bold text-slate-900 mt-2">Cargando...</h2>
+          <p id="ex-subtitle" class="text-xs font-semibold text-slate-500 mt-1"></p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="switchTab('tab-view')" id="btn-tab-view" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm">
+            ▶️ Vista / Ejecución en Vivo
+          </button>
+          <button onclick="switchTab('tab-code')" id="btn-tab-code" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all">
+            💻 Código Fuente y Solución
+          </button>
+        </div>
+      </div>
+
+      <!-- Cuerpo del Visor -->
+      <div class="flex-1 p-6 overflow-y-auto custom-scrollbar relative flex flex-col">
+        
+        <!-- Bloque de Enunciado -->
+        <div class="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+          <h3 class="text-xs font-bold text-emerald-900 uppercase tracking-wider mb-1">📝 Enunciado de la Actividad</h3>
+          <p id="ex-instruction" class="text-xs text-emerald-800 leading-relaxed"></p>
+        </div>
+
+        <!-- Tab 1: Vista Previa / Ejecución en Vivo -->
+        <div id="tab-view" class="tab-content flex-1 flex flex-col min-h-0">
+          <div id="iframe-wrapper" class="flex-1 rounded-xl border border-slate-200 overflow-hidden bg-slate-50 min-h-[360px] relative">
+            <iframe id="preview-iframe" class="w-full h-full border-0" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+            <span id="preview-hint">💡 Entorno interactivo aislado en sandbox.</span>
+            <button onclick="reloadPreview()" class="text-indigo-600 hover:underline font-semibold flex items-center gap-1">
+              🔄 Recargar entorno
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Código Fuente y Solución Explicada con Alto Contraste -->
+        <div id="tab-code" class="tab-content hidden flex-1 flex flex-col space-y-4 min-h-0">
+          <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
+            <h3 class="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">💡 Explicación Paso a Paso de la Solución</h3>
+            <p id="ex-explanation" class="text-xs text-indigo-800 leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-500">Solución Oficial en Código Fuente (Alto Contraste)</span>
+            <button onclick="copyCode()" id="copy-btn" class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors flex items-center gap-1">
+              📋 Copiar Código
+            </button>
+          </div>
+          <div class="flex-1 code-container overflow-hidden p-2 text-xs overflow-y-auto custom-scrollbar">
+            <pre><code id="code-content" class="language-javascript"></code></pre>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Shell HTML aislado como Script de texto puro (sin parseo en el documento padre) -->
+  <script type="text/html" id="iframe-shell-template">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="utf-8"/>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+        body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 16px; margin: 0; font-size: 13px; }
+        .log-title { color: #d2a8ff; font-weight: bold; margin-bottom: 12px; font-size: 13px; border-bottom: 1px solid #30363d; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .log-line { border-bottom: 1px solid #21262d; padding: 6px 0; color: #7ee787; line-height: 1.5; font-family: monospace; }
+        .log-error { color: #ff7b72; font-weight: bold; }
+        .log-info { color: #79c0ff; }
+        .hidden { display: none !important; }
+      </style>
+    </head>
+    <body class="antialiased">
+      <div id="dom-stage" class="hidden mb-4 p-4 bg-slate-900 border border-slate-700/80 rounded-xl shadow-lg font-sans text-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-2.5 mb-3">
+          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🌐 Escenario DOM Interactivo (Ejecución en Vivo)</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono">Contenedores activos para manipulación DOM</span>
+        </div>
+        <div id="app" class="mb-3 empty:hidden"></div>
+        <div id="catalogo" class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3 empty:hidden"></div>
+        <div id="form-container" class="flex flex-wrap items-center gap-3 mb-3">
+          <form id="miForm" class="flex items-center gap-2">
+            <input id="password" type="password" placeholder="Prueba contraseña..." value="Abc12345" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors shadow-sm">Enviar Formulario</button>
+          </form>
+          <button id="btnTema" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs border border-slate-700 transition-colors">Modo: light</button>
+        </div>
+        <div id="lists-container" class="space-y-3">
+          <ul id="listaDinamica" class="flex flex-wrap gap-2 text-xs">
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 1 (Haz clic para eliminar)</span> 🗑️</li>
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 2 (Haz clic para eliminar)</span> 🗑️</li>
+          </ul>
+          <ul id="miLista" class="space-y-1.5 text-xs text-emerald-400 font-mono"></ul>
+        </div>
+      </div>
+      <div class="log-title"><span>▶️ Resultados de Ejecución en Consola / Salida Estándar:</span></div>
+      <div id="output"></div>
+    </body>
+    </html>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+
+  <script>
+    const ITEMS = [{"id": "reto-1", "type": "reto", "badge": "Reto Concepto 1", "title": "Prevención de Envío y Captura de Coordenadas", "subtitle": "Bloque 1: Modelo de Eventos W3C y addEventListener", "instruction": "Asocia un evento 'submit' a un formulario para prevenir su recarga por defecto con 'e.preventDefault()' e imprime las coordenadas exactas del puntero en el momento del envío mediante 'e.clientX' y 'e.clientY'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: e.preventDefault() y Coordenadas</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: submit con e.preventDefault() y e.clientX / e.clientY</h2>\n    <form id=\"form-coordenadas\" class=\"space-y-2\">\n      <input type=\"text\" placeholder=\"Datos de formulario...\" required class=\"p-2 bg-slate-950 border border-slate-700 rounded text-xs text-white w-full\">\n      <button type=\"submit\" class=\"bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-1.5 px-4 rounded text-xs\">Enviar Formulario</button>\n    </form>\n    <div id=\"out-coords\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-emerald-300\"></div>\n  </div>\n  <script>\n    document.getElementById('form-coordenadas').addEventListener('submit', (e) => {\n      e.preventDefault(); // Previene la recarga de página por defecto\n      const out = document.getElementById('out-coords');\n      out.innerHTML = `\n        <div>✅ e.preventDefault() ejecutado con éxito.</div>\n        <div class=\"text-amber-300\">📍 Coordenadas del Puntero al hacer Envío: X: <strong>${e.clientX}px</strong> | Y: <strong>${e.clientY}px</strong></div>\n      `;\n    });\n  <\/script>\n</body>\n</html>", "explanation": "1) 'e.preventDefault()' detiene la acción por defecto del formulario (recarga de página).\n2) 'e.x' y 'e.y' (o clientX/clientY) capturan la posición exacta del cursor en el momento del evento.", "filename": "reto1_event_listener_options.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: e.preventDefault() y Coordenadas</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: submit con e.preventDefault() y e.clientX / e.clientY</h2>\n    <form id=\"form-coordenadas\" class=\"space-y-2\">\n      <input type=\"text\" placeholder=\"Datos de formulario...\" required class=\"p-2 bg-slate-950 border border-slate-700 rounded text-xs text-white w-full\">\n      <button type=\"submit\" class=\"bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-1.5 px-4 rounded text-xs\">Enviar Formulario</button>\n    </form>\n    <div id=\"out-coords\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-emerald-300\"></div>\n  </div>\n  <script>\n    document.getElementById('form-coordenadas').addEventListener('submit', (e) => {\n      e.preventDefault(); // Previene la recarga de página por defecto\n      const out = document.getElementById('out-coords');\n      out.innerHTML = `\n        <div>✅ e.preventDefault() ejecutado con éxito.</div>\n        <div class=\"text-amber-300\">📍 Coordenadas del Puntero al hacer Envío: X: <strong>${e.clientX}px</strong> | Y: <strong>${e.clientY}px</strong></div>\n      `;\n    });\n  <\/script>\n</body>\n</html>"}, {"id": "reto-2", "type": "reto", "badge": "Reto Concepto 2", "title": "Implementación de Delegación de Eventos", "subtitle": "Bloque 2: Fases de Propagación: Captura, Burbujeo y Delegación", "instruction": "Crea una lista dinámica '<ul>' donde los nuevos elementos '<li>' puedan eliminarse al hacer clic sobre ellos, utilizando un solo 'addEventListener' colocado en la etiqueta '<ul>' mediante delegación de eventos con 'e.target.closest()'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Delegación de Eventos con closest()</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Delegación de Eventos con e.target.closest('li') en ul</h2>\n    <ul id=\"lista-padre\" class=\"space-y-2 text-xs font-mono cursor-pointer\">\n      <li data-id=\"1\" class=\"p-3 bg-slate-950 border border-slate-700 rounded-xl text-emerald-300 flex justify-between items-center\">\n        <span>Item 1 (Haz clic para eliminar)</span> 🗑️\n      </li>\n      <li data-id=\"2\" class=\"p-3 bg-slate-950 border border-slate-700 rounded-xl text-emerald-300 flex justify-between items-center\">\n        <span>Item 2 (Haz clic para eliminar)</span> 🗑️\n      </li>\n    </ul>\n    <div id=\"out-deleg\" class=\"p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-amber-300\"></div>\n  </div>\n  <script>\n    // Único listener registrado en el contenedor padre <ul>\n    document.getElementById('lista-padre').addEventListener('click', (e) => {\n      const li = e.target.closest('li');\n      if (li) {\n        const id = li.dataset.id;\n        li.remove();\n        document.getElementById('out-deleg').textContent = `🗑️ Elemento con data-id=\"${id}\" eliminado mediante único listener en <ul>.`;\n      }\n    });\n  <\/script>\n</body>\n</html>", "explanation": "1) 'addEventListener' se añade al contenedor padre '<ul>'.\n2) 'e.target.closest('li')' identifica cuál elemento '<li>' recibió el clic, aprovechando la fase de burbujeo (bubbling).", "filename": "reto2_delegacion_eventos_lista.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Delegación de Eventos con closest()</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Delegación de Eventos con e.target.closest('li') en ul</h2>\n    <ul id=\"lista-padre\" class=\"space-y-2 text-xs font-mono cursor-pointer\">\n      <li data-id=\"1\" class=\"p-3 bg-slate-950 border border-slate-700 rounded-xl text-emerald-300 flex justify-between items-center\">\n        <span>Item 1 (Haz clic para eliminar)</span> 🗑️\n      </li>\n      <li data-id=\"2\" class=\"p-3 bg-slate-950 border border-slate-700 rounded-xl text-emerald-300 flex justify-between items-center\">\n        <span>Item 2 (Haz clic para eliminar)</span> 🗑️\n      </li>\n    </ul>\n    <div id=\"out-deleg\" class=\"p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-amber-300\"></div>\n  </div>\n  <script>\n    // Único listener registrado en el contenedor padre <ul>\n    document.getElementById('lista-padre').addEventListener('click', (e) => {\n      const li = e.target.closest('li');\n      if (li) {\n        const id = li.dataset.id;\n        li.remove();\n        document.getElementById('out-deleg').textContent = `🗑️ Elemento con data-id=\"${id}\" eliminado mediante único listener en <ul>.`;\n      }\n    });\n  <\/script>\n</body>\n</html>"}, {"id": "reto-3", "type": "reto", "badge": "Reto Concepto 3", "title": "Manejador de Atajos de Teclado Accesible", "subtitle": "Bloque 3: Eventos de Ratón, Teclado e Interacción", "instruction": "Crea un listener global que detecte cuando el usuario pulsa 'Ctrl + Enter' (e.ctrlKey && e.key === 'Enter') para enviar un mensaje o la tecla 'Escape' (e.key === 'Escape') para cerrar un modal.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Atajos de Teclado</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Atajos de Teclado (Ctrl+Enter / Escape)</h2>\n    <p class=\"text-xs text-slate-400\">Presiona <code>Ctrl + Enter</code> para enviar mensaje o <code>Escape</code> para cerrar.</p>\n    <div id=\"out-key\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-amber-300\"></div>\n  </div>\n  <script>\n    document.addEventListener('keydown', (e) => {\n      const out = document.getElementById('out-key');\n      if (e.ctrlKey && e.key === 'Enter') {\n        out.innerHTML = '<div class=\"text-emerald-400\">🚀 Atajo detectado: Ctrl + Enter (Mensaje enviado)</div>';\n      } else if (e.key === 'Escape') {\n        out.innerHTML = '<div class=\"text-rose-400\">❌ Atajo detectado: Escape (Modal cerrado)</div>';\n      }\n    });\n  <\/script>\n</body>\n</html>", "explanation": "1) 'e.ctrlKey' comprueba si la tecla Control está presionada.\n2) 'e.key' evalúa el nombre normalizado de la tecla ('Enter', 'Escape').\n3) Reemplaza al atributo discontinuado 'keyCode'.", "filename": "reto3_buscador_debounce.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Atajos de Teclado</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Atajos de Teclado (Ctrl+Enter / Escape)</h2>\n    <p class=\"text-xs text-slate-400\">Presiona <code>Ctrl + Enter</code> para enviar mensaje o <code>Escape</code> para cerrar.</p>\n    <div id=\"out-key\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-amber-300\"></div>\n  </div>\n  <script>\n    document.addEventListener('keydown', (e) => {\n      const out = document.getElementById('out-key');\n      if (e.ctrlKey && e.key === 'Enter') {\n        out.innerHTML = '<div class=\"text-emerald-400\">🚀 Atajo detectado: Ctrl + Enter (Mensaje enviado)</div>';\n      } else if (e.key === 'Escape') {\n        out.innerHTML = '<div class=\"text-rose-400\">❌ Atajo detectado: Escape (Modal cerrado)</div>';\n      }\n    });\n  <\/script>\n</body>\n</html>"}, {"id": "reto-4", "type": "reto", "badge": "Reto Concepto 4", "title": "Validación con Mensajes Personalizados y FormData", "subtitle": "Bloque 4: Validación de Formularios y Constraint Validation API", "instruction": "Valida un campo de contraseña verificando que tenga al menos 8 caracteres y contenga un número. Si no cumple, asígnale un mensaje de error personalizado con 'setCustomValidity()' y extrae los datos del formulario con 'FormData'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: setCustomValidity y FormData</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Constraint Validation con setCustomValidity y FormData</h2>\n    <form id=\"form-pass\" class=\"space-y-2\">\n      <input id=\"pass-input\" name=\"password\" type=\"password\" placeholder=\"Prueba contraseña...\" required class=\"p-2 bg-slate-950 border border-slate-700 rounded text-xs text-white w-full\">\n      <button type=\"submit\" class=\"bg-sky-600 text-white font-bold py-1.5 px-3 rounded text-xs\">Validar y Procesar FormData</button>\n    </form>\n    <div id=\"out-formdata\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-sky-300\"></div>\n  </div>\n  <script>\n    const form = document.getElementById('form-pass');\n    const input = document.getElementById('pass-input');\n\n    input.addEventListener('input', () => {\n      const val = input.value;\n      const tieneNumero = /\\d/.test(val);\n      if (val.length < 8 || !tieneNumero) {\n        input.setCustomValidity(\"La contraseña debe tener al menos 8 caracteres y contener un número.\");\n      } else {\n        input.setCustomValidity(\"\"); // Vacío = Válido\n      }\n    });\n\n    form.addEventListener('submit', (e) => {\n      e.preventDefault();\n      const out = document.getElementById('out-formdata');\n      if (form.checkValidity()) {\n        const data = new FormData(form);\n        out.innerHTML = `\n          <div class=\"text-emerald-400\">✅ Formulario Válido. FormData extraído:</div>\n          <div>password: \"<strong>${data.get('password')}</strong>\"</div>\n        `;\n      } else {\n        out.innerHTML = `<div class=\"text-rose-400\">❌ Error: ${input.validationMessage}</div>`;\n      }\n    });\n  <\/script>\n</body>\n</html>", "explanation": "1) 'passInput.setCustomValidity()' establece el mensaje de error que detendrá el envío del formulario.\n2) Pasar una cadena vacía '' marca el campo como válido.\n3) 'FormData' extrae automáticamente todos los campos del formulario.", "filename": "reto4_validador_formulario_api.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: setCustomValidity y FormData</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Constraint Validation con setCustomValidity y FormData</h2>\n    <form id=\"form-pass\" class=\"space-y-2\">\n      <input id=\"pass-input\" name=\"password\" type=\"password\" placeholder=\"Prueba contraseña...\" required class=\"p-2 bg-slate-950 border border-slate-700 rounded text-xs text-white w-full\">\n      <button type=\"submit\" class=\"bg-sky-600 text-white font-bold py-1.5 px-3 rounded text-xs\">Validar y Procesar FormData</button>\n    </form>\n    <div id=\"out-formdata\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-sky-300\"></div>\n  </div>\n  <script>\n    const form = document.getElementById('form-pass');\n    const input = document.getElementById('pass-input');\n\n    input.addEventListener('input', () => {\n      const val = input.value;\n      const tieneNumero = /\\d/.test(val);\n      if (val.length < 8 || !tieneNumero) {\n        input.setCustomValidity(\"La contraseña debe tener al menos 8 caracteres y contener un número.\");\n      } else {\n        input.setCustomValidity(\"\"); // Vacío = Válido\n      }\n    });\n\n    form.addEventListener('submit', (e) => {\n      e.preventDefault();\n      const out = document.getElementById('out-formdata');\n      if (form.checkValidity()) {\n        const data = new FormData(form);\n        out.innerHTML = `\n          <div class=\"text-emerald-400\">✅ Formulario Válido. FormData extraído:</div>\n          <div>password: \"<strong>${data.get('password')}</strong>\"</div>\n        `;\n      } else {\n        out.innerHTML = `<div class=\"text-rose-400\">❌ Error: ${input.validationMessage}</div>`;\n      }\n    });\n  <\/script>\n</body>\n</html>"}, {"id": "ej1", "type": "practica", "badge": "Práctica Guiada 1", "title": "Formulario de Alta con Constraint Validation API", "subtitle": "Formulario completo de registro con feedback visual en tiempo real de validez, mensajes de error personalizados y extracción automática de datos con FormData.", "instruction": "Formulario completo de registro con feedback visual en tiempo real de validez, mensajes de error personalizados y extracción automática de datos con FormData.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Constraint Validation API</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Validación con Constraint Validation API</h1>\n    <p class=\"text-xs text-slate-500 mb-6\">Uso de ValidityState, setCustomValidity() y FormData.</p>\n\n    <form id=\"registroForm\" novalidate class=\"space-y-4\">\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Nombre de Usuario (min 4 letras)</label>\n        <input id=\"username\" name=\"username\" type=\"text\" required minlength=\"4\" class=\"w-full border p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500\">\n        <span id=\"errUser\" class=\"text-xs text-rose-600 font-semibold mt-1 block\"></span>\n      </div>\n\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Correo Electrónico</label>\n        <input id=\"email\" name=\"email\" type=\"email\" required class=\"w-full border p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500\">\n        <span id=\"errEmail\" class=\"text-xs text-rose-600 font-semibold mt-1 block\"></span>\n      </div>\n\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Contraseña (Mínimo 8 caracteres)</label>\n        <input id=\"pass\" name=\"pass\" type=\"password\" required minlength=\"8\" class=\"w-full border p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500\">\n        <span id=\"errPass\" class=\"text-xs text-rose-600 font-semibold mt-1 block\"></span>\n      </div>\n\n      <button type=\"submit\" class=\"w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-sm transition\">\n        Enviar con FormData\n      </button>\n    </form>\n\n    <div id=\"resultadoEnvio\" class=\"mt-4 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-mono hidden\"></div>\n  </div>\n\n  <script>\n    const form = document.getElementById('registroForm');\n    const uInput = document.getElementById('username');\n    const eInput = document.getElementById('email');\n\n    uInput.addEventListener('input', () => {\n      if (uInput.validity.tooShort) {\n        uInput.setCustomValidity(\"El usuario debe tener al menos 4 caracteres.\");\n      } else {\n        uInput.setCustomValidity(\"\");\n      }\n      document.getElementById('errUser').textContent = uInput.validationMessage;\n    });\n\n    eInput.addEventListener('input', () => {\n      if (eInput.validity.typeMismatch) {\n        eInput.setCustomValidity(\"Por favor, introduce una dirección de correo válida.\");\n      } else {\n        eInput.setCustomValidity(\"\");\n      }\n      document.getElementById('errEmail').textContent = eInput.validationMessage;\n    });\n\n    form.addEventListener('submit', (e) => {\n      e.preventDefault();\n      if (!form.checkValidity()) {\n        form.reportValidity();\n        return;\n      }\n\n      // Extracción automática con FormData API\n      const fd = new FormData(form);\n      const data = Object.fromEntries(fd.entries());\n      data.pass = \"********\"; // Sanitizado para vista\n\n      const resBox = document.getElementById('resultadoEnvio');\n      resBox.classList.remove('hidden');\n      resBox.innerHTML = `✅ Formulario válido y procesado con FormData:<br><pre class=\"mt-1\">${JSON.stringify(data, null, 2)}</pre>`;\n    });\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Constraint Validation API</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Validación con Constraint Validation API</h1>\n    <p class=\"text-xs text-slate-500 mb-6\">Uso de ValidityState, setCustomValidity() y FormData.</p>\n\n    <form id=\"registroForm\" novalidate class=\"space-y-4\">\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Nombre de Usuario (min 4 letras)</label>\n        <input id=\"username\" name=\"username\" type=\"text\" required minlength=\"4\" class=\"w-full border p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500\">\n        <span id=\"errUser\" class=\"text-xs text-rose-600 font-semibold mt-1 block\"></span>\n      </div>\n\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Correo Electrónico</label>\n        <input id=\"email\" name=\"email\" type=\"email\" required class=\"w-full border p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500\">\n        <span id=\"errEmail\" class=\"text-xs text-rose-600 font-semibold mt-1 block\"></span>\n      </div>\n\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Contraseña (Mínimo 8 caracteres)</label>\n        <input id=\"pass\" name=\"pass\" type=\"password\" required minlength=\"8\" class=\"w-full border p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500\">\n        <span id=\"errPass\" class=\"text-xs text-rose-600 font-semibold mt-1 block\"></span>\n      </div>\n\n      <button type=\"submit\" class=\"w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-sm transition\">\n        Enviar con FormData\n      </button>\n    </form>\n\n    <div id=\"resultadoEnvio\" class=\"mt-4 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-mono hidden\"></div>\n  </div>\n\n  <script>\n    const form = document.getElementById('registroForm');\n    const uInput = document.getElementById('username');\n    const eInput = document.getElementById('email');\n\n    uInput.addEventListener('input', () => {\n      if (uInput.validity.tooShort) {\n        uInput.setCustomValidity(\"El usuario debe tener al menos 4 caracteres.\");\n      } else {\n        uInput.setCustomValidity(\"\");\n      }\n      document.getElementById('errUser').textContent = uInput.validationMessage;\n    });\n\n    eInput.addEventListener('input', () => {\n      if (eInput.validity.typeMismatch) {\n        eInput.setCustomValidity(\"Por favor, introduce una dirección de correo válida.\");\n      } else {\n        eInput.setCustomValidity(\"\");\n      }\n      document.getElementById('errEmail').textContent = eInput.validationMessage;\n    });\n\n    form.addEventListener('submit', (e) => {\n      e.preventDefault();\n      if (!form.checkValidity()) {\n        form.reportValidity();\n        return;\n      }\n\n      // Extracción automática con FormData API\n      const fd = new FormData(form);\n      const data = Object.fromEntries(fd.entries());\n      data.pass = \"********\"; // Sanitizado para vista\n\n      const resBox = document.getElementById('resultadoEnvio');\n      resBox.classList.remove('hidden');\n      resBox.innerHTML = `✅ Formulario válido y procesado con FormData:<br><pre class=\"mt-1\">${JSON.stringify(data, null, 2)}</pre>`;\n    });\n  <\/script>\n</body>\n</html>\n", "explanation": "Formulario de registro completo con la Constraint Validation API, mostrando mensajes de validación dinámicos según el tipo de error (valueMissing, patternMismatch) y extrayendo los datos con FormData.", "filename": "ej1_formulario_validacion.html"}, {"id": "ej2", "type": "practica", "badge": "Práctica Guiada 2", "title": "Visualizador Interactivo de Fases de Eventos", "subtitle": "Herramienta didáctica con elementos anidados de colores (Abuelo, Padre, Hijo) que ilustra paso a paso la fase de captura, diana y burbujeo con paradas opcionales de stopPropagation.", "instruction": "Herramienta didáctica con elementos anidados de colores (Abuelo, Padre, Hijo) que ilustra paso a paso la fase de captura, diana y burbujeo con paradas opcionales de stopPropagation.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Visualizador de Captura y Burbujeo</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto\">\n    <h1 class=\"text-xl font-bold text-cyan-400 mb-1\">Propagación de Eventos: Captura vs Burbujeo</h1>\n    <p class=\"text-xs text-slate-400 mb-4\">Haz clic en los contenedores anidados para ver el orden exacto de ejecución.</p>\n\n    <!-- Contenedores anidados -->\n    <div id=\"abuelo\" class=\"p-8 bg-blue-900/40 border-2 border-blue-500 rounded-2xl cursor-pointer\">\n      <span class=\"text-xs font-bold text-blue-300 block mb-2\">1. Elemento Abuelo (#abuelo)</span>\n      \n      <div id=\"padre\" class=\"p-8 bg-purple-900/40 border-2 border-purple-500 rounded-xl cursor-pointer\">\n        <span class=\"text-xs font-bold text-purple-300 block mb-2\">2. Elemento Padre (#padre)</span>\n        \n        <button id=\"hijo\" class=\"px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg text-xs shadow-lg cursor-pointer\">\n          3. Elemento Hijo / Target (#hijo)\n        </button>\n      </div>\n    </div>\n\n    <div class=\"mt-4 bg-slate-950 p-4 rounded-xl border border-slate-800\">\n      <div class=\"flex justify-between text-xs text-slate-500 mb-2 border-b border-slate-800 pb-1\">\n        <span>SECUENCIA DE DISPARO DE LISTENERS</span>\n        <button onclick=\"document.getElementById('logEventos').innerHTML=''\" class=\"hover:text-white\">Limpiar</button>\n      </div>\n      <div id=\"logEventos\" class=\"space-y-1 text-xs font-mono min-h-[100px]\"></div>\n    </div>\n  </div>\n\n  <script>\n    const log = document.getElementById('logEventos');\n    function registrar(fase, id) {\n      log.innerHTML += `<p class=\"${fase === 'Fase de Captura' ? 'text-amber-400' : 'text-cyan-300'}\">[${fase}] Disparado en <strong>${id}</strong></p>`;\n    }\n\n    const els = ['abuelo', 'padre', 'hijo'];\n\n    // Fase de captura (tercer argumento true)\n    els.forEach(id => {\n      document.getElementById(id).addEventListener('click', () => {\n        registrar(\"Fase de Captura\", id);\n      }, true);\n    });\n\n    // Fase de burbujeo (tercer argumento false o por defecto)\n    els.forEach(id => {\n      document.getElementById(id).addEventListener('click', () => {\n        registrar(\"Fase de Burbujeo\", id);\n      }, false);\n    });\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Visualizador de Captura y Burbujeo</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto\">\n    <h1 class=\"text-xl font-bold text-cyan-400 mb-1\">Propagación de Eventos: Captura vs Burbujeo</h1>\n    <p class=\"text-xs text-slate-400 mb-4\">Haz clic en los contenedores anidados para ver el orden exacto de ejecución.</p>\n\n    <!-- Contenedores anidados -->\n    <div id=\"abuelo\" class=\"p-8 bg-blue-900/40 border-2 border-blue-500 rounded-2xl cursor-pointer\">\n      <span class=\"text-xs font-bold text-blue-300 block mb-2\">1. Elemento Abuelo (#abuelo)</span>\n      \n      <div id=\"padre\" class=\"p-8 bg-purple-900/40 border-2 border-purple-500 rounded-xl cursor-pointer\">\n        <span class=\"text-xs font-bold text-purple-300 block mb-2\">2. Elemento Padre (#padre)</span>\n        \n        <button id=\"hijo\" class=\"px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg text-xs shadow-lg cursor-pointer\">\n          3. Elemento Hijo / Target (#hijo)\n        </button>\n      </div>\n    </div>\n\n    <div class=\"mt-4 bg-slate-950 p-4 rounded-xl border border-slate-800\">\n      <div class=\"flex justify-between text-xs text-slate-500 mb-2 border-b border-slate-800 pb-1\">\n        <span>SECUENCIA DE DISPARO DE LISTENERS</span>\n        <button onclick=\"document.getElementById('logEventos').innerHTML=''\" class=\"hover:text-white\">Limpiar</button>\n      </div>\n      <div id=\"logEventos\" class=\"space-y-1 text-xs font-mono min-h-[100px]\"></div>\n    </div>\n  </div>\n\n  <script>\n    const log = document.getElementById('logEventos');\n    function registrar(fase, id) {\n      log.innerHTML += `<p class=\"${fase === 'Fase de Captura' ? 'text-amber-400' : 'text-cyan-300'}\">[${fase}] Disparado en <strong>${id}</strong></p>`;\n    }\n\n    const els = ['abuelo', 'padre', 'hijo'];\n\n    // Fase de captura (tercer argumento true)\n    els.forEach(id => {\n      document.getElementById(id).addEventListener('click', () => {\n        registrar(\"Fase de Captura\", id);\n      }, true);\n    });\n\n    // Fase de burbujeo (tercer argumento false o por defecto)\n    els.forEach(id => {\n      document.getElementById(id).addEventListener('click', () => {\n        registrar(\"Fase de Burbujeo\", id);\n      }, false);\n    });\n  <\/script>\n</body>\n</html>\n", "explanation": "Simulador gráfico interactivo que muestra cómo un evento desciende en fase de captura y asciende en fase de burbujeo por 3 div anidados, permitiendo activar stopPropagation().", "filename": "ej2_visualizador_eventos.html"}, {"id": "ej3", "type": "practica", "badge": "Práctica Guiada 3", "title": "Tablero Kanban con Delegación y Atajos de Teclado", "subtitle": "Aplicación de tareas interactivas donde las tarjetas se crean, editan y eliminan utilizando delegación de eventos optimizada y navegación por teclado (Enter, Escape, Delete).", "instruction": "Aplicación de tareas interactivas donde las tarjetas se crean, editan y eliminan utilizando delegación de eventos optimizada y navegación por teclado (Enter, Escape, Delete).", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Delegación de Eventos</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Delegación de Eventos en Listas Dinámicas</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Un solo escuchador en el elemento padre 'ul' gestiona todas las tarjetas actuales y futuras.</p>\n\n    <div class=\"flex gap-2 mb-4\">\n      <input id=\"itemTexto\" type=\"text\" placeholder=\"Nueva tarea...\" class=\"border p-2 rounded-lg text-sm flex-1\">\n      <button onclick=\"agregarItem()\" class=\"px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold\">Añadir Tarea</button>\n    </div>\n\n    <ul id=\"listaTareas\" class=\"space-y-2 text-sm\">\n      <li data-id=\"1\" class=\"p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center group\">\n        <span>Revisar especificaciones de la API</span>\n        <div class=\"space-x-2\">\n          <button class=\"btn-check text-emerald-600 font-bold hover:underline\">Completar</button>\n          <button class=\"btn-delete text-rose-600 font-bold hover:underline\">Eliminar</button>\n        </div>\n      </li>\n    </ul>\n  </div>\n\n  <script>\n    const lista = document.getElementById('listaTareas');\n\n    // UN SOLO escuchador en la lista para delegar eventos\n    lista.addEventListener('click', (e) => {\n      const target = e.target;\n      const li = target.closest('li');\n      if (!li) return;\n\n      if (target.classList.contains('btn-delete')) {\n        li.remove();\n      } else if (target.classList.contains('btn-check')) {\n        li.classList.toggle('bg-emerald-50');\n        li.querySelector('span').classList.toggle('line-through');\n        li.querySelector('span').classList.toggle('text-slate-400');\n      }\n    });\n\n    function agregarItem() {\n      const input = document.getElementById('itemTexto');\n      const val = input.value.trim();\n      if (!val) return;\n\n      const li = document.createElement('li');\n      li.className = \"p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center group\";\n      li.innerHTML = `\n        <span>${val}</span>\n        <div class=\"space-x-2\">\n          <button class=\"btn-check text-emerald-600 font-bold hover:underline\">Completar</button>\n          <button class=\"btn-delete text-rose-600 font-bold hover:underline\">Eliminar</button>\n        </div>\n      `;\n      lista.append(li);\n      input.value = \"\";\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Delegación de Eventos</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-1\">Delegación de Eventos en Listas Dinámicas</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Un solo escuchador en el elemento padre 'ul' gestiona todas las tarjetas actuales y futuras.</p>\n\n    <div class=\"flex gap-2 mb-4\">\n      <input id=\"itemTexto\" type=\"text\" placeholder=\"Nueva tarea...\" class=\"border p-2 rounded-lg text-sm flex-1\">\n      <button onclick=\"agregarItem()\" class=\"px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold\">Añadir Tarea</button>\n    </div>\n\n    <ul id=\"listaTareas\" class=\"space-y-2 text-sm\">\n      <li data-id=\"1\" class=\"p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center group\">\n        <span>Revisar especificaciones de la API</span>\n        <div class=\"space-x-2\">\n          <button class=\"btn-check text-emerald-600 font-bold hover:underline\">Completar</button>\n          <button class=\"btn-delete text-rose-600 font-bold hover:underline\">Eliminar</button>\n        </div>\n      </li>\n    </ul>\n  </div>\n\n  <script>\n    const lista = document.getElementById('listaTareas');\n\n    // UN SOLO escuchador en la lista para delegar eventos\n    lista.addEventListener('click', (e) => {\n      const target = e.target;\n      const li = target.closest('li');\n      if (!li) return;\n\n      if (target.classList.contains('btn-delete')) {\n        li.remove();\n      } else if (target.classList.contains('btn-check')) {\n        li.classList.toggle('bg-emerald-50');\n        li.querySelector('span').classList.toggle('line-through');\n        li.querySelector('span').classList.toggle('text-slate-400');\n      }\n    });\n\n    function agregarItem() {\n      const input = document.getElementById('itemTexto');\n      const val = input.value.trim();\n      if (!val) return;\n\n      const li = document.createElement('li');\n      li.className = \"p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center group\";\n      li.innerHTML = `\n        <span>${val}</span>\n        <div class=\"space-x-2\">\n          <button class=\"btn-check text-emerald-600 font-bold hover:underline\">Completar</button>\n          <button class=\"btn-delete text-rose-600 font-bold hover:underline\">Eliminar</button>\n        </div>\n      `;\n      lista.append(li);\n      input.value = \"\";\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Tablero Kanban donde las tarjetas se crean, editan y arrastran usando delegación de eventos en el contenedor principal y atajos de teclado accesibles.", "filename": "ej3_kanban_eventos.html"}];
+    let currentItem = null;
+    let currentCode = "";
+
+    function resetIframe() {
+      const wrapper = document.getElementById('iframe-wrapper');
+      if (wrapper) wrapper.innerHTML = '';
+      const newIframe = document.createElement('iframe');
+      newIframe.id = 'preview-iframe';
+      newIframe.className = 'w-full h-full border-0';
+      newIframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-same-origin');
+      if (wrapper) wrapper.appendChild(newIframe);
+      return newIframe;
+    }
+
+    function selectItem(id) {
+      const item = ITEMS.find(x => x.id === id) || ITEMS[0];
+      currentItem = item;
+      
+      document.querySelectorAll('.exercise-nav-btn').forEach(btn => {
+        if (btn.id === 'nav-btn-' + item.id) {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between active bg-indigo-600 text-white shadow-sm";
+        } else {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100";
+        }
+      });
+
+      document.getElementById('ex-badge').textContent = item.badge;
+      document.getElementById('ex-title').textContent = item.title;
+      document.getElementById('ex-subtitle').textContent = item.subtitle;
+      document.getElementById('ex-instruction').textContent = item.instruction;
+      document.getElementById('ex-explanation').textContent = item.explanation || "Solución fundamentada en las mejores prácticas del estándar ES6+.";
+
+      const iframe = resetIframe();
+
+      if (item.filename) {
+        currentCode = item.code || item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = item.filename.endsWith('.html') ? "language-html" : "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Solución externa oficial ejecutable en iframe: /ejercicios/" + item.filename;
+        iframe.src = './ejercicios/' + item.filename;
+      } else {
+        currentCode = item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Entorno de ejecución inmediata de la solución en JavaScript.";
+
+        const shellTpl = document.getElementById('iframe-shell-template');
+        const iframeDoc = iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(shellTpl ? shellTpl.textContent : '');
+        iframeDoc.close();
+
+        // Inyectar runner directamente
+        iframe.contentWindow.runSolution = function(rawCode) {
+          const doc = iframe.contentWindow.document;
+          const output = doc.getElementById("output");
+          const domStage = doc.getElementById("dom-stage");
+          if (output) output.innerHTML = "";
+
+          function log(...args) {
+            const p = doc.createElement("div");
+            p.className = "log-line";
+            p.textContent = args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+            output.appendChild(p);
+          }
+
+          const customConsole = {
+            log: log,
+            error: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-error";
+              p.textContent = "❌ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            },
+            info: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-info";
+              p.textContent = "ℹ️ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            }
+          };
+
+          const isDomCode = /document\.|querySelector|getElementById|createElement|addEventListener|dataset|innerHTML|outerHTML|#catalogo|#miForm|#password|#btnTema|#listaDinamica|#miLista|#app|@Component|<[a-z]/i.test(rawCode);
+
+          if (domStage) {
+            if (isDomCode) domStage.classList.remove("hidden");
+            else domStage.classList.add("hidden");
+          }
+
+          const NL = String.fromCharCode(10);
+
+          if (rawCode.trim().startsWith("git ")) {
+            log("💻 [Simulador de Consola Git Terminal]");
+            rawCode.split(NL).forEach(cmd => { if (cmd.trim()) log("$ " + cmd); });
+            log("✅ Secuencia Git ejecutada correctamente en el repositorio local.");
+            return;
+          }
+
+          if (rawCode.includes("db.ventas.aggregate")) {
+            log("🍃 [Simulador de Shell MongoDB]");
+            log("> " + rawCode);
+            log("📊 [Resultado del Pipeline de Agregación]:");
+            log([{ _id: "Electrónica", totalVentas: 15420.50 }, { _id: "Hogar", totalVentas: 8300.00 }, { _id: "Deportes", totalVentas: 4150.00 }]);
+            return;
+          }
+
+          if (rawCode.includes("@Component")) {
+            log("🅰️ [Compilador Angular v18 Standalone]");
+            log("✨ Componente Standalone ContadorComponent compilado e inyectado.");
+            log("Selector: <app-contador>");
+            log("Estado inicial: total = 0");
+            const appEl = doc.getElementById("app");
+            if (appEl) {
+              appEl.innerHTML = '<div class="p-3 bg-slate-950 border border-indigo-500/50 rounded-lg text-xs font-sans mb-2"><div class="font-bold text-indigo-400 mb-1">🅰️ Componente Angular ContadorComponent (Live Render):</div><div class="flex items-center gap-3"><span id="ng-counter" class="text-sm font-semibold text-white">Contador: 0</span><button id="ng-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded text-xs transition-colors">+1</button></div></div>';
+              const btn = doc.getElementById('ng-btn');
+              if (btn) btn.onclick = function() {
+                const c = doc.getElementById('ng-counter');
+                let val = parseInt(c.textContent.replace('Contador: ',''))+1;
+                c.textContent = 'Contador: ' + val;
+              };
+            }
+            return;
+          }
+
+          if (rawCode.trim().startsWith("/*") && rawCode.includes("/api/")) {
+            log("🌐 [Router REST API - Especificación de Endpoints]");
+            rawCode.split(NL).forEach(line => { if (line.trim() && !line.includes("/*") && !line.includes("*/")) log(line.trim()); });
+            log("✅ Servidor de API REST semántico preparado.");
+            return;
+          }
+
+          try {
+            const runFn = iframe.contentWindow.Function('console', 'log', 'document', rawCode);
+            const res = runFn(customConsole, log, doc);
+            if (res !== undefined) log("⬅️ Retorno:", res);
+          } catch (err1) {
+            try {
+              const res = iframe.contentWindow.eval(rawCode);
+              if (res !== undefined) log("⬅️ Retorno:", res);
+            } catch (err2) {
+              customConsole.error("Error de Ejecución:", err2.message);
+            }
+          }
+        };
+
+        if (iframe.contentWindow && typeof iframe.contentWindow.runSolution === 'function') {
+          iframe.contentWindow.runSolution(item.solution || '');
+        }
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      const btnView = document.getElementById('btn-tab-view');
+      const btnCode = document.getElementById('btn-tab-code');
+
+      if (tabId === 'tab-view') {
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      } else {
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      }
+    }
+
+    function reloadPreview() {
+      if (currentItem) selectItem(currentItem.id);
+    }
+
+    function copyCode() {
+      if (!currentCode) return;
+      navigator.clipboard.writeText(currentCode).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = "✅ ¡Copiado!";
+        setTimeout(() => { btn.textContent = "📋 Copiar Código"; }, 2000);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const itemId = params.get('item') || window.location.hash.replace('#', '');
+      selectItem(itemId || ITEMS[0].id);
+    });
+  </script>
+
+</body>
+</html>

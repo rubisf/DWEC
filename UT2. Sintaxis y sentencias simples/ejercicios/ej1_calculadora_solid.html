@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Facturas SOLID</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6 text-slate-800">
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <h1 class="text-xl font-bold text-slate-900 mb-1">Calculadora de Facturación con Principios SOLID</h1>
+    <p class="text-xs text-slate-500 mb-6">Demostración de Responsabilidad Única (SRP) y Abierto/Cerrado (OCP) con estrategias de descuento desacopladas.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Subtotal (€)</label>
+        <input id="subtotal" type="number" value="250" class="w-full border p-2 rounded-lg text-sm">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Tipo de Cliente (Estrategia)</label>
+        <select id="tipoCliente" class="w-full border p-2 rounded-lg text-sm bg-white">
+          <option value="estandar">Cliente Estándar (0%)</option>
+          <option value="vip">Cliente VIP (15%)</option>
+          <option value="estudiante">Estudiante / FP (25%)</option>
+        </select>
+      </div>
+      <div class="flex items-end">
+        <button onclick="calcular()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 rounded-lg text-sm transition">Calcular Factura</button>
+      </div>
+    </div>
+
+    <!-- Resultados Desacoplados -->
+    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2 text-sm">
+      <div class="flex justify-between"><span>Subtotal Base:</span><strong id="outSubtotal">0,00 €</strong></div>
+      <div class="flex justify-between text-rose-600"><span>Descuento aplicado:</span><strong id="outDescuento">0,00 €</strong></div>
+      <div class="flex justify-between text-slate-600"><span>IVA General (21%):</span><strong id="outIva">0,00 €</strong></div>
+      <div class="border-t border-slate-200 pt-2 flex justify-between text-base font-extrabold text-indigo-700">
+        <span>TOTAL FACTURA:</span><span id="outTotal">0,00 €</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Patrón Strategy (Principio OCP: Abierto a extensión sin modificar código)
+    const EstrategiasDescuento = {
+      estandar: (monto) => 0,
+      vip: (monto) => monto * 0.15,
+      estudiante: (monto) => monto * 0.25
+    };
+
+    // 2. Lógica de Negocio pura (Principio SRP: sólo cálculos aritméticos)
+    class CalculadorFactura {
+      static calcular(subtotal, tipoCliente, tasaIVA = 0.21) {
+        const estrategia = EstrategiasDescuento[tipoCliente] || EstrategiasDescuento.estandar;
+        const descuento = estrategia(subtotal);
+        const baseImponible = Math.max(0, subtotal - descuento);
+        const iva = baseImponible * tasaIVA;
+        const total = baseImponible + iva;
+        return { subtotal, descuento, iva, total };
+      }
+    }
+
+    // 3. Capa de Presentación pura (SRP: sólo formateo)
+    const Formateador = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+
+    function calcular() {
+      const sub = parseFloat(document.getElementById('subtotal').value) || 0;
+      const tipo = document.getElementById('tipoCliente').value;
+      const res = CalculadorFactura.calcular(sub, tipo);
+
+      document.getElementById('outSubtotal').textContent = Formateador.format(res.subtotal);
+      document.getElementById('outDescuento').textContent = "- " + Formateador.format(res.descuento);
+      document.getElementById('outIva').textContent = "+ " + Formateador.format(res.iva);
+      document.getElementById('outTotal').textContent = Formateador.format(res.total);
+    }
+    calcular();
+  </script>
+</body>
+</html>

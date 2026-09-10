@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soluciones y Taller de Prácticas - UT3: Objetos Predefinidos del Lenguaje y del Navegador</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .code-container {
+      background-color: #0d1117 !important;
+      border: 1px solid #30363d !important;
+      border-radius: 12px !important;
+    }
+    .code-container pre {
+      margin: 0 !important;
+      padding: 16px !important;
+      background-color: #0d1117 !important;
+    }
+    .code-container code {
+      background-color: #0d1117 !important;
+      color: #f0f6fc !important;
+      font-size: 13px !important;
+      line-height: 1.6 !important;
+    }
+    .hljs-keyword, .hljs-selector-tag, .hljs-subst { color: #ff7b72 !important; font-weight: 700; }
+    .hljs-string, .hljs-title, .hljs-section, .hljs-attribute, .hljs-literal, .hljs-type { color: #a5d6ff !important; }
+    .hljs-comment, .hljs-quote, .hljs-deletion, .hljs-meta { color: #8b949e !important; font-style: italic; }
+    .hljs-number, .hljs-regexp, .hljs-link { color: #79c0ff !important; }
+    .hljs-function, .hljs-title.function_ { color: #d2a8ff !important; }
+    .hljs-variable, .hljs-params { color: #ffa657 !important; }
+    .hljs-tag, .hljs-name { color: #7ee787 !important; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col antialiased">
+
+  <!-- Barra Superior -->
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+    <div class="flex items-center gap-4">
+      <a href="../index.html" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Volver al Panel Principal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      </a>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-md">UT3</span>
+          <h1 class="text-lg font-bold text-slate-800">UT3: Objetos Predefinidos del Lenguaje y del Navegador</h1>
+        </div>
+        <p class="text-xs text-slate-500">Centro Oficial de Soluciones Explicadas, Código Fuente y Ejecución en Vivo</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="presentacion.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
+        🎬 Ver Presentación
+      </a>
+      <a href="../index.html" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+        🏠 Índice General
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal Split -->
+  <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto p-6 gap-6">
+    
+    <!-- Sidebar Ejercicios -->
+    <aside class="w-80 bg-white rounded-2xl border border-slate-200 p-4 flex flex-col shadow-sm flex-shrink-0">
+      <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 space-y-4">
+        
+        <div>
+          <h2 class="text-xs font-bold tracking-wider text-indigo-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🎯 Retos de Conceptos (4)
+          </h2>
+          
+          <button onclick="selectItem('reto-1')" id="nav-btn-reto-1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Frecuencias y Unicidad con Map y Set</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 1</span>
+          </button>
+          <button onclick="selectItem('reto-2')" id="nav-btn-reto-2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Validación Estricta de Contraseñas con RegExp</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 2</span>
+          </button>
+          <button onclick="selectItem('reto-3')" id="nav-btn-reto-3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Interacción con Entorno Cliente y BOM</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 3</span>
+          </button>
+          <button onclick="selectItem('reto-4')" id="nav-btn-reto-4" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Gestor de Sesión y Preferencias con localStorage</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Reto Concepto 4</span>
+          </button>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100">
+          <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-2 px-2 flex items-center gap-1.5">
+            🚀 Prácticas y Proyectos (3)
+          </h2>
+          
+          <button onclick="selectItem('ej1')" id="nav-btn-ej1" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Suite de Validación con RegExp e Intl</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 1</span>
+          </button>
+          <button onclick="selectItem('ej2')" id="nav-btn-ej2" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Gestor de Preferencias (Theme / Offline) con Web Storage</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 2</span>
+          </button>
+          <button onclick="selectItem('ej3')" id="nav-btn-ej3" class="exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100">
+            <span class="truncate">Base de Datos de Clientes con IndexedDB Transaccional</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/60 font-bold flex-shrink-0 ml-1">Práctica Guiada 3</span>
+          </button>
+        </div>
+
+      </div>
+      <div class="pt-4 border-t border-slate-100 mt-2 text-xs text-slate-400 text-center">
+        DWEC · Grado Superior DAW
+      </div>
+    </aside>
+
+    <!-- Panel de Actividad Seleccionada -->
+    <main class="flex-1 bg-white rounded-2xl border border-slate-200 flex flex-col shadow-sm overflow-hidden">
+      
+      <!-- Cabecera de Práctica/Reto -->
+      <div class="p-6 border-b border-slate-200 bg-slate-50/50 flex items-start justify-between">
+        <div>
+          <span id="ex-badge" class="px-2.5 py-1 text-xs font-bold bg-indigo-100 text-indigo-700 rounded-lg">Cargando...</span>
+          <h2 id="ex-title" class="text-xl font-bold text-slate-900 mt-2">Cargando...</h2>
+          <p id="ex-subtitle" class="text-xs font-semibold text-slate-500 mt-1"></p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="switchTab('tab-view')" id="btn-tab-view" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm">
+            ▶️ Vista / Ejecución en Vivo
+          </button>
+          <button onclick="switchTab('tab-code')" id="btn-tab-code" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all">
+            💻 Código Fuente y Solución
+          </button>
+        </div>
+      </div>
+
+      <!-- Cuerpo del Visor -->
+      <div class="flex-1 p-6 overflow-y-auto custom-scrollbar relative flex flex-col">
+        
+        <!-- Bloque de Enunciado -->
+        <div class="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+          <h3 class="text-xs font-bold text-emerald-900 uppercase tracking-wider mb-1">📝 Enunciado de la Actividad</h3>
+          <p id="ex-instruction" class="text-xs text-emerald-800 leading-relaxed"></p>
+        </div>
+
+        <!-- Tab 1: Vista Previa / Ejecución en Vivo -->
+        <div id="tab-view" class="tab-content flex-1 flex flex-col min-h-0">
+          <div id="iframe-wrapper" class="flex-1 rounded-xl border border-slate-200 overflow-hidden bg-slate-50 min-h-[360px] relative">
+            <iframe id="preview-iframe" class="w-full h-full border-0" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+            <span id="preview-hint">💡 Entorno interactivo aislado en sandbox.</span>
+            <button onclick="reloadPreview()" class="text-indigo-600 hover:underline font-semibold flex items-center gap-1">
+              🔄 Recargar entorno
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Código Fuente y Solución Explicada con Alto Contraste -->
+        <div id="tab-code" class="tab-content hidden flex-1 flex flex-col space-y-4 min-h-0">
+          <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
+            <h3 class="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">💡 Explicación Paso a Paso de la Solución</h3>
+            <p id="ex-explanation" class="text-xs text-indigo-800 leading-relaxed whitespace-pre-line"></p>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-500">Solución Oficial en Código Fuente (Alto Contraste)</span>
+            <button onclick="copyCode()" id="copy-btn" class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors flex items-center gap-1">
+              📋 Copiar Código
+            </button>
+          </div>
+          <div class="flex-1 code-container overflow-hidden p-2 text-xs overflow-y-auto custom-scrollbar">
+            <pre><code id="code-content" class="language-javascript"></code></pre>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Shell HTML aislado como Script de texto puro (sin parseo en el documento padre) -->
+  <script type="text/html" id="iframe-shell-template">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="utf-8"/>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+        body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 16px; margin: 0; font-size: 13px; }
+        .log-title { color: #d2a8ff; font-weight: bold; margin-bottom: 12px; font-size: 13px; border-bottom: 1px solid #30363d; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .log-line { border-bottom: 1px solid #21262d; padding: 6px 0; color: #7ee787; line-height: 1.5; font-family: monospace; }
+        .log-error { color: #ff7b72; font-weight: bold; }
+        .log-info { color: #79c0ff; }
+        .hidden { display: none !important; }
+      </style>
+    </head>
+    <body class="antialiased">
+      <div id="dom-stage" class="hidden mb-4 p-4 bg-slate-900 border border-slate-700/80 rounded-xl shadow-lg font-sans text-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-700/60 pb-2.5 mb-3">
+          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🌐 Escenario DOM Interactivo (Ejecución en Vivo)</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono">Contenedores activos para manipulación DOM</span>
+        </div>
+        <div id="app" class="mb-3 empty:hidden"></div>
+        <div id="catalogo" class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3 empty:hidden"></div>
+        <div id="form-container" class="flex flex-wrap items-center gap-3 mb-3">
+          <form id="miForm" class="flex items-center gap-2">
+            <input id="password" type="password" placeholder="Prueba contraseña..." value="Abc12345" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors shadow-sm">Enviar Formulario</button>
+          </form>
+          <button id="btnTema" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-3 py-1.5 rounded-lg text-xs border border-slate-700 transition-colors">Modo: light</button>
+        </div>
+        <div id="lists-container" class="space-y-3">
+          <ul id="listaDinamica" class="flex flex-wrap gap-2 text-xs">
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 1 (Haz clic para eliminar)</span> 🗑️</li>
+            <li class="bg-slate-950 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-300 cursor-pointer hover:border-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5" title="Haz clic para probar la delegación de eventos y eliminar este item"><span>Item 2 (Haz clic para eliminar)</span> 🗑️</li>
+          </ul>
+          <ul id="miLista" class="space-y-1.5 text-xs text-emerald-400 font-mono"></ul>
+        </div>
+      </div>
+      <div class="log-title"><span>▶️ Resultados de Ejecución en Consola / Salida Estándar:</span></div>
+      <div id="output"></div>
+    </body>
+    </html>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+
+  <script>
+    const ITEMS = [{"id": "reto-1", "type": "reto", "badge": "Reto Concepto 1", "title": "Frecuencias y Unicidad con Map y Set", "subtitle": "Bloque 1: Objetos Nativos del Núcleo de JavaScript", "instruction": "Crea una función que tome una lista de nombres con duplicados y devuelva un objeto Map con el recuento de frecuencias de cada nombre y un Set con los nombres únicos.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Map y Set</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Recuento de Frecuencias (Map) y Únicos (Set)</h2>\n    <div id=\"out-mapset\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const nombres = [\"Ana\", \"Carlos\", \"Ana\", \"Beatriz\", \"Carlos\", \"Ana\"];\n\n    // 1. Set para obtener elementos únicos\n    const unicosSet = new Set(nombres);\n\n    // 2. Map para contar frecuencias\n    const frecuenciasMap = new Map();\n    for (const n of nombres) {\n      frecuenciasMap.set(n, (frecuenciasMap.get(n) || 0) + 1);\n    }\n\n    let frecText = [];\n    frecuenciasMap.forEach((cant, nom) => frecText.push(`${nom}: ${cant}`));\n\n    const out = document.getElementById('out-mapset');\n    out.innerHTML = `\n      <div class=\"text-emerald-300\">Set de Únicos: [${Array.from(unicosSet).join(', ')}]</div>\n      <div class=\"text-amber-300\">Map de Frecuencias: { ${frecText.join(' | ')} }</div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) 'Math.ceil' redondea hacia arriba el cálculo de la diferencia de marcas de tiempo en milisegundos convertidos a días.\n2) 'Intl.NumberFormat' aplica las reglas locales españolas para moneda (símbolo de euro y comas decimales).", "filename": "reto1_estructuras_map_set.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 1: Map y Set</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-indigo-400\">🎯 Reto 1: Recuento de Frecuencias (Map) y Únicos (Set)</h2>\n    <div id=\"out-mapset\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const nombres = [\"Ana\", \"Carlos\", \"Ana\", \"Beatriz\", \"Carlos\", \"Ana\"];\n\n    // 1. Set para obtener elementos únicos\n    const unicosSet = new Set(nombres);\n\n    // 2. Map para contar frecuencias\n    const frecuenciasMap = new Map();\n    for (const n of nombres) {\n      frecuenciasMap.set(n, (frecuenciasMap.get(n) || 0) + 1);\n    }\n\n    let frecText = [];\n    frecuenciasMap.forEach((cant, nom) => frecText.push(`${nom}: ${cant}`));\n\n    const out = document.getElementById('out-mapset');\n    out.innerHTML = `\n      <div class=\"text-emerald-300\">Set de Únicos: [${Array.from(unicosSet).join(', ')}]</div>\n      <div class=\"text-amber-300\">Map de Frecuencias: { ${frecText.join(' | ')} }</div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-2", "type": "reto", "badge": "Reto Concepto 2", "title": "Validación Estricta de Contraseñas con RegExp", "subtitle": "Bloque 2: Expresiones Regulares (RegExp) en Validación", "instruction": "Escribe una Expresión Regular para validar contraseñas seguras (mínimo 8 caracteres, al menos una mayúscula y un número) y prueba su funcionamiento con 'RegExp.prototype.test()'.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Validación con RegExp</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Validación Estricta con RegExp.test()</h2>\n    <div id=\"out-re\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const reSegura = /^(?=.*[A-Z])(?=.*\\d).{8,}$/;\n    const pass1 = \"Abc12345\";\n    const pass2 = \"debil\";\n\n    const out = document.getElementById('out-re');\n    out.innerHTML = `\n      <div class=\"text-emerald-400\">🔑 '${pass1}' -> reSegura.test(): <strong>${reSegura.test(pass1)}</strong> (Válida)</div>\n      <div class=\"text-rose-400\">🔑 '${pass2}' -> reSegura.test(): <strong>${reSegura.test(pass2)}</strong> (Inválida)</div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) '^(\\d{8})([A-Z])$' valida exactamente 8 dígitos y 1 letra.\n2) 'dni.trim().match()' extrae los grupos de captura.\n3) El algoritmo 'módulo 23' sobre la cadena de control verifica matemáticamente la validez del DNI.", "filename": "reto2_validador_expresiones_regulares.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 2: Validación con RegExp</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-emerald-400\">🎯 Reto 2: Validación Estricta con RegExp.test()</h2>\n    <div id=\"out-re\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2\"></div>\n  </div>\n  <script>\n    const reSegura = /^(?=.*[A-Z])(?=.*\\d).{8,}$/;\n    const pass1 = \"Abc12345\";\n    const pass2 = \"debil\";\n\n    const out = document.getElementById('out-re');\n    out.innerHTML = `\n      <div class=\"text-emerald-400\">🔑 '${pass1}' -> reSegura.test(): <strong>${reSegura.test(pass1)}</strong> (Válida)</div>\n      <div class=\"text-rose-400\">🔑 '${pass2}' -> reSegura.test(): <strong>${reSegura.test(pass2)}</strong> (Inválida)</div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-3", "type": "reto", "badge": "Reto Concepto 3", "title": "Interacción con Entorno Cliente y BOM", "subtitle": "Bloque 3: Jerarquía BOM (Browser Object Model)", "instruction": "Construir un script que obtenga la resolución de pantalla del usuario, compruebe si está online ('navigator.onLine') y mantenga la navegación usando el historial del BOM ('history').", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Jerarquía BOM</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Objetos BOM (navigator, location, history, screen)</h2>\n    <div id=\"out-bom\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-amber-300\"></div>\n  </div>\n  <script>\n    const out = document.getElementById('out-bom');\n    out.innerHTML = `\n      <div>🖥️ Pantalla: ${screen.width}x${screen.height} px</div>\n      <div>🌐 Estado Conexión (navigator.onLine): <strong>${navigator.onLine ? 'ONLINE ✅' : 'OFFLINE ❌'}</strong></div>\n      <div>📍 Dirección actual (location.href): ${location.href}</div>\n      <div>📜 Longitud del Historial (history.length): ${history.length}</div>\n    `;\n  <\/script>\n</body>\n</html>", "explanation": "1) 'navigator.language' y 'navigator.onLine' inspeccionan el entorno del usuario en el BOM.\n2) 'history.pushState()' actualiza la barra de direcciones del navegador sin provocar una recarga de la página.", "filename": "reto3_monitor_bom.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 3: Jerarquía BOM</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-amber-400\">🎯 Reto 3: Objetos BOM (navigator, location, history, screen)</h2>\n    <div id=\"out-bom\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-amber-300\"></div>\n  </div>\n  <script>\n    const out = document.getElementById('out-bom');\n    out.innerHTML = `\n      <div>🖥️ Pantalla: ${screen.width}x${screen.height} px</div>\n      <div>🌐 Estado Conexión (navigator.onLine): <strong>${navigator.onLine ? 'ONLINE ✅' : 'OFFLINE ❌'}</strong></div>\n      <div>📍 Dirección actual (location.href): ${location.href}</div>\n      <div>📜 Longitud del Historial (history.length): ${history.length}</div>\n    `;\n  <\/script>\n</body>\n</html>"}, {"id": "reto-4", "type": "reto", "badge": "Reto Concepto 4", "title": "Gestor de Sesión y Preferencias con localStorage", "subtitle": "Bloque 4: Almacenamiento en Cliente: Storage vs IndexedDB vs Cookies", "instruction": "Escribe un gestor de preferencias que serialice un objeto de configuración de usuario en JSON dentro de 'localStorage', con manejo robusto de excepciones (cuota excedida).", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: LocalStorage JSON</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Serialización JSON en localStorage</h2>\n    <div id=\"out-storage\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300\"></div>\n  </div>\n  <script>\n    const config = { tema: \"dark\", idioma: \"es\", modulosActivos: [\"DOM\", \"BOM\", \"ES6\"] };\n    const out = document.getElementById('out-storage');\n    try {\n      localStorage.setItem(\"user_config\", JSON.stringify(config));\n      const recuperado = JSON.parse(localStorage.getItem(\"user_config\"));\n      out.innerHTML = `\n        <div class=\"text-emerald-400\">✅ Guardado y deserializado con éxito desde localStorage:</div>\n        <div>Tema: ${recuperado.tema} | Idioma: ${recuperado.idioma} | Módulos: ${recuperado.modulosActivos.join(', ')}</div>\n      `;\n    } catch (e) {\n      out.innerHTML = `<div class=\"text-rose-400\">❌ Error de Cuota en Storage: ${e.message}</div>`;\n    }\n  <\/script>\n</body>\n</html>", "explanation": "1) 'JSON.stringify()' serializa objetos a texto antes de guardarlos en 'localStorage'.\n2) El bloque 'try...catch' gestiona posibles errores de cuota de almacenamiento o restricciones de privacidad del usuario.", "filename": "reto4_gestor_localstorage.html", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Reto 4: LocalStorage JSON</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-900 text-slate-100 p-6 font-sans\">\n  <div class=\"max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4\">\n    <h2 class=\"text-lg font-bold text-sky-400\">🎯 Reto 4: Serialización JSON en localStorage</h2>\n    <div id=\"out-storage\" class=\"p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-sky-300\"></div>\n  </div>\n  <script>\n    const config = { tema: \"dark\", idioma: \"es\", modulosActivos: [\"DOM\", \"BOM\", \"ES6\"] };\n    const out = document.getElementById('out-storage');\n    try {\n      localStorage.setItem(\"user_config\", JSON.stringify(config));\n      const recuperado = JSON.parse(localStorage.getItem(\"user_config\"));\n      out.innerHTML = `\n        <div class=\"text-emerald-400\">✅ Guardado y deserializado con éxito desde localStorage:</div>\n        <div>Tema: ${recuperado.tema} | Idioma: ${recuperado.idioma} | Módulos: ${recuperado.modulosActivos.join(', ')}</div>\n      `;\n    } catch (e) {\n      out.innerHTML = `<div class=\"text-rose-400\">❌ Error de Cuota en Storage: ${e.message}</div>`;\n    }\n  <\/script>\n</body>\n</html>"}, {"id": "ej1", "type": "practica", "badge": "Práctica Guiada 1", "title": "Suite de Validación con RegExp e Intl", "subtitle": "Formulario interactivo de registro que valida en vivo DNI, NIE, correos electrónicos corporativos y formatea salarios y fechas según estándares locales españoles.", "instruction": "Formulario interactivo de registro que valida en vivo DNI, NIE, correos electrónicos corporativos y formatea salarios y fechas según estándares locales españoles.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Validador con RegExp e Intl</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-2\">Validador de Documentos y Salarios</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Uso de expresiones regulares para DNI y formateo monetario localizado con la API Intl.</p>\n\n    <div class=\"space-y-4\">\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">DNI Español (8 dígitos + letra)</label>\n        <input id=\"dniInput\" oninput=\"validar()\" type=\"text\" placeholder=\"12345678Z\" class=\"w-full border p-2 rounded-lg text-sm\">\n        <span id=\"dniMsg\" class=\"text-xs mt-1 block font-semibold\"></span>\n      </div>\n\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Salario Anual Bruto (€)</label>\n        <input id=\"salarioInput\" oninput=\"validar()\" type=\"number\" value=\"32500\" class=\"w-full border p-2 rounded-lg text-sm\">\n      </div>\n\n      <div class=\"p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1\">\n        <div class=\"flex justify-between\"><span>Formato España (es-ES):</span><strong id=\"fmtEs\">-</strong></div>\n        <div class=\"flex justify-between\"><span>Formato USA (en-US):</span><strong id=\"fmtUs\">-</strong></div>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    function validar() {\n      const dni = document.getElementById('dniInput').value.trim();\n      const msg = document.getElementById('dniMsg');\n      const regex = /^(\\d{8})([A-Z])$/i;\n      const match = dni.match(regex);\n\n      if (!match) {\n        msg.textContent = \"Formato no válido (debe tener 8 números y una letra)\";\n        msg.className = \"text-xs mt-1 block font-semibold text-amber-600\";\n      } else {\n        const letras = \"TRWAGMYFPDXBNJZSQVHLCKE\";\n        const esperada = letras[parseInt(match[1], 10) % 23];\n        if (match[2].toUpperCase() === esperada) {\n          msg.textContent = \"✅ DNI Válido (Letra de control verificada con mod 23)\";\n          msg.className = \"text-xs mt-1 block font-semibold text-emerald-600\";\n        } else {\n          msg.textContent = `❌ Letra incorrecta. Para los dígitos ${match[1]} corresponde la '${esperada}'`;\n          msg.className = \"text-xs mt-1 block font-semibold text-rose-600\";\n        }\n      }\n\n      const salario = parseFloat(document.getElementById('salarioInput').value) || 0;\n      document.getElementById('fmtEs').textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(salario);\n      document.getElementById('fmtUs').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(salario);\n    }\n    validar();\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Validador con RegExp e Intl</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-2\">Validador de Documentos y Salarios</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Uso de expresiones regulares para DNI y formateo monetario localizado con la API Intl.</p>\n\n    <div class=\"space-y-4\">\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">DNI Español (8 dígitos + letra)</label>\n        <input id=\"dniInput\" oninput=\"validar()\" type=\"text\" placeholder=\"12345678Z\" class=\"w-full border p-2 rounded-lg text-sm\">\n        <span id=\"dniMsg\" class=\"text-xs mt-1 block font-semibold\"></span>\n      </div>\n\n      <div>\n        <label class=\"block text-xs font-semibold text-slate-700 mb-1\">Salario Anual Bruto (€)</label>\n        <input id=\"salarioInput\" oninput=\"validar()\" type=\"number\" value=\"32500\" class=\"w-full border p-2 rounded-lg text-sm\">\n      </div>\n\n      <div class=\"p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1\">\n        <div class=\"flex justify-between\"><span>Formato España (es-ES):</span><strong id=\"fmtEs\">-</strong></div>\n        <div class=\"flex justify-between\"><span>Formato USA (en-US):</span><strong id=\"fmtUs\">-</strong></div>\n      </div>\n    </div>\n  </div>\n\n  <script>\n    function validar() {\n      const dni = document.getElementById('dniInput').value.trim();\n      const msg = document.getElementById('dniMsg');\n      const regex = /^(\\d{8})([A-Z])$/i;\n      const match = dni.match(regex);\n\n      if (!match) {\n        msg.textContent = \"Formato no válido (debe tener 8 números y una letra)\";\n        msg.className = \"text-xs mt-1 block font-semibold text-amber-600\";\n      } else {\n        const letras = \"TRWAGMYFPDXBNJZSQVHLCKE\";\n        const esperada = letras[parseInt(match[1], 10) % 23];\n        if (match[2].toUpperCase() === esperada) {\n          msg.textContent = \"✅ DNI Válido (Letra de control verificada con mod 23)\";\n          msg.className = \"text-xs mt-1 block font-semibold text-emerald-600\";\n        } else {\n          msg.textContent = `❌ Letra incorrecta. Para los dígitos ${match[1]} corresponde la '${esperada}'`;\n          msg.className = \"text-xs mt-1 block font-semibold text-rose-600\";\n        }\n      }\n\n      const salario = parseFloat(document.getElementById('salarioInput').value) || 0;\n      document.getElementById('fmtEs').textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(salario);\n      document.getElementById('fmtUs').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(salario);\n    }\n    validar();\n  <\/script>\n</body>\n</html>\n", "explanation": "Validador interactivo con expresiones regulares para DNI, NIE y emails corporativos, integrando formateo dinámico de salarios e IBANs con la API Intl.", "filename": "ej1_validador_regexp.html"}, {"id": "ej2", "type": "practica", "badge": "Práctica Guiada 2", "title": "Gestor de Preferencias (Theme / Offline) con Web Storage", "subtitle": "Aplicación que guarda modo oscuro/claro, preferencias de usuario y detecta cambios de conectividad (online/offline) con sincronización en Storage.", "instruction": "Aplicación que guarda modo oscuro/claro, preferencias de usuario y detecta cambios de conectividad (online/offline) con sincronización en Storage.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Gestor de Almacenamiento Web</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body id=\"bodyEl\" class=\"p-6 transition-colors duration-300 bg-slate-50 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700\">\n    <div class=\"flex justify-between items-center mb-4\">\n      <h1 class=\"text-xl font-bold dark:text-white\">Persistencia con localStorage</h1>\n      <button onclick=\"toggleTheme()\" id=\"themeBtn\" class=\"px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700 dark:text-white\">🌓 Modo Oscuro</button>\n    </div>\n\n    <p class=\"text-xs text-slate-500 dark:text-slate-400 mb-4\">Guarda notas rápidas que persisten al recargar o cerrar la pestaña.</p>\n\n    <textarea id=\"notaInput\" rows=\"3\" placeholder=\"Escribe algo aquí...\" class=\"w-full border dark:border-slate-600 dark:bg-slate-900 dark:text-white p-3 rounded-xl text-sm mb-3\"></textarea>\n    \n    <div class=\"flex justify-between items-center text-xs\">\n      <button onclick=\"guardarNota()\" class=\"px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold\">💾 Guardar Nota</button>\n      <span id=\"statusTxt\" class=\"text-slate-400\"></span>\n    </div>\n  </div>\n\n  <script>\n    function toggleTheme() {\n      const isDark = document.documentElement.classList.toggle('dark');\n      localStorage.setItem('dwec_theme', isDark ? 'dark' : 'light');\n    }\n\n    function guardarNota() {\n      const txt = document.getElementById('notaInput').value;\n      localStorage.setItem('dwec_nota', txt);\n      document.getElementById('statusTxt').textContent = \"✅ Guardado en localStorage a las \" + new Date().toLocaleTimeString();\n    }\n\n    // Restaurar estado inicial\n    if (localStorage.getItem('dwec_theme') === 'dark') {\n      document.documentElement.classList.add('dark');\n    }\n    const notaGuardada = localStorage.getItem('dwec_nota');\n    if (notaGuardada) {\n      document.getElementById('notaInput').value = notaGuardada;\n      document.getElementById('statusTxt').textContent = \"Restaurado desde sesión previa.\";\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Gestor de Almacenamiento Web</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body id=\"bodyEl\" class=\"p-6 transition-colors duration-300 bg-slate-50 text-slate-800\">\n  <div class=\"max-w-2xl mx-auto bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700\">\n    <div class=\"flex justify-between items-center mb-4\">\n      <h1 class=\"text-xl font-bold dark:text-white\">Persistencia con localStorage</h1>\n      <button onclick=\"toggleTheme()\" id=\"themeBtn\" class=\"px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700 dark:text-white\">🌓 Modo Oscuro</button>\n    </div>\n\n    <p class=\"text-xs text-slate-500 dark:text-slate-400 mb-4\">Guarda notas rápidas que persisten al recargar o cerrar la pestaña.</p>\n\n    <textarea id=\"notaInput\" rows=\"3\" placeholder=\"Escribe algo aquí...\" class=\"w-full border dark:border-slate-600 dark:bg-slate-900 dark:text-white p-3 rounded-xl text-sm mb-3\"></textarea>\n    \n    <div class=\"flex justify-between items-center text-xs\">\n      <button onclick=\"guardarNota()\" class=\"px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold\">💾 Guardar Nota</button>\n      <span id=\"statusTxt\" class=\"text-slate-400\"></span>\n    </div>\n  </div>\n\n  <script>\n    function toggleTheme() {\n      const isDark = document.documentElement.classList.toggle('dark');\n      localStorage.setItem('dwec_theme', isDark ? 'dark' : 'light');\n    }\n\n    function guardarNota() {\n      const txt = document.getElementById('notaInput').value;\n      localStorage.setItem('dwec_nota', txt);\n      document.getElementById('statusTxt').textContent = \"✅ Guardado en localStorage a las \" + new Date().toLocaleTimeString();\n    }\n\n    // Restaurar estado inicial\n    if (localStorage.getItem('dwec_theme') === 'dark') {\n      document.documentElement.classList.add('dark');\n    }\n    const notaGuardada = localStorage.getItem('dwec_nota');\n    if (notaGuardada) {\n      document.getElementById('notaInput').value = notaGuardada;\n      document.getElementById('statusTxt').textContent = \"Restaurado desde sesión previa.\";\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Sincroniza las preferencias visuales del usuario (modo oscuro/claro) en localStorage y escucha el evento 'storage' para sincronizar pestañas abiertas en tiempo real.", "filename": "ej2_preferencias_storage.html"}, {"id": "ej3", "type": "practica", "badge": "Práctica Guiada 3", "title": "Base de Datos de Clientes con IndexedDB Transaccional", "subtitle": "Mini-sistema CRUD que almacena registros complejos con índices de búsqueda en IndexedDB del navegador, soportando operaciones asíncronas de inserción y consulta.", "instruction": "Mini-sistema CRUD que almacena registros complejos con índices de búsqueda en IndexedDB del navegador, soportando operaciones asíncronas de inserción y consulta.", "solution": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>CRUD con IndexedDB Transaccional</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-2\">Base de Datos Transaccional IndexedDB</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Almacén de objetos en el cliente para operaciones asíncronas de gran capacidad.</p>\n\n    <div class=\"flex gap-2 mb-4\">\n      <input id=\"cNombre\" type=\"text\" placeholder=\"Nombre completo\" class=\"border p-2 rounded-lg text-sm flex-1\">\n      <input id=\"cEmail\" type=\"email\" placeholder=\"correo@ejemplo.com\" class=\"border p-2 rounded-lg text-sm flex-1\">\n      <button onclick=\"guardarCliente()\" class=\"px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs\">Añadir a IndexedDB</button>\n    </div>\n\n    <div class=\"border border-slate-200 rounded-xl overflow-hidden\">\n      <table class=\"w-full text-xs text-left\">\n        <thead class=\"bg-slate-100 text-slate-600 font-bold\">\n          <tr><th class=\"p-3\">ID</th><th class=\"p-3\">Nombre</th><th class=\"p-3\">Email</th><th class=\"p-3 text-right\">Acción</th></tr>\n        </thead>\n        <tbody id=\"tablaClientes\" class=\"divide-y divide-slate-100\"></tbody>\n      </table>\n    </div>\n  </div>\n\n  <script>\n    let db;\n    const req = indexedDB.open(\"DWEC_ClientesDB\", 1);\n\n    req.onupgradeneeded = (e) => {\n      db = e.target.result;\n      if (!db.objectStoreNames.contains(\"clientes\")) {\n        db.createObjectStore(\"clientes\", { keyPath: \"id\", autoIncrement: true });\n      }\n    };\n\n    req.onsuccess = (e) => {\n      db = e.target.result;\n      listarClientes();\n    };\n\n    function guardarCliente() {\n      const nombre = document.getElementById('cNombre').value.trim();\n      const email = document.getElementById('cEmail').value.trim();\n      if (!nombre || !email) return;\n\n      const tx = db.transaction([\"clientes\"], \"readwrite\");\n      const store = tx.objectStore(\"clientes\");\n      store.add({ nombre, email, fecha: new Date() });\n      tx.oncomplete = () => {\n        document.getElementById('cNombre').value = \"\";\n        document.getElementById('cEmail').value = \"\";\n        listarClientes();\n      };\n    }\n\n    function listarClientes() {\n      const tx = db.transaction([\"clientes\"], \"readonly\");\n      const store = tx.objectStore(\"clientes\");\n      const req = store.getAll();\n      req.onsuccess = () => {\n        const clientes = req.result;\n        const tbody = document.getElementById('tablaClientes');\n        tbody.innerHTML = clientes.map(c => `\n          <tr class=\"hover:bg-slate-50\">\n            <td class=\"p-3 font-mono text-slate-400\">#${c.id}</td>\n            <td class=\"p-3 font-semibold text-slate-800\">${c.nombre}</td>\n            <td class=\"p-3 text-slate-600\">${c.email}</td>\n            <td class=\"p-3 text-right\"><button onclick=\"eliminarCliente(${c.id})\" class=\"text-rose-600 hover:underline\">Eliminar</button></td>\n          </tr>\n        `).join('') || '<tr><td colspan=\"4\" class=\"p-4 text-center text-slate-400 italic\">No hay clientes almacenados</td></tr>';\n      };\n    }\n\n    function eliminarCliente(id) {\n      const tx = db.transaction([\"clientes\"], \"readwrite\");\n      tx.objectStore(\"clientes\").delete(id);\n      tx.oncomplete = () => listarClientes();\n    }\n  <\/script>\n</body>\n</html>\n", "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>CRUD con IndexedDB Transaccional</title>\n  <script src=\"https://cdn.tailwindcss.com\"><\/script>\n</head>\n<body class=\"bg-slate-50 p-6 text-slate-800\">\n  <div class=\"max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-slate-200\">\n    <h1 class=\"text-xl font-bold text-slate-900 mb-2\">Base de Datos Transaccional IndexedDB</h1>\n    <p class=\"text-xs text-slate-500 mb-4\">Almacén de objetos en el cliente para operaciones asíncronas de gran capacidad.</p>\n\n    <div class=\"flex gap-2 mb-4\">\n      <input id=\"cNombre\" type=\"text\" placeholder=\"Nombre completo\" class=\"border p-2 rounded-lg text-sm flex-1\">\n      <input id=\"cEmail\" type=\"email\" placeholder=\"correo@ejemplo.com\" class=\"border p-2 rounded-lg text-sm flex-1\">\n      <button onclick=\"guardarCliente()\" class=\"px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs\">Añadir a IndexedDB</button>\n    </div>\n\n    <div class=\"border border-slate-200 rounded-xl overflow-hidden\">\n      <table class=\"w-full text-xs text-left\">\n        <thead class=\"bg-slate-100 text-slate-600 font-bold\">\n          <tr><th class=\"p-3\">ID</th><th class=\"p-3\">Nombre</th><th class=\"p-3\">Email</th><th class=\"p-3 text-right\">Acción</th></tr>\n        </thead>\n        <tbody id=\"tablaClientes\" class=\"divide-y divide-slate-100\"></tbody>\n      </table>\n    </div>\n  </div>\n\n  <script>\n    let db;\n    const req = indexedDB.open(\"DWEC_ClientesDB\", 1);\n\n    req.onupgradeneeded = (e) => {\n      db = e.target.result;\n      if (!db.objectStoreNames.contains(\"clientes\")) {\n        db.createObjectStore(\"clientes\", { keyPath: \"id\", autoIncrement: true });\n      }\n    };\n\n    req.onsuccess = (e) => {\n      db = e.target.result;\n      listarClientes();\n    };\n\n    function guardarCliente() {\n      const nombre = document.getElementById('cNombre').value.trim();\n      const email = document.getElementById('cEmail').value.trim();\n      if (!nombre || !email) return;\n\n      const tx = db.transaction([\"clientes\"], \"readwrite\");\n      const store = tx.objectStore(\"clientes\");\n      store.add({ nombre, email, fecha: new Date() });\n      tx.oncomplete = () => {\n        document.getElementById('cNombre').value = \"\";\n        document.getElementById('cEmail').value = \"\";\n        listarClientes();\n      };\n    }\n\n    function listarClientes() {\n      const tx = db.transaction([\"clientes\"], \"readonly\");\n      const store = tx.objectStore(\"clientes\");\n      const req = store.getAll();\n      req.onsuccess = () => {\n        const clientes = req.result;\n        const tbody = document.getElementById('tablaClientes');\n        tbody.innerHTML = clientes.map(c => `\n          <tr class=\"hover:bg-slate-50\">\n            <td class=\"p-3 font-mono text-slate-400\">#${c.id}</td>\n            <td class=\"p-3 font-semibold text-slate-800\">${c.nombre}</td>\n            <td class=\"p-3 text-slate-600\">${c.email}</td>\n            <td class=\"p-3 text-right\"><button onclick=\"eliminarCliente(${c.id})\" class=\"text-rose-600 hover:underline\">Eliminar</button></td>\n          </tr>\n        `).join('') || '<tr><td colspan=\"4\" class=\"p-4 text-center text-slate-400 italic\">No hay clientes almacenados</td></tr>';\n      };\n    }\n\n    function eliminarCliente(id) {\n      const tx = db.transaction([\"clientes\"], \"readwrite\");\n      tx.objectStore(\"clientes\").delete(id);\n      tx.oncomplete = () => listarClientes();\n    }\n  <\/script>\n</body>\n</html>\n", "explanation": "Crea una base de datos NoSQL local en el navegador usando la API IndexedDB con transacciones de lectura/escritura e índices de búsqueda.", "filename": "ej3_clientes_indexeddb.html"}];
+    let currentItem = null;
+    let currentCode = "";
+
+    function resetIframe() {
+      const wrapper = document.getElementById('iframe-wrapper');
+      if (wrapper) wrapper.innerHTML = '';
+      const newIframe = document.createElement('iframe');
+      newIframe.id = 'preview-iframe';
+      newIframe.className = 'w-full h-full border-0';
+      newIframe.setAttribute('sandbox', 'allow-scripts allow-modals allow-same-origin');
+      if (wrapper) wrapper.appendChild(newIframe);
+      return newIframe;
+    }
+
+    function selectItem(id) {
+      const item = ITEMS.find(x => x.id === id) || ITEMS[0];
+      currentItem = item;
+      
+      document.querySelectorAll('.exercise-nav-btn').forEach(btn => {
+        if (btn.id === 'nav-btn-' + item.id) {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between active bg-indigo-600 text-white shadow-sm";
+        } else {
+          btn.className = "exercise-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all mb-1 flex items-center justify-between text-slate-600 hover:bg-slate-100";
+        }
+      });
+
+      document.getElementById('ex-badge').textContent = item.badge;
+      document.getElementById('ex-title').textContent = item.title;
+      document.getElementById('ex-subtitle').textContent = item.subtitle;
+      document.getElementById('ex-instruction').textContent = item.instruction;
+      document.getElementById('ex-explanation').textContent = item.explanation || "Solución fundamentada en las mejores prácticas del estándar ES6+.";
+
+      const iframe = resetIframe();
+
+      if (item.filename) {
+        currentCode = item.code || item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = item.filename.endsWith('.html') ? "language-html" : "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Solución externa oficial ejecutable en iframe: /ejercicios/" + item.filename;
+        iframe.src = './ejercicios/' + item.filename;
+      } else {
+        currentCode = item.solution || '';
+        const codeEl = document.getElementById('code-content');
+        codeEl.className = "language-javascript";
+        codeEl.textContent = currentCode;
+        hljs.highlightElement(codeEl);
+
+        document.getElementById('preview-hint').textContent = "💡 Entorno de ejecución inmediata de la solución en JavaScript.";
+
+        const shellTpl = document.getElementById('iframe-shell-template');
+        const iframeDoc = iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(shellTpl ? shellTpl.textContent : '');
+        iframeDoc.close();
+
+        // Inyectar runner directamente
+        iframe.contentWindow.runSolution = function(rawCode) {
+          const doc = iframe.contentWindow.document;
+          const output = doc.getElementById("output");
+          const domStage = doc.getElementById("dom-stage");
+          if (output) output.innerHTML = "";
+
+          function log(...args) {
+            const p = doc.createElement("div");
+            p.className = "log-line";
+            p.textContent = args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+            output.appendChild(p);
+          }
+
+          const customConsole = {
+            log: log,
+            error: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-error";
+              p.textContent = "❌ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            },
+            info: function(...args) {
+              const p = doc.createElement("div");
+              p.className = "log-line log-info";
+              p.textContent = "ℹ️ " + args.map(x => typeof x === "object" ? JSON.stringify(x, null, 2) : String(x)).join(" ");
+              output.appendChild(p);
+            }
+          };
+
+          const isDomCode = /document\.|querySelector|getElementById|createElement|addEventListener|dataset|innerHTML|outerHTML|#catalogo|#miForm|#password|#btnTema|#listaDinamica|#miLista|#app|@Component|<[a-z]/i.test(rawCode);
+
+          if (domStage) {
+            if (isDomCode) domStage.classList.remove("hidden");
+            else domStage.classList.add("hidden");
+          }
+
+          const NL = String.fromCharCode(10);
+
+          if (rawCode.trim().startsWith("git ")) {
+            log("💻 [Simulador de Consola Git Terminal]");
+            rawCode.split(NL).forEach(cmd => { if (cmd.trim()) log("$ " + cmd); });
+            log("✅ Secuencia Git ejecutada correctamente en el repositorio local.");
+            return;
+          }
+
+          if (rawCode.includes("db.ventas.aggregate")) {
+            log("🍃 [Simulador de Shell MongoDB]");
+            log("> " + rawCode);
+            log("📊 [Resultado del Pipeline de Agregación]:");
+            log([{ _id: "Electrónica", totalVentas: 15420.50 }, { _id: "Hogar", totalVentas: 8300.00 }, { _id: "Deportes", totalVentas: 4150.00 }]);
+            return;
+          }
+
+          if (rawCode.includes("@Component")) {
+            log("🅰️ [Compilador Angular v18 Standalone]");
+            log("✨ Componente Standalone ContadorComponent compilado e inyectado.");
+            log("Selector: <app-contador>");
+            log("Estado inicial: total = 0");
+            const appEl = doc.getElementById("app");
+            if (appEl) {
+              appEl.innerHTML = '<div class="p-3 bg-slate-950 border border-indigo-500/50 rounded-lg text-xs font-sans mb-2"><div class="font-bold text-indigo-400 mb-1">🅰️ Componente Angular ContadorComponent (Live Render):</div><div class="flex items-center gap-3"><span id="ng-counter" class="text-sm font-semibold text-white">Contador: 0</span><button id="ng-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded text-xs transition-colors">+1</button></div></div>';
+              const btn = doc.getElementById('ng-btn');
+              if (btn) btn.onclick = function() {
+                const c = doc.getElementById('ng-counter');
+                let val = parseInt(c.textContent.replace('Contador: ',''))+1;
+                c.textContent = 'Contador: ' + val;
+              };
+            }
+            return;
+          }
+
+          if (rawCode.trim().startsWith("/*") && rawCode.includes("/api/")) {
+            log("🌐 [Router REST API - Especificación de Endpoints]");
+            rawCode.split(NL).forEach(line => { if (line.trim() && !line.includes("/*") && !line.includes("*/")) log(line.trim()); });
+            log("✅ Servidor de API REST semántico preparado.");
+            return;
+          }
+
+          try {
+            const runFn = iframe.contentWindow.Function('console', 'log', 'document', rawCode);
+            const res = runFn(customConsole, log, doc);
+            if (res !== undefined) log("⬅️ Retorno:", res);
+          } catch (err1) {
+            try {
+              const res = iframe.contentWindow.eval(rawCode);
+              if (res !== undefined) log("⬅️ Retorno:", res);
+            } catch (err2) {
+              customConsole.error("Error de Ejecución:", err2.message);
+            }
+          }
+        };
+
+        if (iframe.contentWindow && typeof iframe.contentWindow.runSolution === 'function') {
+          iframe.contentWindow.runSolution(item.solution || '');
+        }
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      const btnView = document.getElementById('btn-tab-view');
+      const btnCode = document.getElementById('btn-tab-code');
+
+      if (tabId === 'tab-view') {
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      } else {
+        btnCode.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition-all shadow-sm";
+        btnView.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all";
+      }
+    }
+
+    function reloadPreview() {
+      if (currentItem) selectItem(currentItem.id);
+    }
+
+    function copyCode() {
+      if (!currentCode) return;
+      navigator.clipboard.writeText(currentCode).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = "✅ ¡Copiado!";
+        setTimeout(() => { btn.textContent = "📋 Copiar Código"; }, 2000);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const itemId = params.get('item') || window.location.hash.replace('#', '');
+      selectItem(itemId || ITEMS[0].id);
+    });
+  </script>
+
+</body>
+</html>

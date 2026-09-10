@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UT4: Funciones Avanzadas, Arrays, POO y Patrones de Diseño</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --accent: #9333ea;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--text-main); margin: 0; padding: 0; background: #f8fafc; }
+    .reveal { background: #f8fafc; }
+    .reveal h1, .reveal h2, .reveal h3 { text-transform: none !important; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    
+    /* Contenedor de Slide con padding inferior de 110px para evitar la barra de tareas del SO */
+    .slides section {
+      padding: 20px 36px 110px 36px !important;
+      text-align: left;
+      height: 100% !important;
+      max-height: 100% !important;
+      box-sizing: border-box;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      overflow-y: auto !important;
+    }
+
+    /* Scrollbars elegantes */
+    .slides section::-webkit-scrollbar,
+    .content-card::-webkit-scrollbar,
+    .reto-slide-container::-webkit-scrollbar,
+    .code-demo-card::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .slides section::-webkit-scrollbar-track,
+    .content-card::-webkit-scrollbar-track,
+    .reto-slide-container::-webkit-scrollbar-track,
+    .code-demo-card::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.04);
+      border-radius: 4px;
+    }
+    .slides section::-webkit-scrollbar-thumb,
+    .content-card::-webkit-scrollbar-thumb,
+    .reto-slide-container::-webkit-scrollbar-thumb,
+    .code-demo-card::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .slide-header { margin-bottom: 10px; flex-shrink: 0; }
+    .slide-header h2 {
+      font-size: 1.2em !important;
+      color: #0f172a;
+      margin: 4px 0 0 0 !important;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .badge-sub {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.50em;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-exercise {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    /* Portada Impactante */
+    .cover-slide {
+      background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, var(--accent) 100%) !important;
+      text-align: center !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #fff !important;
+    }
+    .cover-slide .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      font-size: 1.4em;
+      font-weight: 900;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .cover-slide h1 {
+      color: #ffffff !important;
+      font-size: 1.9em !important;
+      margin-bottom: 10px !important;
+      line-height: 1.2;
+    }
+    .cover-slide .subtitle {
+      color: #93c5fd;
+      font-size: 0.95em;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .cover-slide .tagline {
+      color: #cbd5e1;
+      font-size: 0.78em;
+      max-width: 850px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .cover-slide .cover-hint {
+      margin-top: 26px;
+      font-size: 0.68em;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.08);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Layout Índice */
+    .index-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-grow: 1;
+      align-content: start;
+      overflow-y: auto;
+    }
+    .index-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      box-sizing: border-box;
+    }
+    .index-badge {
+      background: #eff6ff;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9em;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid #dbeafe;
+    }
+    .index-info { flex-grow: 1; min-width: 0; }
+    .index-title { font-size: 0.78em; font-weight: 700; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+    .index-desc {
+      font-size: 0.65em;
+      line-height: 1.4;
+      color: #475569;
+      margin: 0;
+    }
+
+    /* Layout de Diapositiva Teórica con Bloque de Código */
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex-shrink: 0;
+      align-items: stretch;
+    }
+    .content-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+    }
+    .primary-card { border-top: 3.5px solid var(--accent); }
+    .accent-card { border-top: 3.5px solid #059669; }
+    .card-tag {
+      font-size: 0.64em;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .card-text {
+      font-size: 0.72em;
+      line-height: 1.48;
+      color: #334155;
+      margin: 0;
+      flex-grow: 1;
+    }
+    .card-text p {
+      margin: 0 0 6px 0;
+    }
+    .card-text p:last-child {
+      margin-bottom: 0;
+    }
+    .card-text ul, .card-text ol {
+      margin: 6px 0 8px 0;
+      padding-left: 20px;
+    }
+    .card-text li {
+      margin-bottom: 5px;
+      line-height: 1.42;
+    }
+    .card-text li strong {
+      color: #0f172a;
+    }
+    .card-text code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Tarjeta de Código Demostrativo de Alto Contraste */
+    .code-demo-card {
+      margin-top: 10px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 10px 14px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .code-demo-tag {
+      font-size: 0.62em;
+      font-weight: 700;
+      color: #79c0ff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .code-demo-card pre {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      overflow-x: auto;
+    }
+    .code-demo-card code {
+      font-family: 'Fira Code', monospace !important;
+      font-size: 0.68em !important;
+      line-height: 1.45 !important;
+      color: #f0f6fc !important;
+      white-space: pre-wrap !important;
+    }
+
+    /* Contenedor de Reto Limpio */
+    .reto-slide-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+    .callout {
+      border-radius: 10px;
+      padding: 12px 14px;
+      border-left: 4px solid;
+    }
+    .callout.tip {
+      background: #f0fdf4;
+      border-color: #10b981;
+    }
+    .callout.info {
+      background: #eff6ff;
+      border-color: #3b82f6;
+    }
+    .callout-title {
+      font-weight: 700;
+      font-size: 0.74em;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+    .callout-body {
+      font-size: 0.72em;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .reto-action-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+      margin-top: 4px;
+    }
+    .reto-action-text { flex-grow: 1; }
+    .reto-action-text strong { font-size: 0.82em; color: #0f172a; display: block; margin-bottom: 2px; }
+    .reto-action-text p { font-size: 0.70em; color: #64748b; margin: 0; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #4f46e5;
+      color: #ffffff !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { background: #4338ca; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: #334155 !important;
+      font-size: 0.74em;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    /* Slide Final Taller */
+    .final-workshop-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-grow: 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    }
+    .final-ex-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .final-ex-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #f1f5f9;
+    }
+    .final-ex-badge {
+      background: #059669;
+      color: #fff;
+      font-size: 0.65em;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .final-ex-text strong { font-size: 0.76em; color: #0f172a; display: block; }
+    .final-ex-text p { font-size: 0.66em; color: #64748b; margin: 0; }
+    .final-action-bar { display: flex; gap: 12px; margin-top: auto; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <section class="cover-slide">
+        <div class="badge">04</div>
+        <h1>UT4: Funciones Avanzadas, Arrays, POO y Patrones de Diseño</h1>
+        <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
+        <div class="tagline">Closures, métodos de orden superior de arrays (map, filter, reduce), programación orientada a objetos con clases ES6, serialización JSON y catálogo de patrones de diseño de software.</div>
+        <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Índice Curricular</span>
+          <h2>📋 Contenidos y Epígrafes de la Unidad</h2>
+        </div>
+        <div class="index-grid">
+          
+          <div class="index-card">
+            <div class="index-badge">1</div>
+            <div class="index-info">
+              <div class="index-title">Funciones de Orden Superior, Closures y Callbacks</div>
+              <p class="index-desc">Las Funciones de Orden Superior (Higher-Order Functions) son funciones que reciben otras funciones como argumentos o devuelven funciones como resultado.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">2</div>
+            <div class="index-info">
+              <div class="index-title">Arrays y Métodos Funcionales Modernos</div>
+              <p class="index-desc">Los Arrays en JavaScript disponen de un catálogo de métodos funcionales declarativos que evitan la mutación directa.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">3</div>
+            <div class="index-info">
+              <div class="index-title">Programación Orientada a Objetos: Clases ES6 y Herencia</div>
+              <p class="index-desc">La especificación ES6 introdujo la sintaxis de clases como una capa de azúcar sintáctico sobre la herencia prototípica nativa.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">4</div>
+            <div class="index-info">
+              <div class="index-title">Catálogo de Patrones de Diseño en JavaScript</div>
+              <p class="index-desc">Los Patrones de Diseño son soluciones reutilizables a problemas comunes en la arquitectura de software.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
+          <h2>1. Funciones de Orden Superior, Closures y Callbacks</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Las <strong>Funciones de Orden Superior (Higher-Order Functions)</strong> son funciones que reciben otras funciones como argumentos o devuelven funciones como resultado:</p><ul class="concept-list"><li><strong>Callbacks:</strong> Funciones pasadas como parámetros a otras funciones para ser ejecutadas en un momento posterior o tras completar una tarea.</li><li><strong>Closures (Clausuras):</strong> Capacidad de una función interna de 'recordar' y mantener acceso al ámbito léxico (variables locales) de su función contenedora padre, incluso después de que la función padre haya finalizado su ejecución.</li><li><strong>Encapsulación de Estado:</strong> Los closures permiten crear variables privadas y emular el patrón de módulo sin exponer datos al ámbito global.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Optimización y conceptos avanzados de evaluación funcional:</p><ul class="concept-list"><li><strong>Currying (Curryficación):</strong> Técnica que transforma una función de múltiples argumentos en una secuencia de funciones uniparamétricas consecutivas (<code>f(a,b,c) =&gt; f(a)(b)(c)</code>).</li><li><strong>Memoización (Memoization):</strong> Patrón de optimización que almacena en caché los resultados de funciones puras pesadas basados en sus argumentos para evitar cálculos repetidos.</li><li><strong>Funciones Puras:</strong> Funciones que siempre devuelven el mismo resultado para los mismos argumentos y no producen efectos secundarios (no mutan variables externas).</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo1_closures_currying.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_closures_currying.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT4 - Ejemplo 1: Closures y Currying
+function crearContador() {
+    let contador = 0;
+    return () =&gt; ++contador;
+}
+const incrementar = crearContador();
+console.log(&quot;Contador:&quot;, incrementar(), incrementar());
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
+          <h2>🎯 Reto: Generador de Contadores Privados con Closures</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Crea una función &#x27;crearContador(inicial)&#x27; que retorne un objeto con métodos &#x27;incrementar()&#x27;, &#x27;decrementar()&#x27; y &#x27;obtenerValor()&#x27;, garantizando que la variable interna no sea accesible ni modificable directamente desde el exterior mediante Closure.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
+          <h2>2. Arrays y Métodos Funcionales Modernos</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Los Arrays en JavaScript disponen de un catálogo de métodos funcionales declarativos que evitan la mutación directa:</p><ul class="concept-list"><li><strong><code>Array.prototype.map(cb)</code>:</strong> Transforma cada elemento del array devolviendo un nuevo array de la misma longitud.</li><li><strong><code>Array.prototype.filter(cb)</code>:</strong> Evalúa una condición booleana en cada elemento devolviendo un nuevo array con los elementos que la cumplen.</li><li><strong><code>Array.prototype.reduce(cb, init)</code>:</strong> Acumula y reduce todos los elementos del array a un único valor final (objeto, número o array).</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Nuevos métodos inmutables introducidos en las especificaciones recientes de ECMAScript (ES2023+):</p><ul class="concept-list"><li><strong><code>toSorted()</code>, <code>toReversed()</code>, <code>toSpliced()</code>:</strong> Versiones inmutables de <code>sort()</code>, <code>reverse()</code> y <code>splice()</code> que devuelven una copia modificada sin alterar el array original.</li><li><strong><code>with(index, value)</code>:</strong> Devuelve una copia del array reemplazando el elemento de un índice específico de forma inmutable.</li><li><strong><code>findLast()</code> y <code>findLastIndex()</code>:</strong> Buscan elementos iterando desde el final del array hacia el principio.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo2_metodos_arrays.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_metodos_arrays.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT4 - Ejemplo 2: Métodos de Array
+const precios = [10, 20, 30];
+const dobles = precios.map(x =&gt; x * 2);
+console.log(&quot;Precios dobles:&quot;, dobles);
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
+          <h2>🎯 Reto: Pipeline de Procesamiento de Pedidos</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Dado un array de objetos con pedidos (id, cliente, productos, pagado, importe), filtra los pedidos pagados con &#x27;filter&#x27;, calcula el total facturado con &#x27;reduce&#x27; y genera un nuevo array ordenado por importe descendente con &#x27;toSorted&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
+          <h2>3. Programación Orientada a Objetos: Clases ES6 y Herencia</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La especificación ES6 introdujo la sintaxis de clases como una capa de azúcar sintáctico sobre la herencia prototípica nativa:</p><ul class="concept-list"><li><strong>Constructor y Métodos:</strong> El método <code>constructor()</code> inicializa las propiedades de la instancia. Los métodos definidos dentro de la clase se asignan al prototipo de la clase (<code>Class.prototype</code>).</li><li><strong>Herencia con <code>extends</code> y <code>super</code>:</strong> La palabra clave <code>extends</code> establece la cadena de prototipos y <code>super()</code> invoca el constructor de la clase padre.</li><li><strong>Campos Privados (<code>#propiedad</code>):</strong> Sintaxis nativa que garantiza el encapsulamiento estricto a nivel de lenguaje, impidiendo el acceso a la propiedad desde fuera de la clase.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Mecanismos internos del sistema de herencia basado en prototipos (Prototypal Inheritance):</p><ul class="concept-list"><li><strong>Prototype Chain (Cadena de Prototipos):</strong> Todos los objetos poseen una referencia interna (<code>[[Prototype]]</code>) a su prototipo. Si una propiedad no existe en el objeto, la búsqueda asciende por la cadena hasta llegar a <code>Object.prototype</code> o <code>null</code>.</li><li><strong>Métodos Estáticos (<code>static</code>):</strong> Métodos asociados directamente a la clase contenedora y no a las instancias individuales.</li><li><strong>Getters y Setters:</strong> Métodos de acceso (<code>get</code> / <code>set</code>) para controlar y validar la lectura y escritura de propiedades de forma encapsulada.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo3_poo_clases.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_poo_clases.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT4 - Ejemplo 3: POO y Clases
+class Persona {
+    #id;
+    constructor(id, nombre) { this.#id = id; this.nombre = nombre; }
+    getId() { return this.#id; }
+}
+const p = new Persona(101, &quot;Carlos&quot;);
+console.log(`Persona: ${p.nombre} (ID: ${p.getId()})`);
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
+          <h2>🎯 Reto: Jerarquía de Clases con Encapsulamiento Privado</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Diseña una clase &#x27;Empleado&#x27; con salario privado (&#x27;#salario&#x27;) y una subclase &#x27;Desarrollador&#x27; que añada el lenguaje principal y un método para calcular la nómina anual con bonificación usando &#x27;extends&#x27; y &#x27;super&#x27;.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
+          <h2>4. Catálogo de Patrones de Diseño en JavaScript</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>Los <strong>Patrones de Diseño</strong> son soluciones reutilizables a problemas comunes en la arquitectura de software:</p><ul class="concept-list"><li><strong>Patrón Singleton (Creacional):</strong> Garantiza que una clase tenga una única instancia global en toda la aplicación y proporciona un punto de acceso único a ella.</li><li><strong>Patrón Factory (Creacional):</strong> Proporciona una interfaz para crear objetos delegando en subclases o funciones la decisión de qué clase concreta instanciar.</li><li><strong>Patrón Observer / PubSub (Comportamiento):</strong> Define una relación uno-a-muchos entre objetos para que cuando un sujeto cambie de estado, todos sus observadores sean notificados automáticamente.</li></ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p>Patrones estructurales y de diseño moderno orientados a JavaScript web:</p><ul class="concept-list"><li><strong>Patrón Module (Estructural):</strong> Encapsula código privado expuesto a través de un objeto público mediante closures o ES Modules.</li><li><strong>Patrón Decorator (Estructural):</strong> Añade responsabilidades adicionales a un objeto dinámicamente sin modificar la clase original.</li><li><strong>Principios de Refactorización:</strong> Aplicación del patrón desacoplado para mantener una arquitectura mantenible y testeable mediante inyección de dependencias.</li></ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            <a href="ejemplos/ejemplo4_patrones_diseno.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_patrones_diseno.js) 🔗</a>
+          </div>
+          <pre><code class="language-javascript">// UT4 - Ejemplo 4: Patrón Singleton
+class SingletonBD {
+    static #instancia;
+    constructor() {
+        if (SingletonBD.#instancia) return SingletonBD.#instancia;
+        SingletonBD.#instancia = this;
+    }
+}
+const bd1 = new SingletonBD();
+const bd2 = new SingletonBD();
+console.log(&quot;¿Misma instancia Singleton?:&quot;, bd1 === bd2);
+</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
+          <h2>🎯 Reto: Implementación del Patrón Observer (Pub/Sub)</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado del Reto</div>
+            <div class="callout-body">Crea una clase &#x27;GestorEventos&#x27; (PubSub / Observer) con métodos &#x27;suscribir(evento, callback)&#x27; y &#x27;emitir(evento, datos)&#x27; para comunicar dos componentes desacoplados.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
+            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+          </div>
+          <div class="reto-action-card">
+            <div class="reto-action-text">
+              <strong>¿Has completado el reto o necesitas orientación?</strong>
+              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
+              🔓 Ver Solución en Taller de Ejercicios
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Taller Práctico</span>
+          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+        </div>
+        <div class="final-workshop-card">
+          <ul class="final-ex-list">
+            
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 1</span>
+        <div class="final-ex-text">
+          <strong>Visualizador del Patrón Observer (Pub/Sub)</strong>
+          <p>Panel interactivo donde múltiples componentes visuales (gráfica, panel de logs, alertas) reaccionan en tiempo real a emisiones de datos desacopladas.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 2</span>
+        <div class="final-ex-text">
+          <strong>Catálogo POO con Clases, Herencia y Campos Privados</strong>
+          <p>Sistema de gestión de inventario para una tienda electrónica con jerarquía de clases Empleado, Gerente y Productos con campos privados # y métodos polimórficos.</p>
+        </div>
+      </li>
+      <li class="final-ex-item">
+        <span class="final-ex-badge">Ej 3</span>
+        <div class="final-ex-text">
+          <strong>Pipeline de Filtrado y Agregación de Datos JSON</strong>
+          <p>Aplicación de análisis de ventas que carga un dataset JSON y permite transformar, agrupar y ordenar datos utilizando métodos inmutables modernos (.toSorted, reduce, filter).</p>
+        </div>
+      </li>
+          </ul>
+          <div class="final-action-bar">
+            <a href="ejercicios.html" class="btn-primary">
+              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+            </a>
+            <a href="../index.html" class="btn-secondary">
+              🏠 Volver al Panel General
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: false,
+      hash: true,
+      transition: 'slide',
+      width: 1280,
+      height: 720,
+      margin: 0.04
+    });
+    hljs.highlightAll();
+  </script>
+</body>
+</html>

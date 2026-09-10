@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visualizador de Captura y Burbujeo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6 font-sans">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-xl font-bold text-cyan-400 mb-1">Propagación de Eventos: Captura vs Burbujeo</h1>
+    <p class="text-xs text-slate-400 mb-4">Haz clic en los contenedores anidados para ver el orden exacto de ejecución.</p>
+
+    <!-- Contenedores anidados -->
+    <div id="abuelo" class="p-8 bg-blue-900/40 border-2 border-blue-500 rounded-2xl cursor-pointer">
+      <span class="text-xs font-bold text-blue-300 block mb-2">1. Elemento Abuelo (#abuelo)</span>
+      
+      <div id="padre" class="p-8 bg-purple-900/40 border-2 border-purple-500 rounded-xl cursor-pointer">
+        <span class="text-xs font-bold text-purple-300 block mb-2">2. Elemento Padre (#padre)</span>
+        
+        <button id="hijo" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg text-xs shadow-lg cursor-pointer">
+          3. Elemento Hijo / Target (#hijo)
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
+      <div class="flex justify-between text-xs text-slate-500 mb-2 border-b border-slate-800 pb-1">
+        <span>SECUENCIA DE DISPARO DE LISTENERS</span>
+        <button onclick="document.getElementById('logEventos').innerHTML=''" class="hover:text-white">Limpiar</button>
+      </div>
+      <div id="logEventos" class="space-y-1 text-xs font-mono min-h-[100px]"></div>
+    </div>
+  </div>
+
+  <script>
+    const log = document.getElementById('logEventos');
+    function registrar(fase, id) {
+      log.innerHTML += `<p class="${fase === 'Fase de Captura' ? 'text-amber-400' : 'text-cyan-300'}">[${fase}] Disparado en <strong>${id}</strong></p>`;
+    }
+
+    const els = ['abuelo', 'padre', 'hijo'];
+
+    // Fase de captura (tercer argumento true)
+    els.forEach(id => {
+      document.getElementById(id).addEventListener('click', () => {
+        registrar("Fase de Captura", id);
+      }, true);
+    });
+
+    // Fase de burbujeo (tercer argumento false o por defecto)
+    els.forEach(id => {
+      document.getElementById(id).addEventListener('click', () => {
+        registrar("Fase de Burbujeo", id);
+      }, false);
+    });
+  </script>
+</body>
+</html>
