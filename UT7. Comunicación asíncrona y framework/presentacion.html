@@ -435,62 +435,209 @@
         </div>
         <div class="index-grid">
           
-          <div class="index-card">
-            <div class="index-badge">1</div>
+          <div class="index-card" style="">
+            <div class="index-badge" style="">1</div>
             <div class="index-info">
               <div class="index-title">Fundamentos de la Comunicación Asíncrona Cliente-Servidor (AJAX)</div>
               <p class="index-desc">La web moderna se basa en la comunicación asíncrona entre el navegador y los servidores web mediante el modelo AJAX (Asynchronous JavaScript and XML).</p>
             </div>
           </div>
-          <div class="index-card">
-            <div class="index-badge">2</div>
+          <div class="index-card" style="">
+            <div class="index-badge" style="">2</div>
             <div class="index-info">
               <div class="index-title">Objetos y Métodos para la Comunicación Asíncrona: XMLHttpRequest vs Fetch API</div>
               <p class="index-desc">JavaScript ofrece dos APIs nativas para la comunicación asíncrona: el objeto clásico XMLHttpRequest y la moderna Fetch API.</p>
             </div>
           </div>
-          <div class="index-card">
-            <div class="index-badge">3</div>
+          <div class="index-card" style="">
+            <div class="index-badge" style="">3</div>
             <div class="index-info">
               <div class="index-title">Formatos de Envío y Recepción de Datos: JSON, XML y FormData</div>
               <p class="index-desc">El intercambio de información en la web utiliza formatos estructurados de serialización que condicionan el tamaño del mensaje y su facilidad de procesamiento.</p>
             </div>
           </div>
-          <div class="index-card">
-            <div class="index-badge">4</div>
+          <div class="index-card" style="">
+            <div class="index-badge" style="">4</div>
             <div class="index-info">
               <div class="index-title">Modificación Dinámica del DOM con Datos Asíncronos y Estados de UI</div>
               <p class="index-desc">La obtención de datos remotos exige una gestión escrupulosa de la experiencia de usuario (UX) mediante el control explícito de los cuatro estados de la interfaz.</p>
             </div>
           </div>
-          <div class="index-card">
-            <div class="index-badge">5</div>
+          <div class="index-card" style="">
+            <div class="index-badge" style="">5</div>
             <div class="index-info">
               <div class="index-title">Introducción y Uso de Librerías y Frameworks: Fetch API, Axios, jQuery y SPAs</div>
               <p class="index-desc">El ecosistema de comunicaciones asíncronas abarca desde librerías especializadas en red hasta la arquitectura integrada de frameworks SPA.</p>
             </div>
           </div>
-          <div class="index-card">
-            <div class="index-badge">6</div>
+          <div class="index-card" style="border-left: 4px solid #0284c7; background: #f0f9ff;">
+            <div class="index-badge" style="background: #0284c7; color: white;">6</div>
             <div class="index-info">
-              <div class="index-title">React como Framework Frontend: Componentes Funcionales, Virtual DOM y Estado con useState</div>
+              <div class="index-title">React como Framework Frontend: Componentes Funcionales, Virtual DOM y Estado con useState <span style="font-size: 0.65em; background: #0284c7; color: white; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 800; vertical-align: middle;">⚛️ REACT</span></div>
               <p class="index-desc">React es la librería y ecosistema de referencia mundial para la creación de interfaces de usuario interactivas y declarativas.</p>
             </div>
           </div>
-          <div class="index-card">
-            <div class="index-badge">7</div>
+          <div class="index-card" style="border-left: 4px solid #0284c7; background: #f0f9ff;">
+            <div class="index-badge" style="background: #0284c7; color: white;">7</div>
             <div class="index-info">
-              <div class="index-title">Comunicación Asíncrona en React: El Hook useEffect, Consumo de APIs REST y Ciclo de Vida</div>
+              <div class="index-title">Comunicación Asíncrona en React: El Hook useEffect, Consumo de APIs REST y Ciclo de Vida <span style="font-size: 0.65em; background: #0284c7; color: white; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 800; vertical-align: middle;">⚛️ REACT</span></div>
               <p class="index-desc">La comunicación con servidores web en React se gestiona mediante efectos secundarios (Side Effects) orquestados por el hook useEffect.</p>
             </div>
           </div>
-          <div class="index-card">
-            <div class="index-badge">8</div>
+          <div class="index-card" style="">
+            <div class="index-badge" style="">8</div>
             <div class="index-info">
               <div class="index-title">Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</div>
               <p class="index-desc">La comunicación asíncrona está fuertemente condicionada por políticas de seguridad del navegador y requiere herramientas de auditoría en red.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Frameworks Frontend Modernos</span>
+          <h2>⚛️ Arquitectura y Fundamentos de React como Framework SPA</h2>
+        </div>
+        <div class="index-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 6px;">
+          
+          <!-- Columna 1: Componentes y JSX -->
+          <div class="index-card" style="border-top: 4px solid #0284c7; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.80em; color: #0284c7; display: flex; align-items: center; justify-content: space-between;">
+              <span>🧩 1. Componentes y JSX</span>
+              <span style="font-size: 0.7em; background: #e0f2fe; color: #0369a1; padding: 2px 7px; border-radius: 6px; font-weight: 700;">Declarativo</span>
+            </div>
+            <p style="font-size: 0.66em; color: #334155; margin: 0; line-height: 1.45;">
+              La interfaz se descompone en funciones puras reutilizables e independientes. En lugar de manipular el DOM imperativamente, se declara la UI mediante <strong>JSX</strong>:
+            </p>
+            <ul style="font-size: 0.62em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
+              <li><strong>Sintaxis JSX:</strong> Unión de marcado semántico y JavaScript vivo (<code>React.createElement</code>).</li>
+              <li><strong>Props:</strong> Parámetros inmutables de entrada (flujo unidireccional padre-hijo).</li>
+              <li><strong>Composición:</strong> Construcción de interfaces complejas anidando componentes modulares.</li>
+            </ul>
+            <div style="margin-top: auto; font-size: 0.58em; background: #f0f9ff; color: #0369a1; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #0284c7;">
+              💡 <code>UI = f(state)</code>: La interfaz es el reflejo directo y predecible del estado actual.
+            </div>
+          </div>
+
+          <!-- Columna 2: Virtual DOM y Fiber -->
+          <div class="index-card" style="border-top: 4px solid #6366f1; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.80em; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>⚡ 2. Virtual DOM y Fiber</span>
+              <span style="font-size: 0.7em; background: #e0e7ff; color: #3730a3; padding: 2px 7px; border-radius: 6px; font-weight: 700;">Rendimiento</span>
+            </div>
+            <p style="font-size: 0.66em; color: #334155; margin: 0; line-height: 1.45;">
+              React no muta el DOM real del navegador en cada evento. Mantiene una copia ligera en memoria (<strong>Virtual DOM</strong>):
+            </p>
+            <ul style="font-size: 0.62em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
+              <li><strong>Algoritmo de Diffing:</strong> Compara el árbol nuevo con el previo nodo a nodo.</li>
+              <li><strong>Batching Automático:</strong> Agrupa múltiples mutaciones de estado en un único redibujado.</li>
+              <li><strong>Reconciliación Fiber:</strong> Prioriza interacciones críticas de usuario sin congelar la pantalla.</li>
+            </ul>
+            <div style="margin-top: auto; font-size: 0.58em; background: #eef2ff; color: #3730a3; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #6366f1;">
+              🚀 Minimiza el coste de reflow y repaint en el motor de renderizado.
+            </div>
+          </div>
+
+          <!-- Columna 3: Hooks y Reactividad -->
+          <div class="index-card" style="border-top: 4px solid #ec4899; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.80em; color: #be185d; display: flex; align-items: center; justify-content: space-between;">
+              <span>🪝 3. Hooks: Estado y Ciclo</span>
+              <span style="font-size: 0.7em; background: #fce7f3; color: #9d174d; padding: 2px 7px; border-radius: 6px; font-weight: 700;">Reactividad</span>
+            </div>
+            <p style="font-size: 0.66em; color: #334155; margin: 0; line-height: 1.45;">
+              Funciones nativas que permiten "enganchar" estado y ciclo de vida en componentes funcionales limpios:
+            </p>
+            <ul style="font-size: 0.62em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
+              <li><code>useState</code>: Estado reactivo local con principio de inmutabilidad estricto.</li>
+              <li><code>useEffect</code>: Control de efectos asíncronos (Fetch API, timers, cancelación).</li>
+              <li><code>useContext / useMemo</code>: Estado global y memoización de cálculos intensivos.</li>
+            </ul>
+            <div style="margin-top: auto; font-size: 0.58em; background: #fdf2f8; color: #9d174d; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #ec4899;">
+              🛡️ Inmutabilidad: <code>setItems(prev => [...prev, nuevo])</code>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 10px; background: #0f172a; color: #94a3b8; padding: 7px 14px; border-radius: 8px; font-size: 0.64em; display: flex; align-items: center; justify-content: space-between; border: 1px solid #1e293b;">
+          <span>⚛️ <strong>Stack SPA Moderno:</strong> React 18 ➔ React Router (Navegación) ➔ TanStack Query (Caché Asíncrona) ➔ Tailwind CSS / Vite</span>
+          <span style="color: #38bdf8; font-weight: 700;">Estándar Frontend DAW</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Comparativa Arquitectónica</span>
+          <h2>⚖️ Vanilla JavaScript vs React vs Frameworks SPA (Angular, Vue)</h2>
+        </div>
+        <div class="index-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-top: 6px;">
+          
+          <!-- Vanilla JS -->
+          <div class="index-card" style="border-top: 4px solid #f59e0b; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #b45309;">🍦 Vanilla JS</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.4;">
+              Manipulación imperativa y directa del DOM (<code>document.getElementById</code>, <code>innerHTML</code>).
+            </p>
+            <div style="font-size: 0.58em; color: #475569; margin-top: 4px;">
+              <div><strong>Ventaja:</strong> 0 KB bundle, control directo sin dependencias.</div>
+              <div style="margin-top: 3px;"><strong>Inconveniente:</strong> Código difícil de sincronizar y mantener en proyectos grandes.</div>
+            </div>
+            <div style="margin-top: auto; font-size: 0.56em; background: #fef3c7; color: #92400e; padding: 4px 6px; border-radius: 4px;">
+              Directo al DOM
+            </div>
+          </div>
+
+          <!-- React -->
+          <div class="index-card" style="border-top: 4px solid #0284c7; flex-direction: column; gap: 6px; padding: 12px; background: #f0f9ff;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #0284c7;">⚛️ React 18</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.4;">
+              Librería declarativa basada en componentes, Virtual DOM y Hooks (<code>useState</code>, <code>useEffect</code>).
+            </p>
+            <div style="font-size: 0.58em; color: #475569; margin-top: 4px;">
+              <div><strong>Data Binding:</strong> Unidireccional (top-down).</div>
+              <div style="margin-top: 3px;"><strong>Fortaleza:</strong> Ecosistema gigantesco, máxima adopción empresarial, flexibilidad total.</div>
+            </div>
+            <div style="margin-top: auto; font-size: 0.56em; background: #e0f2fe; color: #0369a1; padding: 4px 6px; border-radius: 4px; font-weight: 700;">
+              Virtual DOM + Hooks
+            </div>
+          </div>
+
+          <!-- Angular -->
+          <div class="index-card" style="border-top: 4px solid #dc2626; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #dc2626;">🅰️ Angular</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.4;">
+              Framework empresarial completo y estructurado basado en TypeScript y decoradores (<code>@Component</code>).
+            </p>
+            <div style="font-size: 0.58em; color: #475569; margin-top: 4px;">
+              <div><strong>Data Binding:</strong> Bidireccional (<code>[(ngModel)]</code>).</div>
+              <div style="margin-top: 3px;"><strong>Fortaleza:</strong> Todo incluido de fábrica (HttpClient con RxJS, Router, Inyección).</div>
+            </div>
+            <div style="margin-top: auto; font-size: 0.56em; background: #fee2e2; color: #991b1b; padding: 4px 6px; border-radius: 4px;">
+              Framework Integral
+            </div>
+          </div>
+
+          <!-- Vue.js -->
+          <div class="index-card" style="border-top: 4px solid #10b981; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #047857;">💚 Vue.js</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.4;">
+              Framework progresivo con Single File Components (<code>.vue</code>) y reactividad con Proxies (Composition API).
+            </p>
+            <div style="font-size: 0.58em; color: #475569; margin-top: 4px;">
+              <div><strong>Data Binding:</strong> Reactivo / <code>v-model</code>.</div>
+              <div style="margin-top: 3px;"><strong>Fortaleza:</strong> Curva de aprendizaje muy accesible y excelente rendimiento.</div>
+            </div>
+            <div style="margin-top: auto; font-size: 0.56em; background: #d1fae5; color: #065f46; padding: 4px 6px; border-radius: 4px;">
+              Progresivo
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 10px; background: #f8fafc; color: #475569; padding: 7px 14px; border-radius: 8px; font-size: 0.62em; display: flex; align-items: center; justify-content: space-between; border: 1px solid #e2e8f0;">
+          <span>🎯 <strong>Conclusión Curricular:</strong> En DWEC dominamos tanto el motor nativo (Vanilla DOM/Fetch) como el estándar de la industria (React / SPAs).</span>
+          <span style="color: #4f46e5; font-weight: 700;">Polivalencia DAW</span>
         </div>
       </section>
 
