@@ -218,45 +218,63 @@ console.table(analisis.rankingCategorias);</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function analizarGastos(transacciones) {\n    // 1. Filtrar gastos válidos\n    const gastos = transacciones.filter(t => t.tipo === \"gasto\");\n\n    // 2. Agrupar y sumar por categoría usando reduce\n    const gastosPorCategoria = gastos.reduce((acc, t) => {\n        acc[t.categoria] = Number(((acc[t.categoria] || 0) + t.cantidad).toFixed(2));\n        return acc;\n    }, {});\n\n    // 3. Convertir a array de objetos y ordenar de forma inmutable con toSorted\n    const rankingCategorias = Object.entries(gastosPorCategoria)\n        .map(([categoria, total]) => ({ categoria, total }))\n        .toSorted((a, b) => b.total - a.total);\n\n    const gastoGlobal = gastos.reduce((total, t) => total + t.cantidad, 0);\n\n    return {\n        gastoGlobal: Number(gastoGlobal.toFixed(2)),\n        rankingCategorias\n    };\n}\n\nconst movimientos = [\n    { id: 1, concepto: \"Nómina\", tipo: \"ingreso\", cantidad: 2100, categoria: \"Sueldo\" },\n    { id: 2, concepto: \"Alquiler\", tipo: \"gasto\", cantidad: 750, categoria: \"Vivienda\" },\n    { id: 3, concepto: \"Supermercado\", tipo: \"gasto\", cantidad: 125.40, categoria: \"Alimentación\" },\n    { id: 4, concepto: \"Internet\", tipo: \"gasto\", cantidad: 45, categoria: \"Suministros\" },\n    { id: 5, concepto: \"Restaurante\", tipo: \"gasto\", cantidad: 68.20, categoria: \"Alimentación\" }\n];\n\nconst analisis = analizarGastos(movimientos);\nconsole.log(\"Gasto Total Acumulado:\", analisis.gastoGlobal, \"€\");\nconsole.table(analisis.rankingCategorias);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function analizarGastos(transacciones) {
-    // 1. Filtrar gastos válidos
-    const gastos = transacciones.filter(t => t.tipo === "gasto");
-
-    // 2. Agrupar y sumar por categoría usando reduce
-    const gastosPorCategoria = gastos.reduce((acc, t) => {
-        acc[t.categoria] = Number(((acc[t.categoria] || 0) + t.cantidad).toFixed(2));
-        return acc;
-    }, {});
-
-    // 3. Convertir a array de objetos y ordenar de forma inmutable con toSorted
-    const rankingCategorias = Object.entries(gastosPorCategoria)
-        .map(([categoria, total]) => ({ categoria, total }))
-        .toSorted((a, b) => b.total - a.total);
-
-    const gastoGlobal = gastos.reduce((total, t) => total + t.cantidad, 0);
-
-    return {
-        gastoGlobal: Number(gastoGlobal.toFixed(2)),
-        rankingCategorias
-    };
-}
-
-const movimientos = [
-    { id: 1, concepto: "Nómina", tipo: "ingreso", cantidad: 2100, categoria: "Sueldo" },
-    { id: 2, concepto: "Alquiler", tipo: "gasto", cantidad: 750, categoria: "Vivienda" },
-    { id: 3, concepto: "Supermercado", tipo: "gasto", cantidad: 125.40, categoria: "Alimentación" },
-    { id: 4, concepto: "Internet", tipo: "gasto", cantidad: 45, categoria: "Suministros" },
-    { id: 5, concepto: "Restaurante", tipo: "gasto", cantidad: 68.20, categoria: "Alimentación" }
-];
-
-const analisis = analizarGastos(movimientos);
-console.log("Gasto Total Acumulado:", analisis.gastoGlobal, "€");
-console.table(analisis.rankingCategorias);
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

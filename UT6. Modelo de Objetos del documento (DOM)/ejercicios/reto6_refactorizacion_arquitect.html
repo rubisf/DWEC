@@ -237,64 +237,63 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "/* \n=== EJEMPLO DE REFACTORIZACIÓN A TRES CAPAS ===\n\n--- CAPA 1: HTML5 Semántico y Accesible ---\n<section class=\"tarjeta-perfil\" aria-labelledby=\"perfil-titulo\">\n    <h2 id=\"perfil-titulo\" class=\"tarjeta-perfil__titulo\">Perfil de Usuario</h2>\n    <p class=\"tarjeta-perfil__descripcion\">Gestión de datos personales y suscripción.</p>\n    <button id=\"btn-suscripcion\" class=\"btn btn--primario\" type=\"button\" aria-pressed=\"false\">\n        Activar Suscripción\n    </button>\n</section>\n\n--- CAPA 2: CSS Modular con Variables (fichero estilos.css) ---\n:root {\n    --color-primario: #4f46e5;\n    --color-activo: #059669;\n    --radio-borde: 8px;\n}\n.tarjeta-perfil {\n    background: #ffffff;\n    border-radius: var(--radio-borde);\n    padding: 1.5rem;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);\n}\n.btn--primario {\n    background-color: var(--color-primario);\n    color: #ffffff;\n    border: none;\n    padding: 0.5rem 1rem;\n    border-radius: var(--radio-borde);\n    cursor: pointer;\n    transition: background-color 0.2s ease;\n}\n.btn--primario.is-active {\n    background-color: var(--color-activo);\n}\n*/\n\n// --- CAPA 3: Comportamiento Desacoplado (fichero app.js) ---\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n    const boton = document.getElementById(\"btn-suscripcion\");\n    if (!boton) return;\n\n    boton.addEventListener(\"click\", () => {\n        const estaActivo = boton.classList.toggle(\"is-active\");\n        \n        // Actualizar accesibilidad ARIA\n        boton.setAttribute(\"aria-pressed\", String(estaActivo));\n        boton.textContent = estaActivo ? \"Suscripción Activa ✅\" : \"Activar Suscripción\";\n\n        console.log(\"Estado de suscripción actualizado limpiamente:\", estaActivo);\n    });\n});";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-/* 
-=== EJEMPLO DE REFACTORIZACIÓN A TRES CAPAS ===
-
---- CAPA 1: HTML5 Semántico y Accesible ---
-<section class="tarjeta-perfil" aria-labelledby="perfil-titulo">
-    <h2 id="perfil-titulo" class="tarjeta-perfil__titulo">Perfil de Usuario</h2>
-    <p class="tarjeta-perfil__descripcion">Gestión de datos personales y suscripción.</p>
-    <button id="btn-suscripcion" class="btn btn--primario" type="button" aria-pressed="false">
-        Activar Suscripción
-    </button>
-</section>
-
---- CAPA 2: CSS Modular con Variables (fichero estilos.css) ---
-:root {
-    --color-primario: #4f46e5;
-    --color-activo: #059669;
-    --radio-borde: 8px;
-}
-.tarjeta-perfil {
-    background: #ffffff;
-    border-radius: var(--radio-borde);
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-.btn--primario {
-    background-color: var(--color-primario);
-    color: #ffffff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radio-borde);
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-.btn--primario.is-active {
-    background-color: var(--color-activo);
-}
-*/
-
-// --- CAPA 3: Comportamiento Desacoplado (fichero app.js) ---
-document.addEventListener("DOMContentLoaded", () => {
-    const boton = document.getElementById("btn-suscripcion");
-    if (!boton) return;
-
-    boton.addEventListener("click", () => {
-        const estaActivo = boton.classList.toggle("is-active");
-        
-        // Actualizar accesibilidad ARIA
-        boton.setAttribute("aria-pressed", String(estaActivo));
-        boton.textContent = estaActivo ? "Suscripción Activa ✅" : "Activar Suscripción";
-
-        console.log("Estado de suscripción actualizado limpiamente:", estaActivo);
-    });
-});
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

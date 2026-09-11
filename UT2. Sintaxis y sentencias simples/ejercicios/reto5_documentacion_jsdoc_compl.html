@@ -233,60 +233,63 @@ console.table(resultado);</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "/**\n * @typedef {Object} Estadisticas\n * @property {number} media - Media aritmética de los valores.\n * @property {number} maximo - Valor más alto de la serie.\n * @property {number} minimo - Valor más bajo de la serie.\n */\n\n/**\n * Calcula métricas estadísticas descriptivas sobre una colección numérica.\n * @param {number[]} numeros - Array con valores numéricos.\n * @returns {Estadisticas} Objeto con las métricas calculadas.\n * @throws {Error} Si el array está vacío o contiene elementos no numéricos.\n * @example\n * const stats = calcularEstadisticas([10, 20, 30]); // { media: 20, maximo: 30, minimo: 10 }\n */\nfunction calcularEstadisticas(numeros) {\n    if (!Array.isArray(numeros) || numeros.length === 0) {\n        throw new Error(\"El argumento debe ser un array con al menos un elemento numérico.\");\n    }\n\n    console.time(\"Cálculo Estadístico\");\n\n    let suma = 0;\n    for (const num of numeros) {\n        if (typeof num !== \"number\" || Number.isNaN(num)) {\n            throw new TypeError(\"Todos los elementos del array deben ser números válidos.\");\n        }\n        suma += num;\n    }\n\n    const media = Number((suma / numeros.length).toFixed(2));\n    const maximo = Math.max(...numeros);\n    const minimo = Math.min(...numeros);\n\n    // Punto de interrupción para inspección en navegador\n    debugger;\n\n    console.timeEnd(\"Cálculo Estadístico\");\n\n    return { media, maximo, minimo };\n}\n\n// Pruebas y Aserciones\nconst muestra = [15, 22, 8, 45, 31, 19];\nconst resultado = calcularEstadisticas(muestra);\n\nconsole.assert(resultado.maximo === 45, \"Error en cálculo de máximo\");\nconsole.assert(resultado.minimo === 8, \"Error en cálculo de mínimo\");\nconsole.table(resultado);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-/**
- * @typedef {Object} Estadisticas
- * @property {number} media - Media aritmética de los valores.
- * @property {number} maximo - Valor más alto de la serie.
- * @property {number} minimo - Valor más bajo de la serie.
- */
+      const code = RAW_SOLUTION.trim();
 
-/**
- * Calcula métricas estadísticas descriptivas sobre una colección numérica.
- * @param {number[]} numeros - Array con valores numéricos.
- * @returns {Estadisticas} Objeto con las métricas calculadas.
- * @throws {Error} Si el array está vacío o contiene elementos no numéricos.
- * @example
- * const stats = calcularEstadisticas([10, 20, 30]); // { media: 20, maximo: 30, minimo: 10 }
- */
-function calcularEstadisticas(numeros) {
-    if (!Array.isArray(numeros) || numeros.length === 0) {
-        throw new Error("El argumento debe ser un array con al menos un elemento numérico.");
-    }
-
-    console.time("Cálculo Estadístico");
-
-    let suma = 0;
-    for (const num of numeros) {
-        if (typeof num !== "number" || Number.isNaN(num)) {
-            throw new TypeError("Todos los elementos del array deben ser números válidos.");
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-        suma += num;
-    }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-    const media = Number((suma / numeros.length).toFixed(2));
-    const maximo = Math.max(...numeros);
-    const minimo = Math.min(...numeros);
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-    // Punto de interrupción para inspección en navegador
-    debugger;
-
-    console.timeEnd("Cálculo Estadístico");
-
-    return { media, maximo, minimo };
-}
-
-// Pruebas y Aserciones
-const muestra = [15, 22, 8, 45, 31, 19];
-const resultado = calcularEstadisticas(muestra);
-
-console.assert(resultado.maximo === 45, "Error en cálculo de máximo");
-console.assert(resultado.minimo === 8, "Error en cálculo de mínimo");
-console.table(resultado);
-        })();
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

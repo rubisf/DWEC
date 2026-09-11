@@ -210,37 +210,63 @@
       countEl.textContent = "0 entradas";
     };
 
-    async function ejecutarSolucion() {
-      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-function filtrarCatalogoCursos(categoriaFiltro, nivelFiltro) {
-    const articulos = document.querySelectorAll("article.tarjeta-curso");
-    let visibles = 0;
+    const RAW_SOLUTION = "function filtrarCatalogoCursos(categoriaFiltro, nivelFiltro) {\n    const articulos = document.querySelectorAll(\"article.tarjeta-curso\");\n    let visibles = 0;\n\n    articulos.forEach(art => {\n        // Extracción de metadatos desde dataset\n        const categoria = art.dataset.categoria;\n        const nivel = art.dataset.nivel;\n\n        const coincideCategoria = !categoriaFiltro || categoriaFiltro === \"todas\" || categoria === categoriaFiltro;\n        const coincideNivel = !nivelFiltro || nivelFiltro === \"todos\" || nivel === nivelFiltro;\n\n        if (coincideCategoria && coincideNivel) {\n            art.hidden = false;\n            visibles++;\n        } else {\n            art.hidden = true;\n        }\n    });\n\n    console.log(\\`Filtrado completado: \\${visibles}/\\${articulos.length} cursos visibles.\\`);\n    return visibles;\n}\n\n// Simulación:\n// filtrarCatalogoCursos(\"frontend\", \"avanzado\");";
 
-    articulos.forEach(art => {
-        // Extracción de metadatos desde dataset
-        const categoria = art.dataset.categoria;
-        const nivel = art.dataset.nivel;
-
-        const coincideCategoria = !categoriaFiltro || categoriaFiltro === "todas" || categoria === categoriaFiltro;
-        const coincideNivel = !nivelFiltro || nivelFiltro === "todos" || nivel === nivelFiltro;
-
-        if (coincideCategoria && coincideNivel) {
-            art.hidden = false;
-            visibles++;
-        } else {
-            art.hidden = true;
-        }
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
     });
 
-    console.log(\`Filtrado completado: \${visibles}/\${articulos.length} cursos visibles.\`);
-    return visibles;
-}
+    async function ejecutarSolucion() {
+      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
 
-// Simulación:
-// filtrarCatalogoCursos("frontend", "avanzado");
-        })();
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

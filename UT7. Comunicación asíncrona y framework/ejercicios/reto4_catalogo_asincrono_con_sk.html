@@ -259,86 +259,63 @@
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "class CatalogoAsincronoUI {\n    constructor(contenedorId, apiUrl) {\n        this.contenedor = document.getElementById(contenedorId);\n        this.apiUrl = apiUrl;\n    }\n\n    mostrarCargando() {\n        this.contenedor.innerHTML = \\`\n            <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: sans-serif;\">\n                <div style=\"height: 80px; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite;\"></div>\n                <div style=\"height: 80px; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite;\"></div>\n            </div>\n            <p style=\"text-align: center; color: #64748b; font-size: 0.8em; margin-top: 6px;\">Cargando datos remotos...</p>\n        \\`;\n    }\n\n    mostrarError(mensaje) {\n        this.contenedor.innerHTML = \\`\n            <div style=\"padding: 16px; background: #fef2f2; border: 1px solid #f87171; border-radius: 8px; color: #b91c1c; font-family: sans-serif;\">\n                <strong>⚠️ Fallo de Conexión:</strong> \\${mensaje}\n                <div style=\"margin-top: 10px;\">\n                    <button id=\"btn-reintentar\" style=\"background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;\">\n                        🔄 Reintentar Ahora\n                    </button>\n                </div>\n            </div>\n        \\`;\n        this.contenedor.querySelector(\"#btn-reintentar\").onclick = () => this.cargar();\n    }\n\n    mostrarDatos(items) {\n        this.contenedor.replaceChildren(); // Limpiar\n        const fragment = document.createDocumentFragment();\n\n        items.forEach(item => {\n            const card = document.createElement(\"div\");\n            card.style.cssText = \"border: 1px solid #cbd5e1; padding: 12px; border-radius: 8px; margin-bottom: 8px; background: #fff;\";\n\n            const tit = document.createElement(\"h4\");\n            tit.style.margin = \"0 0 4px 0\";\n            tit.textContent = item.title || item.nombre; // Seguro\n\n            const desc = document.createElement(\"p\");\n            desc.style.margin = \"0\";\n            desc.style.fontSize = \"0.85em\";\n            desc.style.color = \"#64748b\";\n            desc.textContent = item.body || item.descripcion || \"Sin descripción disponible.\";\n\n            card.append(tit, desc);\n            fragment.appendChild(card);\n        });\n\n        this.contenedor.appendChild(fragment);\n    }\n\n    async cargar() {\n        this.mostrarCargando();\n        try {\n            // Simular retardo de red de 600ms para apreciar el skeleton\n            await new Promise(r => setTimeout(r, 600));\n\n            const res = await fetch(this.apiUrl);\n            if (!res.ok) throw new Error(\\`HTTP \\${res.status} (\\${res.statusText})\\`);\n\n            const datos = await res.json();\n            this.mostrarDatos(datos.slice(0, 4));\n        } catch (err) {\n            this.mostrarError(err.message);\n        }\n    }\n}\n\n// Simulación:\n// const catalogo = new CatalogoAsincronoUI('mi-contenedor', 'https://jsonplaceholder.typicode.com/posts');\n// catalogo.cargar();";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-class CatalogoAsincronoUI {
-    constructor(contenedorId, apiUrl) {
-        this.contenedor = document.getElementById(contenedorId);
-        this.apiUrl = apiUrl;
-    }
+      const code = RAW_SOLUTION.trim();
 
-    mostrarCargando() {
-        this.contenedor.innerHTML = \`
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: sans-serif;">
-                <div style="height: 80px; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite;"></div>
-                <div style="height: 80px; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite;"></div>
-            </div>
-            <p style="text-align: center; color: #64748b; font-size: 0.8em; margin-top: 6px;">Cargando datos remotos...</p>
-        \`;
-    }
-
-    mostrarError(mensaje) {
-        this.contenedor.innerHTML = \`
-            <div style="padding: 16px; background: #fef2f2; border: 1px solid #f87171; border-radius: 8px; color: #b91c1c; font-family: sans-serif;">
-                <strong>⚠️ Fallo de Conexión:</strong> \${mensaje}
-                <div style="margin-top: 10px;">
-                    <button id="btn-reintentar" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;">
-                        🔄 Reintentar Ahora
-                    </button>
-                </div>
-            </div>
-        \`;
-        this.contenedor.querySelector("#btn-reintentar").onclick = () => this.cargar();
-    }
-
-    mostrarDatos(items) {
-        this.contenedor.replaceChildren(); // Limpiar
-        const fragment = document.createDocumentFragment();
-
-        items.forEach(item => {
-            const card = document.createElement("div");
-            card.style.cssText = "border: 1px solid #cbd5e1; padding: 12px; border-radius: 8px; margin-bottom: 8px; background: #fff;";
-
-            const tit = document.createElement("h4");
-            tit.style.margin = "0 0 4px 0";
-            tit.textContent = item.title || item.nombre; // Seguro
-
-            const desc = document.createElement("p");
-            desc.style.margin = "0";
-            desc.style.fontSize = "0.85em";
-            desc.style.color = "#64748b";
-            desc.textContent = item.body || item.descripcion || "Sin descripción disponible.";
-
-            card.append(tit, desc);
-            fragment.appendChild(card);
-        });
-
-        this.contenedor.appendChild(fragment);
-    }
-
-    async cargar() {
-        this.mostrarCargando();
-        try {
-            // Simular retardo de red de 600ms para apreciar el skeleton
-            await new Promise(r => setTimeout(r, 600));
-
-            const res = await fetch(this.apiUrl);
-            if (!res.ok) throw new Error(\`HTTP \${res.status} (\${res.statusText})\`);
-
-            const datos = await res.json();
-            this.mostrarDatos(datos.slice(0, 4));
-        } catch (err) {
-            this.mostrarError(err.message);
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-    }
-}
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-// Simulación:
-// const catalogo = new CatalogoAsincronoUI('mi-contenedor', 'https://jsonplaceholder.typicode.com/posts');
-// catalogo.cargar();
-        })();
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

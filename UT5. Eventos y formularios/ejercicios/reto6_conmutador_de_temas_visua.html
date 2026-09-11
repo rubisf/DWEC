@@ -230,57 +230,63 @@ const temas = new GestorTemas();
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "class GestorTemas {\n    constructor() {\n        this.temaActual = this.determinarTemaInicial();\n        this.aplicarTema(this.temaActual);\n        this.escucharPreferenciaSO();\n    }\n\n    determinarTemaInicial() {\n        const guardado = localStorage.getItem(\"app_tema\");\n        if (guardado) return guardado;\n\n        // Detección automática de preferencia del sistema operativo\n        return window.matchMedia(\"(prefers-color-scheme: dark)\").matches ? \"oscuro\" : \"claro\";\n    }\n\n    aplicarTema(tema) {\n        this.temaActual = tema;\n        const esOscuro = tema === \"oscuro\";\n        document.body.classList.toggle(\"dark-theme\", esOscuro);\n        localStorage.setItem(\"app_tema\", tema);\n\n        // Disparo de evento sintético para notificar a la aplicación\n        const evento = new CustomEvent(\"tema:cambiado\", {\n            detail: { tema, esOscuro },\n            bubbles: true\n        });\n        document.dispatchEvent(evento);\n        console.log(\\`Tema aplicado: \\${tema.toUpperCase()}\\`);\n    }\n\n    conmutar() {\n        const nuevoTema = this.temaActual === \"oscuro\" ? \"claro\" : \"oscuro\";\n        this.aplicarTema(nuevoTema);\n    }\n\n    escucharPreferenciaSO() {\n        window.matchMedia(\"(prefers-color-scheme: dark)\").addEventListener(\"change\", (e) => {\n            if (!localStorage.getItem(\"app_tema\")) {\n                this.aplicarTema(e.matches ? \"oscuro\" : \"claro\");\n            }\n        });\n    }\n}\n\nconst temas = new GestorTemas();\n// Para cambiar: temas.conmutar();";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-class GestorTemas {
-    constructor() {
-        this.temaActual = this.determinarTemaInicial();
-        this.aplicarTema(this.temaActual);
-        this.escucharPreferenciaSO();
-    }
-
-    determinarTemaInicial() {
-        const guardado = localStorage.getItem("app_tema");
-        if (guardado) return guardado;
-
-        // Detección automática de preferencia del sistema operativo
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro";
-    }
-
-    aplicarTema(tema) {
-        this.temaActual = tema;
-        const esOscuro = tema === "oscuro";
-        document.body.classList.toggle("dark-theme", esOscuro);
-        localStorage.setItem("app_tema", tema);
-
-        // Disparo de evento sintético para notificar a la aplicación
-        const evento = new CustomEvent("tema:cambiado", {
-            detail: { tema, esOscuro },
-            bubbles: true
-        });
-        document.dispatchEvent(evento);
-        console.log(\`Tema aplicado: \${tema.toUpperCase()}\`);
-    }
-
-    conmutar() {
-        const nuevoTema = this.temaActual === "oscuro" ? "claro" : "oscuro";
-        this.aplicarTema(nuevoTema);
-    }
-
-    escucharPreferenciaSO() {
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-            if (!localStorage.getItem("app_tema")) {
-                this.aplicarTema(e.matches ? "oscuro" : "claro");
-            }
-        });
-    }
-}
-
-const temas = new GestorTemas();
-// Para cambiar: temas.conmutar();
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

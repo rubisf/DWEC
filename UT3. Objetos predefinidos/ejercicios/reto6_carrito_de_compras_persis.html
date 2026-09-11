@@ -308,135 +308,63 @@ miCesta.agregar(2, &quot;Teclado Mecánico RGB&quot;, 69.50);</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "class CarritoPersistente {\n    constructor(claveStorage = \"carrito_compras\", selectorContenedor = \"#lista-carrito\") {\n        this.clave = claveStorage;\n        this.selectorContenedor = selectorContenedor;\n        this.items = this.cargar();\n        this.sincronizarPestanas();\n        this.renderizar();\n    }\n\n    cargar() {\n        try {\n            const raw = localStorage.getItem(this.clave);\n            return raw ? JSON.parse(raw) : [];\n        } catch (e) {\n            console.warn(\"Fallo al leer Storage, iniciando cesta vacía:\", e);\n            return [];\n        }\n    }\n\n    guardar() {\n        try {\n            localStorage.setItem(this.clave, JSON.stringify(this.items));\n            this.renderizar();\n        } catch (e) {\n            console.error(\"Error de cuota en Storage (QuotaExceededError):\", e);\n        }\n    }\n\n    agregar(id, nombre, precio) {\n        const existente = this.items.find(i => i.id === id);\n        if (existente) {\n            existente.cantidad += 1;\n        } else {\n            this.items.push({ id, nombre, precio, cantidad: 1 });\n        }\n        this.guardar();\n    }\n\n    eliminar(id) {\n        this.items = this.items.filter(i => i.id !== id);\n        this.guardar();\n    }\n\n    vaciar() {\n        this.items = [];\n        this.guardar();\n        console.log(\"Cesta de compras vaciada completamente.\");\n    }\n\n    sincronizarPestanas() {\n        window.addEventListener('storage', (e) => {\n            if (e.key === this.clave) {\n                console.log(\"🔄 Sincronización: El carrito fue modificado en otra pestaña o ventana.\");\n                this.items = e.newValue ? JSON.parse(e.newValue) : [];\n                this.renderizar();\n            }\n        });\n    }\n\n    renderizar() {\n        // 1. Diagnóstico estructurado en consola\n        const total = this.items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);\n        console.group(\"🛒 Estado Actual del Carrito (Sincronizado)\");\n        console.table(this.items);\n        console.log(`Importe Total Acumulado: ${total.toFixed(2)}€`);\n        console.groupEnd();\n\n        // 2. Renderizado dinámico y seguro en el DOM con document.createElement\n        if (typeof document !== \"undefined\") {\n            let contenedor = document.querySelector(this.selectorContenedor);\n            if (!contenedor) {\n                // Si no existe, crear un contenedor de demostración en el body\n                contenedor = document.createElement(\"div\");\n                contenedor.id = this.selectorContenedor.replace(\"#\", \"\");\n                contenedor.style.cssText = \"padding: 16px; background: #f8fafc; border-radius: 8px; font-family: sans-serif;\";\n                document.body.appendChild(contenedor);\n            }\n\n            contenedor.replaceChildren(); // Limpieza eficiente de nodos previos\n\n            if (this.items.length === 0) {\n                const vacioP = document.createElement(\"p\");\n                vacioP.textContent = \"Tu cesta de compras está vacía.\";\n                vacioP.style.color = \"#64748b\";\n                contenedor.appendChild(vacioP);\n                return;\n            }\n\n            const ul = document.createElement(\"ul\");\n            ul.style.cssText = \"list-style: none; padding: 0; margin: 0 0 12px 0;\";\n\n            const fragmento = document.createDocumentFragment();\n            this.items.forEach(item => {\n                const li = document.createElement(\"li\");\n                li.style.cssText = \"display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #e2e8f0;\";\n\n                const infoSpan = document.createElement(\"span\");\n                infoSpan.textContent = `${item.nombre} x${item.cantidad} - ${(item.precio * item.cantidad).toFixed(2)}€`;\n\n                const btnBorrar = document.createElement(\"button\");\n                btnBorrar.textContent = \"✖\";\n                btnBorrar.title = \"Eliminar artículo\";\n                btnBorrar.style.cssText = \"background: #ef4444; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;\";\n                btnBorrar.onclick = () => this.eliminar(item.id);\n\n                li.append(infoSpan, btnBorrar);\n                fragmento.appendChild(li);\n            });\n\n            ul.appendChild(fragmento);\n\n            const totalDiv = document.createElement(\"div\");\n            totalDiv.style.cssText = \"font-weight: bold; color: #0f172a; margin-top: 8px;\";\n            totalDiv.textContent = `Total a Pagar: ${total.toFixed(2)}€`;\n\n            contenedor.append(ul, totalDiv);\n        }\n    }\n}\n\n// Inicialización y pruebas prácticas\nconst miCesta = new CarritoPersistente();\nmiCesta.agregar(1, \"Ratón Óptico Ergonómico\", 19.99);\nmiCesta.agregar(2, \"Teclado Mecánico RGB\", 69.50);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-class CarritoPersistente {
-    constructor(claveStorage = "carrito_compras", selectorContenedor = "#lista-carrito") {
-        this.clave = claveStorage;
-        this.selectorContenedor = selectorContenedor;
-        this.items = this.cargar();
-        this.sincronizarPestanas();
-        this.renderizar();
-    }
+      const code = RAW_SOLUTION.trim();
 
-    cargar() {
-        try {
-            const raw = localStorage.getItem(this.clave);
-            return raw ? JSON.parse(raw) : [];
-        } catch (e) {
-            console.warn("Fallo al leer Storage, iniciando cesta vacía:", e);
-            return [];
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-    }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-    guardar() {
-        try {
-            localStorage.setItem(this.clave, JSON.stringify(this.items));
-            this.renderizar();
-        } catch (e) {
-            console.error("Error de cuota en Storage (QuotaExceededError):", e);
-        }
-    }
-
-    agregar(id, nombre, precio) {
-        const existente = this.items.find(i => i.id === id);
-        if (existente) {
-            existente.cantidad += 1;
-        } else {
-            this.items.push({ id, nombre, precio, cantidad: 1 });
-        }
-        this.guardar();
-    }
-
-    eliminar(id) {
-        this.items = this.items.filter(i => i.id !== id);
-        this.guardar();
-    }
-
-    vaciar() {
-        this.items = [];
-        this.guardar();
-        console.log("Cesta de compras vaciada completamente.");
-    }
-
-    sincronizarPestanas() {
-        window.addEventListener('storage', (e) => {
-            if (e.key === this.clave) {
-                console.log("🔄 Sincronización: El carrito fue modificado en otra pestaña o ventana.");
-                this.items = e.newValue ? JSON.parse(e.newValue) : [];
-                this.renderizar();
-            }
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
         });
-    }
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-    renderizar() {
-        // 1. Diagnóstico estructurado en consola
-        const total = this.items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-        console.group("🛒 Estado Actual del Carrito (Sincronizado)");
-        console.table(this.items);
-        console.log(`Importe Total Acumulado: ${total.toFixed(2)}€`);
-        console.groupEnd();
-
-        // 2. Renderizado dinámico y seguro en el DOM con document.createElement
-        if (typeof document !== "undefined") {
-            let contenedor = document.querySelector(this.selectorContenedor);
-            if (!contenedor) {
-                // Si no existe, crear un contenedor de demostración en el body
-                contenedor = document.createElement("div");
-                contenedor.id = this.selectorContenedor.replace("#", "");
-                contenedor.style.cssText = "padding: 16px; background: #f8fafc; border-radius: 8px; font-family: sans-serif;";
-                document.body.appendChild(contenedor);
-            }
-
-            contenedor.replaceChildren(); // Limpieza eficiente de nodos previos
-
-            if (this.items.length === 0) {
-                const vacioP = document.createElement("p");
-                vacioP.textContent = "Tu cesta de compras está vacía.";
-                vacioP.style.color = "#64748b";
-                contenedor.appendChild(vacioP);
-                return;
-            }
-
-            const ul = document.createElement("ul");
-            ul.style.cssText = "list-style: none; padding: 0; margin: 0 0 12px 0;";
-
-            const fragmento = document.createDocumentFragment();
-            this.items.forEach(item => {
-                const li = document.createElement("li");
-                li.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #e2e8f0;";
-
-                const infoSpan = document.createElement("span");
-                infoSpan.textContent = `${item.nombre} x${item.cantidad} - ${(item.precio * item.cantidad).toFixed(2)}€`;
-
-                const btnBorrar = document.createElement("button");
-                btnBorrar.textContent = "✖";
-                btnBorrar.title = "Eliminar artículo";
-                btnBorrar.style.cssText = "background: #ef4444; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;";
-                btnBorrar.onclick = () => this.eliminar(item.id);
-
-                li.append(infoSpan, btnBorrar);
-                fragmento.appendChild(li);
-            });
-
-            ul.appendChild(fragmento);
-
-            const totalDiv = document.createElement("div");
-            totalDiv.style.cssText = "font-weight: bold; color: #0f172a; margin-top: 8px;";
-            totalDiv.textContent = `Total a Pagar: ${total.toFixed(2)}€`;
-
-            contenedor.append(ul, totalDiv);
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-    }
-}
-
-// Inicialización y pruebas prácticas
-const miCesta = new CarritoPersistente();
-miCesta.agregar(1, "Ratón Óptico Ergonómico", 19.99);
-miCesta.agregar(2, "Teclado Mecánico RGB", 69.50);
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

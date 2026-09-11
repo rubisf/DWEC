@@ -215,42 +215,63 @@
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function inicializarTablaPedidos(tbodyElemento) {\n    // Delegación centralizada en el contenedor <tbody>\n    tbodyElemento.addEventListener(\"click\", (e) => {\n        // Buscar el botón interactivo pulsado más cercano\n        const boton = e.target.closest(\"button\");\n        if (!boton) return; // Se pulsó en texto plano de la tabla\n\n        // Obtener la fila contenedora y su metadato\n        const fila = boton.closest(\"tr\");\n        const pedidoId = fila?.dataset.id ?? \"Desconocido\";\n\n        // Determinar acción según las clases o atributos del botón\n        if (boton.classList.contains(\"btn-eliminar\")) {\n            e.preventDefault();\n            console.warn(\\`Eliminando pedido #\\${pedidoId} de la tabla.\\`);\n            fila.remove();\n        } else if (boton.classList.contains(\"btn-enviar\")) {\n            e.preventDefault();\n            console.log(\\`Marcando pedido #\\${pedidoId} como enviado.\\`);\n            fila.style.background = \"#dcfce7\";\n            boton.disabled = true;\n        } else if (boton.classList.contains(\"btn-detalles\")) {\n            e.preventDefault();\n            console.log(\\`Abriendo panel de detalles para pedido #\\${pedidoId}\\`);\n        }\n    });\n}\n\n// Simulación:\n// const tbody = document.getElementById('pedidos-body');\n// inicializarTablaPedidos(tbody);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-function inicializarTablaPedidos(tbodyElemento) {
-    // Delegación centralizada en el contenedor <tbody>
-    tbodyElemento.addEventListener("click", (e) => {
-        // Buscar el botón interactivo pulsado más cercano
-        const boton = e.target.closest("button");
-        if (!boton) return; // Se pulsó en texto plano de la tabla
+      const code = RAW_SOLUTION.trim();
 
-        // Obtener la fila contenedora y su metadato
-        const fila = boton.closest("tr");
-        const pedidoId = fila?.dataset.id ?? "Desconocido";
-
-        // Determinar acción según las clases o atributos del botón
-        if (boton.classList.contains("btn-eliminar")) {
-            e.preventDefault();
-            console.warn(\`Eliminando pedido #\${pedidoId} de la tabla.\`);
-            fila.remove();
-        } else if (boton.classList.contains("btn-enviar")) {
-            e.preventDefault();
-            console.log(\`Marcando pedido #\${pedidoId} como enviado.\`);
-            fila.style.background = "#dcfce7";
-            boton.disabled = true;
-        } else if (boton.classList.contains("btn-detalles")) {
-            e.preventDefault();
-            console.log(\`Abriendo panel de detalles para pedido #\${pedidoId}\`);
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-    });
-}
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-// Simulación:
-// const tbody = document.getElementById('pedidos-body');
-// inicializarTablaPedidos(tbody);
-        })();
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

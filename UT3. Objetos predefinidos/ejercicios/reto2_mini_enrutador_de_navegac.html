@@ -215,42 +215,63 @@ router.navegarA(&#x27;contacto&#x27;);</code></pre>
       countEl.textContent = "0 entradas";
     };
 
-    async function ejecutarSolucion() {
-      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-function inicializarEnrutador() {
-    const vistas = {
-        'inicio': '<h1>🏠 Inicio</h1><p>Bienvenido al portal de formación DWEC.</p>',
-        'cursos': '<h1>📚 Cursos</h1><p>Catálogo completo de módulos y especialidades.</p>',
-        'contacto': '<h1>✉️ Contacto</h1><p>Formulario de atención y soporte al alumno.</p>'
-    };
+    const RAW_SOLUTION = "function inicializarEnrutador() {\n    const vistas = {\n        'inicio': '<h1>🏠 Inicio</h1><p>Bienvenido al portal de formación DWEC.</p>',\n        'cursos': '<h1>📚 Cursos</h1><p>Catálogo completo de módulos y especialidades.</p>',\n        'contacto': '<h1>✉️ Contacto</h1><p>Formulario de atención y soporte al alumno.</p>'\n    };\n\n    function renderizar(vista) {\n        const contenido = vistas[vista] || '<h1>404</h1><p>Sección no encontrada.</p>';\n        console.log(\"Renderizando vista en DOM:\", vista);\n        // En una página real: document.getElementById('app').innerHTML = contenido;\n    }\n\n    function navegarA(seccion) {\n        window.history.pushState({ seccion }, \"\", \"#\" + seccion);\n        renderizar(seccion);\n    }\n\n    // Manejo de botones atrás/adelante del navegador\n    window.addEventListener('popstate', (e) => {\n        const seccionActual = e.state?.seccion || 'inicio';\n        console.log(\"Navegación por historial detectada hacia:\", seccionActual);\n        renderizar(seccionActual);\n    });\n\n    return { navegarA, renderizar };\n}\n\nconst router = inicializarEnrutador();\nrouter.navegarA('cursos');\nrouter.navegarA('contacto');";
 
-    function renderizar(vista) {
-        const contenido = vistas[vista] || '<h1>404</h1><p>Sección no encontrada.</p>';
-        console.log("Renderizando vista en DOM:", vista);
-        // En una página real: document.getElementById('app').innerHTML = contenido;
-    }
-
-    function navegarA(seccion) {
-        window.history.pushState({ seccion }, "", "#" + seccion);
-        renderizar(seccion);
-    }
-
-    // Manejo de botones atrás/adelante del navegador
-    window.addEventListener('popstate', (e) => {
-        const seccionActual = e.state?.seccion || 'inicio';
-        console.log("Navegación por historial detectada hacia:", seccionActual);
-        renderizar(seccionActual);
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
     });
 
-    return { navegarA, renderizar };
-}
+    async function ejecutarSolucion() {
+      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
 
-const router = inicializarEnrutador();
-router.navegarA('cursos');
-router.navegarA('contacto');
-        })();
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

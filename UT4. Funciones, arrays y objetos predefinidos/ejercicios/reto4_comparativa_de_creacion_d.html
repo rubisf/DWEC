@@ -280,107 +280,63 @@ comparativaOrientacionObjetos();</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function comparativaOrientacionObjetos() {\n    console.group(\"🏷️ 1. Creación Mediante Objeto Literal\");\n    const productoLiteral = {\n        id: 1,\n        nombre: \"Monitor Ultrawide\",\n        precio: 450,\n        descuento: 10,\n        calcularPrecioFinal() {\n            return Number((this.precio * (1 - this.descuento / 100)).toFixed(2));\n        }\n    };\n    console.log(\"Objeto Literal creado:\", productoLiteral.nombre, \"- Precio final:\", productoLiteral.calcularPrecioFinal(), \"€\");\n    console.groupEnd();\n\n    console.group(\"⚙️ 2. Creación Mediante Función Constructora y Prototipo (ES5)\");\n    function ProductoConstructor(id, nombre, precio, descuento = 0) {\n        this.id = id;\n        this.nombre = nombre;\n        this.precio = precio;\n        this.descuento = descuento;\n    }\n\n    // Vinculación de métodos al Prototype para compartir una sola referencia en memoria\n    ProductoConstructor.prototype.calcularPrecioFinal = function() {\n        return Number((this.precio * (1 - this.descuento / 100)).toFixed(2));\n    };\n\n    const productoProto = new ProductoConstructor(2, \"Teclado Mecánico\", 120, 15);\n    console.log(\"Instancia desde Constructor:\", productoProto.nombre, \"- Precio final:\", productoProto.calcularPrecioFinal(), \"€\");\n    console.log(\"¿productoProto instanceof ProductoConstructor?:\", productoProto instanceof ProductoConstructor); // true\n    console.log(\"Prototipo directo:\", Object.getPrototypeOf(productoProto) === ProductoConstructor.prototype); // true\n    console.groupEnd();\n\n    console.group(\"🚀 3. Clases Modernas ES6+ con Encapsulamiento Privado (#) y Polimorfismo\");\n    class ProductoES6 {\n        #precio;\n        #descuento;\n\n        constructor(id, nombre, precio, descuento = 0) {\n            this.id = id;\n            this.nombre = nombre;\n            this.precio = precio;       // Setter con validación\n            this.descuento = descuento; // Setter\n        }\n\n        get precio() {\n            return this.#precio;\n        }\n\n        set precio(nuevoPrecio) {\n            if (typeof nuevoPrecio !== \"number\" || nuevoPrecio < 0) {\n                throw new TypeError(\"El precio debe ser un número positivo.\");\n            }\n            this.#precio = nuevoPrecio;\n        }\n\n        get descuento() {\n            return this.#descuento;\n        }\n\n        set descuento(nuevoDescuento) {\n            if (nuevoDescuento < 0 || nuevoDescuento > 100) {\n                throw new RangeError(\"El descuento debe estar entre 0% y 100%.\");\n            }\n            this.#descuento = nuevoDescuento;\n        }\n\n        calcularPrecioFinal() {\n            return Number((this.#precio * (1 - this.#descuento / 100)).toFixed(2));\n        }\n    }\n\n    class ProductoDigital extends ProductoES6 {\n        constructor(id, nombre, precio, descuento, enlaceDescarga, tamanioMB) {\n            super(id, nombre, precio, descuento);\n            this.enlaceDescarga = enlaceDescarga;\n            this.tamanioMB = tamanioMB;\n        }\n\n        // Sobreescritura polimórfica: aplica canon digital del 2%\n        calcularPrecioFinal() {\n            const baseConDescuento = super.calcularPrecioFinal();\n            const canonDigital = baseConDescuento * 0.02;\n            return Number((baseConDescuento + canonDigital).toFixed(2));\n        }\n    }\n\n    const ebook = new ProductoDigital(101, \"Guía Avanzada DWEC 2024\", 30, 20, \"https://descargas.es/dwec.pdf\", 25);\n    console.log(`Producto Digital: ${ebook.nombre}`);\n    console.log(`Precio Base: ${ebook.precio}€`);\n    console.log(`Precio Final con Descuento y Canon: ${ebook.calcularPrecioFinal()}€`);\n    console.log(\"¿ebook instanceof ProductoES6?:\", ebook instanceof ProductoES6); // true\n    console.groupEnd();\n}\n\ncomparativaOrientacionObjetos();";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function comparativaOrientacionObjetos() {
-    console.group("🏷️ 1. Creación Mediante Objeto Literal");
-    const productoLiteral = {
-        id: 1,
-        nombre: "Monitor Ultrawide",
-        precio: 450,
-        descuento: 10,
-        calcularPrecioFinal() {
-            return Number((this.precio * (1 - this.descuento / 100)).toFixed(2));
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-    };
-    console.log("Objeto Literal creado:", productoLiteral.nombre, "- Precio final:", productoLiteral.calcularPrecioFinal(), "€");
-    console.groupEnd();
-
-    console.group("⚙️ 2. Creación Mediante Función Constructora y Prototipo (ES5)");
-    function ProductoConstructor(id, nombre, precio, descuento = 0) {
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.descuento = descuento;
-    }
-
-    // Vinculación de métodos al Prototype para compartir una sola referencia en memoria
-    ProductoConstructor.prototype.calcularPrecioFinal = function() {
-        return Number((this.precio * (1 - this.descuento / 100)).toFixed(2));
-    };
-
-    const productoProto = new ProductoConstructor(2, "Teclado Mecánico", 120, 15);
-    console.log("Instancia desde Constructor:", productoProto.nombre, "- Precio final:", productoProto.calcularPrecioFinal(), "€");
-    console.log("¿productoProto instanceof ProductoConstructor?:", productoProto instanceof ProductoConstructor); // true
-    console.log("Prototipo directo:", Object.getPrototypeOf(productoProto) === ProductoConstructor.prototype); // true
-    console.groupEnd();
-
-    console.group("🚀 3. Clases Modernas ES6+ con Encapsulamiento Privado (#) y Polimorfismo");
-    class ProductoES6 {
-        #precio;
-        #descuento;
-
-        constructor(id, nombre, precio, descuento = 0) {
-            this.id = id;
-            this.nombre = nombre;
-            this.precio = precio;       // Setter con validación
-            this.descuento = descuento; // Setter
-        }
-
-        get precio() {
-            return this.#precio;
-        }
-
-        set precio(nuevoPrecio) {
-            if (typeof nuevoPrecio !== "number" || nuevoPrecio < 0) {
-                throw new TypeError("El precio debe ser un número positivo.");
-            }
-            this.#precio = nuevoPrecio;
-        }
-
-        get descuento() {
-            return this.#descuento;
-        }
-
-        set descuento(nuevoDescuento) {
-            if (nuevoDescuento < 0 || nuevoDescuento > 100) {
-                throw new RangeError("El descuento debe estar entre 0% y 100%.");
-            }
-            this.#descuento = nuevoDescuento;
-        }
-
-        calcularPrecioFinal() {
-            return Number((this.#precio * (1 - this.#descuento / 100)).toFixed(2));
-        }
-    }
-
-    class ProductoDigital extends ProductoES6 {
-        constructor(id, nombre, precio, descuento, enlaceDescarga, tamanioMB) {
-            super(id, nombre, precio, descuento);
-            this.enlaceDescarga = enlaceDescarga;
-            this.tamanioMB = tamanioMB;
-        }
-
-        // Sobreescritura polimórfica: aplica canon digital del 2%
-        calcularPrecioFinal() {
-            const baseConDescuento = super.calcularPrecioFinal();
-            const canonDigital = baseConDescuento * 0.02;
-            return Number((baseConDescuento + canonDigital).toFixed(2));
-        }
-    }
-
-    const ebook = new ProductoDigital(101, "Guía Avanzada DWEC 2024", 30, 20, "https://descargas.es/dwec.pdf", 25);
-    console.log(`Producto Digital: ${ebook.nombre}`);
-    console.log(`Precio Base: ${ebook.precio}€`);
-    console.log(`Precio Final con Descuento y Canon: ${ebook.calcularPrecioFinal()}€`);
-    console.log("¿ebook instanceof ProductoES6?:", ebook instanceof ProductoES6); // true
-    console.groupEnd();
-}
-
-comparativaOrientacionObjetos();
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

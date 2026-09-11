@@ -223,50 +223,63 @@
       countEl.textContent = "0 entradas";
     };
 
-    async function ejecutarSolucion() {
-      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-function generarListaTareas(tareas, contenedor) {
-    // Vaciar contenedor de forma eficiente
-    contenedor.replaceChildren();
+    const RAW_SOLUTION = "function generarListaTareas(tareas, contenedor) {\n    // Vaciar contenedor de forma eficiente\n    contenedor.replaceChildren();\n\n    const fragmento = document.createDocumentFragment();\n\n    tareas.forEach((textoTarea, indice) => {\n        const li = document.createElement(\"li\");\n        li.className = \"item-tarea-dinamica\";\n        li.style.cssText = \"display: flex; justify-content: space-between; padding: 8px; margin-bottom: 6px; background: #f8fafc; border-radius: 6px; transition: opacity 0.3s, transform 0.3s;\";\n\n        const spanTexto = document.createElement(\"span\");\n        spanTexto.textContent = \\`\\${indice + 1}. \\${textoTarea}\\`; // Seguro contra XSS\n\n        const btnBorrar = document.createElement(\"button\");\n        btnBorrar.textContent = \"🗑️ Borrar\";\n        btnBorrar.style.cssText = \"background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;\";\n\n        // Borrado coordinado con animación\n        btnBorrar.onclick = () => {\n            li.style.opacity = \"0\";\n            li.style.transform = \"translateX(20px)\";\n            li.addEventListener(\"transitionend\", () => {\n                li.remove();\n                console.log(\"Nodo eliminado del DOM tras finalizar transición CSS.\");\n            }, { once: true });\n        };\n\n        li.append(spanTexto, btnBorrar);\n        fragmento.appendChild(li);\n    });\n\n    // Inserción única en el DOM\n    contenedor.appendChild(fragmento);\n}\n\n// Prueba:\n// const ul = document.getElementById('lista-tareas');\n// generarListaTareas([\"Repasar DOM\", \"Preparar entrega UT6\", \"Configurar linter\"], ul);";
 
-    const fragmento = document.createDocumentFragment();
-
-    tareas.forEach((textoTarea, indice) => {
-        const li = document.createElement("li");
-        li.className = "item-tarea-dinamica";
-        li.style.cssText = "display: flex; justify-content: space-between; padding: 8px; margin-bottom: 6px; background: #f8fafc; border-radius: 6px; transition: opacity 0.3s, transform 0.3s;";
-
-        const spanTexto = document.createElement("span");
-        spanTexto.textContent = \`\${indice + 1}. \${textoTarea}\`; // Seguro contra XSS
-
-        const btnBorrar = document.createElement("button");
-        btnBorrar.textContent = "🗑️ Borrar";
-        btnBorrar.style.cssText = "background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;";
-
-        // Borrado coordinado con animación
-        btnBorrar.onclick = () => {
-            li.style.opacity = "0";
-            li.style.transform = "translateX(20px)";
-            li.addEventListener("transitionend", () => {
-                li.remove();
-                console.log("Nodo eliminado del DOM tras finalizar transición CSS.");
-            }, { once: true });
-        };
-
-        li.append(spanTexto, btnBorrar);
-        fragmento.appendChild(li);
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
     });
 
-    // Inserción única en el DOM
-    contenedor.appendChild(fragmento);
-}
+    async function ejecutarSolucion() {
+      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
 
-// Prueba:
-// const ul = document.getElementById('lista-tareas');
-// generarListaTareas(["Repasar DOM", "Preparar entrega UT6", "Configurar linter"], ul);
-        })();
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

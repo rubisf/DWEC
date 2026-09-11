@@ -212,39 +212,63 @@ console.table(procesarPedidosExpress(pedidos));</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function procesarPedidosExpress(pedidos) {\n    return pedidos.map(pedido => {\n        // Fallback seguro de envío respetando el 0€\n        const costeEnvio = pedido.envio ?? 4.99;\n        const total = Number((pedido.base + costeEnvio).toFixed(2));\n        \n        // Extracción segura de dirección profunda\n        const direccionEntrega = pedido.cliente?.direccion?.calle \n            ? \\`\\${pedido.cliente.direccion.calle}, \\${pedido.cliente.direccion.ciudad ?? 'S/C'}\\` \n            : \"Recogida en Tienda Central\";\n\n        return {\n            id: pedido.id,\n            total,\n            envio: costeEnvio === 0 ? \"Gratis\" : \\`\\${costeEnvio}€\\`,\n            direccion: direccionEntrega\n        };\n    });\n}\n\n// Datos de prueba con casos límite\nconst pedidos = [\n    { id: 1, base: 50, envio: 0, cliente: { direccion: { calle: \"Gran Vía 28\", ciudad: \"Madrid\" } } },\n    { id: 2, base: 25, envio: null, cliente: null }, // Sin cliente ni envío\n    { id: 3, base: 100, envio: 12.5, cliente: { direccion: null } } // Cliente sin dirección\n];\n\nconsole.table(procesarPedidosExpress(pedidos));";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function procesarPedidosExpress(pedidos) {
-    return pedidos.map(pedido => {
-        // Fallback seguro de envío respetando el 0€
-        const costeEnvio = pedido.envio ?? 4.99;
-        const total = Number((pedido.base + costeEnvio).toFixed(2));
-        
-        // Extracción segura de dirección profunda
-        const direccionEntrega = pedido.cliente?.direccion?.calle 
-            ? \`\${pedido.cliente.direccion.calle}, \${pedido.cliente.direccion.ciudad ?? 'S/C'}\` 
-            : "Recogida en Tienda Central";
-
-        return {
-            id: pedido.id,
-            total,
-            envio: costeEnvio === 0 ? "Gratis" : \`\${costeEnvio}€\`,
-            direccion: direccionEntrega
-        };
-    });
-}
-
-// Datos de prueba con casos límite
-const pedidos = [
-    { id: 1, base: 50, envio: 0, cliente: { direccion: { calle: "Gran Vía 28", ciudad: "Madrid" } } },
-    { id: 2, base: 25, envio: null, cliente: null }, // Sin cliente ni envío
-    { id: 3, base: 100, envio: 12.5, cliente: { direccion: null } } // Cliente sin dirección
-];
-
-console.table(procesarPedidosExpress(pedidos));
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

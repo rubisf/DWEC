@@ -197,24 +197,63 @@ console.log(&quot;Resolución de pantalla disponible:&quot;, screen.width + &quo
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "// 1. Estado de la conexión a Internet\nconsole.log(\"¿Conexión activa a Internet?:\", navigator.onLine ? \"Sí, conectado ✅\" : \"No, sin conexión ❌\");\n\n// 2. Idioma configurado en el navegador\nconsole.log(\"Idioma preferente del navegador:\", navigator.language);\n\n// 3. Resolución y dimensiones de pantalla\nconsole.log(\"Resolución de pantalla disponible:\", screen.width + \" x \" + screen.height + \" píxeles\");\n\n// 4. Justificación de seguridad (Modelo Sandbox):\n// Por motivos de seguridad, JavaScript en el cliente se ejecuta dentro de una 'caja de arena' (sandbox).\n// Esto impide que una página web maliciosa pueda leer contraseñas, documentos o modificar ficheros\n// del disco duro del usuario de forma silenciosa.";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-// 1. Estado de la conexión a Internet
-console.log("¿Conexión activa a Internet?:", navigator.onLine ? "Sí, conectado ✅" : "No, sin conexión ❌");
-
-// 2. Idioma configurado en el navegador
-console.log("Idioma preferente del navegador:", navigator.language);
-
-// 3. Resolución y dimensiones de pantalla
-console.log("Resolución de pantalla disponible:", screen.width + " x " + screen.height + " píxeles");
-
-// 4. Justificación de seguridad (Modelo Sandbox):
-// Por motivos de seguridad, JavaScript en el cliente se ejecuta dentro de una 'caja de arena' (sandbox).
-// Esto impide que una página web maliciosa pueda leer contraseñas, documentos o modificar ficheros
-// del disco duro del usuario de forma silenciosa.
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

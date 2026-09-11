@@ -235,62 +235,63 @@ console.table(gestorA.obtenerHistorial());</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "// Factoría de Objetos Notificación\nclass NotificacionFactory {\n    static fabricar(tipo, texto) {\n        const id = \"NOTIF_\" + Math.random().toString(36).substring(2, 7);\n        const timestamp = new Date().toLocaleTimeString();\n\n        switch (tipo.toLowerCase()) {\n            case \"urgente\":\n                return { id, tipo, texto, prioridad: 1, icono: \"🚨\", timestamp };\n            case \"alerta\":\n                return { id, tipo, texto, prioridad: 2, icono: \"⚠️\", timestamp };\n            case \"info\":\n            default:\n                return { id, tipo: \"info\", texto, prioridad: 3, icono: \"ℹ️\", timestamp };\n        }\n    }\n}\n\n// Singleton: Gestor Central de Notificaciones\nclass GestorNotificaciones {\n    static #instanciaUnica = null;\n    #historial = [];\n\n    constructor() {\n        if (GestorNotificaciones.#instanciaUnica) {\n            return GestorNotificaciones.#instanciaUnica;\n        }\n        GestorNotificaciones.#instanciaUnica = this;\n    }\n\n    publicar(tipo, mensaje) {\n        const notificacion = NotificacionFactory.fabricar(tipo, mensaje);\n        this.#historial.push(notificacion);\n        console.log(\\`[\\${notificacion.icono} \\${notificacion.tipo.toUpperCase()}] \\${notificacion.texto}\\`);\n        return notificacion;\n    }\n\n    obtenerHistorial() {\n        return [...this.#historial]; // Retorna copia inmutable\n    }\n}\n\n// Comprobación de funcionamiento\nconst gestorA = new GestorNotificaciones();\nconst gestorB = new GestorNotificaciones();\n\ngestorA.publicar(\"urgente\", \"Fallo de conexión en base de datos.\");\ngestorB.publicar(\"info\", \"Usuario Pedro ha iniciado sesión.\");\n\nconsole.log(\"¿Misma instancia Singleton?:\", gestorA === gestorB); // true\nconsole.table(gestorA.obtenerHistorial());";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-// Factoría de Objetos Notificación
-class NotificacionFactory {
-    static fabricar(tipo, texto) {
-        const id = "NOTIF_" + Math.random().toString(36).substring(2, 7);
-        const timestamp = new Date().toLocaleTimeString();
-
-        switch (tipo.toLowerCase()) {
-            case "urgente":
-                return { id, tipo, texto, prioridad: 1, icono: "🚨", timestamp };
-            case "alerta":
-                return { id, tipo, texto, prioridad: 2, icono: "⚠️", timestamp };
-            case "info":
-            default:
-                return { id, tipo: "info", texto, prioridad: 3, icono: "ℹ️", timestamp };
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-    }
-}
-
-// Singleton: Gestor Central de Notificaciones
-class GestorNotificaciones {
-    static #instanciaUnica = null;
-    #historial = [];
-
-    constructor() {
-        if (GestorNotificaciones.#instanciaUnica) {
-            return GestorNotificaciones.#instanciaUnica;
-        }
-        GestorNotificaciones.#instanciaUnica = this;
-    }
-
-    publicar(tipo, mensaje) {
-        const notificacion = NotificacionFactory.fabricar(tipo, mensaje);
-        this.#historial.push(notificacion);
-        console.log(\`[\${notificacion.icono} \${notificacion.tipo.toUpperCase()}] \${notificacion.texto}\`);
-        return notificacion;
-    }
-
-    obtenerHistorial() {
-        return [...this.#historial]; // Retorna copia inmutable
-    }
-}
-
-// Comprobación de funcionamiento
-const gestorA = new GestorNotificaciones();
-const gestorB = new GestorNotificaciones();
-
-gestorA.publicar("urgente", "Fallo de conexión en base de datos.");
-gestorB.publicar("info", "Usuario Pedro ha iniciado sesión.");
-
-console.log("¿Misma instancia Singleton?:", gestorA === gestorB); // true
-console.table(gestorA.obtenerHistorial());
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

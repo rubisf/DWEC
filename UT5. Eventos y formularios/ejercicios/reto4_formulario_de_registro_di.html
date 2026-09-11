@@ -216,43 +216,63 @@
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function configurarFormularioRegistro(formulario, selectTipo, campoCifContenedor, inputCif) {\n    // 1. Mostrar/ocultar campo CIF dinámicamente\n    selectTipo.addEventListener(\"change\", () => {\n        if (selectTipo.value === \"empresa\") {\n            campoCifContenedor.style.display = \"block\";\n            inputCif.required = true;\n            inputCif.focus();\n        } else {\n            campoCifContenedor.style.display = \"none\";\n            inputCif.required = false;\n            inputCif.value = \"\";\n        }\n    });\n\n    // 2. Control del envío del formulario\n    formulario.addEventListener(\"submit\", (e) => {\n        e.preventDefault(); // Impide recarga de página\n\n        const formData = new FormData(formulario);\n        const payload = Object.fromEntries(formData.entries());\n\n        console.log(\"Formulario validado y procesado localmente:\");\n        console.table(payload);\n    });\n}\n\n// Inicialización de simulación:\n// const f = document.getElementById('form-reg');\n// const sel = document.getElementById('tipo-cliente');\n// const cont = document.getElementById('contenedor-cif');\n// const cif = document.getElementById('input-cif');\n// configurarFormularioRegistro(f, sel, cont, cif);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-function configurarFormularioRegistro(formulario, selectTipo, campoCifContenedor, inputCif) {
-    // 1. Mostrar/ocultar campo CIF dinámicamente
-    selectTipo.addEventListener("change", () => {
-        if (selectTipo.value === "empresa") {
-            campoCifContenedor.style.display = "block";
-            inputCif.required = true;
-            inputCif.focus();
-        } else {
-            campoCifContenedor.style.display = "none";
-            inputCif.required = false;
-            inputCif.value = "";
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-    });
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-    // 2. Control del envío del formulario
-    formulario.addEventListener("submit", (e) => {
-        e.preventDefault(); // Impide recarga de página
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-        const formData = new FormData(formulario);
-        const payload = Object.fromEntries(formData.entries());
-
-        console.log("Formulario validado y procesado localmente:");
-        console.table(payload);
-    });
-}
-
-// Inicialización de simulación:
-// const f = document.getElementById('form-reg');
-// const sel = document.getElementById('tipo-cliente');
-// const cont = document.getElementById('contenedor-cif');
-// const cif = document.getElementById('input-cif');
-// configurarFormularioRegistro(f, sel, cont, cif);
-        })();
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

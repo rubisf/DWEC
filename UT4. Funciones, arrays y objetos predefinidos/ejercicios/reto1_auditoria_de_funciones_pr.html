@@ -258,85 +258,63 @@ laboratorioFunciones();</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function laboratorioFunciones() {\n    console.group(\"🔍 1. Auditoría de Funciones Predefinidas Globales\");\n    \n    // parseInt con base explícita vs parseFloat\n    const enteroParseado = parseInt(\"100px\", 10);\n    const floatParseado = parseFloat(\"3.14159265rad\");\n    console.log(\"parseInt('100px', 10):\", enteroParseado);\n    console.log(\"parseFloat('3.14159265rad'):\", floatParseado);\n\n    // Comparativa crítica: isNaN vs Number.isNaN\n    console.log(\"isNaN('texto'):\", isNaN(\"texto\"), \"(coacciona a NaN primero)\");\n    console.log(\"Number.isNaN('texto'):\", Number.isNaN(\"texto\"), \"(estricto: no coacciona)\");\n    console.log(\"Number.isFinite(100 / 0):\", Number.isFinite(100 / 0), \"(Infinity no es finito)\");\n\n    // Codificación y decodificación de URLs\n    const querySensible = \"categoría=desarrollo web & cliente=100%\";\n    const codificado = encodeURIComponent(querySensible);\n    const decodificado = decodeURIComponent(codificado);\n    console.log(\"encodeURIComponent:\", codificado);\n    console.log(\"decodeURIComponent:\", decodificado);\n    console.groupEnd();\n\n    console.group(\"🎯 2. Enlace Léxico de 'this': Función Clásica vs Función Flecha\");\n    const componenteUsuario = {\n        nombre: \"Docente DWEC\",\n        rol: \"Profesor\",\n        \n        // Método con Function Declaration clásica: su propio 'this' depende de quién lo llame\n        metodoClasico: function() {\n            return `Usuario clásico: ${this.nombre} (${this.rol})`;\n        },\n\n        // Demostración de flecha reteniendo el 'this' léxico envolvente\n        ejecutarConCallback: function() {\n            // En una función clásica interna, 'this' se perdería a undefined o window en modo estricto.\n            // La función flecha captura estáticamente el 'this' del método envolvente:\n            const callbackFlecha = () => {\n                return `Captura léxica exitosa: ${this.nombre} - ${this.rol}`;\n            };\n            return callbackFlecha();\n        }\n    };\n\n    console.log(componenteUsuario.metodoClasico());\n    console.log(componenteUsuario.ejecutarConCallback());\n    console.groupEnd();\n\n    console.group(\"🔗 3. Procesador de URLs con Parámetros Rest y Sanitización\");\n    const construirURLConsulta = (baseURL, endpoint, ...parametros) => {\n        const urlLimpia = baseURL.replace(/\\/$/, \"\") + \"/\" + endpoint.replace(/^\\//, \"\");\n        if (parametros.length === 0) return urlLimpia;\n\n        const pares = parametros.map(([clave, valor]) => {\n            const k = encodeURIComponent(String(clave).trim());\n            const v = encodeURIComponent(String(valor).trim());\n            return `${k}=${v}`;\n        });\n\n        return `${urlLimpia}?${pares.join(\"&\")}`;\n    };\n\n    const urlGenerada = construirURLConsulta(\n        \"https://api.formacion.es/v1\",\n        \"cursos/buscar\",\n        [\"modulo\", \"Desarrollo Web en Entorno Cliente\"],\n        [\"notaMinima\", 7],\n        [\"orden\", \"prioritario & seguro\"]\n    );\n    console.log(\"URL Final Generada y Sanitizada:\");\n    console.log(urlGenerada);\n    console.groupEnd();\n}\n\nlaboratorioFunciones();";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-function laboratorioFunciones() {
-    console.group("🔍 1. Auditoría de Funciones Predefinidas Globales");
-    
-    // parseInt con base explícita vs parseFloat
-    const enteroParseado = parseInt("100px", 10);
-    const floatParseado = parseFloat("3.14159265rad");
-    console.log("parseInt('100px', 10):", enteroParseado);
-    console.log("parseFloat('3.14159265rad'):", floatParseado);
+      const code = RAW_SOLUTION.trim();
 
-    // Comparativa crítica: isNaN vs Number.isNaN
-    console.log("isNaN('texto'):", isNaN("texto"), "(coacciona a NaN primero)");
-    console.log("Number.isNaN('texto'):", Number.isNaN("texto"), "(estricto: no coacciona)");
-    console.log("Number.isFinite(100 / 0):", Number.isFinite(100 / 0), "(Infinity no es finito)");
-
-    // Codificación y decodificación de URLs
-    const querySensible = "categoría=desarrollo web & cliente=100%";
-    const codificado = encodeURIComponent(querySensible);
-    const decodificado = decodeURIComponent(codificado);
-    console.log("encodeURIComponent:", codificado);
-    console.log("decodeURIComponent:", decodificado);
-    console.groupEnd();
-
-    console.group("🎯 2. Enlace Léxico de 'this': Función Clásica vs Función Flecha");
-    const componenteUsuario = {
-        nombre: "Docente DWEC",
-        rol: "Profesor",
-        
-        // Método con Function Declaration clásica: su propio 'this' depende de quién lo llame
-        metodoClasico: function() {
-            return `Usuario clásico: ${this.nombre} (${this.rol})`;
-        },
-
-        // Demostración de flecha reteniendo el 'this' léxico envolvente
-        ejecutarConCallback: function() {
-            // En una función clásica interna, 'this' se perdería a undefined o window en modo estricto.
-            // La función flecha captura estáticamente el 'this' del método envolvente:
-            const callbackFlecha = () => {
-                return `Captura léxica exitosa: ${this.nombre} - ${this.rol}`;
-            };
-            return callbackFlecha();
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-    };
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-    console.log(componenteUsuario.metodoClasico());
-    console.log(componenteUsuario.ejecutarConCallback());
-    console.groupEnd();
-
-    console.group("🔗 3. Procesador de URLs con Parámetros Rest y Sanitización");
-    const construirURLConsulta = (baseURL, endpoint, ...parametros) => {
-        const urlLimpia = baseURL.replace(/\/$/, "") + "/" + endpoint.replace(/^\//, "");
-        if (parametros.length === 0) return urlLimpia;
-
-        const pares = parametros.map(([clave, valor]) => {
-            const k = encodeURIComponent(String(clave).trim());
-            const v = encodeURIComponent(String(valor).trim());
-            return `${k}=${v}`;
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
         });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-        return `${urlLimpia}?${pares.join("&")}`;
-    };
-
-    const urlGenerada = construirURLConsulta(
-        "https://api.formacion.es/v1",
-        "cursos/buscar",
-        ["modulo", "Desarrollo Web en Entorno Cliente"],
-        ["notaMinima", 7],
-        ["orden", "prioritario & seguro"]
-    );
-    console.log("URL Final Generada y Sanitizada:");
-    console.log(urlGenerada);
-    console.groupEnd();
-}
-
-laboratorioFunciones();
-        })();
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

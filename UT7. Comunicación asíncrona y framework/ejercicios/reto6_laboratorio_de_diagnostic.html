@@ -238,65 +238,63 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "async function auditarEndpointAPI(url, limiteMs = 3000) {\n    console.log(\\`🔍 Auditando conectividad con: \\${url} (Timeout: \\${limiteMs}ms)\\`);\n    const t0 = performance.now();\n\n    try {\n        const respuesta = await fetch(url, {\n            signal: AbortSignal.timeout(limiteMs)\n        });\n\n        const tiempoRespuestaMs = Number((performance.now() - t0).toFixed(2));\n\n        if (!respuesta.ok) {\n            return {\n                url,\n                estado: \"Error HTTP\",\n                codigo: respuesta.status,\n                statusText: respuesta.statusText,\n                latenciaMs: tiempoRespuestaMs,\n                diagnostico: \"El servidor respondió, pero rechazó la solicitud (código \" + respuesta.status + \").\"\n            };\n        }\n\n        return {\n            url,\n            estado: \"OK\",\n            codigo: respuesta.status,\n            latenciaMs: tiempoRespuestaMs,\n            diagnostico: \"Conexión óptima y datos recibidos sin restricciones CORS.\"\n        };\n\n    } catch (error) {\n        const tiempoFalloMs = Number((performance.now() - t0).toFixed(2));\n\n        if (error.name === \"TimeoutError\") {\n            return {\n                url,\n                estado: \"Timeout\",\n                latenciaMs: tiempoFalloMs,\n                diagnostico: \\`La petición fue cancelada tras superar el límite de \\${limiteMs}ms.\\`\n            };\n        }\n\n        return {\n            url,\n            estado: \"Fallo de Red / CORS\",\n            latenciaMs: tiempoFalloMs,\n            diagnostico: \"Bloqueo por directiva CORS del navegador o servidor inalcanzable (Failed to fetch).\"\n        };\n    }\n}\n\n// Prueba con endpoint válido\nauditarEndpointAPI(\"https://jsonplaceholder.typicode.com/posts/1\")\n    .then(informe => console.table([informe]));";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-async function auditarEndpointAPI(url, limiteMs = 3000) {
-    console.log(\`🔍 Auditando conectividad con: \${url} (Timeout: \${limiteMs}ms)\`);
-    const t0 = performance.now();
+      const code = RAW_SOLUTION.trim();
 
-    try {
-        const respuesta = await fetch(url, {
-            signal: AbortSignal.timeout(limiteMs)
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
         });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-        const tiempoRespuestaMs = Number((performance.now() - t0).toFixed(2));
-
-        if (!respuesta.ok) {
-            return {
-                url,
-                estado: "Error HTTP",
-                codigo: respuesta.status,
-                statusText: respuesta.statusText,
-                latenciaMs: tiempoRespuestaMs,
-                diagnostico: "El servidor respondió, pero rechazó la solicitud (código " + respuesta.status + ")."
-            };
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-
-        return {
-            url,
-            estado: "OK",
-            codigo: respuesta.status,
-            latenciaMs: tiempoRespuestaMs,
-            diagnostico: "Conexión óptima y datos recibidos sin restricciones CORS."
-        };
-
-    } catch (error) {
-        const tiempoFalloMs = Number((performance.now() - t0).toFixed(2));
-
-        if (error.name === "TimeoutError") {
-            return {
-                url,
-                estado: "Timeout",
-                latenciaMs: tiempoFalloMs,
-                diagnostico: \`La petición fue cancelada tras superar el límite de \${limiteMs}ms.\`
-            };
-        }
-
-        return {
-            url,
-            estado: "Fallo de Red / CORS",
-            latenciaMs: tiempoFalloMs,
-            diagnostico: "Bloqueo por directiva CORS del navegador o servidor inalcanzable (Failed to fetch)."
-        };
-    }
-}
-
-// Prueba con endpoint válido
-auditarEndpointAPI("https://jsonplaceholder.typicode.com/posts/1")
-    .then(informe => console.table([informe]));
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

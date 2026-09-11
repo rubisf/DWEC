@@ -203,30 +203,63 @@ console.log(&quot;Depuración finalizada con éxito.&quot;);</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "// 1. Mensajes en consola con diferentes niveles de severidad\nconsole.log(\"ℹ️ [INFO]: La aplicación se ha iniciado correctamente.\");\nconsole.warn(\"⚠️ [AVISO]: Comprueba que la pantalla tenga suficiente resolución.\");\nconsole.error(\"❌ [ERROR]: Ejemplo de mensaje de error para diagnóstico.\");\n\n// 2. Visualización tabular de datos del navegador\nconst estadoNavegador = {\n    plataforma: navigator.userAgent.includes(\"Windows\") ? \"Windows\" : \"Otro Sistema\",\n    idioma: navigator.language,\n    conectado: navigator.onLine ? \"En línea\" : \"Desconectado\"\n};\n\nconsole.log(\"📊 Resumen del entorno del cliente:\");\nconsole.table(estadoNavegador);\n\n// 3. Sentencia debugger: pausa la ejecución en DevTools (F12)\nconsole.log(\"Iniciando pausa de depuración con la sentencia debugger...\");\ndebugger; // Si abres F12 -> Sources, el navegador pausará la ejecución aquí\nconsole.log(\"Depuración finalizada con éxito.\");";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-// 1. Mensajes en consola con diferentes niveles de severidad
-console.log("ℹ️ [INFO]: La aplicación se ha iniciado correctamente.");
-console.warn("⚠️ [AVISO]: Comprueba que la pantalla tenga suficiente resolución.");
-console.error("❌ [ERROR]: Ejemplo de mensaje de error para diagnóstico.");
-
-// 2. Visualización tabular de datos del navegador
-const estadoNavegador = {
-    plataforma: navigator.userAgent.includes("Windows") ? "Windows" : "Otro Sistema",
-    idioma: navigator.language,
-    conectado: navigator.onLine ? "En línea" : "Desconectado"
-};
-
-console.log("📊 Resumen del entorno del cliente:");
-console.table(estadoNavegador);
-
-// 3. Sentencia debugger: pausa la ejecución en DevTools (F12)
-console.log("Iniciando pausa de depuración con la sentencia debugger...");
-debugger; // Si abres F12 -> Sources, el navegador pausará la ejecución aquí
-console.log("Depuración finalizada con éxito.");
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

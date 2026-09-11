@@ -234,61 +234,63 @@ console.log(jsonAXml(alumnos));</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "// Conversor de XML a Objetos JSON\nfunction xmlAJson(cadenaXML) {\n    const parser = new DOMParser();\n    const doc = parser.parseFromString(cadenaXML, \"text/xml\");\n    \n    // Comprobación de errores de parseo XML\n    const parseError = doc.querySelector(\"parsererror\");\n    if (parseError) {\n        throw new Error(\"Sintaxis XML defectuosa: \" + parseError.textContent);\n    }\n\n    const estudiantesXML = doc.getElementsByTagName(\"estudiante\");\n    const resultado = [];\n\n    for (const est of estudiantesXML) {\n        resultado.push({\n            id: Number(est.getAttribute(\"id\")),\n            nombre: est.getElementsByTagName(\"nombre\")[0]?.textContent || \"\",\n            nota: Number(est.getElementsByTagName(\"nota\")[0]?.textContent || 0)\n        });\n    }\n\n    return resultado;\n}\n\n// Conversor de Objetos JSON a XML\nfunction jsonAXml(estudiantes) {\n    let xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\\\\n<estudiantes>\\\\n';\n    \n    for (const est of estudiantes) {\n        xml += \\`  <estudiante id=\"\\${est.id}\">\\\\n\\`;\n        xml += \\`    <nombre>\\${est.nombre}</nombre>\\\\n\\`;\n        xml += \\`    <nota>\\${est.nota}</nota>\\\\n\\`;\n        xml += \\`  </estudiante>\\\\n\\`;\n    }\n    \n    xml += '</estudiantes>';\n    return xml;\n}\n\n// Prueba con datos\nconst xmlEntrada = \\`<estudiantes>\n  <estudiante id=\"1\"><nombre>Ana</nombre><nota>9.5</nota></estudiante>\n  <estudiante id=\"2\"><nombre>Luis</nombre><nota>7.2</nota></estudiante>\n</estudiantes>\\`;\n\nconst alumnos = xmlAJson(xmlEntrada);\nconsole.log(\"Objetos extraídos del XML:\", alumnos);\nconsole.log(\"XML Regenerado:\");\nconsole.log(jsonAXml(alumnos));";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-// Conversor de XML a Objetos JSON
-function xmlAJson(cadenaXML) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(cadenaXML, "text/xml");
-    
-    // Comprobación de errores de parseo XML
-    const parseError = doc.querySelector("parsererror");
-    if (parseError) {
-        throw new Error("Sintaxis XML defectuosa: " + parseError.textContent);
-    }
+      const code = RAW_SOLUTION.trim();
 
-    const estudiantesXML = doc.getElementsByTagName("estudiante");
-    const resultado = [];
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-    for (const est of estudiantesXML) {
-        resultado.push({
-            id: Number(est.getAttribute("id")),
-            nombre: est.getElementsByTagName("nombre")[0]?.textContent || "",
-            nota: Number(est.getElementsByTagName("nota")[0]?.textContent || 0)
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
         });
-    }
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-    return resultado;
-}
-
-// Conversor de Objetos JSON a XML
-function jsonAXml(estudiantes) {
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\\n<estudiantes>\\n';
-    
-    for (const est of estudiantes) {
-        xml += \`  <estudiante id="\${est.id}">\\n\`;
-        xml += \`    <nombre>\${est.nombre}</nombre>\\n\`;
-        xml += \`    <nota>\${est.nota}</nota>\\n\`;
-        xml += \`  </estudiante>\\n\`;
-    }
-    
-    xml += '</estudiantes>';
-    return xml;
-}
-
-// Prueba con datos
-const xmlEntrada = \`<estudiantes>
-  <estudiante id="1"><nombre>Ana</nombre><nota>9.5</nota></estudiante>
-  <estudiante id="2"><nombre>Luis</nombre><nota>7.2</nota></estudiante>
-</estudiantes>\`;
-
-const alumnos = xmlAJson(xmlEntrada);
-console.log("Objetos extraídos del XML:", alumnos);
-console.log("XML Regenerado:");
-console.log(jsonAXml(alumnos));
-        })();
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

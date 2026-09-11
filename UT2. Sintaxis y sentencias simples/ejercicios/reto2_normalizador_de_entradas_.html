@@ -217,44 +217,63 @@ console.table(normalizarUsuario(usuarioBruto));</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function normalizarUsuario(entrada) {\n    // Desestructuración con valores por defecto\n    let { id, nombre, edad, activo, salario } = entrada;\n\n    // Normalización de tipos\n    id = Number(id);\n    nombre = String(nombre).trim();\n    \n    // Casting de edad y control de NaN\n    let edadNumerica = Number.parseInt(edad, 10);\n    if (Number.isNaN(edadNumerica)) {\n        edadNumerica = null;\n    }\n    edadNumerica ??= 18; // Operador nullish: si es null/undefined toma 18\n\n    // Coerción a booleano estricto\n    activo = Boolean(Number(activo));\n\n    // Conversión de formato numérico decimal con coma a punto\n    salario = Number.parseFloat(String(salario).replace(',', '.'));\n\n    return {\n        id,\n        nombre,\n        edad: edadNumerica,\n        activo,\n        salario: Number.isNaN(salario) ? 0 : salario\n    };\n}\n\n// Prueba con datos sucios de formulario\nconst usuarioBruto = { id: \"402\", nombre: \"  Carlos Santana  \", edad: \"invalida\", activo: 1, salario: \"2450,75\" };\nconsole.table(normalizarUsuario(usuarioBruto));";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function normalizarUsuario(entrada) {
-    // Desestructuración con valores por defecto
-    let { id, nombre, edad, activo, salario } = entrada;
-
-    // Normalización de tipos
-    id = Number(id);
-    nombre = String(nombre).trim();
-    
-    // Casting de edad y control de NaN
-    let edadNumerica = Number.parseInt(edad, 10);
-    if (Number.isNaN(edadNumerica)) {
-        edadNumerica = null;
-    }
-    edadNumerica ??= 18; // Operador nullish: si es null/undefined toma 18
-
-    // Coerción a booleano estricto
-    activo = Boolean(Number(activo));
-
-    // Conversión de formato numérico decimal con coma a punto
-    salario = Number.parseFloat(String(salario).replace(',', '.'));
-
-    return {
-        id,
-        nombre,
-        edad: edadNumerica,
-        activo,
-        salario: Number.isNaN(salario) ? 0 : salario
-    };
-}
-
-// Prueba con datos sucios de formulario
-const usuarioBruto = { id: "402", nombre: "  Carlos Santana  ", edad: "invalida", activo: 1, salario: "2450,75" };
-console.table(normalizarUsuario(usuarioBruto));
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

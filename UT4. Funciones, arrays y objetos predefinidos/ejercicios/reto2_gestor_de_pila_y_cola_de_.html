@@ -230,57 +230,63 @@ gestor.mostrar();</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "class GestorTareas {\n    constructor() {\n        this.tareas = [];\n    }\n\n    agregarTareaRegular(tarea) {\n        this.tareas.push({ id: Date.now() + Math.random(), titulo: tarea, prioridad: \"Normal\" });\n    }\n\n    agregarTareaUrgente(tarea) {\n        this.tareas.unshift({ id: Date.now() + Math.random(), titulo: tarea, prioridad: \"URGENTE\" });\n    }\n\n    procesarSiguiente() {\n        const atendida = this.tareas.shift();\n        console.log(\"Procesando tarea:\", atendida?.titulo ?? \"Cola vacía\");\n        return atendida;\n    }\n\n    rotarCola() {\n        if (this.tareas.length > 1) {\n            const cabeza = this.tareas.shift();\n            this.tareas.push(cabeza);\n            console.log(\"Cola rotada: el primer elemento pasa al final.\");\n        }\n    }\n\n    eliminarPorIndice(indice) {\n        if (indice >= 0 && indice < this.tareas.length) {\n            const [eliminada] = this.tareas.splice(indice, 1);\n            console.log(\"Tarea eliminada:\", eliminada.titulo);\n        }\n    }\n\n    mostrar() {\n        console.table(this.tareas);\n    }\n}\n\nconst gestor = new GestorTareas();\ngestor.agregarTareaRegular(\"Generar informe mensual\");\ngestor.agregarTareaRegular(\"Limpiar logs de acceso\");\ngestor.agregarTareaUrgente(\"Parchear vulnerabilidad crítica\");\ngestor.mostrar();\ngestor.rotarCola();\ngestor.mostrar();";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-class GestorTareas {
-    constructor() {
-        this.tareas = [];
-    }
-
-    agregarTareaRegular(tarea) {
-        this.tareas.push({ id: Date.now() + Math.random(), titulo: tarea, prioridad: "Normal" });
-    }
-
-    agregarTareaUrgente(tarea) {
-        this.tareas.unshift({ id: Date.now() + Math.random(), titulo: tarea, prioridad: "URGENTE" });
-    }
-
-    procesarSiguiente() {
-        const atendida = this.tareas.shift();
-        console.log("Procesando tarea:", atendida?.titulo ?? "Cola vacía");
-        return atendida;
-    }
-
-    rotarCola() {
-        if (this.tareas.length > 1) {
-            const cabeza = this.tareas.shift();
-            this.tareas.push(cabeza);
-            console.log("Cola rotada: el primer elemento pasa al final.");
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-    }
-
-    eliminarPorIndice(indice) {
-        if (indice >= 0 && indice < this.tareas.length) {
-            const [eliminada] = this.tareas.splice(indice, 1);
-            console.log("Tarea eliminada:", eliminada.titulo);
-        }
-    }
-
-    mostrar() {
-        console.table(this.tareas);
-    }
-}
-
-const gestor = new GestorTareas();
-gestor.agregarTareaRegular("Generar informe mensual");
-gestor.agregarTareaRegular("Limpiar logs de acceso");
-gestor.agregarTareaUrgente("Parchear vulnerabilidad crítica");
-gestor.mostrar();
-gestor.rotarCola();
-gestor.mostrar();
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

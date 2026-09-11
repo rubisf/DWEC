@@ -238,65 +238,63 @@ console.table(procesarInventario(productosTest).catalogoProcesado);</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function procesarInventario(articulos) {\n    const catalogoProcesado = [];\n    let errorCritico = false;\n\n    for (const prod of articulos) {\n        // Control de anomalía crítica: interrupción con break\n        if (prod.precio < 0) {\n            console.error(\"ALERTA CRÍTICA: Precio negativo detectado en ID \" + prod.id + \". Proceso detenido.\");\n            errorCritico = true;\n            break;\n        }\n\n        // Producto sin existencias: salto con continue\n        if (prod.stock === 0) {\n            console.warn(\"Stock agotado para \" + prod.nombre + \". Omitiendo de catálogo activo.\");\n            continue;\n        }\n\n        let descuento = 0;\n        switch (prod.categoria) {\n            case \"informatica\":\n                descuento = 0.10; // 10%\n                break;\n            case \"telefonia\":\n                descuento = 0.15; // 15%\n                break;\n            case \"accesorios\":\n                descuento = 0.20; // 20%\n                break;\n            default:\n                descuento = 0.05; // 5% base\n        }\n\n        const precioFinal = Number((prod.precio * (1 - descuento)).toFixed(2));\n        catalogoProcesado.push({\n            id: prod.id,\n            nombre: prod.nombre,\n            precioOriginal: prod.precio,\n            precioFinal,\n            ahorro: Number((prod.precio - precioFinal).toFixed(2))\n        });\n    }\n\n    return { catalogoProcesado, estado: errorCritico ? \"Interrumpido con Errores\" : \"Procesado con Éxito\" };\n}\n\nconst productosTest = [\n    { id: 1, nombre: \"Portátil i7\", categoria: \"informatica\", precio: 899, stock: 5 },\n    { id: 2, nombre: \"Ratón Gaming\", categoria: \"accesorios\", precio: 25, stock: 0 }, // Salta\n    { id: 3, nombre: \"Funda Móvil\", categoria: \"telefonia\", precio: 15, stock: 20 },\n    { id: 4, nombre: \"Teclado\", categoria: \"informatica\", precio: 45, stock: 12 }\n];\n\nconsole.table(procesarInventario(productosTest).catalogoProcesado);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-function procesarInventario(articulos) {
-    const catalogoProcesado = [];
-    let errorCritico = false;
+      const code = RAW_SOLUTION.trim();
 
-    for (const prod of articulos) {
-        // Control de anomalía crítica: interrupción con break
-        if (prod.precio < 0) {
-            console.error("ALERTA CRÍTICA: Precio negativo detectado en ID " + prod.id + ". Proceso detenido.");
-            errorCritico = true;
-            break;
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-        // Producto sin existencias: salto con continue
-        if (prod.stock === 0) {
-            console.warn("Stock agotado para " + prod.nombre + ". Omitiendo de catálogo activo.");
-            continue;
-        }
-
-        let descuento = 0;
-        switch (prod.categoria) {
-            case "informatica":
-                descuento = 0.10; // 10%
-                break;
-            case "telefonia":
-                descuento = 0.15; // 15%
-                break;
-            case "accesorios":
-                descuento = 0.20; // 20%
-                break;
-            default:
-                descuento = 0.05; // 5% base
-        }
-
-        const precioFinal = Number((prod.precio * (1 - descuento)).toFixed(2));
-        catalogoProcesado.push({
-            id: prod.id,
-            nombre: prod.nombre,
-            precioOriginal: prod.precio,
-            precioFinal,
-            ahorro: Number((prod.precio - precioFinal).toFixed(2))
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
         });
-    }
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-    return { catalogoProcesado, estado: errorCritico ? "Interrumpido con Errores" : "Procesado con Éxito" };
-}
-
-const productosTest = [
-    { id: 1, nombre: "Portátil i7", categoria: "informatica", precio: 899, stock: 5 },
-    { id: 2, nombre: "Ratón Gaming", categoria: "accesorios", precio: 25, stock: 0 }, // Salta
-    { id: 3, nombre: "Funda Móvil", categoria: "telefonia", precio: 15, stock: 20 },
-    { id: 4, nombre: "Teclado", categoria: "informatica", precio: 45, stock: 12 }
-];
-
-console.table(procesarInventario(productosTest).catalogoProcesado);
-        })();
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

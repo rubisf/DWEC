@@ -231,58 +231,63 @@ configurarReceptorSeguro();</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "// === PROTOCOLO DE MENSAJERÍA SEGURA CLIENTE ===\n\n// CÓDIGO DEL RECEPTOR (Popup o Iframe)\nfunction configurarReceptorSeguro() {\n    window.addEventListener('message', (evento) => {\n        // 1. Verificación obligatoria de origen de procedencia\n        if (evento.origin !== window.location.origin) {\n            console.error(\"Acceso denegado: Procedencia no confiable ->\", evento.origin);\n            return;\n        }\n\n        const mensaje = evento.data;\n        console.log(\"📨 Mensaje recibido de origen legítimo:\", mensaje);\n\n        // 2. Procesar acción requerida\n        if (mensaje?.accion === \"AUTENTICAR\") {\n            console.log(\"Procesando token de sesión:\", mensaje.token);\n\n            // 3. Responder al remitente a través de event.source\n            if (evento.source) {\n                evento.source.postMessage({\n                    estado: \"SESION_ESTABLECIDA\",\n                    tiempo: Date.now()\n                }, evento.origin);\n            }\n        }\n    });\n}\n\n// CÓDIGO DEL EMISOR (Ventana Principal)\nfunction emitirAutenticacion(ventanaDestino) {\n    if (!ventanaDestino || ventanaDestino.closed) {\n        console.warn(\"Imposible enviar mensaje: Ventana destino cerrada.\");\n        return;\n    }\n\n    const payload = {\n        accion: \"AUTENTICAR\",\n        token: \"JWT_SECURE_TOKEN_XYZ_123\"\n    };\n\n    // Envío especificando origen exacto (sin comodín '*')\n    ventanaDestino.postMessage(payload, window.location.origin);\n    console.log(\"📤 Mensaje de autenticación despachado.\");\n}\n\nconfigurarReceptorSeguro();";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-// === PROTOCOLO DE MENSAJERÍA SEGURA CLIENTE ===
+      const code = RAW_SOLUTION.trim();
 
-// CÓDIGO DEL RECEPTOR (Popup o Iframe)
-function configurarReceptorSeguro() {
-    window.addEventListener('message', (evento) => {
-        // 1. Verificación obligatoria de origen de procedencia
-        if (evento.origin !== window.location.origin) {
-            console.error("Acceso denegado: Procedencia no confiable ->", evento.origin);
-            return;
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-
-        const mensaje = evento.data;
-        console.log("📨 Mensaje recibido de origen legítimo:", mensaje);
-
-        // 2. Procesar acción requerida
-        if (mensaje?.accion === "AUTENTICAR") {
-            console.log("Procesando token de sesión:", mensaje.token);
-
-            // 3. Responder al remitente a través de event.source
-            if (evento.source) {
-                evento.source.postMessage({
-                    estado: "SESION_ESTABLECIDA",
-                    tiempo: Date.now()
-                }, evento.origin);
-            }
-        }
-    });
-}
-
-// CÓDIGO DEL EMISOR (Ventana Principal)
-function emitirAutenticacion(ventanaDestino) {
-    if (!ventanaDestino || ventanaDestino.closed) {
-        console.warn("Imposible enviar mensaje: Ventana destino cerrada.");
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
         return;
-    }
+      }
 
-    const payload = {
-        accion: "AUTENTICAR",
-        token: "JWT_SECURE_TOKEN_XYZ_123"
-    };
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-    // Envío especificando origen exacto (sin comodín '*')
-    ventanaDestino.postMessage(payload, window.location.origin);
-    console.log("📤 Mensaje de autenticación despachado.");
-}
-
-configurarReceptorSeguro();
-        })();
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

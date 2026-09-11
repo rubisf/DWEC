@@ -214,41 +214,63 @@ inicializarAtajosGlobales();</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function inicializarAtajosGlobales() {\n    window.addEventListener(\"keydown\", (e) => {\n        // 1. Atajo: Cerrar modales con Escape\n        if (e.key === \"Escape\") {\n            console.log(\"Atajo presionado: Escape -> Cerrando elementos flotantes.\");\n            const eventoCierre = new CustomEvent(\"ui:cerrar-modales\", { bubbles: true });\n            document.dispatchEvent(eventoCierre);\n            return;\n        }\n\n        // 2. Atajo: Envío rápido con Ctrl + Enter\n        if ((e.ctrlKey || e.metaKey) && e.key === \"Enter\") {\n            e.preventDefault();\n            console.log(\"Atajo presionado: Ctrl + Enter -> Emitiendo evento de envío rápido.\");\n\n            const eventoEnvio = new CustomEvent(\"formulario:enviar-rapido\", {\n                detail: { origen: \"atajo_teclado\", timestamp: Date.now() },\n                bubbles: true\n            });\n            document.dispatchEvent(eventoEnvio);\n        }\n    });\n\n    // Escuchador de prueba del evento desacoplado\n    document.addEventListener(\"formulario:enviar-rapido\", (e) => {\n        console.log(\"Evento personalizado capturado con éxito:\", e.detail);\n    });\n}\n\ninicializarAtajosGlobales();";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function inicializarAtajosGlobales() {
-    window.addEventListener("keydown", (e) => {
-        // 1. Atajo: Cerrar modales con Escape
-        if (e.key === "Escape") {
-            console.log("Atajo presionado: Escape -> Cerrando elementos flotantes.");
-            const eventoCierre = new CustomEvent("ui:cerrar-modales", { bubbles: true });
-            document.dispatchEvent(eventoCierre);
-            return;
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-
-        // 2. Atajo: Envío rápido con Ctrl + Enter
-        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-            e.preventDefault();
-            console.log("Atajo presionado: Ctrl + Enter -> Emitiendo evento de envío rápido.");
-
-            const eventoEnvio = new CustomEvent("formulario:enviar-rapido", {
-                detail: { origen: "atajo_teclado", timestamp: Date.now() },
-                bubbles: true
-            });
-            document.dispatchEvent(eventoEnvio);
-        }
-    });
-
-    // Escuchador de prueba del evento desacoplado
-    document.addEventListener("formulario:enviar-rapido", (e) => {
-        console.log("Evento personalizado capturado con éxito:", e.detail);
-    });
-}
-
-inicializarAtajosGlobales();
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

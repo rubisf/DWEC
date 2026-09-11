@@ -227,54 +227,63 @@ async function consultarConFetch(url) {
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "// 1. Implementación clásica con XMLHttpRequest encapsulada en Promesa\nfunction consultarConXHR(url) {\n    return new Promise((resolve, reject) => {\n        const xhr = new XMLHttpRequest();\n        xhr.open(\"GET\", url, true);\n        xhr.setRequestHeader(\"Accept\", \"application/json\");\n\n        xhr.onload = () => {\n            if (xhr.status >= 200 && xhr.status < 300) {\n                try {\n                    const datos = JSON.parse(xhr.responseText);\n                    resolve({ motor: \"XMLHttpRequest\", status: xhr.status, datos });\n                } catch (e) {\n                    reject(new Error(\"Error al parsear JSON en XHR: \" + e.message));\n                }\n            } else {\n                reject(new Error(\\`Error XHR [\\${xhr.status}]: \\${xhr.statusText}\\`));\n            }\n        };\n\n        xhr.onerror = () => reject(new Error(\"Fallo de red a nivel de socket en XHR.\"));\n        xhr.send();\n    });\n}\n\n// 2. Implementación moderna con Fetch API y Async/Await\nasync function consultarConFetch(url) {\n    try {\n        const respuesta = await fetch(url, { headers: { \"Accept\": \"application/json\" } });\n        \n        if (!respuesta.ok) {\n            throw new Error(\\`Error Fetch [\\${respuesta.status}]: \\${respuesta.statusText}\\`);\n        }\n\n        const datos = await respuesta.json();\n        return { motor: \"Fetch API\", status: respuesta.status, datos };\n    } catch (error) {\n        throw new Error(\"Fallo en cliente Fetch: \" + error.message);\n    }\n}\n\n// Ejemplo de prueba:\n// consultarConFetch(\"https://jsonplaceholder.typicode.com/todos/1\").then(console.log);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-// 1. Implementación clásica con XMLHttpRequest encapsulada en Promesa
-function consultarConXHR(url) {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader("Accept", "application/json");
+      const code = RAW_SOLUTION.trim();
 
-        xhr.onload = () => {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                try {
-                    const datos = JSON.parse(xhr.responseText);
-                    resolve({ motor: "XMLHttpRequest", status: xhr.status, datos });
-                } catch (e) {
-                    reject(new Error("Error al parsear JSON en XHR: " + e.message));
-                }
-            } else {
-                reject(new Error(\`Error XHR [\${xhr.status}]: \${xhr.statusText}\`));
-            }
-        };
-
-        xhr.onerror = () => reject(new Error("Fallo de red a nivel de socket en XHR."));
-        xhr.send();
-    });
-}
-
-// 2. Implementación moderna con Fetch API y Async/Await
-async function consultarConFetch(url) {
-    try {
-        const respuesta = await fetch(url, { headers: { "Accept": "application/json" } });
-        
-        if (!respuesta.ok) {
-            throw new Error(\`Error Fetch [\${respuesta.status}]: \${respuesta.statusText}\`);
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-        const datos = await respuesta.json();
-        return { motor: "Fetch API", status: respuesta.status, datos };
-    } catch (error) {
-        throw new Error("Fallo en cliente Fetch: " + error.message);
-    }
-}
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-// Ejemplo de prueba:
-// consultarConFetch("https://jsonplaceholder.typicode.com/todos/1").then(console.log);
-        })();
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

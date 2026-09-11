@@ -215,42 +215,63 @@ console.table(calcularAntiguedad(&quot;2023-01-15T08:00:00&quot;));</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function calcularAntiguedad(fechaISO) {\n    const fechaEntrada = new Date(fechaISO);\n    const ahora = Date.now();\n    const diferenciaMs = ahora - fechaEntrada.getTime();\n\n    if (Number.isNaN(diferenciaMs) || diferenciaMs < 0) {\n        throw new Error(\"La fecha proporcionada es inválida o posterior a la actual.\");\n    }\n\n    const unDiaMs = 1000 * 60 * 60 * 24;\n    const diasTranscurridos = Math.floor(diferenciaMs / unDiaMs);\n    const mesesAproximados = Math.floor(diasTranscurridos / 30.44);\n\n    // Formateo con API Intl nativa\n    const fechaFormateada = new Intl.DateTimeFormat('es-ES', {\n        dateStyle: 'full',\n        timeStyle: 'medium'\n    }).format(fechaEntrada);\n\n    // Generador de Token con Math y String (base 36)\n    const token = \"AUDIT-\" + Math.random().toString(36).substring(2, 8).toUpperCase() + \"-\" + Date.now().toString(36).toUpperCase();\n\n    return {\n        tokenConsulta: token,\n        fechaOriginal: fechaFormateada,\n        diasTranscurridos,\n        mesesAproximados\n    };\n}\n\nconsole.table(calcularAntiguedad(\"2023-01-15T08:00:00\"));";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function calcularAntiguedad(fechaISO) {
-    const fechaEntrada = new Date(fechaISO);
-    const ahora = Date.now();
-    const diferenciaMs = ahora - fechaEntrada.getTime();
-
-    if (Number.isNaN(diferenciaMs) || diferenciaMs < 0) {
-        throw new Error("La fecha proporcionada es inválida o posterior a la actual.");
-    }
-
-    const unDiaMs = 1000 * 60 * 60 * 24;
-    const diasTranscurridos = Math.floor(diferenciaMs / unDiaMs);
-    const mesesAproximados = Math.floor(diasTranscurridos / 30.44);
-
-    // Formateo con API Intl nativa
-    const fechaFormateada = new Intl.DateTimeFormat('es-ES', {
-        dateStyle: 'full',
-        timeStyle: 'medium'
-    }).format(fechaEntrada);
-
-    // Generador de Token con Math y String (base 36)
-    const token = "AUDIT-" + Math.random().toString(36).substring(2, 8).toUpperCase() + "-" + Date.now().toString(36).toUpperCase();
-
-    return {
-        tokenConsulta: token,
-        fechaOriginal: fechaFormateada,
-        diasTranscurridos,
-        mesesAproximados
-    };
-}
-
-console.table(calcularAntiguedad("2023-01-15T08:00:00"));
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

@@ -205,32 +205,63 @@ git log --oneline</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "# 1. Inicializar el repositorio en la carpeta local del proyecto\ngit init\n\n# 2. Configurar la identidad del desarrollador\ngit config user.name \"Estudiante DWEC\"\ngit config user.email \"estudiante@daw.es\"\n\n# 3. Comprobar el estado de los archivos en el directorio de trabajo\ngit status\n\n# 4. Añadir todos los archivos modificados a la Zona de Preparación (Staging Area)\ngit add .\n\n# 5. Confirmar los cambios creando el primer commit del proyecto\ngit commit -m \"feat: inicializar proyecto web con HTML5 y JavaScript\"\n\n# 6. Crear y posicionarse en una rama de trabajo llamada 'develop'\ngit checkout -b develop\n\n# Verificación final del historial de versiones\ngit log --oneline";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-# 1. Inicializar el repositorio en la carpeta local del proyecto
-git init
-
-# 2. Configurar la identidad del desarrollador
-git config user.name "Estudiante DWEC"
-git config user.email "estudiante@daw.es"
-
-# 3. Comprobar el estado de los archivos en el directorio de trabajo
-git status
-
-# 4. Añadir todos los archivos modificados a la Zona de Preparación (Staging Area)
-git add .
-
-# 5. Confirmar los cambios creando el primer commit del proyecto
-git commit -m "feat: inicializar proyecto web con HTML5 y JavaScript"
-
-# 6. Crear y posicionarse en una rama de trabajo llamada 'develop'
-git checkout -b develop
-
-# Verificación final del historial de versiones
-git log --oneline
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

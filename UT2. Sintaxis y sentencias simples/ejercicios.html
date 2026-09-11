@@ -343,9 +343,44 @@
 
           const NL = String.fromCharCode(10);
 
-          if (rawCode.trim().startsWith("git ")) {
+          if (rawCode.trim().startsWith("<!DOCTYPE") || rawCode.trim().startsWith("<html")) {
+            log("🌐 [Renderizado de Documento HTML5 en Sandboxed Preview]");
+            if (domStage) domStage.classList.remove("hidden");
+            const appEl = doc.getElementById("app") || domStage;
+            appEl.innerHTML = '';
+            const subFrame = doc.createElement('iframe');
+            subFrame.style.width = "100%";
+            subFrame.style.height = "220px";
+            subFrame.style.border = "1px solid #334155";
+            subFrame.style.borderRadius = "8px";
+            subFrame.style.background = "#ffffff";
+            appEl.appendChild(subFrame);
+            
+            const hookScript = `<script>
+              const _origLog = console.log;
+              console.log = (...a) => {
+                _origLog(...a);
+                if (window.parent && window.parent.parent && window.parent.parent.__workbenchLog) {
+                  window.parent.parent.__workbenchLog('log', a);
+                }
+              };
+            <\/script>`;
+            const finalHtml = rawCode.includes('<head>') ? rawCode.replace('<head>', '<head>' + hookScript) : hookScript + rawCode;
+            subFrame.srcdoc = finalHtml;
+            log("✅ Documento HTML cargado en el contenedor DOM interactivo.");
+            return;
+          }
+
+          if (rawCode.trim().startsWith("git ") || (rawCode.trim().startsWith("#") && rawCode.includes("git "))) {
             log("💻 [Simulador de Consola Git Terminal]");
-            rawCode.split(NL).forEach(cmd => { if (cmd.trim()) log("$ " + cmd); });
+            rawCode.split(NL).forEach(cmd => {
+              const c = cmd.trim();
+              if (c.startsWith("#")) {
+                log("📌 " + c);
+              } else if (c) {
+                log("$ " + c);
+              }
+            });
             log("✅ Secuencia Git ejecutada correctamente en el repositorio local.");
             return;
           }

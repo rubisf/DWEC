@@ -211,38 +211,63 @@
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function resaltarFilaContextual(elementoClicado) {\n    // 1. Localizar la fila <tr> ascendiendo en el árbol DOM\n    const fila = elementoClicado.closest(\"tr\");\n    \n    if (!fila) {\n        console.warn(\"El clic no ocurrió dentro de ninguna fila de tabla.\");\n        return null;\n    }\n\n    // 2. Verificar el estado actual con matches()\n    const yaSeleccionada = fila.matches(\".fila-activa\");\n\n    if (yaSeleccionada) {\n        fila.classList.remove(\"fila-activa\");\n        fila.style.backgroundColor = \"\";\n        console.log(\\`Fila deseleccionada: ID \\${fila.dataset.id || 'S/N'}\\`);\n    } else {\n        fila.classList.add(\"fila-activa\");\n        fila.style.backgroundColor = \"#e0e7ff\";\n        console.log(\\`Fila seleccionada: ID \\${fila.dataset.id || 'S/N'}\\`);\n    }\n\n    return fila;\n}\n\n// Simulación de llamada:\n// document.querySelector('table').onclick = (e) => resaltarFilaContextual(e.target);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function resaltarFilaContextual(elementoClicado) {
-    // 1. Localizar la fila <tr> ascendiendo en el árbol DOM
-    const fila = elementoClicado.closest("tr");
-    
-    if (!fila) {
-        console.warn("El clic no ocurrió dentro de ninguna fila de tabla.");
-        return null;
-    }
-
-    // 2. Verificar el estado actual con matches()
-    const yaSeleccionada = fila.matches(".fila-activa");
-
-    if (yaSeleccionada) {
-        fila.classList.remove("fila-activa");
-        fila.style.backgroundColor = "";
-        console.log(\`Fila deseleccionada: ID \${fila.dataset.id || 'S/N'}\`);
-    } else {
-        fila.classList.add("fila-activa");
-        fila.style.backgroundColor = "#e0e7ff";
-        console.log(\`Fila seleccionada: ID \${fila.dataset.id || 'S/N'}\`);
-    }
-
-    return fila;
-}
-
-// Simulación de llamada:
-// document.querySelector('table').onclick = (e) => resaltarFilaContextual(e.target);
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

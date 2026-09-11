@@ -243,70 +243,63 @@ procesarRespuestaServidor({
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function procesarRespuestaServidor(respuesta) {\n    const status = respuesta.status;\n    const familiaCodigo = Math.floor(status / 100);\n    const contentType = respuesta.headers?.[\"Content-Type\"] || \"desconocido\";\n\n    let diagnostico = {\n        status,\n        statusText: respuesta.statusText || \"Sin descripción\",\n        contentType,\n        esExito: false,\n        categoria: \"\",\n        mensajeUsuario: \"\"\n    };\n\n    switch (familiaCodigo) {\n        case 2:\n            diagnostico.esExito = true;\n            diagnostico.categoria = \"2xx - Éxito\";\n            diagnostico.mensajeUsuario = status === 201 \n                ? \"Registro creado correctamente.\" \n                : \"Operación realizada con éxito.\";\n            break;\n        case 3:\n            diagnostico.categoria = \"3xx - Redirección\";\n            diagnostico.mensajeUsuario = \"El recurso ha sido reubicado.\";\n            break;\n        case 4:\n            diagnostico.categoria = \"4xx - Error de Cliente\";\n            diagnostico.mensajeUsuario = status === 404 \n                ? \"El elemento solicitado no existe.\" \n                : \"Solicitud incorrecta o sin autorización suficiente.\";\n            break;\n        case 5:\n            diagnostico.categoria = \"5xx - Error de Servidor\";\n            diagnostico.mensajeUsuario = \"Fallo interno en el servidor. Reintentando en unos momentos...\";\n            break;\n        default:\n            diagnostico.categoria = \"Código Desconocido\";\n            diagnostico.mensajeUsuario = \"Respuesta de red no estandarizada.\";\n    }\n\n    console.log(\"=== Diagnóstico de Respuesta HTTP ===\");\n    console.table(diagnostico);\n    return diagnostico;\n}\n\n// Prueba con simulación de respuestas\nprocesarRespuestaServidor({\n    status: 200,\n    statusText: \"OK\",\n    headers: { \"Content-Type\": \"application/json\" },\n    data: { usuarios: [] }\n});\n\nprocesarRespuestaServidor({\n    status: 404,\n    statusText: \"Not Found\",\n    headers: { \"Content-Type\": \"application/json\" }\n});";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function procesarRespuestaServidor(respuesta) {
-    const status = respuesta.status;
-    const familiaCodigo = Math.floor(status / 100);
-    const contentType = respuesta.headers?.["Content-Type"] || "desconocido";
-
-    let diagnostico = {
-        status,
-        statusText: respuesta.statusText || "Sin descripción",
-        contentType,
-        esExito: false,
-        categoria: "",
-        mensajeUsuario: ""
-    };
-
-    switch (familiaCodigo) {
-        case 2:
-            diagnostico.esExito = true;
-            diagnostico.categoria = "2xx - Éxito";
-            diagnostico.mensajeUsuario = status === 201 
-                ? "Registro creado correctamente." 
-                : "Operación realizada con éxito.";
-            break;
-        case 3:
-            diagnostico.categoria = "3xx - Redirección";
-            diagnostico.mensajeUsuario = "El recurso ha sido reubicado.";
-            break;
-        case 4:
-            diagnostico.categoria = "4xx - Error de Cliente";
-            diagnostico.mensajeUsuario = status === 404 
-                ? "El elemento solicitado no existe." 
-                : "Solicitud incorrecta o sin autorización suficiente.";
-            break;
-        case 5:
-            diagnostico.categoria = "5xx - Error de Servidor";
-            diagnostico.mensajeUsuario = "Fallo interno en el servidor. Reintentando en unos momentos...";
-            break;
-        default:
-            diagnostico.categoria = "Código Desconocido";
-            diagnostico.mensajeUsuario = "Respuesta de red no estandarizada.";
-    }
-
-    console.log("=== Diagnóstico de Respuesta HTTP ===");
-    console.table(diagnostico);
-    return diagnostico;
-}
-
-// Prueba con simulación de respuestas
-procesarRespuestaServidor({
-    status: 200,
-    statusText: "OK",
-    headers: { "Content-Type": "application/json" },
-    data: { usuarios: [] }
-});
-
-procesarRespuestaServidor({
-    status: 404,
-    statusText: "Not Found",
-    headers: { "Content-Type": "application/json" }
-});
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

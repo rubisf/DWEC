@@ -207,34 +207,63 @@
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function configurarBotonConLimite(botonElemento, maxIntentos = 3) {\n    let clicsRealizados = 0;\n    const controller = new AbortController();\n\n    function manejarClic(evento) {\n        clicsRealizados++;\n        console.log(\\`Clic \\${clicsRealizados}/\\${maxIntentos} registrado en \\${evento.currentTarget.id}\\`);\n\n        if (clicsRealizados >= maxIntentos) {\n            console.warn(\"Límite de interacciones alcanzado. Desvinculando escuchador...\");\n            controller.abort(); // Destruye el listener automáticamente\n            botonElemento.disabled = true;\n            botonElemento.textContent = \"Límite Alcanzado 🔒\";\n        }\n    }\n\n    botonElemento.addEventListener(\"click\", manejarClic, { signal: controller.signal });\n    console.log(\"Escuchador con señal de cancelación registrado con éxito.\");\n}\n\n// Simulación de uso con un botón\n// const btn = document.getElementById('mi-boton');\n// configurarBotonConLimite(btn, 3);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-function configurarBotonConLimite(botonElemento, maxIntentos = 3) {
-    let clicsRealizados = 0;
-    const controller = new AbortController();
+      const code = RAW_SOLUTION.trim();
 
-    function manejarClic(evento) {
-        clicsRealizados++;
-        console.log(\`Clic \${clicsRealizados}/\${maxIntentos} registrado en \${evento.currentTarget.id}\`);
-
-        if (clicsRealizados >= maxIntentos) {
-            console.warn("Límite de interacciones alcanzado. Desvinculando escuchador...");
-            controller.abort(); // Destruye el listener automáticamente
-            botonElemento.disabled = true;
-            botonElemento.textContent = "Límite Alcanzado 🔒";
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-    }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-    botonElemento.addEventListener("click", manejarClic, { signal: controller.signal });
-    console.log("Escuchador con señal de cancelación registrado con éxito.");
-}
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
 
-// Simulación de uso con un botón
-// const btn = document.getElementById('mi-boton');
-// configurarBotonConLimite(btn, 3);
-        })();
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

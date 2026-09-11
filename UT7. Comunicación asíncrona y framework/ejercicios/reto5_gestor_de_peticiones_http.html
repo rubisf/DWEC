@@ -234,61 +234,63 @@ api.get(&quot;/todos/1&quot;).then(res =&gt; console.log(&quot;Datos recibidos:&
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "class HttpClient {\n    constructor(baseURL = \"\", timeoutMs = 5000) {\n        this.baseURL = baseURL.replace(/\\\\/$/, \"\");\n        this.timeoutMs = timeoutMs;\n        this.tokenAuth = null;\n    }\n\n    setToken(token) {\n        this.tokenAuth = token;\n    }\n\n    async get(endpoint) {\n        const urlCompleta = this.baseURL + \"/\" + endpoint.replace(/^\\\\//, \"\");\n        \n        // Configuración de cabeceras (Interceptor)\n        const headers = { \"Accept\": \"application/json\" };\n        if (this.tokenAuth) {\n            headers[\"Authorization\"] = \\`Bearer \\${this.tokenAuth}\\`;\n        }\n\n        try {\n            // Cancelación nativa con AbortSignal por timeout\n            const respuesta = await fetch(urlCompleta, {\n                method: \"GET\",\n                headers,\n                signal: AbortSignal.timeout(this.timeoutMs)\n            });\n\n            if (!respuesta.ok) {\n                const error = new Error(\\`Error HTTP \\${respuesta.status}: \\${respuesta.statusText}\\`);\n                error.status = respuesta.status;\n                throw error;\n            }\n\n            const data = await respuesta.json();\n            return { data, status: respuesta.status };\n\n        } catch (error) {\n            if (error.name === \"TimeoutError\") {\n                console.error(\\`⏱️ Petición cancelada: Superó el tiempo límite de \\${this.timeoutMs}ms.\\`);\n            }\n            throw error;\n        }\n    }\n}\n\n// Comprobación de uso\nconst api = new HttpClient(\"https://jsonplaceholder.typicode.com\", 3000);\napi.setToken(\"MI_JWT_DE_PRUEBA\");\napi.get(\"/todos/1\").then(res => console.log(\"Datos recibidos:\", res.data));";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-class HttpClient {
-    constructor(baseURL = "", timeoutMs = 5000) {
-        this.baseURL = baseURL.replace(/\\/$/, "");
-        this.timeoutMs = timeoutMs;
-        this.tokenAuth = null;
-    }
-
-    setToken(token) {
-        this.tokenAuth = token;
-    }
-
-    async get(endpoint) {
-        const urlCompleta = this.baseURL + "/" + endpoint.replace(/^\\//, "");
-        
-        // Configuración de cabeceras (Interceptor)
-        const headers = { "Accept": "application/json" };
-        if (this.tokenAuth) {
-            headers["Authorization"] = \`Bearer \${this.tokenAuth}\`;
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-
-        try {
-            // Cancelación nativa con AbortSignal por timeout
-            const respuesta = await fetch(urlCompleta, {
-                method: "GET",
-                headers,
-                signal: AbortSignal.timeout(this.timeoutMs)
-            });
-
-            if (!respuesta.ok) {
-                const error = new Error(\`Error HTTP \${respuesta.status}: \${respuesta.statusText}\`);
-                error.status = respuesta.status;
-                throw error;
-            }
-
-            const data = await respuesta.json();
-            return { data, status: respuesta.status };
-
-        } catch (error) {
-            if (error.name === "TimeoutError") {
-                console.error(\`⏱️ Petición cancelada: Superó el tiempo límite de \${this.timeoutMs}ms.\`);
-            }
-            throw error;
-        }
-    }
-}
-
-// Comprobación de uso
-const api = new HttpClient("https://jsonplaceholder.typicode.com", 3000);
-api.setToken("MI_JWT_DE_PRUEBA");
-api.get("/todos/1").then(res => console.log("Datos recibidos:", res.data));
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

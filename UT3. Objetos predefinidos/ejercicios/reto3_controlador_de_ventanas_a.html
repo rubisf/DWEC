@@ -222,49 +222,63 @@ const gestor = new GestorVentanaEmergente(640, 480);
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "class GestorVentanaEmergente {\n    constructor(ancho = 600, alto = 450) {\n        this.ancho = ancho;\n        this.alto = alto;\n        this.referencia = null;\n    }\n\n    abrirCentrada(url = \"\") {\n        // Cálculo de posición centrada en el monitor del usuario\n        const left = Math.max(0, Math.floor((window.screen.width - this.ancho) / 2));\n        const top = Math.max(0, Math.floor((window.screen.height - this.alto) / 2));\n        const specs = \\`width=\\${this.ancho},height=\\${this.alto},left=\\${left},top=\\${top},resizable=yes,scrollbars=yes\\`;\n\n        this.referencia = window.open(url, \"VentanaCentrada\", specs);\n\n        if (!this.referencia) {\n            console.error(\"❌ Ventana bloqueada. Por favor, habilite los popups en la barra de direcciones.\");\n            return false;\n        }\n\n        console.log(\"✅ Ventana abierta con éxito en posición:\", { left, top });\n        return true;\n    }\n\n    cerrar() {\n        if (this.referencia && !this.referencia.closed) {\n            this.referencia.close();\n            console.log(\"Ventana auxiliar cerrada programáticamente.\");\n            this.referencia = null;\n        } else {\n            console.warn(\"La ventana ya estaba cerrada o nunca fue abierta.\");\n        }\n    }\n}\n\n// Uso del gestor\nconst gestor = new GestorVentanaEmergente(640, 480);\n// gestor.abrirCentrada(); // Requiere evento de usuario en navegador";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-class GestorVentanaEmergente {
-    constructor(ancho = 600, alto = 450) {
-        this.ancho = ancho;
-        this.alto = alto;
-        this.referencia = null;
-    }
-
-    abrirCentrada(url = "") {
-        // Cálculo de posición centrada en el monitor del usuario
-        const left = Math.max(0, Math.floor((window.screen.width - this.ancho) / 2));
-        const top = Math.max(0, Math.floor((window.screen.height - this.alto) / 2));
-        const specs = \`width=\${this.ancho},height=\${this.alto},left=\${left},top=\${top},resizable=yes,scrollbars=yes\`;
-
-        this.referencia = window.open(url, "VentanaCentrada", specs);
-
-        if (!this.referencia) {
-            console.error("❌ Ventana bloqueada. Por favor, habilite los popups en la barra de direcciones.");
-            return false;
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-
-        console.log("✅ Ventana abierta con éxito en posición:", { left, top });
-        return true;
-    }
-
-    cerrar() {
-        if (this.referencia && !this.referencia.closed) {
-            this.referencia.close();
-            console.log("Ventana auxiliar cerrada programáticamente.");
-            this.referencia = null;
-        } else {
-            console.warn("La ventana ya estaba cerrada o nunca fue abierta.");
-        }
-    }
-}
-
-// Uso del gestor
-const gestor = new GestorVentanaEmergente(640, 480);
-// gestor.abrirCentrada(); // Requiere evento de usuario en navegador
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

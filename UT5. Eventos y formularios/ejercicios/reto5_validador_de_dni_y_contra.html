@@ -237,64 +237,63 @@ function auditarSeguridadContrasena(inputPassword) {
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "// 1. Validador Algorítmico de DNI Español\nfunction validarDNI(inputDNI) {\n    const valor = inputDNI.value.trim().toUpperCase();\n    const regexFormato = /^[0-9]{8}[A-Z]$/;\n\n    if (!regexFormato.test(valor)) {\n        inputDNI.setCustomValidity(\"El DNI debe componerse de 8 dígitos y una letra mayúscula final.\");\n        return false;\n    }\n\n    const numero = parseInt(valor.slice(0, 8), 10);\n    const letraIngresada = valor.charAt(8);\n    const tablaLetras = \"TRWAGMYFPDXBNJZSQVHLCKE\";\n    const letraCalculada = tablaLetras[numero % 23];\n\n    if (letraIngresada !== letraCalculada) {\n        inputDNI.setCustomValidity(`Letra de control inválida. Para ${numero} corresponde la letra '${letraCalculada}'.`);\n        return false;\n    }\n\n    inputDNI.setCustomValidity(\"\"); // Campo 100% válido\n    console.log(\"✅ DNI validado con éxito:\", valor);\n    return true;\n}\n\n// 2. Auditor Reactivo de Complejidad de Contraseña\nfunction auditarSeguridadContrasena(inputPassword) {\n    inputPassword.addEventListener(\"input\", () => {\n        const pass = inputPassword.value;\n        const faltantes = [];\n\n        if (pass.length < 8) faltantes.push(\"mínimo 8 caracteres\");\n        if (!/[A-Z]/.test(pass)) faltantes.push(\"al menos una mayúscula\");\n        if (!/[a-z]/.test(pass)) faltantes.push(\"al menos una minúscula\");\n        if (!/[0-9]/.test(pass)) faltantes.push(\"al menos un dígito numérico\");\n        if (!/[@$!%*?&._-]/.test(pass)) faltantes.push(\"un carácter especial (@$!%*?&._-)\");\n\n        if (faltantes.length > 0) {\n            inputPassword.setCustomValidity(\"Requisitos pendientes: \" + faltantes.join(\", \"));\n            inputPassword.style.borderColor = \"#ef4444\";\n        } else {\n            inputPassword.setCustomValidity(\"\"); // Conforme\n            inputPassword.style.borderColor = \"#10b981\";\n            console.log(\"✅ Contraseña robusta verificada.\");\n        }\n    });\n}\n\n// Inicialización de prueba\n// const inputDni = document.getElementById('dni');\n// const inputPass = document.getElementById('password');\n// inputDni.onblur = () => validarDNI(inputDni);\n// auditarSeguridadContrasena(inputPass);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-// 1. Validador Algorítmico de DNI Español
-function validarDNI(inputDNI) {
-    const valor = inputDNI.value.trim().toUpperCase();
-    const regexFormato = /^[0-9]{8}[A-Z]$/;
+      const code = RAW_SOLUTION.trim();
 
-    if (!regexFormato.test(valor)) {
-        inputDNI.setCustomValidity("El DNI debe componerse de 8 dígitos y una letra mayúscula final.");
-        return false;
-    }
-
-    const numero = parseInt(valor.slice(0, 8), 10);
-    const letraIngresada = valor.charAt(8);
-    const tablaLetras = "TRWAGMYFPDXBNJZSQVHLCKE";
-    const letraCalculada = tablaLetras[numero % 23];
-
-    if (letraIngresada !== letraCalculada) {
-        inputDNI.setCustomValidity(`Letra de control inválida. Para ${numero} corresponde la letra '${letraCalculada}'.`);
-        return false;
-    }
-
-    inputDNI.setCustomValidity(""); // Campo 100% válido
-    console.log("✅ DNI validado con éxito:", valor);
-    return true;
-}
-
-// 2. Auditor Reactivo de Complejidad de Contraseña
-function auditarSeguridadContrasena(inputPassword) {
-    inputPassword.addEventListener("input", () => {
-        const pass = inputPassword.value;
-        const faltantes = [];
-
-        if (pass.length < 8) faltantes.push("mínimo 8 caracteres");
-        if (!/[A-Z]/.test(pass)) faltantes.push("al menos una mayúscula");
-        if (!/[a-z]/.test(pass)) faltantes.push("al menos una minúscula");
-        if (!/[0-9]/.test(pass)) faltantes.push("al menos un dígito numérico");
-        if (!/[@$!%*?&._-]/.test(pass)) faltantes.push("un carácter especial (@$!%*?&._-)");
-
-        if (faltantes.length > 0) {
-            inputPassword.setCustomValidity("Requisitos pendientes: " + faltantes.join(", "));
-            inputPassword.style.borderColor = "#ef4444";
-        } else {
-            inputPassword.setCustomValidity(""); // Conforme
-            inputPassword.style.borderColor = "#10b981";
-            console.log("✅ Contraseña robusta verificada.");
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
         }
-    });
-}
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
 
-// Inicialización de prueba
-// const inputDni = document.getElementById('dni');
-// const inputPass = document.getElementById('password');
-// inputDni.onblur = () => validarDNI(inputDni);
-// auditarSeguridadContrasena(inputPass);
-        })();
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

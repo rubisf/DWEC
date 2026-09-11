@@ -242,69 +242,63 @@ calc.analizar([10, &quot;veinte&quot;, 30]);</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "/**\n * @typedef {Object} ResumenEstadistico\n * @property {number} total - Suma acumulada de los valores.\n * @property {number} promedio - Media aritmética.\n * @property {number} desviacionMaxima - Diferencia entre el valor máximo y mínimo.\n */\n\n/**\n * Motor de cálculos estadísticos avanzados con validación estricta de tipos.\n * @class\n */\nclass CalculadoraEstadistica {\n    /**\n     * Valida que un array contenga exclusivamente números finitos válidos.\n     * @param {number[]} datos - Colección a validar.\n     * @throws {TypeError} Si algún elemento no es un número finito.\n     */\n    #validarColeccion(datos) {\n        if (!Array.isArray(datos) || datos.length === 0) {\n            throw new TypeError(\"Se requiere un array no vacío de números.\");\n        }\n        for (let i = 0; i < datos.length; i++) {\n            if (typeof datos[i] !== \"number\" || !Number.isFinite(datos[i])) {\n                console.trace(\"Origen del valor no numérico en posición \" + i);\n                throw new TypeError(\\`El elemento en índice \\${i} ('\\${datos[i]}') no es un número válido.\\`);\n            }\n        }\n    }\n\n    /**\n     * Ejecuta el análisis estadístico sobre el conjunto de datos numéricos.\n     * @param {number[]} serie - Array de valores numéricos.\n     * @returns {ResumenEstadistico} Objeto estructurado con las métricas calculadas.\n     */\n    analizar(serie) {\n        try {\n            this.#validarColeccion(serie);\n            const total = serie.reduce((acc, val) => acc + val, 0);\n            const promedio = Number((total / serie.length).toFixed(2));\n            const max = Math.max(...serie);\n            const min = Math.min(...serie);\n\n            return {\n                total: Number(total.toFixed(2)),\n                promedio,\n                desviacionMaxima: Number((max - min).toFixed(2))\n            };\n        } catch (error) {\n            console.error(\"❌ Error en análisis estadístico:\", error.message);\n            return null;\n        }\n    }\n}\n\nconst calc = new CalculadoraEstadistica();\nconsole.table(calc.analizar([10.5, 20.2, 35.8, 14.1]));\n// Prueba de fallo controlado con traza\ncalc.analizar([10, \"veinte\", 30]);";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-/**
- * @typedef {Object} ResumenEstadistico
- * @property {number} total - Suma acumulada de los valores.
- * @property {number} promedio - Media aritmética.
- * @property {number} desviacionMaxima - Diferencia entre el valor máximo y mínimo.
- */
-
-/**
- * Motor de cálculos estadísticos avanzados con validación estricta de tipos.
- * @class
- */
-class CalculadoraEstadistica {
-    /**
-     * Valida que un array contenga exclusivamente números finitos válidos.
-     * @param {number[]} datos - Colección a validar.
-     * @throws {TypeError} Si algún elemento no es un número finito.
-     */
-    #validarColeccion(datos) {
-        if (!Array.isArray(datos) || datos.length === 0) {
-            throw new TypeError("Se requiere un array no vacío de números.");
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
         }
-        for (let i = 0; i < datos.length; i++) {
-            if (typeof datos[i] !== "number" || !Number.isFinite(datos[i])) {
-                console.trace("Origen del valor no numérico en posición " + i);
-                throw new TypeError(\`El elemento en índice \${i} ('\${datos[i]}') no es un número válido.\`);
-            }
-        }
-    }
-
-    /**
-     * Ejecuta el análisis estadístico sobre el conjunto de datos numéricos.
-     * @param {number[]} serie - Array de valores numéricos.
-     * @returns {ResumenEstadistico} Objeto estructurado con las métricas calculadas.
-     */
-    analizar(serie) {
-        try {
-            this.#validarColeccion(serie);
-            const total = serie.reduce((acc, val) => acc + val, 0);
-            const promedio = Number((total / serie.length).toFixed(2));
-            const max = Math.max(...serie);
-            const min = Math.min(...serie);
-
-            return {
-                total: Number(total.toFixed(2)),
-                promedio,
-                desviacionMaxima: Number((max - min).toFixed(2))
-            };
-        } catch (error) {
-            console.error("❌ Error en análisis estadístico:", error.message);
-            return null;
-        }
-    }
-}
-
-const calc = new CalculadoraEstadistica();
-console.table(calc.analizar([10.5, 20.2, 35.8, 14.1]));
-// Prueba de fallo controlado con traza
-calc.analizar([10, "veinte", 30]);
-        })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

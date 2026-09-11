@@ -257,84 +257,63 @@ laboratorioScopeYTipos();</code></pre>
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "function laboratorioScopeYTipos() {\n    console.group(\"🚀 1. Demostración de Hoisting y Temporal Dead Zone (TDZ)\");\n    \n    // Demostración de Hoisting con 'var' (se eleva y se inicializa con undefined)\n    console.log(\"Acceso previo a 'variableVar' (Hoisting):\", typeof variableVar, variableVar); // undefined\n    var variableVar = \"Valor asignado a var tras hoisting\";\n\n    // Demostración de Temporal Dead Zone (TDZ) con 'let'\n    try {\n        console.log(variableLetTDZ); // Lanza ReferenceError\n    } catch (e) {\n        console.warn(\"Capturado ReferenceError por TDZ (let antes de declaración):\", e.message);\n    }\n    let variableLetTDZ = \"Valor let tras superar la TDZ\";\n\n    // Demostración de TDZ con 'const'\n    try {\n        console.log(variableConstTDZ); // Lanza ReferenceError\n    } catch (e) {\n        console.warn(\"Capturado ReferenceError por TDZ (const antes de declaración):\", e.message);\n    }\n    const variableConstTDZ = \"Constante inicializada\";\n    console.groupEnd();\n\n    console.group(\"📦 2. Ámbito de Función (var) vs Ámbito de Bloque (let/const)\");\n    if (true) {\n        var visibleFueraDelIf = \"var ignora el bloque if (Function Scope)\";\n        let invisibleFueraDelIf = \"let respeta el bloque if (Block Scope)\";\n        const constanteDeBloque = \"const también tiene Block Scope\";\n        console.log(\"Dentro del bloque if: todo es visible.\");\n    }\n\n    console.log(\"Fuera del bloque if -> visibleFueraDelIf:\", visibleFueraDelIf);\n    try {\n        console.log(invisibleFueraDelIf);\n    } catch (e) {\n        console.warn(\"Capturado ReferenceError al leer 'let' fuera del bloque:\", e.message);\n    }\n    console.groupEnd();\n\n    console.group(\"🏷️ 3. Detección y Clasificación de Tipos Primitivos con typeof\");\n    const auditoriaTipos = [\n        { tipoPrimitivo: \"number\", valor: 42, resultadoTypeof: typeof 42 },\n        { tipoPrimitivo: \"string\", valor: \"'DWEC 2024'\", resultadoTypeof: typeof \"DWEC 2024\" },\n        { tipoPrimitivo: \"boolean\", valor: true, resultadoTypeof: typeof true },\n        { tipoPrimitivo: \"undefined\", valor: undefined, resultadoTypeof: typeof undefined },\n        { tipoPrimitivo: \"symbol\", valor: \"Symbol('id')\", resultadoTypeof: typeof Symbol(\"id\") },\n        { tipoPrimitivo: \"bigint\", valor: \"9007199254740995n\", resultadoTypeof: typeof 9007199254740995n },\n        { tipoPrimitivo: \"null\", valor: null, resultadoTypeof: typeof null + \" (anomalía histórica JS)\" }\n    ];\n    console.table(auditoriaTipos);\n    console.groupEnd();\n\n    console.group(\"🔒 4. Inmutabilidad de Enlace vs Mutabilidad de Propiedades en 'const'\");\n    const configuracionServidor = {\n        puerto: 8080,\n        protocolo: \"https\"\n    };\n\n    // Mutación de propiedad interna permitida:\n    configuracionServidor.puerto = 3000;\n    console.log(\"Propiedad interna mutada con éxito:\", configuracionServidor);\n\n    // Intento de reasignación de referencia prohibido:\n    try {\n        configuracionServidor = { puerto: 9000 };\n    } catch (e) {\n        console.warn(\"Capturado TypeError al reasignar identificador const:\", e.message);\n    }\n    console.groupEnd();\n}\n\nlaboratorioScopeYTipos();";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
       try {
-        (async () => {
-function laboratorioScopeYTipos() {
-    console.group("🚀 1. Demostración de Hoisting y Temporal Dead Zone (TDZ)");
-    
-    // Demostración de Hoisting con 'var' (se eleva y se inicializa con undefined)
-    console.log("Acceso previo a 'variableVar' (Hoisting):", typeof variableVar, variableVar); // undefined
-    var variableVar = "Valor asignado a var tras hoisting";
-
-    // Demostración de Temporal Dead Zone (TDZ) con 'let'
-    try {
-        console.log(variableLetTDZ); // Lanza ReferenceError
-    } catch (e) {
-        console.warn("Capturado ReferenceError por TDZ (let antes de declaración):", e.message);
-    }
-    let variableLetTDZ = "Valor let tras superar la TDZ";
-
-    // Demostración de TDZ con 'const'
-    try {
-        console.log(variableConstTDZ); // Lanza ReferenceError
-    } catch (e) {
-        console.warn("Capturado ReferenceError por TDZ (const antes de declaración):", e.message);
-    }
-    const variableConstTDZ = "Constante inicializada";
-    console.groupEnd();
-
-    console.group("📦 2. Ámbito de Función (var) vs Ámbito de Bloque (let/const)");
-    if (true) {
-        var visibleFueraDelIf = "var ignora el bloque if (Function Scope)";
-        let invisibleFueraDelIf = "let respeta el bloque if (Block Scope)";
-        const constanteDeBloque = "const también tiene Block Scope";
-        console.log("Dentro del bloque if: todo es visible.");
-    }
-
-    console.log("Fuera del bloque if -> visibleFueraDelIf:", visibleFueraDelIf);
-    try {
-        console.log(invisibleFueraDelIf);
-    } catch (e) {
-        console.warn("Capturado ReferenceError al leer 'let' fuera del bloque:", e.message);
-    }
-    console.groupEnd();
-
-    console.group("🏷️ 3. Detección y Clasificación de Tipos Primitivos con typeof");
-    const auditoriaTipos = [
-        { tipoPrimitivo: "number", valor: 42, resultadoTypeof: typeof 42 },
-        { tipoPrimitivo: "string", valor: "'DWEC 2024'", resultadoTypeof: typeof "DWEC 2024" },
-        { tipoPrimitivo: "boolean", valor: true, resultadoTypeof: typeof true },
-        { tipoPrimitivo: "undefined", valor: undefined, resultadoTypeof: typeof undefined },
-        { tipoPrimitivo: "symbol", valor: "Symbol('id')", resultadoTypeof: typeof Symbol("id") },
-        { tipoPrimitivo: "bigint", valor: "9007199254740995n", resultadoTypeof: typeof 9007199254740995n },
-        { tipoPrimitivo: "null", valor: null, resultadoTypeof: typeof null + " (anomalía histórica JS)" }
-    ];
-    console.table(auditoriaTipos);
-    console.groupEnd();
-
-    console.group("🔒 4. Inmutabilidad de Enlace vs Mutabilidad de Propiedades en 'const'");
-    const configuracionServidor = {
-        puerto: 8080,
-        protocolo: "https"
-    };
-
-    // Mutación de propiedad interna permitida:
-    configuracionServidor.puerto = 3000;
-    console.log("Propiedad interna mutada con éxito:", configuracionServidor);
-
-    // Intento de reasignación de referencia prohibido:
-    try {
-        configuracionServidor = { puerto: 9000 };
-    } catch (e) {
-        console.warn("Capturado TypeError al reasignar identificador const:", e.message);
-    }
-    console.groupEnd();
-}
-
-laboratorioScopeYTipos();
-        })();
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }

@@ -205,32 +205,63 @@
       countEl.textContent = "0 entradas";
     };
 
+    const RAW_SOLUTION = "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <title>Práctica de Integración de Scripts</title>\n  \n  <!-- Script con atributo defer: no bloquea la lectura del HTML -->\n  <script defer>\n    console.log(\"2. [Script Defer]: Se ejecuta cuando el HTML ya ha terminado de parsearse.\");\n  <\/script>\n</head>\n<body>\n  <h1>Mi Primera Página con JavaScript</h1>\n  <p>Abre la consola del navegador (F12) para comprobar el orden de ejecución.</p>\n\n  <!-- Script al final del body -->\n  <script>\n    console.log(\"1. [Script Body]: Se ejecuta en cuanto el analizador llega a esta línea.\");\n  <\/script>\n</body>\n</html>";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
     async function ejecutarSolucion() {
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
-      try {
-        (async () => {
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8"/>
-  <title>Práctica de Integración de Scripts</title>
-  
-  <!-- Script con atributo defer: no bloquea la lectura del HTML -->
-  <script defer>
-    console.log("2. [Script Defer]: Se ejecuta cuando el HTML ya ha terminado de parsearse.");
-  </script>
-</head>
-<body>
-  <h1>Mi Primera Página con JavaScript</h1>
-  <p>Abre la consola del navegador (F12) para comprobar el orden de ejecución.</p>
+      const code = RAW_SOLUTION.trim();
 
-  <!-- Script al final del body -->
-  <script>
-    console.log("1. [Script Body]: Se ejecuta en cuanto el analizador llega a esta línea.");
-  </script>
-</body>
-</html>
-        })();
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript estándar
+      try {
+        const runFn = new Function('console', code);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
       }
