@@ -204,6 +204,9 @@
     <head>
       <meta charset="utf-8"/>
       <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.10/babel.min.js"></script>
       <style>
         body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 16px; margin: 0; font-size: 13px; }
         .log-title { color: #d2a8ff; font-weight: bold; margin-bottom: 12px; font-size: 13px; border-bottom: 1px solid #30363d; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
@@ -338,7 +341,7 @@
             }
           };
 
-          const isDomCode = /document\.|querySelector|getElementById|createElement|addEventListener|dataset|innerHTML|outerHTML|#catalogo|#miForm|#password|#btnTema|#listaDinamica|#miLista|#app|@Component|<[a-z]/i.test(rawCode);
+          const isDomCode = /document\.|querySelector|getElementById|createElement|addEventListener|dataset|innerHTML|outerHTML|#catalogo|#miForm|#password|#btnTema|#listaDinamica|#miLista|#app|@Component|React|useState|useEffect|<[a-z]/i.test(rawCode);
 
           if (domStage) {
             if (isDomCode) domStage.classList.remove("hidden");
@@ -422,13 +425,22 @@
             return;
           }
 
+          let execCode = rawCode;
+          if (iframe.contentWindow.Babel && (rawCode.includes('<') || rawCode.includes('useState') || rawCode.includes('React.'))) {
+            try {
+              execCode = iframe.contentWindow.Babel.transform(rawCode, { presets: ['react'] }).code;
+            } catch (bErr) {
+              console.warn("Babel transform note:", bErr.message);
+            }
+          }
+
           try {
-            const runFn = iframe.contentWindow.Function('console', 'log', 'document', rawCode);
+            const runFn = iframe.contentWindow.Function('console', 'log', 'document', execCode);
             const res = runFn(customConsole, log, doc);
             if (res !== undefined) log("⬅️ Retorno:", res);
           } catch (err1) {
             try {
-              const res = iframe.contentWindow.eval(rawCode);
+              const res = iframe.contentWindow.eval(execCode);
               if (res !== undefined) log("⬅️ Retorno:", res);
             } catch (err2) {
               customConsole.error("Error de Ejecución:", err2.message);

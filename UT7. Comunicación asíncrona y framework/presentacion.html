@@ -424,7 +424,7 @@
         <div class="badge">07</div>
         <h1>UT7: Comunicación Asíncrona (AJAX), Fetch API, Formatos y Frameworks</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Fundamentos de comunicación asíncrona cliente-servidor, XMLHttpRequest vs Fetch API, modificación dinámica del DOM, formatos de datos (JSON, XML, FormData), librerías (Axios, jQuery) y frameworks SPA, compatibilidad CORS y pruebas con DevTools.</div>
+        <div class="tagline">Fundamentos de comunicación asíncrona cliente-servidor, XMLHttpRequest vs Fetch API, modificación dinámica del DOM, formatos de datos (JSON, XML, FormData), librerías (Axios, jQuery) y frameworks SPA, componentes y estado en React (useState, useEffect), compatibilidad CORS y pruebas con DevTools.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -473,6 +473,20 @@
           <div class="index-card">
             <div class="index-badge">6</div>
             <div class="index-info">
+              <div class="index-title">React como Framework Frontend: Componentes Funcionales, Virtual DOM y Estado con useState</div>
+              <p class="index-desc">React es la librería y ecosistema de referencia mundial para la creación de interfaces de usuario interactivas y declarativas.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">7</div>
+            <div class="index-info">
+              <div class="index-title">Comunicación Asíncrona en React: El Hook useEffect, Consumo de APIs REST y Ciclo de Vida</div>
+              <p class="index-desc">La comunicación con servidores web en React se gestiona mediante efectos secundarios (Side Effects) orquestados por el hook useEffect.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">8</div>
+            <div class="index-info">
               <div class="index-title">Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</div>
               <p class="index-desc">La comunicación asíncrona está fuertemente condicionada por políticas de seguridad del navegador y requiere herramientas de auditoría en red.</p>
             </div>
@@ -482,7 +496,7 @@
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 1 de 8 · Teoría y Demostración</span>
           <h2>1. Fundamentos de la Comunicación Asíncrona Cliente-Servidor (AJAX)</h2>
         </div>
         <div class="theory-grid">
@@ -663,7 +677,7 @@ procesarRespuestaServidor({
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 6 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 2 de 8 · Teoría y Demostración</span>
           <h2>2. Objetos y Métodos para la Comunicación Asíncrona: XMLHttpRequest vs Fetch API</h2>
         </div>
         <div class="theory-grid">
@@ -835,7 +849,7 @@ async function consultarConFetch(url) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 6 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 3 de 8 · Teoría y Demostración</span>
           <h2>3. Formatos de Envío y Recepción de Datos: JSON, XML y FormData</h2>
         </div>
         <div class="theory-grid">
@@ -999,7 +1013,7 @@ console.log(jsonAXml(alumnos));</code></pre>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 6 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 4 de 8 · Teoría y Demostración</span>
           <h2>4. Modificación Dinámica del DOM con Datos Asíncronos y Estados de UI</h2>
         </div>
         <div class="theory-grid">
@@ -1191,7 +1205,7 @@ async function cargarCatalogoEnDOM(contenedor) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 5 de 6 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 5 de 8 · Teoría y Demostración</span>
           <h2>5. Introducción y Uso de Librerías y Frameworks: Fetch API, Axios, jQuery y SPAs</h2>
         </div>
         <div class="theory-grid">
@@ -1362,8 +1376,581 @@ api.get(&quot;/todos/1&quot;).then(res =&gt; console.log(&quot;Datos recibidos:&
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 6 de 6 · Teoría y Demostración</span>
-          <h2>6. Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</h2>
+          <span class="badge-sub">Bloque 6 de 8 · Teoría y Demostración</span>
+          <h2>6. React como Framework Frontend: Componentes Funcionales, Virtual DOM y Estado con useState</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p><strong>React</strong> es la librería y ecosistema de referencia mundial para la creación de interfaces de usuario interactivas y declarativas:</p>
+<ul class="concept-list">
+  <li><strong>Paradigma Declarativo vs Imperativo:</strong>
+    <ul>
+      <li><em>Paradigma Imperativo Clásico:</em> El desarrollador manipula manualmente el DOM paso a paso (<code>document.createElement</code>, <code>appendChild</code>, <code>classList.toggle</code>), lo que genera código frágil, propenso a errores de sincronización y difícil de mantener.</li>
+      <li><em>Paradigma Declarativo de React:</em> El desarrollador define únicamente <strong>cómo debe lucir la interfaz</strong> para un estado determinado (<code>UI = f(state)</code>). Cuando el estado cambia, React se encarga de calcular las diferencias y actualizar el DOM de forma óptima.</li>
+    </ul>
+  </li>
+  <li><strong>Componentes Funcionales y JSX:</strong>
+    <ul>
+      <li><em>Componentes Funcionales:</em> Funciones de JavaScript puras que reciben datos de entrada (<strong>props</strong>) y retornan una estructura visual en JSX.</li>
+      <li><em>Sintaxis JSX (JavaScript XML):</em> Extensión que permite escribir marcado similar a HTML directamente en JavaScript. Se transcompila a llamadas nativas <code>React.createElement(tipo, props, ...hijos)</code>. Requiere atributos como <code>className</code> en vez de <code>class</code> y expresiones dinámicas entre llaves <code>{variable}</code>.</li>
+      <li><em>Props (Propiedades):</em> Argumentos inmutables de solo lectura pasados de componentes padres a hijos, garantizando un <strong>flujo de datos unidireccional (top-down)</strong>.</li>
+    </ul>
+  </li>
+  <li><strong>El Virtual DOM y el Algoritmo de Reconciliación (Fiber):</strong>
+    <p>React mantiene una copia ligera del DOM en memoria (Virtual DOM). Al cambiar el estado:</p>
+    <ol>
+      <li>Genera un nuevo árbol Virtual DOM.</li>
+      <li>Ejecuta el <strong>algoritmo de Diffing</strong> para comparar el árbol nuevo con el anterior.</li>
+      <li>Aplica exclusivamente las mutaciones mínimas necesarias sobre el DOM real del navegador en un único lote agrupado (<em>batching</em>).</li>
+    </ol>
+  </li>
+  <li><strong>Gestión del Estado Local con el Hook <code>useState</code>:</strong>
+    <ul>
+      <li>Declaración: <code>const [contador, setContador] = React.useState(0);</code>.</li>
+      <li><strong>Principio Sagrado de Inmutabilidad:</strong> Jamás se debe mutar el estado directamente (<code>contador = 5</code> o <code>items.push(x)</code>). Siempre se debe llamar a la función actualizadora <code>setContador(5)</code> o <code>setItems(prev => [...prev, x])</code> para que React detecte el cambio y dispare el re-renderizado.</li>
+      <li><em>Renderizado de Listas:</em> Al mapear arrays con <code>.map()</code>, es obligatorio proporcionar una propiedad <code>key</code> única y estable a cada elemento para que el algoritmo de reconciliación identifique inserciones y borrados sin reordenar todo el árbol.</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>React 18 y Estándares Modernos 2026:</strong></p>
+<ul class="concept-list">
+  <li><strong>Renderizado Concurrente (Concurrent React):</strong> React 18 divide el trabajo de renderizado en trozos interrumpibles, permitiendo que la interfaz siga respondiendo inmediatamente a la interacción del usuario incluso durante cálculos intensivos.</li>
+  <li><strong>Transición Automática por Lotes (Automatic Batching):</strong> Todas las actualizaciones de estado dentro de promesas, <code>setTimeout</code> o manejadores de eventos se agrupan en un único ciclo de renderizado, multiplicando el rendimiento.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Componente Funcional con Estado Reactivo (useState) y Montaje en el DOM
+// Requiere React 18 y ReactDOM cargados en el entorno
+
+function ContadorInteract() {
+    const [contador, setContador] = React.useState(0);
+
+    const incrementar = () =&gt; setContador(prev =&gt; prev + 1);
+    const reiniciar = () =&gt; setContador(0);
+
+    return React.createElement(&quot;div&quot;, {
+        className: &quot;tarjeta-react&quot;,
+        style: { padding: &quot;16px&quot;, background: &quot;#0f172a&quot;, color: &quot;#fff&quot;, borderRadius: &quot;10px&quot;, fontFamily: &quot;sans-serif&quot; }
+    },
+        React.createElement(&quot;h3&quot;, { style: { color: &quot;#38bdf8&quot;, margin: &quot;0 0 10px 0&quot; } }, &quot;⚛️ Contador Reactivo con Hooks&quot;),
+        React.createElement(&quot;p&quot;, { style: { fontSize: &quot;1.2em&quot;, fontWeight: &quot;bold&quot; } }, `Valor actual: ${contador}`),
+        React.createElement(&quot;div&quot;, { style: { display: &quot;flex&quot;, gap: &quot;8px&quot;, marginTop: &quot;10px&quot; } },
+            React.createElement(&quot;button&quot;, {
+                onClick: incrementar,
+                style: { background: &quot;#6366f1&quot;, color: &quot;#fff&quot;, border: &quot;none&quot;, padding: &quot;6px 14px&quot;, borderRadius: &quot;6px&quot;, cursor: &quot;pointer&quot; }
+            }, &quot;➕ Sumar 1&quot;),
+            React.createElement(&quot;button&quot;, {
+                onClick: reiniciar,
+                style: { background: &quot;#475569&quot;, color: &quot;#fff&quot;, border: &quot;none&quot;, padding: &quot;6px 14px&quot;, borderRadius: &quot;6px&quot;, cursor: &quot;pointer&quot; }
+            }, &quot;🔄 Reiniciar&quot;)
+        )
+    );
+}
+
+// Montaje en el DOM con ReactDOM.createRoot
+const contenedor = document.getElementById(&quot;app&quot;);
+if (contenedor) {
+    const root = ReactDOM.createRoot(contenedor);
+    root.render(React.createElement(ContadorInteract));
+    console.log(&quot;✅ Componente React montado satisfactoriamente con ReactDOM.createRoot.&quot;);
+}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
+          <h2>🎯 Reto 6: Componente React Interactivo de Lista de Tareas y Filtro con useState e Inmutabilidad</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un componente funcional en React llamado `GestorTareasReact` que implemente: 1) Un estado para almacenar un array de tareas (con id, texto, completada y prioridad: &quot;alta&quot; | &quot;media&quot; | &quot;baja&quot;), 2) Un estado para el filtro activo (&quot;todas&quot;, &quot;pendientes&quot;, &quot;completadas&quot;), 3) Funcionalidad para alternar el estado completada de una tarea de forma estrictamente inmutable con spread operator, 4) Añadir nuevas tareas desde un formulario controlado, 5) Eliminar tareas seleccionadas, 6) Un resumen dinámico con contador de pendientes y porcentaje de avance, y 7) Renderizado del componente montándolo en `#app` con `ReactDOM.createRoot`.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Utiliza React.useState([]) para las tareas y React.useState(&quot;todas&quot;) para el filtro. En el toggle, usa tareas.map(t =&gt; t.id === id ? { ...t, completada: !t.completada } : t). Para añadir, usa setTareas(prev =&gt; [...prev, nuevaTarea]). Monta con ReactDOM.createRoot(document.getElementById(&quot;app&quot;)).render(React.createElement(GestorTareasReact)).</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La inmutabilidad en la actualización del estado de React es el pilar que permite al Virtual DOM detectar mutaciones por referencia y reconciliar únicamente los nodos afectados, garantizando un rendimiento óptimo.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 6: Componente React Funcional con Gestión de Estado (useState) e Inmutabilidad
+function GestorTareasReact() {
+    const [tareas, setTareas] = React.useState([
+        { id: 1, texto: &quot;Comprender la reconciliación del Virtual DOM&quot;, completada: true, prioridad: &quot;alta&quot; },
+        { id: 2, texto: &quot;Gestionar estado inmutable con useState&quot;, completada: true, prioridad: &quot;alta&quot; },
+        { id: 3, texto: &quot;Consumir APIs asíncronas dentro de useEffect&quot;, completada: false, prioridad: &quot;media&quot; },
+        { id: 4, texto: &quot;Evitar fugas de memoria con AbortController&quot;, completada: false, prioridad: &quot;baja&quot; }
+    ]);
+    const [filtro, setFiltro] = React.useState(&quot;todas&quot;);
+    const [nuevoTexto, setNuevoTexto] = React.useState(&quot;&quot;);
+    const [prioridad, setPrioridad] = React.useState(&quot;media&quot;);
+
+    // Operación Inmutable: Alternar completado con .map() y operador spread
+    const alternarTarea = (id) =&gt; {
+        setTareas(prev =&gt; prev.map(t =&gt; t.id === id ? { ...t, completada: !t.completada } : t));
+    };
+
+    // Operación Inmutable: Eliminar tarea con .filter()
+    const eliminarTarea = (id) =&gt; {
+        setTareas(prev =&gt; prev.filter(t =&gt; t.id !== id));
+    };
+
+    // Operación Inmutable: Añadir tarea con [...prev, nueva]
+    const agregarTarea = (e) =&gt; {
+        e.preventDefault();
+        const textoLimpio = nuevoTexto.trim();
+        if (!textoLimpio) return;
+
+        const nueva = {
+            id: Date.now(),
+            texto: textoLimpio,
+            completada: false,
+            prioridad
+        };
+
+        setTareas(prev =&gt; [...prev, nueva]);
+        setNuevoTexto(&quot;&quot;);
+    };
+
+    // Filtrado declarativo en render
+    const tareasVisibles = tareas.filter(t =&gt; {
+        if (filtro === &quot;pendientes&quot;) return !t.completada;
+        if (filtro === &quot;completadas&quot;) return t.completada;
+        return true;
+    });
+
+    const totalPendientes = tareas.filter(t =&gt; !t.completada).length;
+    const porcentajeProgreso = tareas.length &gt; 0
+        ? Math.round(((tareas.length - totalPendientes) / tareas.length) * 100)
+        : 0;
+
+    return React.createElement(&quot;div&quot;, {
+        className: &quot;p-4 bg-slate-900 border border-slate-700 rounded-xl text-slate-100 font-sans max-w-xl mx-auto shadow-2xl&quot;
+    },
+        // Encabezado con Métricas
+        React.createElement(&quot;div&quot;, { className: &quot;flex items-center justify-between border-b border-slate-700 pb-3 mb-3&quot; },
+            React.createElement(&quot;div&quot;, null,
+                React.createElement(&quot;h3&quot;, { className: &quot;text-sm font-bold text-indigo-400 flex items-center gap-2 m-0&quot; }, &quot;⚛️ Gestor de Tareas React&quot;),
+                React.createElement(&quot;span&quot;, { className: &quot;text-[11px] text-slate-400&quot; }, &quot;Estado local reactivo con Hook useState&quot;)
+            ),
+            React.createElement(&quot;span&quot;, { className: &quot;text-xs bg-indigo-950 text-indigo-300 border border-indigo-700 px-2.5 py-1 rounded-full font-semibold&quot; },
+                `${totalPendientes} pendientes (${porcentajeProgreso}%)`
+            )
+        ),
+
+        // Formulario controlado para añadir tarea
+        React.createElement(&quot;form&quot;, { onSubmit: agregarTarea, className: &quot;flex gap-2 mb-3&quot; },
+            React.createElement(&quot;input&quot;, {
+                type: &quot;text&quot;,
+                placeholder: &quot;Escribe una nueva tarea...&quot;,
+                value: nuevoTexto,
+                onChange: (e) =&gt; setNuevoTexto(e.target.value),
+                className: &quot;flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500&quot;
+            }),
+            React.createElement(&quot;select&quot;, {
+                value: prioridad,
+                onChange: (e) =&gt; setPrioridad(e.target.value),
+                className: &quot;bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-slate-300&quot;
+            },
+                React.createElement(&quot;option&quot;, { value: &quot;baja&quot; }, &quot;Baja&quot;),
+                React.createElement(&quot;option&quot;, { value: &quot;media&quot; }, &quot;Media&quot;),
+                React.createElement(&quot;option&quot;, { value: &quot;alta&quot; }, &quot;Alta&quot;)
+            ),
+            React.createElement(&quot;button&quot;, {
+                type: &quot;submit&quot;,
+                className: &quot;bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition-colors&quot;
+            }, &quot;+ Añadir&quot;)
+        ),
+
+        // Barra de Filtros
+        React.createElement(&quot;div&quot;, { className: &quot;flex gap-1.5 mb-3&quot; },
+            [&quot;todas&quot;, &quot;pendientes&quot;, &quot;completadas&quot;].map(f =&gt;
+                React.createElement(&quot;button&quot;, {
+                    key: f,
+                    onClick: () =&gt; setFiltro(f),
+                    className: `text-xs px-2.5 py-1 rounded-md font-semibold capitalize transition-all ${
+                        filtro === f ? &quot;bg-indigo-600 text-white shadow-sm&quot; : &quot;bg-slate-800 text-slate-400 hover:bg-slate-700&quot;
+                    }`
+                }, f)
+            )
+        ),
+
+        // Lista Reactiva con keys
+        React.createElement(&quot;ul&quot;, { className: &quot;space-y-1.5 max-h-52 overflow-y-auto p-0 m-0 list-none&quot; },
+            tareasVisibles.length === 0
+                ? React.createElement(&quot;li&quot;, { className: &quot;text-slate-500 text-xs italic py-3 text-center&quot; }, &quot;No hay tareas en esta vista.&quot;)
+                : tareasVisibles.map(t =&gt;
+                    React.createElement(&quot;li&quot;, {
+                        key: t.id,
+                        className: `flex items-center justify-between p-2 rounded-lg border text-xs transition-all ${
+                            t.completada ? &quot;bg-slate-950/40 border-slate-800 text-slate-500 line-through&quot; : &quot;bg-slate-800/80 border-slate-700 text-slate-200&quot;
+                        }`
+                    },
+                        React.createElement(&quot;span&quot;, {
+                            onClick: () =&gt; alternarTarea(t.id),
+                            className: &quot;cursor-pointer flex-1 select-none flex items-center gap-1.5&quot;
+                        },
+                            t.completada ? &quot;✅&quot; : &quot;⭕&quot;,
+                            t.texto
+                        ),
+                        React.createElement(&quot;div&quot;, { className: &quot;flex items-center gap-2&quot; },
+                            React.createElement(&quot;span&quot;, {
+                                className: `text-[10px] px-1.5 py-0.5 rounded font-bold uppercase ${
+                                    t.prioridad === &quot;alta&quot; ? &quot;bg-red-950 text-red-300 border border-red-800&quot; :
+                                    t.prioridad === &quot;media&quot; ? &quot;bg-amber-950 text-amber-300 border border-amber-800&quot; :
+                                    &quot;bg-slate-800 text-slate-400&quot;
+                                }`
+                            }, t.prioridad),
+                            React.createElement(&quot;button&quot;, {
+                                onClick: () =&gt; eliminarTarea(t.id),
+                                className: &quot;text-slate-400 hover:text-red-400 text-xs px-1 bg-transparent border-0 cursor-pointer&quot;,
+                                title: &quot;Eliminar tarea&quot;
+                            }, &quot;🗑️&quot;)
+                        )
+                    )
+                )
+        )
+    );
+}
+
+// Montaje en el contenedor DOM (#app)
+const target = document.getElementById(&quot;app&quot;) || document.getElementById(&quot;sandbox-container&quot;);
+if (target) {
+    const root = ReactDOM.createRoot(target);
+    root.render(React.createElement(GestorTareasReact));
+    console.log(&quot;⚛️ [React 18] GestorTareasReact montado con éxito en el DOM.&quot;);
+}</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 6 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 7 de 8 · Teoría y Demostración</span>
+          <h2>7. Comunicación Asíncrona en React: El Hook useEffect, Consumo de APIs REST y Ciclo de Vida</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La comunicación con servidores web en React se gestiona mediante <strong>efectos secundarios (Side Effects)</strong> orquestados por el hook <code>useEffect</code>:</p>
+<ul class="concept-list">
+  <li><strong>Efectos Secundarios en Componentes Funcionales:</strong>
+    <p>Operaciones que interactúan con el exterior del renderizado puro: realizar peticiones HTTP (Fetch/Axios), suscribirse a WebSockets, manipular temporizadores (<code>setInterval</code>) o acceder a <code>localStorage</code>.</p>
+  </li>
+  <li><strong>El Hook <code>useEffect</code> y el Array de Dependencias:</strong>
+    <ul>
+      <li><code>useEffect(() => { ... }, [])</code>: <em>Array vacío</em>. Se ejecuta <strong>exclusivamente una vez</strong> tras el primer montaje del componente en el DOM. Es el lugar idóneo para cargar los datos iniciales de una API.</li>
+      <li><code>useEffect(() => { ... }, [categoriaId, pagina])</code>: <em>Con dependencias</em>. Se ejecuta tras el montaje y <strong>cada vez que cambie</strong> cualquiera de las dependencias especificadas.</li>
+      <li><code>useEffect(() => { ... })</code>: <em>Sin array de dependencias</em>. Se ejecuta tras <strong>cada renderizado</strong> del componente (antipatrón para peticiones HTTP ya que genera bucles infinitos de red).</li>
+    </ul>
+  </li>
+  <li><strong>Patrón Estándar de Consumo Asíncrono con <code>fetch</code>:</strong>
+    <p>La función de <code>useEffect</code> <strong>no puede ser declarada como <code>async</code></strong> (porque debe retornar una función de limpieza o nada). Se define una función asíncrona en su interior:</p>
+    <pre><code>useEffect(() => {
+    async function cargarDatos() {
+        const res = await fetch("/api/recursos");
+        const json = await res.json();
+        setDatos(json);
+    }
+    cargarDatos();
+}, []);</code></pre>
+  </li>
+  <li><strong>Los 3 Estados Reactivos de la Interfaz Asíncrona:</strong>
+    <ul>
+      <li><code>cargando (loading)</code>: Spinner o Skeleton screen mientras la promesa está pendiente.</li>
+      <li><code>datos (success)</code>: Renderizado de la colección o entidad recibida.</li>
+      <li><code>error (failure)</code>: Mensaje contextualizado con opción de reintento si falla la red o el servidor devuelve un código HTTP insatisfactorio (<code>!res.ok</code>).</li>
+    </ul>
+  </li>
+  <li><strong>Función de Limpieza (Cleanup) con <code>AbortController</code>:</strong>
+    <p>Si el componente se desmonta antes de que la petición HTTP finalice, o si el usuario cambia de filtro rápidamente, la petición previa debe cancelarse retornando una función de limpieza: <code>return () => controller.abort();</code>. Esto evita fugas de memoria y condiciones de carrera (<em>race conditions</em>).</p>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>El Ecosistema Asíncrono Profesional en React 2026:</strong></p>
+<ul class="concept-list">
+  <li><strong>TanStack Query (React Query) y SWR:</strong> En la industria, las peticiones complejas se delegan en librerías que implementan caché inteligente, revalidación en segundo plano (<em>Stale-While-Revalidate</em>), deduplicación y reintentos automáticos sin código repetitivo.</li>
+  <li><strong>React Server Components (RSC):</strong> En frameworks como Next.js, los componentes de servidor pueden realizar <code>await fetch()</code> de forma síncrona en el servidor antes de enviar el HTML pre-renderizado al navegador, eliminando la cascada de spinners en cliente.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Consumo Asíncrono con useEffect, AbortController y Manejo de Estados
+function UsuariosRemotosReact() {
+    const [usuarios, setUsuarios] = React.useState([]);
+    const [cargando, setCargando] = React.useState(true);
+    const [error, setError] = React.useState(null);
+
+    React.useEffect(() =&gt; {
+        const controller = new AbortController();
+
+        async function pedirUsuarios() {
+            try {
+                setCargando(true);
+                setError(null);
+                const res = await fetch(&quot;https://jsonplaceholder.typicode.com/users?_limit=3&quot;, {
+                    signal: controller.signal
+                });
+                if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+                const data = await res.json();
+                setUsuarios(data);
+            } catch (err) {
+                if (err.name !== &quot;AbortError&quot;) {
+                    setError(err.message);
+                }
+            } finally {
+                setCargando(false);
+            }
+        }
+
+        pedirUsuarios();
+
+        // Función de limpieza para cancelar peticiones pendientes
+        return () =&gt; controller.abort();
+    }, []);
+
+    if (cargando) return React.createElement(&quot;div&quot;, { style: { color: &quot;#38bdf8&quot; } }, &quot;⏳ Obteniendo usuarios...&quot;);
+    if (error) return React.createElement(&quot;div&quot;, { style: { color: &quot;#f87171&quot; } }, `❌ Error: ${error}`);
+
+    return React.createElement(&quot;ul&quot;, null,
+        usuarios.map(u =&gt; React.createElement(&quot;li&quot;, { key: u.id }, `${u.name} (${u.email})`))
+    );
+}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 7</span>
+          <h2>🎯 Reto 7: Componente React Asíncrono de Catálogo de Usuarios con useEffect, Búsqueda en Vivo y Cancelación con AbortController</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un componente funcional en React llamado `CatalogoUsuariosAPI` que implemente: 1) Consumo de la API pública `https://jsonplaceholder.typicode.com/users` dentro de un hook `useEffect` con `fetch`, 2) Gestión de tres estados reactivos (`usuarios`, `cargando`, `error`), 3) Una barra de búsqueda en tiempo real que filtre a los usuarios por nombre sin requerir nuevas peticiones de red, 4) Función de limpieza con `AbortController` para cancelar la petición saliente si el componente se desmonta, 5) Botón interactivo de recarga manual de datos, y 6) Renderizado de tarjetas de usuario con nombre, empresa, email y ciudad, montando la aplicación en `#app`.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Instancia const controller = new AbortController() al inicio de useEffect y pasa { signal: controller.signal } en fetch. En el bloque catch, comprueba if (err.name === &quot;AbortError&quot;) return. Retorna () =&gt; controller.abort() como función de limpieza. Renderiza condicionalmente el spinner, la alerta de error o la cuadrícula de usuarios filtrados.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El desacoplamiento de la obtención de datos mediante useEffect y la cancelación de peticiones obsoletas con AbortController garantiza aplicaciones web reactivas robustas, sin condiciones de carrera ni fugas de memoria.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 7: Componente React Asíncrono con useEffect, API Fetch y AbortController
+function CatalogoUsuariosAPI() {
+    const [usuarios, setUsuarios] = React.useState([]);
+    const [cargando, setCargando] = React.useState(true);
+    const [error, setError] = React.useState(null);
+    const [busqueda, setBusqueda] = React.useState(&quot;&quot;);
+    const [recargaTick, setRecargaTick] = React.useState(0);
+
+    // Efecto asíncrono para consumir la API REST con ciclo de vida controlado
+    React.useEffect(() =&gt; {
+        const controller = new AbortController();
+
+        async function fetchUsuarios() {
+            setCargando(true);
+            setError(null);
+            console.log(&quot;🌐 [React useEffect] Iniciando petición HTTP a JSONPlaceholder...&quot;);
+
+            try {
+                const res = await fetch(&quot;https://jsonplaceholder.typicode.com/users&quot;, {
+                    signal: controller.signal,
+                    headers: { &quot;Accept&quot;: &quot;application/json&quot; }
+                });
+
+                if (!res.ok) {
+                    throw new Error(`Respuesta HTTP no satisfactoria (${res.status} ${res.statusText})`);
+                }
+
+                const data = await res.json();
+                setUsuarios(data);
+                console.log(`✅ [React useEffect] Recibidos ${data.length} usuarios con éxito.`);
+            } catch (err) {
+                if (err.name === &quot;AbortError&quot;) {
+                    console.log(&quot;🛑 [React useEffect] Petición Fetch abortada limpiamente por desmontaje.&quot;);
+                } else {
+                    console.error(&quot;❌ [React useEffect] Error en la petición:&quot;, err.message);
+                    setError(err.message);
+                }
+            } finally {
+                setCargando(false);
+            }
+        }
+
+        fetchUsuarios();
+
+        // Función de Limpieza (Cleanup Function)
+        return () =&gt; {
+            controller.abort();
+        };
+    }, [recargaTick]); // Se re-ejecuta cuando el usuario solicita una recarga
+
+    // Filtrado en memoria reactivo
+    const usuariosFiltrados = usuarios.filter(u =&gt;
+        u.name.toLowerCase().includes(busqueda.toLowerCase()) ||
+        u.email.toLowerCase().includes(busqueda.toLowerCase())
+    );
+
+    return React.createElement(&quot;div&quot;, {
+        className: &quot;p-4 bg-slate-900 border border-slate-700 rounded-xl text-slate-100 font-sans max-w-2xl mx-auto shadow-2xl&quot;
+    },
+        // Encabezado
+        React.createElement(&quot;div&quot;, { className: &quot;flex items-center justify-between border-b border-slate-700 pb-3 mb-4 flex-wrap gap-2&quot; },
+            React.createElement(&quot;div&quot;, null,
+                React.createElement(&quot;h3&quot;, { className: &quot;text-sm font-bold text-sky-400 flex items-center gap-2 m-0&quot; },
+                    &quot;👥 Catálogo de Usuarios Asíncrono&quot;
+                ),
+                React.createElement(&quot;span&quot;, { className: &quot;text-[11px] text-slate-400&quot; },
+                    &quot;React 18 · useEffect · Fetch API · AbortController&quot;
+                )
+            ),
+            React.createElement(&quot;button&quot;, {
+                onClick: () =&gt; setRecargaTick(t =&gt; t + 1),
+                disabled: cargando,
+                className: &quot;bg-sky-600 hover:bg-sky-500 disabled:bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors cursor-pointer border-0 flex items-center gap-1.5&quot;
+            },
+                cargando ? &quot;⏳ Cargando...&quot; : &quot;🔄 Recargar API&quot;
+            )
+        ),
+
+        // Barra de búsqueda interactiva
+        React.createElement(&quot;div&quot;, { className: &quot;mb-4&quot; },
+            React.createElement(&quot;input&quot;, {
+                type: &quot;text&quot;,
+                placeholder: &quot;🔍 Filtrar por nombre o email en tiempo real...&quot;,
+                value: busqueda,
+                onChange: (e) =&gt; setBusqueda(e.target.value),
+                className: &quot;w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 box-border&quot;
+            })
+        ),
+
+        // Estado 1: Cargando (Skeleton / Spinner)
+        cargando &amp;&amp; React.createElement(&quot;div&quot;, { className: &quot;p-6 text-center text-slate-400 space-y-2&quot; },
+            React.createElement(&quot;div&quot;, { className: &quot;text-2xl animate-spin inline-block&quot; }, &quot;⏳&quot;),
+            React.createElement(&quot;p&quot;, { className: &quot;text-xs m-0&quot; }, &quot;Consultando API REST externa y sincronizando Virtual DOM...&quot;)
+        ),
+
+        // Estado 2: Error
+        error &amp;&amp; !cargando &amp;&amp; React.createElement(&quot;div&quot;, {
+            className: &quot;p-4 bg-red-950/50 border border-red-800 rounded-lg text-red-200 text-xs&quot;
+        },
+            React.createElement(&quot;strong&quot;, null, &quot;❌ Error al cargar usuarios: &quot;),
+            error,
+            React.createElement(&quot;div&quot;, { className: &quot;mt-2&quot; },
+                React.createElement(&quot;button&quot;, {
+                    onClick: () =&gt; setRecargaTick(t =&gt; t + 1),
+                    className: &quot;bg-red-700 hover:bg-red-600 text-white text-xs px-3 py-1 rounded border-0 cursor-pointer&quot;
+                }, &quot;Reintentar ahora&quot;)
+            )
+        ),
+
+        // Estado 3: Éxito con Cuadrícula de Usuarios
+        !cargando &amp;&amp; !error &amp;&amp; React.createElement(&quot;div&quot;, null,
+            React.createElement(&quot;div&quot;, { className: &quot;text-[11px] text-slate-400 mb-2 flex justify-between&quot; },
+                React.createElement(&quot;span&quot;, null, `Mostrando ${usuariosFiltrados.length} de ${usuarios.length} usuarios`),
+                busqueda &amp;&amp; React.createElement(&quot;span&quot;, { className: &quot;text-sky-400&quot; }, `Filtro: &quot;${busqueda}&quot;`)
+            ),
+            usuariosFiltrados.length === 0
+                ? React.createElement(&quot;p&quot;, { className: &quot;text-slate-500 text-xs italic text-center py-4&quot; }, &quot;No se encontraron coincidencias con la búsqueda.&quot;)
+                : React.createElement(&quot;div&quot;, { className: &quot;grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-64 overflow-y-auto pr-1&quot; },
+                    usuariosFiltrados.map(u =&gt;
+                        React.createElement(&quot;div&quot;, {
+                            key: u.id,
+                            className: &quot;p-3 bg-slate-800/80 border border-slate-700/80 rounded-lg text-xs hover:border-sky-500/50 transition-all flex flex-col justify-between&quot;
+                        },
+                            React.createElement(&quot;div&quot;, null,
+                                React.createElement(&quot;div&quot;, { className: &quot;font-bold text-slate-100 flex items-center justify-between mb-1&quot; },
+                                    React.createElement(&quot;span&quot;, null, `👤 ${u.name}`),
+                                    React.createElement(&quot;span&quot;, { className: &quot;text-[10px] text-slate-400 font-mono&quot; }, `#${u.id}`)
+                                ),
+                                React.createElement(&quot;p&quot;, { className: &quot;text-slate-400 text-[11px] m-0&quot; }, `📧 ${u.email}`),
+                                React.createElement(&quot;p&quot;, { className: &quot;text-slate-400 text-[11px] m-0&quot; }, `🏢 ${u.company?.name || &quot;Sin empresa&quot;}`)
+                            ),
+                            React.createElement(&quot;div&quot;, { className: &quot;mt-2 pt-2 border-t border-slate-700/50 flex justify-between items-center text-[10px] text-sky-300/80&quot; },
+                                React.createElement(&quot;span&quot;, null, `📍 ${u.address?.city || &quot;Ciudad&quot;}`),
+                                React.createElement(&quot;span&quot;, null, `🌐 ${u.website}`)
+                            )
+                        )
+                    )
+                )
+        )
+    );
+}
+
+// Montaje en el contenedor DOM (#app)
+const mountPoint = document.getElementById(&quot;app&quot;) || document.getElementById(&quot;sandbox-container&quot;);
+if (mountPoint) {
+    const root = ReactDOM.createRoot(mountPoint);
+    root.render(React.createElement(CatalogoUsuariosAPI));
+    console.log(&quot;⚛️ [React 18] CatalogoUsuariosAPI montado con éxito en el DOM.&quot;);
+}</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-7" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 7 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 8 de 8 · Teoría y Demostración</span>
+          <h2>8. Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
@@ -1440,8 +2027,8 @@ async function probarConexionSegura(urlDestino) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
-          <h2>🎯 Reto 6: Laboratorio de Diagnóstico de Errores de Red y Simulación de Fallos CORS</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 8</span>
+          <h2>🎯 Reto 8: Laboratorio de Diagnóstico de Errores de Red y Simulación de Fallos CORS</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
@@ -1527,8 +2114,8 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
               <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
               <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
             </div>
-            <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
-              🚀 Abrir Reto 6 en Taller
+            <a href="ejercicios.html?item=reto-8" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 8 en Taller
             </a>
           </div>
         </div>
@@ -1537,7 +2124,7 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">Resumen Curricular</span>
-          <h2>📋 Listado de Retos Propuestos en la Unidad (6)</h2>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (8)</h2>
         </div>
         <div class="final-workshop-card">
           <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
@@ -1598,10 +2185,30 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 6</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Laboratorio de Diagnóstico de Errores de Red y Simulación de Fallos CORS</strong>
-          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</p>
+          <strong style="font-size: 0.76em; color: #0f172a;">Componente React Interactivo de Lista de Tareas y Filtro con useState e Inmutabilidad</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: React como Framework Frontend: Componentes Funcionales, Virtual DOM y Estado con useState</p>
         </div>
         <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 7</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Componente React Asíncrono de Catálogo de Usuarios con useEffect, Búsqueda en Vivo y Cancelación con AbortController</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 7: Comunicación Asíncrona en React: El Hook useEffect, Consumo de APIs REST y Ciclo de Vida</p>
+        </div>
+        <a href="ejercicios.html?item=reto-7" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 8</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Laboratorio de Diagnóstico de Errores de Red y Simulación de Fallos CORS</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 8: Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</p>
+        </div>
+        <a href="ejercicios.html?item=reto-8" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
           🚀 Ver Solución
         </a>
       </li>

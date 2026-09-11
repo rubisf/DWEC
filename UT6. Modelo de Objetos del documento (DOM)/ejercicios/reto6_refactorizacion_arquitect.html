@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reto 6: Refactorización Arquitectónica de Código Espagueti a Tres Capas Desacopladas - UT6: Modelo de Objetos del Documento (DOM) y Arquitectura Limpia</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.10/babel.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
@@ -287,9 +290,17 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
         return;
       }
 
-      // Caso 3: Código JavaScript estándar
+      // Caso 3: Código JavaScript / React
       try {
-        const runFn = new Function('console', code);
+        let executableCode = code;
+        if (window.Babel && (code.includes('<') || code.includes('useState') || code.includes('React.'))) {
+          try {
+            executableCode = window.Babel.transform(code, { presets: ['react'] }).code;
+          } catch (bErr) {
+            console.warn("Babel transform note:", bErr.message);
+          }
+        }
+        const runFn = new Function('console', executableCode);
         const res = runFn(window.console);
         if (res !== undefined) {
           appendLog('log', ['⬅️ Retorno:', res]);
