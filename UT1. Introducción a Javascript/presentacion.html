@@ -439,7 +439,7 @@
             <div class="index-badge">1</div>
             <div class="index-info">
               <div class="index-title">Mecanismos de Ejecución de Código en el Navegador Web</div>
-              <p class="index-desc">JavaScript es el lenguaje de programación interpretado que dota de dinamismo e interactividad a las páginas web. Se ejecuta directamente en el cliente a través de un entorno de ejecución (Runtime Environment) integrado en el propio navegador.</p>
+              <p class="index-desc">JavaScript es el lenguaje estándar de programación que se ejecuta nativamente en los navegadores dentro de una arquitectura web de 3 capas.</p>
             </div>
           </div>
           <div class="index-card">
@@ -553,24 +553,92 @@
 
       <section>
         <div class="slide-header">
+          <span class="badge-sub">Arquitectura de Aplicaciones Web</span>
+          <h2>🏗️ Arquitectura Web de 3 Capas: Frontend, Backend y Persistencia</h2>
+        </div>
+        <div class="index-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 6px;">
+          
+          <!-- Capa 1: Frontend -->
+          <div class="index-card" style="border-top: 4px solid #2563eb; flex-direction: column; gap: 8px; padding: 14px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.82em; color: #1d4ed8; display: flex; align-items: center; justify-content: space-between;">
+              <span>🖥️ 1. Frontend (Presentación)</span>
+              <span style="font-size: 0.7em; background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 6px; font-weight: 700;">Entorno Cliente</span>
+            </div>
+            <p style="font-size: 0.68em; color: #334155; margin: 0; line-height: 1.45;">
+              La interfaz visual e interactiva que se ejecuta directamente en el navegador web del usuario (Chrome, Firefox, Safari, Edge).
+            </p>
+            <ul style="font-size: 0.64em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
+              <li><strong>HTML5:</strong> Estructura semántica del contenido.</li>
+              <li><strong>CSS3:</strong> Estilos visuales y diseño responsive.</li>
+              <li><strong>JavaScript:</strong> Lógica dinámica e interacción en vivo.</li>
+              <li><strong>Librerías / Frameworks:</strong> React, Vue, Angular.</li>
+            </ul>
+            <div style="margin-top: auto; font-size: 0.60em; background: #eff6ff; color: #1e40af; padding: 6px 8px; border-radius: 6px; border-left: 3px solid #3b82f6;">
+              🎯 <strong>Ámbito del módulo (DWEC):</strong> Programación e interactividad en esta capa cliente.
+            </div>
+          </div>
+
+          <!-- Capa 2: Backend -->
+          <div class="index-card" style="border-top: 4px solid #059669; flex-direction: column; gap: 8px; padding: 14px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.82em; color: #047857; display: flex; align-items: center; justify-content: space-between;">
+              <span>⚙️ 2. Backend (Lógica de Negocio)</span>
+              <span style="font-size: 0.7em; background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 6px; font-weight: 700;">Entorno Servidor</span>
+            </div>
+            <p style="font-size: 0.68em; color: #334155; margin: 0; line-height: 1.45;">
+              Se ejecuta en servidores centralizados o en la nube. Procesa las reglas de negocio, transacciones, autenticación y seguridad.
+            </p>
+            <ul style="font-size: 0.64em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
+              <li><strong>Entornos de Servidor:</strong> Node.js, Java, Python, PHP, C# (.NET).</li>
+              <li><strong>APIs y Microservicios:</strong> Endpoints RESTful y GraphQL.</li>
+              <li><strong>Seguridad Crítica:</strong> Control de acceso, tokens JWT y hashing.</li>
+            </ul>
+            <div style="margin-top: auto; font-size: 0.60em; background: #ecfdf5; color: #065f46; padding: 6px 8px; border-radius: 6px; border-left: 3px solid #10b981;">
+              🔗 <strong>Conexión:</strong> El frontend se comunica con el backend mediante peticiones HTTP / Fetch API.
+            </div>
+          </div>
+
+          <!-- Capa 3: Persistencia -->
+          <div class="index-card" style="border-top: 4px solid #d97706; flex-direction: column; gap: 8px; padding: 14px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.82em; color: #b45309; display: flex; align-items: center; justify-content: space-between;">
+              <span>🗄️ 3. Capa de Persistencia</span>
+              <span style="font-size: 0.7em; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 6px; font-weight: 700;">Bases de Datos</span>
+            </div>
+            <p style="font-size: 0.68em; color: #334155; margin: 0; line-height: 1.45;">
+              Almacena y gestiona de forma permanente, consistente e íntegra los datos de la aplicación para que no se pierdan al cerrar sesión.
+            </p>
+            <ul style="font-size: 0.64em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
+              <li><strong>BBDD Relacionales (SQL):</strong> PostgreSQL, MySQL, MariaDB, Oracle.</li>
+              <li><strong>BBDD NoSQL / Documentales:</strong> MongoDB, Firestore, DynamoDB.</li>
+              <li><strong>Caché en Memoria:</strong> Redis, Memcached.</li>
+            </ul>
+            <div style="margin-top: auto; font-size: 0.60em; background: #fffbeb; color: #92400e; padding: 6px 8px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+              🛡️ <strong>Seguridad:</strong> El navegador cliente nunca conecta directamente a la BBDD por aislamiento.
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 12px; background: #0f172a; color: #94a3b8; padding: 8px 14px; border-radius: 8px; font-size: 0.65em; display: flex; align-items: center; justify-content: space-between; border: 1px solid #1e293b;">
+          <span>🔄 <strong>Flujo de Comunicación:</strong> Usuario ➔ [Frontend (Navegador)] ➔ Petición HTTP / JSON ➔ [Backend (Servidor)] ➔ Consultas SQL/NoSQL ➔ [Base de Datos]</span>
+          <span style="color: #38bdf8; font-weight: 700;">Arquitectura Cliente-Servidor Web</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
           <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
           <h2>1. Mecanismos de Ejecución de Código en el Navegador Web</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>JavaScript es el lenguaje de programación interpretado que dota de dinamismo e interactividad a las páginas web. Se ejecuta directamente en el cliente a través de un <strong>entorno de ejecución (Runtime Environment)</strong> integrado en el propio navegador:</p>
+            <div class="card-text"><p>JavaScript es el lenguaje estándar de programación que se ejecuta nativamente en los navegadores dentro de una <strong>arquitectura web de 3 capas</strong>:</p>
 <ul class="concept-list">
-  <li><strong>El Motor de JavaScript (JS Engine):</strong> Cada navegador dispone de un motor optimizado encargado de leer, interpretar y ejecutar el código fuente:
-    <ul>
-      <li><em>V8</em>: Motor de Google Chrome, Microsoft Edge, Opera y entornos como Node.js.</li>
-      <li><em>SpiderMonkey</em>: El motor histórico y robusto de Mozilla Firefox.</li>
-      <li><em>JavaScriptCore (Nitro)</em>: El motor de Apple Safari y dispositivos iOS.</li>
-    </ul>
-  </li>
-  <li><strong>Proceso de Interpretación y Ejecución:</strong> El motor analiza la sintaxis del código (parsing) y lo traduce a instrucciones que la máquina puede procesar de forma inmediata, sin necesidad de compilar un ejecutable previo.</li>
-  <li><strong>El Objeto Global (<code>window</code> / <code>globalThis</code>):</strong> En el navegador, todo el código se ejecuta dentro de un contexto global representado por el objeto <code>window</code>. En los estándares modernos de ECMAScript, la variable universal <code>globalThis</code> apunta a dicho objeto en cualquier entorno.</li>
-  <li><strong>La Consola del Navegador:</strong> Herramienta interactiva disponible en todos los navegadores modernos (tecla <strong>F12</strong>) que permite ejecutar líneas de JavaScript en tiempo real, visualizar resultados con <code>console.log()</code> y detectar fallos.</li>
+  <li><strong>1. Capa de Presentación (Frontend - Cliente):</strong> Construida con HTML5 (estructura), CSS3 (estilo) y JavaScript (lógica interactiva). Es el foco central del módulo DWEC.</li>
+  <li><strong>2. Capa de Lógica de Negocio (Backend - Servidor):</strong> Servidores de aplicaciones (Node.js, Java, Python, PHP) que procesan las reglas de negocio y exponen servicios API.</li>
+  <li><strong>3. Capa de Persistencia (Base de Datos):</strong> Almacenes relacionales (PostgreSQL, MySQL) o NoSQL (MongoDB) que conservan la información permanente de la aplicación.</li>
+  <li><strong>El Motor de JavaScript (JS Engine):</strong> Entorno integrado en el cliente (<em>V8</em> en Chrome/Edge, <em>SpiderMonkey</em> en Firefox, <em>JavaScriptCore</em> en Safari) que interpreta y ejecuta el código en memoria.</li>
+  <li><strong>El Objeto Global (<code>window</code> / <code>globalThis</code>):</strong> Representa el entorno global unificado de ejecución en el navegador.</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
