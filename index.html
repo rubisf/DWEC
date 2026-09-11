@@ -54,16 +54,16 @@
           <div class="text-xs font-medium text-indigo-200 mt-0.5">Unidades Temáticas</div>
         </div>
         <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
-          <div class="text-3xl font-extrabold text-white">28</div>
+          <div class="text-3xl font-extrabold text-white">41</div>
           <div class="text-xs font-medium text-indigo-200 mt-0.5">Retos de Conceptos</div>
         </div>
         <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
           <div class="text-3xl font-extrabold text-white">21</div>
-          <div class="text-xs font-medium text-indigo-200 mt-0.5">Prácticas Guiadas</div>
+          <div class="text-xs font-medium text-indigo-200 mt-0.5">Talleres y Prácticas</div>
         </div>
         <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
-          <div class="text-3xl font-extrabold text-emerald-400">2026</div>
-          <div class="text-xs font-medium text-indigo-200 mt-0.5">Estándares Web Actuales</div>
+          <div class="text-3xl font-extrabold text-emerald-400">100%</div>
+          <div class="text-xs font-medium text-indigo-200 mt-0.5">Sincronización Total</div>
         </div>
       </div>
 
@@ -755,9 +755,9 @@
       cards.forEach((card, idx) => {
         if (cat === 'all') {
           card.style.display = "flex";
-        } else if (cat === 'core' && (idx === 0 || idx === 1 || idx === 2)) {
+        } else if (cat === 'core' && (idx === 0 || idx === 1 || idx === 2 || idx === 3)) {
           card.style.display = "flex";
-        } else if (cat === 'dom' && (idx === 3 || idx === 4 || idx === 5)) {
+        } else if (cat === 'dom' && (idx === 4 || idx === 5)) {
           card.style.display = "flex";
         } else if (cat === 'async' && idx === 6) {
           card.style.display = "flex";
