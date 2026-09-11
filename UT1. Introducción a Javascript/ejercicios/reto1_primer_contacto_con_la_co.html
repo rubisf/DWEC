@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reto 3: Comprobador de Soporte WebAssembly e Instanciación Binaria - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
+  <title>Reto 1: Primer Contacto con la Consola del Navegador e Inspección del Entorno - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -16,15 +16,15 @@
     <!-- Header -->
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl">
       <div class="flex items-center justify-between gap-4 flex-wrap mb-2">
-        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 3 Propuesto en Presentación</span>
-        <span class="text-xs text-slate-400 font-medium">Bloque 3: Lenguajes de Programación en Entorno Cliente y Tecnologías Asociadas</span>
+        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 1 Propuesto en Presentación</span>
+        <span class="text-xs text-slate-400 font-medium">Bloque 1: Mecanismos de Ejecución de Código en el Navegador Web</span>
       </div>
-      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 3: Comprobador de Soporte WebAssembly e Instanciación Binaria</h1>
+      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 1: Primer Contacto con la Consola del Navegador e Inspección del Entorno</h1>
       <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
         <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
-        <p class="text-xs text-slate-300 leading-relaxed">Escribe una función que verifique si el entorno cliente soporta WebAssembly mediante instanciación de un módulo mínimo en memoria binaria. En caso afirmativo, imprime &quot;Wasm Activo&quot;, y si no, ejecuta un algoritmo de Fibonacci puro en JavaScript mostrando el tiempo de ejecución.</p>
+        <p class="text-xs text-slate-300 leading-relaxed">Abre las herramientas de desarrollo del navegador (pulsando F12 o Ctrl+Shift+I) en la pestaña &quot;Console&quot;. Escribe un script inicial que: 1) Imprima un mensaje de bienvenida personalizado con `console.log()`, 2) Muestre la identificación del navegador accediendo a `navigator.userAgent`, 3) Compruebe la identidad del objeto global unificado (`window === globalThis`), y 4) Realice una operación aritmética sencilla mostrando el resultado.</p>
       </div>
-      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Utiliza WebAssembly.instantiate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0])) para instanciar el módulo en memoria. Mide el tiempo de cálculo con console.time y console.timeEnd.</div>
+      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Escribe instrucciones secuenciales usando console.log() para cada comprobación. Recuerda que window === globalThis devuelve un valor booleano (true o false).</div>
     </div>
 
     <!-- Playground Action Bar -->
@@ -76,42 +76,19 @@
         <span class="text-slate-500 text-[11px] bg-slate-800 px-2 py-0.5 rounded">Ver código</span>
       </summary>
       <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
-        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">La verificación e instanciación de WebAssembly en cliente permite decidir en tiempo de ejecución si se delega el cálculo matemático intensivo en un módulo Wasm o en un algoritmo JavaScript.</p>
-        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>async function probarWasmYBenchmark() {
-    console.log(&quot;=== Comprobación e Instanciación de WebAssembly ===&quot;);
-    
-    // Módulo Wasm mínimo válido con cabecera mágica \0asm y versión 1
-    const wasmBytes = new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]);
-    let wasmActivo = false;
+        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">La consola web permite evaluar código en vivo dentro del contexto activo. navigator.userAgent identifica el navegador y globalThis es el estándar unificado de ECMAScript para el objeto global.</p>
+        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>// 1. Mensaje de bienvenida inicial
+console.log(&quot;🚀 ¡Hola! Iniciando el aprendizaje de JavaScript en el entorno cliente.&quot;);
 
-    if (typeof WebAssembly === &quot;object&quot; &amp;&amp; typeof WebAssembly.instantiate === &quot;function&quot;) {
-        try {
-            const resultado = await WebAssembly.instantiate(wasmBytes);
-            if (resultado &amp;&amp; resultado.instance) {
-                wasmActivo = true;
-                console.log(&quot;✅ Wasm Activo: Módulo binario WebAssembly instanciado con éxito en memoria.&quot;);
-                console.log(&quot;Instancia WebAssembly creada:&quot;, resultado.instance);
-            }
-        } catch (e) {
-            console.warn(&quot;Fallo al instanciar binario Wasm:&quot;, e.message);
-        }
-    }
+// 2. Inspección del navegador mediante navigator.userAgent
+console.log(&quot;Navegador detectado (User Agent):&quot;, navigator.userAgent);
 
-    if (!wasmActivo) {
-        console.warn(&quot;⚠️ WebAssembly no disponible en este cliente. Activando motor JavaScript estándar.&quot;);
-    }
+// 3. Comprobación de identidad del objeto global
+console.log(&quot;¿El objeto window es equivalente a globalThis?:&quot;, window === globalThis);
 
-    // Benchmark computacional comparativo en JavaScript
-    console.time(&quot;Cálculo Fibonacci en JS (n=32)&quot;);
-    function fibonacci(n) {
-        return n &lt;= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-    }
-    const valorFib = fibonacci(32);
-    console.timeEnd(&quot;Cálculo Fibonacci en JS (n=32)&quot;);
-    console.log(&quot;Resultado Fibonacci(32) en JS:&quot;, valorFib);
-}
-
-probarWasmYBenchmark();</code></pre>
+// 4. Operación matemática elemental
+const calculo = 1024 / 8;
+console.log(&quot;Resultado del cálculo (1024 / 8):&quot;, calculo);</code></pre>
       </div>
     </details>
   </div>
@@ -223,41 +200,18 @@ probarWasmYBenchmark();</code></pre>
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
       try {
         (async () => {
-async function probarWasmYBenchmark() {
-    console.log("=== Comprobación e Instanciación de WebAssembly ===");
-    
-    // Módulo Wasm mínimo válido con cabecera mágica \0asm y versión 1
-    const wasmBytes = new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]);
-    let wasmActivo = false;
+// 1. Mensaje de bienvenida inicial
+console.log("🚀 ¡Hola! Iniciando el aprendizaje de JavaScript en el entorno cliente.");
 
-    if (typeof WebAssembly === "object" && typeof WebAssembly.instantiate === "function") {
-        try {
-            const resultado = await WebAssembly.instantiate(wasmBytes);
-            if (resultado && resultado.instance) {
-                wasmActivo = true;
-                console.log("✅ Wasm Activo: Módulo binario WebAssembly instanciado con éxito en memoria.");
-                console.log("Instancia WebAssembly creada:", resultado.instance);
-            }
-        } catch (e) {
-            console.warn("Fallo al instanciar binario Wasm:", e.message);
-        }
-    }
+// 2. Inspección del navegador mediante navigator.userAgent
+console.log("Navegador detectado (User Agent):", navigator.userAgent);
 
-    if (!wasmActivo) {
-        console.warn("⚠️ WebAssembly no disponible en este cliente. Activando motor JavaScript estándar.");
-    }
+// 3. Comprobación de identidad del objeto global
+console.log("¿El objeto window es equivalente a globalThis?:", window === globalThis);
 
-    // Benchmark computacional comparativo en JavaScript
-    console.time("Cálculo Fibonacci en JS (n=32)");
-    function fibonacci(n) {
-        return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-    }
-    const valorFib = fibonacci(32);
-    console.timeEnd("Cálculo Fibonacci en JS (n=32)");
-    console.log("Resultado Fibonacci(32) en JS:", valorFib);
-}
-
-probarWasmYBenchmark();
+// 4. Operación matemática elemental
+const calculo = 1024 / 8;
+console.log("Resultado del cálculo (1024 / 8):", calculo);
         })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reto 2: Auditor de Capacidades y Verificación del Sandbox del Navegador - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
+  <title>Reto 5: Secuencia de Trabajo y Primer Repositorio con Git - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -16,15 +16,15 @@
     <!-- Header -->
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl">
       <div class="flex items-center justify-between gap-4 flex-wrap mb-2">
-        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 2 Propuesto en Presentación</span>
-        <span class="text-xs text-slate-400 font-medium">Bloque 2: Capacidades y Limitaciones de Ejecución en Entorno Cliente</span>
+        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 5 Propuesto en Presentación</span>
+        <span class="text-xs text-slate-400 font-medium">Bloque 5: Control de Versiones Distribuido con Git para Desarrollo Web</span>
       </div>
-      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 2: Auditor de Capacidades y Verificación del Sandbox del Navegador</h1>
+      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 5: Secuencia de Trabajo y Primer Repositorio con Git</h1>
       <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
         <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
-        <p class="text-xs text-slate-300 leading-relaxed">Crea una función llamada `auditarNavegador()` que verifique mediante Feature Detection el soporte de al menos 5 APIs modernas del cliente (Geolocalización, Web Storage, Web Workers, IndexedDB y Clipboard API). Muestra un informe estructurado indicando el estado de cada una y comprueba que la API de almacenamiento local funciona dentro del origen actual.</p>
+        <p class="text-xs text-slate-300 leading-relaxed">Escribe la secuencia completa de comandos de terminal de Git para: 1) Inicializar un nuevo repositorio en la carpeta de tu proyecto web, 2) Configurar tu nombre de usuario y correo electrónico, 3) Comprobar el estado de los archivos con `git status`, 4) Añadir todos los archivos a la zona de preparación (Staging Area), 5) Realizar un commit inicial con un mensaje semántico, y 6) Crear y cambiarte a una rama de trabajo llamada `develop`.</p>
       </div>
-      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Usa el operador &quot;in&quot; para comprobar las propiedades en window o navigator. Envuelve la prueba de localStorage en un bloque try-catch para capturar excepciones si las cookies de terceros están bloqueadas.</div>
+      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Utiliza git init para comenzar, git config para la identidad, git add . para preparar todos los ficheros, git commit -m para confirmar y git checkout -b develop para crear la rama.</div>
     </div>
 
     <!-- Playground Action Bar -->
@@ -76,31 +76,28 @@
         <span class="text-slate-500 text-[11px] bg-slate-800 px-2 py-0.5 rounded">Ver código</span>
       </summary>
       <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
-        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">La detección de características garantiza que la aplicación web pueda ofrecer degradación elegante (fallback) o mejoras progresivas dependiendo de las capacidades del cliente donde se ejecute.</p>
-        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>function auditarNavegador() {
-    const informe = {
-        &#x27;Geolocalización&#x27;: &#x27;geolocation&#x27; in navigator,
-        &#x27;Web Storage (localStorage)&#x27;: &#x27;localStorage&#x27; in window,
-        &#x27;Web Workers (Multihilo)&#x27;: typeof Worker !== &#x27;undefined&#x27;,
-        &#x27;IndexedDB (NoSQL Cliente)&#x27;: &#x27;indexedDB&#x27; in window,
-        &#x27;Clipboard API (Portapapeles)&#x27;: &#x27;clipboard&#x27; in navigator
-    };
+        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">El control de versiones con Git es una competencia indispensable para cualquier desarrollador. Separar el trabajo en ramas (como develop) asegura que el código en producción (main) se mantenga siempre estable y libre de errores.</p>
+        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code># 1. Inicializar el repositorio en la carpeta local del proyecto
+git init
 
-    console.log(&quot;=== INFORME DE CAPACIDADES CLIENTE ===&quot;);
-    console.table(informe);
+# 2. Configurar la identidad del desarrollador
+git config user.name &quot;Estudiante DWEC&quot;
+git config user.email &quot;estudiante@daw.es&quot;
 
-    // Verificación práctica de sandbox de almacenamiento
-    try {
-        localStorage.setItem(&#x27;__test_sandbox__&#x27;, &#x27;ok&#x27;);
-        const lectura = localStorage.getItem(&#x27;__test_sandbox__&#x27;);
-        localStorage.removeItem(&#x27;__test_sandbox__&#x27;);
-        console.log(&quot;Sandbox de almacenamiento verificado con éxito:&quot;, lectura === &#x27;ok&#x27;);
-    } catch (e) {
-        console.warn(&quot;Almacenamiento bloqueado o restringido por políticas de privacidad:&quot;, e.message);
-    }
-}
+# 3. Comprobar el estado de los archivos en el directorio de trabajo
+git status
 
-auditarNavegador();</code></pre>
+# 4. Añadir todos los archivos modificados a la Zona de Preparación (Staging Area)
+git add .
+
+# 5. Confirmar los cambios creando el primer commit del proyecto
+git commit -m &quot;feat: inicializar proyecto web con HTML5 y JavaScript&quot;
+
+# 6. Crear y posicionarse en una rama de trabajo llamada &#x27;develop&#x27;
+git checkout -b develop
+
+# Verificación final del historial de versiones
+git log --oneline</code></pre>
       </div>
     </details>
   </div>
@@ -212,30 +209,27 @@ auditarNavegador();</code></pre>
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
       try {
         (async () => {
-function auditarNavegador() {
-    const informe = {
-        'Geolocalización': 'geolocation' in navigator,
-        'Web Storage (localStorage)': 'localStorage' in window,
-        'Web Workers (Multihilo)': typeof Worker !== 'undefined',
-        'IndexedDB (NoSQL Cliente)': 'indexedDB' in window,
-        'Clipboard API (Portapapeles)': 'clipboard' in navigator
-    };
+# 1. Inicializar el repositorio en la carpeta local del proyecto
+git init
 
-    console.log("=== INFORME DE CAPACIDADES CLIENTE ===");
-    console.table(informe);
+# 2. Configurar la identidad del desarrollador
+git config user.name "Estudiante DWEC"
+git config user.email "estudiante@daw.es"
 
-    // Verificación práctica de sandbox de almacenamiento
-    try {
-        localStorage.setItem('__test_sandbox__', 'ok');
-        const lectura = localStorage.getItem('__test_sandbox__');
-        localStorage.removeItem('__test_sandbox__');
-        console.log("Sandbox de almacenamiento verificado con éxito:", lectura === 'ok');
-    } catch (e) {
-        console.warn("Almacenamiento bloqueado o restringido por políticas de privacidad:", e.message);
-    }
-}
+# 3. Comprobar el estado de los archivos en el directorio de trabajo
+git status
 
-auditarNavegador();
+# 4. Añadir todos los archivos modificados a la Zona de Preparación (Staging Area)
+git add .
+
+# 5. Confirmar los cambios creando el primer commit del proyecto
+git commit -m "feat: inicializar proyecto web con HTML5 y JavaScript"
+
+# 6. Crear y posicionarse en una rama de trabajo llamada 'develop'
+git checkout -b develop
+
+# Verificación final del historial de versiones
+git log --oneline
         })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);

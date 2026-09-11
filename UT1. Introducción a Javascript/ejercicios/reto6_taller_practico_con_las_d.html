@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reto 1: Inspección del Motor, Tiempos de Ejecución y Prioridades del Event Loop - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
+  <title>Reto 6: Taller Práctico con las DevTools del Navegador y Métodos de Consola - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -16,15 +16,15 @@
     <!-- Header -->
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl">
       <div class="flex items-center justify-between gap-4 flex-wrap mb-2">
-        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 1 Propuesto en Presentación</span>
-        <span class="text-xs text-slate-400 font-medium">Bloque 1: Mecanismos de Ejecución de Código en el Navegador Web</span>
+        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 6 Propuesto en Presentación</span>
+        <span class="text-xs text-slate-400 font-medium">Bloque 6: Herramientas de Programación, Depuración y Prueba sobre Clientes Web</span>
       </div>
-      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 1: Inspección del Motor, Tiempos de Ejecución y Prioridades del Event Loop</h1>
+      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 6: Taller Práctico con las DevTools del Navegador y Métodos de Consola</h1>
       <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
         <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
-        <p class="text-xs text-slate-300 leading-relaxed">Diseña un script que: 1) Extraiga y clasifique mediante expresiones regulares el nombre y versión exacta del motor de JavaScript y navegador a partir de `navigator.userAgent`, 2) Evalúe la identidad del objeto global unificado (`window === globalThis`), y 3) Demuestre cuantitativamente con `performance.now()` la prioridad del Event Loop programando una macrotarea (`setTimeout 0ms`) antes de una microtarea (`Promise.resolve()` y `queueMicrotask()`), registrando una tabla de traza y validando el orden secuencial de resolución.</p>
+        <p class="text-xs text-slate-300 leading-relaxed">Utilizando las herramientas de desarrollador del navegador (F12): 1) Escribe un script que emita tres mensajes en consola diferenciando su severidad: un mensaje informativo ordinario con `console.log()`, una advertencia con `console.warn()` y un error con `console.error()`, 2) Utiliza `console.table()` para mostrar de forma tabular los datos básicos de tu navegador (`plataforma`, `idioma` y `conectado`), y 3) Añade la sentencia `debugger;` para pausar la ejecución en el navegador y comprobar en la pestaña Sources cómo se detiene el código.</p>
       </div>
-      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Usa expresiones regulares como /Chrome\/([0-9.]+)/, /Firefox\/([0-9.]+)/ o /Version\/([0-9.]+).*Safari/ sobre navigator.userAgent. Almacena en un array de traza cada evento con performance.now() y muestra console.table().</div>
+      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Abre la consola con F12. Declara un objeto con las propiedades que quieras mostrar en la tabla y pásaselo a console.table(). Al ejecutar, la palabra debugger detendrá la ejecución si las herramientas están abiertas.</div>
     </div>
 
     <!-- Playground Action Bar -->
@@ -76,96 +76,26 @@
         <span class="text-slate-500 text-[11px] bg-slate-800 px-2 py-0.5 rounded">Ver código</span>
       </summary>
       <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
-        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">La especificación HTML/W3C define que el Event Loop procesa todo el Call Stack síncrono primero, luego vacía completamente la cola de microtareas (Promesas y queueMicrotask) y finalmente, en el siguiente ciclo, atiende la cola de macrotareas (como temporizadores de setTimeout).</p>
-        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>function auditarMotorYEventLoop() {
-    console.group(&quot;🔍 1. Detección y Extracción del Motor JS mediante navigator.userAgent&quot;);
-    const ua = navigator.userAgent;
-    let motorDetectado = &quot;Desconocido&quot;;
-    let versionMotor = &quot;Desconocida&quot;;
-    let navegador = &quot;Navegador no identificado&quot;;
+        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">Aprender a depurar código con la consola y las DevTools desde la primera semana es crucial: evita depender de alertas invasivas y enseña a encontrar errores de manera profesional.</p>
+        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>// 1. Mensajes en consola con diferentes niveles de severidad
+console.log(&quot;ℹ️ [INFO]: La aplicación se ha iniciado correctamente.&quot;);
+console.warn(&quot;⚠️ [AVISO]: Comprueba que la pantalla tenga suficiente resolución.&quot;);
+console.error(&quot;❌ [ERROR]: Ejemplo de mensaje de error para diagnóstico.&quot;);
 
-    // Expresiones regulares para extraer motor y versión exacta
-    if (/Edg\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = &quot;V8 (Blink)&quot;;
-        versionMotor = ua.match(/Edg\/([0-9.]+)/i)[1];
-        navegador = &quot;Microsoft Edge&quot;;
-    } else if (/Chrome\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = &quot;V8 (Blink)&quot;;
-        versionMotor = ua.match(/Chrome\/([0-9.]+)/i)[1];
-        navegador = &quot;Google Chrome / Chromium&quot;;
-    } else if (/Firefox\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = &quot;SpiderMonkey (Gecko)&quot;;
-        versionMotor = ua.match(/Firefox\/([0-9.]+)/i)[1];
-        navegador = &quot;Mozilla Firefox&quot;;
-    } else if (/Version\/([0-9.]+).*Safari/i.test(ua)) {
-        motorDetectado = &quot;JavaScriptCore (Nitro/WebKit)&quot;;
-        versionMotor = ua.match(/Version\/([0-9.]+)/i)[1];
-        navegador = &quot;Apple Safari&quot;;
-    }
+// 2. Visualización tabular de datos del navegador
+const estadoNavegador = {
+    plataforma: navigator.userAgent.includes(&quot;Windows&quot;) ? &quot;Windows&quot; : &quot;Otro Sistema&quot;,
+    idioma: navigator.language,
+    conectado: navigator.onLine ? &quot;En línea&quot; : &quot;Desconectado&quot;
+};
 
-    console.log(&quot;Navegador:&quot;, navegador);
-    console.log(&quot;Motor de JavaScript:&quot;, motorDetectado);
-    console.log(&quot;Versión detectada:&quot;, versionMotor);
-    console.log(&quot;User-Agent en bruto:&quot;, ua);
-    console.groupEnd();
+console.log(&quot;📊 Resumen del entorno del cliente:&quot;);
+console.table(estadoNavegador);
 
-    console.group(&quot;🌐 2. Comparativa de Identidad del Objeto Global&quot;);
-    const auditoriaGlobal = {
-        &quot;window === globalThis&quot;: window === globalThis,
-        &quot;self === globalThis&quot;: typeof self !== &quot;undefined&quot; &amp;&amp; self === globalThis,
-        &quot;typeof window&quot;: typeof window,
-        &quot;typeof globalThis&quot;: typeof globalThis,
-        &quot;Entorno estandarizado&quot;: &quot;globalThis (ES2020)&quot;
-    };
-    console.table(auditoriaGlobal);
-    console.groupEnd();
-
-    console.group(&quot;⚡ 3. Demostración Cuantitativa de Prioridades del Event Loop&quot;);
-    const t0 = performance.now();
-    const traza = [];
-
-    function registrarPaso(fase, tipo, prioridadTeorica) {
-        traza.push({
-            &quot;Orden de Ejecución&quot;: traza.length + 1,
-            &quot;Fase / Cola&quot;: fase,
-            &quot;Tipo de Tarea&quot;: tipo,
-            &quot;Prioridad&quot;: prioridadTeorica,
-            &quot;Timestamp Relativo (ms)&quot;: Number((performance.now() - t0).toFixed(4))
-        });
-    }
-
-    // 1. Sentencia Síncrona Inicial en Call Stack
-    registrarPaso(&quot;Call Stack&quot;, &quot;Síncrono (Inicio)&quot;, &quot;1 - Inmediata&quot;);
-
-    // 2. Macrotarea: Se programa PRIMERO en el código deliberadamente
-    setTimeout(() =&gt; {
-        registrarPaso(&quot;Macrotask Queue&quot;, &quot;Macrotarea (setTimeout 0ms)&quot;, &quot;3 - Baja&quot;);
-
-        // Al ejecutarse la macrotarea, el ciclo ha concluido y mostramos la tabla
-        console.table(traza);
-        const ordenCorrecto = traza[2][&quot;Tipo de Tarea&quot;].includes(&quot;Microtarea&quot;) &amp;&amp; 
-                              traza[traza.length - 1][&quot;Tipo de Tarea&quot;].includes(&quot;Macrotarea&quot;);
-        console.log(&quot;¿Se demostró la prioridad de microtareas frente a macrotareas?:&quot;, ordenCorrecto ? &quot;SÍ ✅&quot; : &quot;NO ❌&quot;);
-        console.groupEnd();
-    }, 0);
-
-    // 3. Microtarea (Promise.resolve): Se programa DESPUÉS de setTimeout
-    Promise.resolve().then(() =&gt; {
-        registrarPaso(&quot;Microtask Queue&quot;, &quot;Microtarea (Promise.resolve)&quot;, &quot;2 - Alta&quot;);
-    });
-
-    // 4. Microtarea Nativa (queueMicrotask)
-    if (typeof queueMicrotask === &quot;function&quot;) {
-        queueMicrotask(() =&gt; {
-            registrarPaso(&quot;Microtask Queue&quot;, &quot;Microtarea (queueMicrotask)&quot;, &quot;2 - Alta&quot;);
-        });
-    }
-
-    // 5. Sentencia Síncrona Final en Call Stack
-    registrarPaso(&quot;Call Stack&quot;, &quot;Síncrono (Fin)&quot;, &quot;1 - Inmediata&quot;);
-}
-
-auditarMotorYEventLoop();</code></pre>
+// 3. Sentencia debugger: pausa la ejecución en DevTools (F12)
+console.log(&quot;Iniciando pausa de depuración con la sentencia debugger...&quot;);
+debugger; // Si abres F12 -&gt; Sources, el navegador pausará la ejecución aquí
+console.log(&quot;Depuración finalizada con éxito.&quot;);</code></pre>
       </div>
     </details>
   </div>
@@ -277,95 +207,25 @@ auditarMotorYEventLoop();</code></pre>
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
       try {
         (async () => {
-function auditarMotorYEventLoop() {
-    console.group("🔍 1. Detección y Extracción del Motor JS mediante navigator.userAgent");
-    const ua = navigator.userAgent;
-    let motorDetectado = "Desconocido";
-    let versionMotor = "Desconocida";
-    let navegador = "Navegador no identificado";
+// 1. Mensajes en consola con diferentes niveles de severidad
+console.log("ℹ️ [INFO]: La aplicación se ha iniciado correctamente.");
+console.warn("⚠️ [AVISO]: Comprueba que la pantalla tenga suficiente resolución.");
+console.error("❌ [ERROR]: Ejemplo de mensaje de error para diagnóstico.");
 
-    // Expresiones regulares para extraer motor y versión exacta
-    if (/Edg\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = "V8 (Blink)";
-        versionMotor = ua.match(/Edg\/([0-9.]+)/i)[1];
-        navegador = "Microsoft Edge";
-    } else if (/Chrome\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = "V8 (Blink)";
-        versionMotor = ua.match(/Chrome\/([0-9.]+)/i)[1];
-        navegador = "Google Chrome / Chromium";
-    } else if (/Firefox\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = "SpiderMonkey (Gecko)";
-        versionMotor = ua.match(/Firefox\/([0-9.]+)/i)[1];
-        navegador = "Mozilla Firefox";
-    } else if (/Version\/([0-9.]+).*Safari/i.test(ua)) {
-        motorDetectado = "JavaScriptCore (Nitro/WebKit)";
-        versionMotor = ua.match(/Version\/([0-9.]+)/i)[1];
-        navegador = "Apple Safari";
-    }
+// 2. Visualización tabular de datos del navegador
+const estadoNavegador = {
+    plataforma: navigator.userAgent.includes("Windows") ? "Windows" : "Otro Sistema",
+    idioma: navigator.language,
+    conectado: navigator.onLine ? "En línea" : "Desconectado"
+};
 
-    console.log("Navegador:", navegador);
-    console.log("Motor de JavaScript:", motorDetectado);
-    console.log("Versión detectada:", versionMotor);
-    console.log("User-Agent en bruto:", ua);
-    console.groupEnd();
+console.log("📊 Resumen del entorno del cliente:");
+console.table(estadoNavegador);
 
-    console.group("🌐 2. Comparativa de Identidad del Objeto Global");
-    const auditoriaGlobal = {
-        "window === globalThis": window === globalThis,
-        "self === globalThis": typeof self !== "undefined" && self === globalThis,
-        "typeof window": typeof window,
-        "typeof globalThis": typeof globalThis,
-        "Entorno estandarizado": "globalThis (ES2020)"
-    };
-    console.table(auditoriaGlobal);
-    console.groupEnd();
-
-    console.group("⚡ 3. Demostración Cuantitativa de Prioridades del Event Loop");
-    const t0 = performance.now();
-    const traza = [];
-
-    function registrarPaso(fase, tipo, prioridadTeorica) {
-        traza.push({
-            "Orden de Ejecución": traza.length + 1,
-            "Fase / Cola": fase,
-            "Tipo de Tarea": tipo,
-            "Prioridad": prioridadTeorica,
-            "Timestamp Relativo (ms)": Number((performance.now() - t0).toFixed(4))
-        });
-    }
-
-    // 1. Sentencia Síncrona Inicial en Call Stack
-    registrarPaso("Call Stack", "Síncrono (Inicio)", "1 - Inmediata");
-
-    // 2. Macrotarea: Se programa PRIMERO en el código deliberadamente
-    setTimeout(() => {
-        registrarPaso("Macrotask Queue", "Macrotarea (setTimeout 0ms)", "3 - Baja");
-
-        // Al ejecutarse la macrotarea, el ciclo ha concluido y mostramos la tabla
-        console.table(traza);
-        const ordenCorrecto = traza[2]["Tipo de Tarea"].includes("Microtarea") && 
-                              traza[traza.length - 1]["Tipo de Tarea"].includes("Macrotarea");
-        console.log("¿Se demostró la prioridad de microtareas frente a macrotareas?:", ordenCorrecto ? "SÍ ✅" : "NO ❌");
-        console.groupEnd();
-    }, 0);
-
-    // 3. Microtarea (Promise.resolve): Se programa DESPUÉS de setTimeout
-    Promise.resolve().then(() => {
-        registrarPaso("Microtask Queue", "Microtarea (Promise.resolve)", "2 - Alta");
-    });
-
-    // 4. Microtarea Nativa (queueMicrotask)
-    if (typeof queueMicrotask === "function") {
-        queueMicrotask(() => {
-            registrarPaso("Microtask Queue", "Microtarea (queueMicrotask)", "2 - Alta");
-        });
-    }
-
-    // 5. Sentencia Síncrona Final en Call Stack
-    registrarPaso("Call Stack", "Síncrono (Fin)", "1 - Inmediata");
-}
-
-auditarMotorYEventLoop();
+// 3. Sentencia debugger: pausa la ejecución en DevTools (F12)
+console.log("Iniciando pausa de depuración con la sentencia debugger...");
+debugger; // Si abres F12 -> Sources, el navegador pausará la ejecución aquí
+console.log("Depuración finalizada con éxito.");
         })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);

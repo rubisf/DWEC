@@ -525,13 +525,21 @@
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo1_jerarquia_nodos.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_jerarquia_nodos.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT6 - Ejemplo 1: Jerarquía de Nodos DOM
-if (typeof document !== &#x27;undefined&#x27;) {
-    console.log(&quot;Tipo de nodo raíz:&quot;, document.nodeType); // 9 (DOCUMENT_NODE)
-}
-</code></pre>
+          <pre><code class="language-javascript">// Navegación por la jerarquía DOM: Comparativa de propiedades de Elemento vs Nodo
+const contenedor = document.getElementById(&quot;seccion-principal&quot;);
+
+console.log(&quot;=== Navegación Jerárquica Segura por Elementos ===&quot;);
+console.log(&quot;Padre del contenedor:&quot;, contenedor.parentElement.tagName);
+console.log(&quot;Número de etiquetas hijas (children):&quot;, contenedor.children.length);
+console.log(&quot;Primer hijo elemento (firstElementChild):&quot;, contenedor.firstElementChild.tagName);
+console.log(&quot;Último hijo elemento (lastElementChild):&quot;, contenedor.lastElementChild.tagName);
+
+// Iterar únicamente sobre elementos ignorando espacios en blanco
+for (const hijo of contenedor.children) {
+    console.log(` -&gt; Elemento hijo: &lt;${hijo.tagName.toLowerCase()}&gt; con ID &#x27;${hijo.id}&#x27;`);
+}</code></pre>
         </div>
       </section>
 
@@ -650,14 +658,28 @@ if (typeof document !== &#x27;undefined&#x27;) {
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo2_selectores_dom.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_selectores_dom.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT6 - Ejemplo 2: QuerySelector
-if (typeof document !== &#x27;undefined&#x27;) {
-    const el = document.querySelector(&quot;.tarjeta&quot;);
-    console.log(&quot;Elemento encontrado:&quot;, el ? el.tagName : &quot;No presente&quot;);
-}
-</code></pre>
+          <pre><code class="language-javascript">// Selección moderna de elementos y evaluación contextual con matches y closest
+// 1. Selector CSS complejo con querySelectorAll
+const botonesPeligrosos = document.querySelectorAll(&quot;article.noticia button.btn-eliminar[data-activo=&#x27;true&#x27;]&quot;);
+console.log(&quot;Número de botones peligrosos encontrados:&quot;, botonesPeligrosos.length);
+
+// 2. Uso del método closest para ascender al contenedor padre
+botonesPeligrosos.forEach(boton =&gt; {
+    boton.addEventListener(&quot;click&quot;, () =&gt; {
+        // Encontrar el artículo padre más próximo
+        const articulo = boton.closest(&quot;article.noticia&quot;);
+        if (articulo) {
+            console.log(&quot;Artículo localizado con closest():&quot;, articulo.dataset.id);
+        }
+
+        // Comprobación de selector con matches
+        if (boton.matches(&quot;:disabled&quot;)) {
+            console.log(&quot;El botón está deshabilitado.&quot;);
+        }
+    });
+});</code></pre>
         </div>
       </section>
 
@@ -776,15 +798,34 @@ if (typeof document !== &#x27;undefined&#x27;) {
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo3_manipulacion_dataset.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_manipulacion_dataset.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT6 - Ejemplo 3: Dataset HTML5
-if (typeof document !== &#x27;undefined&#x27;) {
-    const div = document.createElement(&quot;div&quot;);
-    div.dataset.usuarioId = &quot;99&quot;;
-    console.log(&quot;Dataset asignado:&quot;, div.dataset.usuarioId);
-}
-</code></pre>
+          <pre><code class="language-javascript">// Inserción Atómica de Alto Rendimiento con DocumentFragment
+function renderizarListadoProductos(productos, contenedorPadre) {
+    // Crear fragmento en memoria para evitar múltiples reflows
+    const fragmento = document.createDocumentFragment();
+
+    productos.forEach(prod =&gt; {
+        const tarjeta = document.createElement(&quot;article&quot;);
+        tarjeta.className = &quot;producto-card&quot;;
+        tarjeta.dataset.id = prod.id;
+
+        // Inyección segura de texto con textContent
+        const titulo = document.createElement(&quot;h3&quot;);
+        titulo.textContent = prod.nombre; // Seguro contra XSS
+
+        const precio = document.createElement(&quot;p&quot;);
+        precio.className = &quot;precio-etiqueta&quot;;
+        precio.textContent = `${prod.precio.toFixed(2)} €`;
+
+        tarjeta.append(titulo, precio);
+        fragmento.appendChild(tarjeta);
+    });
+
+    // Inserción única en el árbol visible: un solo Reflow
+    contenedorPadre.appendChild(fragmento);
+    console.log(`Renderizados ${productos.length} productos en una sola operación atómica.`);
+}</code></pre>
         </div>
       </section>
 
@@ -916,12 +957,25 @@ if (typeof document !== &#x27;undefined&#x27;) {
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo4_api_rest_fetch.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_api_rest_fetch.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT6 - Ejemplo 4: REST API Verbos HTTP
-console.log(&quot;=== Verbos HTTP en Arquitectura REST ===&quot;);
-console.log(&quot;GET /api/v1/usuarios | POST /api/v1/usuarios | DELETE /api/v1/usuarios/42&quot;);
-</code></pre>
+          <pre><code class="language-javascript">// Manipulación de atributos estándar y metadatos con dataset
+const tarjetaUsuario = document.getElementById(&quot;tarjeta-cliente&quot;);
+
+// 1. Lectura y modificación de atributos HTML nativos
+tarjetaUsuario.setAttribute(&quot;role&quot;, &quot;region&quot;);
+tarjetaUsuario.setAttribute(&quot;aria-label&quot;, &quot;Ficha de cliente&quot;);
+
+// 2. Uso de dataset para metadatos de negocio
+console.log(&quot;ID del cliente (data-cliente-id):&quot;, tarjetaUsuario.dataset.clienteId);
+console.log(&quot;Rol del cliente (data-rol):&quot;, tarjetaUsuario.dataset.rol);
+
+// Modificación dinámica de dataset (actualiza automáticamente el HTML a data-estado-cuenta)
+tarjetaUsuario.dataset.estadoCuenta = &quot;activa-verificada&quot;;
+
+// Filtrado de elementos por metadatos
+const elementosVerificados = document.querySelectorAll(&quot;[data-estado-cuenta=&#x27;activa-verificada&#x27;]&quot;);
+console.log(&quot;Elementos verificados en el documento:&quot;, elementosVerificados.length);</code></pre>
         </div>
       </section>
 

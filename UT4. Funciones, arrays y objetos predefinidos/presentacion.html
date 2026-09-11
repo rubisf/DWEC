@@ -519,16 +519,24 @@
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo1_closures_currying.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_closures_currying.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT4 - Ejemplo 1: Closures y Currying
-function crearContador() {
-    let contador = 0;
-    return () =&gt; ++contador;
-}
-const incrementar = crearContador();
-console.log(&quot;Contador:&quot;, incrementar(), incrementar());
-</code></pre>
+          <pre><code class="language-javascript">// Comparativa de Funciones Clásicas vs Funciones Flecha y Parámetros Rest
+const gestorEventos = {
+    nombre: &quot;Taller DWEC&quot;,
+    participantes: [&quot;Carlos&quot;, &quot;Marta&quot;, &quot;David&quot;],
+    
+    // Método clásico con función flecha interna que conserva léxicamente &#x27;this&#x27;
+    imprimirAsistencia(...asistentesExtra) {
+        const todos = [...this.participantes, ...asistentesExtra];
+        console.log(`Lista para el evento: ${this.nombre}`);
+        
+        // La función flecha hereda &#x27;this&#x27; de imprimirAsistencia (el objeto gestorEventos)
+        todos.forEach(p =&gt; console.log(` - Asistente: ${p} registrado en ${this.nombre}`));
+    }
+};
+
+gestorEventos.imprimirAsistencia(&quot;Sonia&quot;, &quot;Marcos&quot;);</code></pre>
         </div>
       </section>
 
@@ -693,13 +701,24 @@ laboratorioFunciones();</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo2_metodos_arrays.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_metodos_arrays.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT4 - Ejemplo 2: Métodos de Array
-const precios = [10, 20, 30];
-const dobles = precios.map(x =&gt; x * 2);
-console.log(&quot;Precios dobles:&quot;, dobles);
-</code></pre>
+          <pre><code class="language-javascript">// Manipulación avanzada de arrays: Mutaciones con splice vs Copias inmutables
+const colaProcesos = [&quot;PID_101&quot;, &quot;PID_102&quot;, &quot;PID_103&quot;, &quot;PID_104&quot;];
+
+// Insertar en medio y reemplazar con splice (mutador)
+const eliminados = colaProcesos.splice(1, 2, &quot;PID_200&quot;, &quot;PID_201&quot;);
+console.log(&quot;Procesos eliminados por splice:&quot;, eliminados);
+console.log(&quot;Cola tras inserción:&quot;, colaProcesos);
+
+// Extracción inmutable con slice
+const primerosDos = colaProcesos.slice(0, 2);
+console.log(&quot;Copia parcial (slice):&quot;, primerosDos);
+
+// Recorrido moderno con for...of y desestructuración de índice con .entries()
+for (const [posicion, proceso] of colaProcesos.entries()) {
+    console.log(`Posición ${posicion}: Proceso ${proceso}`);
+}</code></pre>
         </div>
       </section>
 
@@ -834,17 +853,32 @@ gestor.mostrar();</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo3_poo_clases.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_poo_clases.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT4 - Ejemplo 3: POO y Clases
-class Persona {
-    #id;
-    constructor(id, nombre) { this.#id = id; this.nombre = nombre; }
-    getId() { return this.#id; }
-}
-const p = new Persona(101, &quot;Carlos&quot;);
-console.log(`Persona: ${p.nombre} (ID: ${p.getId()})`);
-</code></pre>
+          <pre><code class="language-javascript">// Pipeline Funcional de Datos con filter, map, reduce y toSorted
+const catalogoCursos = [
+    { id: 1, titulo: &quot;JavaScript ES2024&quot;, horas: 60, precio: 120, nivel: &quot;Avanzado&quot; },
+    { id: 2, titulo: &quot;HTML5 y Accesibilidad&quot;, horas: 30, precio: 50, nivel: &quot;Iniciación&quot; },
+    { id: 3, titulo: &quot;TypeScript y Patrones&quot;, horas: 50, precio: 150, nivel: &quot;Avanzado&quot; },
+    { id: 4, titulo: &quot;CSS Grid y Animaciones&quot;, horas: 40, precio: 80, nivel: &quot;Intermedio&quot; }
+];
+
+// 1. Filtrar cursos avanzados y ordenar por precio descendente de forma inmutable
+const cursosAvanzadosOrdenados = catalogoCursos
+    .filter(curso =&gt; curso.nivel === &quot;Avanzado&quot;)
+    .toSorted((a, b) =&gt; b.precio - a.precio);
+
+console.log(&quot;Cursos avanzados ordenados por precio:&quot;);
+console.table(cursosAvanzadosOrdenados);
+
+// 2. Calcular coste total y horas acumuladas con reduce
+const metricas = catalogoCursos.reduce((acumulador, curso) =&gt; {
+    acumulador.totalImporte += curso.precio;
+    acumulador.totalHoras += curso.horas;
+    return acumulador;
+}, { totalImporte: 0, totalHoras: 0 });
+
+console.log(&quot;Métricas globales:&quot;, metricas);</code></pre>
         </div>
       </section>
 
@@ -962,20 +996,52 @@ console.table(analisis.rankingCategorias);</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo4_patrones_diseno.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_patrones_diseno.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT4 - Ejemplo 4: Patrón Singleton
-class SingletonBD {
-    static #instancia;
-    constructor() {
-        if (SingletonBD.#instancia) return SingletonBD.#instancia;
-        SingletonBD.#instancia = this;
+          <pre><code class="language-javascript">// POO Moderna en JavaScript: Clases, Campos Privados (#) y Herencia
+class CuentaBancaria {
+    #saldo; // Campo privado estricto
+
+    constructor(titular, saldoInicial = 0) {
+        this.titular = titular;
+        this.#saldo = Math.max(0, saldoInicial);
+    }
+
+    // Getter para lectura controlada
+    get saldo() {
+        return this.#saldo;
+    }
+
+    ingresar(cantidad) {
+        if (cantidad &lt;= 0) throw new Error(&quot;La cantidad debe ser positiva.&quot;);
+        this.#saldo += cantidad;
+        console.log(`Ingreso de ${cantidad}€. Saldo actual: ${this.#saldo}€`);
+    }
+
+    retirar(cantidad) {
+        if (cantidad &gt; this.#saldo) throw new Error(&quot;Saldo insuficiente.&quot;);
+        this.#saldo -= cantidad;
+        return cantidad;
     }
 }
-const bd1 = new SingletonBD();
-const bd2 = new SingletonBD();
-console.log(&quot;¿Misma instancia Singleton?:&quot;, bd1 === bd2);
-</code></pre>
+
+class CuentaJoven extends CuentaBancaria {
+    constructor(titular, saldoInicial, bonificacion = 10) {
+        super(titular, saldoInicial);
+        this.bonificacion = bonificacion;
+    }
+
+    // Sobreescritura polimórfica
+    ingresar(cantidad) {
+        const extra = cantidad * (this.bonificacion / 100);
+        console.log(`¡Bonificación Joven aplicada (+${extra}€)!`);
+        super.ingresar(cantidad + extra);
+    }
+}
+
+const miCuenta = new CuentaJoven(&quot;Lucía Gómez&quot;, 200);
+miCuenta.ingresar(100);
+// console.log(miCuenta.#saldo); // SyntaxError: Private field &#x27;#saldo&#x27; must be declared in an enclosing class</code></pre>
         </div>
       </section>
 

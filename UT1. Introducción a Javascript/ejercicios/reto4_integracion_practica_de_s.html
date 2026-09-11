@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reto 4: Simulador de Orden de Carga: Sync vs Async vs Defer vs Module - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
+  <title>Reto 4: Integración Práctica de Scripts en HTML y Orden de Carga - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -19,12 +19,12 @@
         <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 4 Propuesto en Presentación</span>
         <span class="text-xs text-slate-400 font-medium">Bloque 4: Integración del Código JavaScript con las Etiquetas HTML</span>
       </div>
-      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 4: Simulador de Orden de Carga: Sync vs Async vs Defer vs Module</h1>
+      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 4: Integración Práctica de Scripts en HTML y Orden de Carga</h1>
       <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
         <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
-        <p class="text-xs text-slate-300 leading-relaxed">Escribe una página HTML con scripts que demuestren de forma práctica cómo influye el modo de inclusión en el acceso a elementos del DOM. Comprueba qué sucede cuando un script clásico en `&lt;head&gt;` intenta acceder a un elemento del `&lt;body&gt;` frente a un script con `defer` o `type=&quot;module&quot;`.</p>
+        <p class="text-xs text-slate-300 leading-relaxed">Crea una página HTML básica que contenga: 1) Un título `&lt;h1&gt;` con el texto &quot;Mi Primera Página con JavaScript&quot;, 2) Un script con el atributo `defer` en la cabecera `&lt;head&gt;`, y 3) Un script situado al final de la etiqueta `&lt;body&gt;`. Dentro de cada script, utiliza `console.log()` para mostrar un mensaje identificativo y comprueba en la consola el orden en el que se ejecutan.</p>
       </div>
-      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Comprueba document.getElementById(&quot;titulo&quot;) desde un script síncrono en &lt;head&gt; (devolverá null) y compáralo con un script type=&quot;module&quot; que lo encontrará sin error.</div>
+      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Crea la estructura HTML con &lt;head&gt; y &lt;body&gt;. En head pon &lt;script defer&gt;console.log(&quot;Mensaje Defer&quot;);&lt;/script&gt; y antes de &lt;/body&gt; pon &lt;script&gt;console.log(&quot;Mensaje Body&quot;);&lt;/script&gt;.</div>
     </div>
 
     <!-- Playground Action Bar -->
@@ -76,35 +76,25 @@
         <span class="text-slate-500 text-[11px] bg-slate-800 px-2 py-0.5 rounded">Ver código</span>
       </summary>
       <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
-        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">Los scripts síncronos en head detienen el parser antes de que el elemento exista en el DOM. Por contra, los módulos ES y scripts con defer esperan a que el árbol DOM esté completamente disponible en memoria.</p>
+        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">El atributo defer asegura que los scripts se descarguen mientras el navegador construye la página, ejecutándose cuando todo el árbol HTML ya está listo, evitando bloqueos y mejorando la experiencia del usuario.</p>
         <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;es&quot;&gt;
 &lt;head&gt;
   &lt;meta charset=&quot;UTF-8&quot;/&gt;
-  &lt;title&gt;Demostración de Carga y Acceso al DOM&lt;/title&gt;
+  &lt;title&gt;Práctica de Integración de Scripts&lt;/title&gt;
   
-  &lt;!-- Intento 1: Script síncrono en head --&gt;
-  &lt;script&gt;
-    console.log(&quot;1. [Sync en Head] Intento leer #caja:&quot;, document.getElementById(&#x27;caja&#x27;)); // null
-  &lt;/script&gt;
-
-  &lt;!-- Intento 2: Script con defer --&gt;
+  &lt;!-- Script con atributo defer: no bloquea la lectura del HTML --&gt;
   &lt;script defer&gt;
-    // Se ejecuta al finalizar el parseo del DOM
-    console.log(&quot;3. [Defer] Acceso a #caja:&quot;, document.getElementById(&#x27;caja&#x27;) ? &quot;Éxito ✅&quot; : &quot;Fallo ❌&quot;);
-  &lt;/script&gt;
-
-  &lt;!-- Intento 3: Módulo ES6 --&gt;
-  &lt;script type=&quot;module&quot;&gt;
-    const elemento = document.getElementById(&#x27;caja&#x27;);
-    console.log(&quot;4. [Type=Module] Acceso a #caja:&quot;, elemento ? &quot;Éxito ✅&quot; : &quot;Fallo ❌&quot;);
-    console.log(&quot;   Ámbito aislado: window.elemento es&quot;, window.elemento); // undefined
+    console.log(&quot;2. [Script Defer]: Se ejecuta cuando el HTML ya ha terminado de parsearse.&quot;);
   &lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;div id=&quot;caja&quot;&gt;Elemento contenedor del DOM&lt;/div&gt;
+  &lt;h1&gt;Mi Primera Página con JavaScript&lt;/h1&gt;
+  &lt;p&gt;Abre la consola del navegador (F12) para comprobar el orden de ejecución.&lt;/p&gt;
+
+  &lt;!-- Script al final del body --&gt;
   &lt;script&gt;
-    console.log(&quot;2. [Pie de Body] Acceso inmediato a #caja:&quot;, document.getElementById(&#x27;caja&#x27;) ? &quot;Éxito ✅&quot; : &quot;Fallo ❌&quot;);
+    console.log(&quot;1. [Script Body]: Se ejecuta en cuanto el analizador llega a esta línea.&quot;);
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
@@ -223,30 +213,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <title>Demostración de Carga y Acceso al DOM</title>
+  <title>Práctica de Integración de Scripts</title>
   
-  <!-- Intento 1: Script síncrono en head -->
-  <script>
-    console.log("1. [Sync en Head] Intento leer #caja:", document.getElementById('caja')); // null
-  </script>
-
-  <!-- Intento 2: Script con defer -->
+  <!-- Script con atributo defer: no bloquea la lectura del HTML -->
   <script defer>
-    // Se ejecuta al finalizar el parseo del DOM
-    console.log("3. [Defer] Acceso a #caja:", document.getElementById('caja') ? "Éxito ✅" : "Fallo ❌");
-  </script>
-
-  <!-- Intento 3: Módulo ES6 -->
-  <script type="module">
-    const elemento = document.getElementById('caja');
-    console.log("4. [Type=Module] Acceso a #caja:", elemento ? "Éxito ✅" : "Fallo ❌");
-    console.log("   Ámbito aislado: window.elemento es", window.elemento); // undefined
+    console.log("2. [Script Defer]: Se ejecuta cuando el HTML ya ha terminado de parsearse.");
   </script>
 </head>
 <body>
-  <div id="caja">Elemento contenedor del DOM</div>
+  <h1>Mi Primera Página con JavaScript</h1>
+  <p>Abre la consola del navegador (F12) para comprobar el orden de ejecución.</p>
+
+  <!-- Script al final del body -->
   <script>
-    console.log("2. [Pie de Body] Acceso inmediato a #caja:", document.getElementById('caja') ? "Éxito ✅" : "Fallo ❌");
+    console.log("1. [Script Body]: Se ejecuta en cuanto el analizador llega a esta línea.");
   </script>
 </body>
 </html>

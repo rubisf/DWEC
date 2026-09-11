@@ -534,19 +534,29 @@
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo1_async_await_fetch.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_async_await_fetch.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT7 - Ejemplo 1: Async / Await y Fetch API
-async function obtenerDatos(url) {
-    try {
-        console.log(`Petición asíncrona enviada a: ${url}`);
-        return { ok: true, status: 200, data: [{ id: 1, usuario: &quot;Rubén&quot; }] };
-    } catch (err) {
-        console.error(&quot;Error en la solicitud:&quot;, err.message);
+          <pre><code class="language-javascript">// Simulación del Ciclo Petición-Respuesta HTTP y Clasificación de Códigos
+function simularRespuestaHTTP(codigoEstado, datos) {
+    console.log(`[HTTP Request] Enviando petición a /api/recursos...`);
+
+    const esExito = codigoEstado &gt;= 200 &amp;&amp; codigoEstado &lt; 300;
+    const esErrorCliente = codigoEstado &gt;= 400 &amp;&amp; codigoEstado &lt; 500;
+    const esErrorServidor = codigoEstado &gt;= 500;
+
+    console.log(`[HTTP Response] Código de estado: ${codigoEstado}`);
+
+    if (esExito) {
+        console.log(&quot;✅ Operación completada con éxito. Datos recibidos:&quot;, datos);
+    } else if (esErrorCliente) {
+        console.warn(`⚠️ Error del cliente (${codigoEstado}): Verifique los parámetros enviados.`);
+    } else if (esErrorServidor) {
+        console.error(`❌ Error crítico del servidor (${codigoEstado}): Inténtelo más tarde.`);
     }
 }
-obtenerDatos(&quot;https://api.ejemplo.com/v1/usuarios&quot;).then(res =&gt; console.log(&quot;Respuesta recibida:&quot;, res));
-</code></pre>
+
+simularRespuestaHTTP(201, { id: 101, estado: &quot;Creado&quot; });
+simularRespuestaHTTP(404, { error: &quot;Recurso no encontrado&quot; });</code></pre>
         </div>
       </section>
 
@@ -702,14 +712,39 @@ procesarRespuestaServidor({
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo2_spa_history_api.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_spa_history_api.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT7 - Ejemplo 2: SPA History API
-if (typeof window !== &#x27;undefined&#x27;) {
-    console.log(&quot;Navegación SPA con History API (pushState)&quot;);
-    window.history.pushState({ page: 2 }, &quot;Página 2&quot;, &quot;/pagina-2&quot;);
+          <pre><code class="language-javascript">// Comparativa Práctica: Consumo de API con Fetch y Async/Await
+
+async function obtenerUsuariosAPI() {
+    const url = &quot;https://jsonplaceholder.typicode.com/users&quot;;
+
+    try {
+        console.log(&quot;Iniciando petición con Fetch API...&quot;);
+        const respuesta = await fetch(url, {
+            method: &quot;GET&quot;,
+            headers: { &quot;Accept&quot;: &quot;application/json&quot; }
+        });
+
+        // Comprobación OBLIGATORIA de respuesta.ok (código en rango 200-299)
+        if (!respuesta.ok) {
+            throw new Error(`Fallo en respuesta HTTP: ${respuesta.status} ${respuesta.statusText}`);
+        }
+
+        const usuarios = await respuesta.json();
+        console.log(`✅ Obtenidos ${usuarios.length} usuarios con éxito.`);
+        console.table(usuarios.slice(0, 3));
+        return usuarios;
+
+    } catch (error) {
+        console.error(&quot;❌ Error en la comunicación asíncrona:&quot;, error.message);
+        throw error;
+    } finally {
+        console.log(&quot;Ciclo de petición Fetch finalizado.&quot;);
+    }
 }
-</code></pre>
+
+// obtenerUsuariosAPI();</code></pre>
         </div>
       </section>
 
@@ -845,18 +880,28 @@ async function consultarConFetch(url) {
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo3_angular_component.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_angular_component.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT7 - Ejemplo 3: Componente Angular Standalone
-console.log(&quot;=== Componente Reactivo Angular Signals ===&quot;);
-class AngularSignal {
-    constructor(val) { this.val = val; }
-    get() { return this.val; }
-    set(n) { this.val = n; console.log(`Signal actualizada a: ${this.val}`); }
-}
-const contadorSignal = new AngularSignal(0);
-contadorSignal.set(10);
-</code></pre>
+          <pre><code class="language-javascript">// Comparativa: Procesamiento de JSON frente a Procesamiento de XML
+// 1. Deserialización y Serialización de JSON
+const jsonTexto = &#x27;{&quot;id&quot;: 105, &quot;producto&quot;: &quot;Teclado&quot;, &quot;precio&quot;: 45.50}&#x27;;
+const objeto = JSON.parse(jsonTexto);
+console.log(`Producto JSON: ${objeto.producto} (${objeto.precio}€)`);
+
+// 2. Procesamiento de XML con DOMParser nativo
+const xmlTexto = `
+&lt;catalogo&gt;
+    &lt;libro id=&quot;1&quot;&gt;
+        &lt;titulo&gt;Desarrollo Web en Entorno Cliente&lt;/titulo&gt;
+        &lt;precio&gt;29.90&lt;/precio&gt;
+    &lt;/libro&gt;
+&lt;/catalogo&gt;`;
+
+const parser = new DOMParser();
+const xmlDoc = parser.parseFromString(xmlTexto, &quot;text/xml&quot;);
+const libro = xmlDoc.getElementsByTagName(&quot;libro&quot;)[0];
+const titulo = libro.getElementsByTagName(&quot;titulo&quot;)[0].textContent;
+console.log(&quot;Título extraído desde XML con DOMParser:&quot;, titulo);</code></pre>
         </div>
       </section>
 
@@ -986,16 +1031,44 @@ console.log(jsonAXml(alumnos));</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo4_mongodb_aggregation.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_mongodb_aggregation.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT7 - Ejemplo 4: Pipeline de Agregación MongoDB
-console.log(&quot;=== Pipeline MongoDB ===&quot;);
-const pipeline = [
-    { $match: { estado: &quot;completado&quot; } },
-    { $group: { _id: &quot;$categoria&quot;, total: { $sum: &quot;$monto&quot; } } }
-];
-console.log(&quot;Etapas de agregación configuradas:&quot;, pipeline.length);
-</code></pre>
+          <pre><code class="language-javascript">// Gestión Completa de Estados de UI (Loading, Error, Success)
+async function cargarCatalogoEnDOM(contenedor) {
+    // 1. Activar Estado de Carga (Skeleton/Spinner)
+    contenedor.innerHTML = `
+        &lt;div class=&quot;skeleton-loader&quot; style=&quot;padding: 20px; text-align: center; color: #64748b;&quot;&gt;
+            &lt;div class=&quot;spinner&quot; style=&quot;font-size: 2em; animation: spin 1s infinite linear;&quot;&gt;⏳&lt;/div&gt;
+            &lt;p&gt;Obteniendo catálogo de productos en tiempo real...&lt;/p&gt;
+        &lt;/div&gt;`;
+
+    try {
+        const res = await fetch(&quot;https://jsonplaceholder.typicode.com/posts?_limit=4&quot;);
+        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+
+        const publicaciones = await res.json();
+
+        // 2. Estado de Éxito: Renderizado Dinámico
+        contenedor.innerHTML = publicaciones.map(post =&gt; `
+            &lt;article class=&quot;tarjeta-post&quot; style=&quot;border: 1px solid #e2e8f0; padding: 12px; margin-bottom: 8px; border-radius: 8px;&quot;&gt;
+                &lt;h4 style=&quot;margin: 0 0 4px 0; color: #1e293b;&quot;&gt;#${post.id} ${post.title}&lt;/h4&gt;
+                &lt;p style=&quot;margin: 0; color: #64748b; font-size: 0.85em;&quot;&gt;${post.body}&lt;/p&gt;
+            &lt;/article&gt;
+        `).join(&quot;&quot;);
+
+    } catch (error) {
+        // 3. Estado de Error con Botón de Reintento
+        contenedor.innerHTML = `
+            &lt;div class=&quot;alerta-error&quot; style=&quot;background: #fef2f2; border: 1px solid #fecaca; padding: 16px; border-radius: 8px; color: #991b1b;&quot;&gt;
+                &lt;strong&gt;❌ No se pudieron cargar los datos:&lt;/strong&gt; ${error.message}
+                &lt;div style=&quot;margin-top: 10px;&quot;&gt;
+                    &lt;button onclick=&quot;cargarCatalogoEnDOM(document.getElementById(&#x27;${contenedor.id}&#x27;))&quot; style=&quot;background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;&quot;&gt;
+                        🔄 Reintentar Petición
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;`;
+    }
+}</code></pre>
         </div>
       </section>
 

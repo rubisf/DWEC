@@ -508,13 +508,27 @@
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo1_objetos_nativos.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_objetos_nativos.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT3 - Ejemplo 1: Objetos Nativos
-const datos = { id: 101, activo: true };
-console.log(&quot;Keys:&quot;, Object.keys(datos));
-console.log(&quot;Values:&quot;, Object.values(datos));
-</code></pre>
+          <pre><code class="language-javascript">// Operaciones con String, Math, Date e Intl
+const fechaCompra = new Date();
+const precioBase = 1549.954;
+
+// Formateo monetario internacionalizado con Intl
+const formateadorMoneda = new Intl.NumberFormat(&#x27;es-ES&#x27;, { style: &#x27;currency&#x27;, currency: &#x27;EUR&#x27; });
+console.log(&quot;Precio formalizado:&quot;, formateadorMoneda.format(precioBase));
+
+// Formateo de fecha localizada en español
+const formateadorFecha = new Intl.DateTimeFormat(&#x27;es-ES&#x27;, {
+    weekday: &#x27;long&#x27;, year: &#x27;numeric&#x27;, month: &#x27;long&#x27;, day: &#x27;numeric&#x27;
+});
+console.log(&quot;Fecha de transacción:&quot;, formateadorFecha.format(fechaCompra));
+
+// Número aleatorio entero en rango [min, max]
+function enteroAleatorio(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+console.log(&quot;Token de seguridad aleatorio:&quot;, enteroAleatorio(100000, 999999));</code></pre>
         </div>
       </section>
 
@@ -619,12 +633,25 @@ console.table(calcularAntiguedad(&quot;2023-01-15T08:00:00&quot;));</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo2_regexp_validador.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_regexp_validador.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT3 - Ejemplo 2: RegExp
-const patronEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-console.log(&quot;¿Email válido?:&quot;, patronEmail.test(&quot;alumno@estudiante.daw.es&quot;));
-</code></pre>
+          <pre><code class="language-javascript">// Inspección de la jerarquía BOM y simulación de History API
+console.log(&quot;=== Información del BOM ===&quot;);
+console.log(&quot;Dimensiones de ventana útil:&quot;, window.innerWidth, &quot;x&quot;, window.innerHeight);
+console.log(&quot;Estado de conexión online:&quot;, navigator.onLine);
+console.log(&quot;Idioma del cliente:&quot;, navigator.language);
+console.log(&quot;URL activa (pathname):&quot;, window.location.pathname);
+
+// Demostración de History API (cambio de URL sin recarga en SPAs)
+function navegarEnrutadorCliente(nuevaRuta) {
+    window.history.pushState({ ruta: nuevaRuta }, &quot;&quot;, nuevaRuta);
+    console.log(&quot;Nueva URL en historial (sin recarga):&quot;, window.location.href);
+}
+
+// Escuchador de navegación hacia atrás/adelante del usuario
+window.addEventListener(&#x27;popstate&#x27;, (evento) =&gt; {
+    console.log(&quot;Usuario navegó con los botones del navegador. Estado:&quot;, evento.state);
+});</code></pre>
         </div>
       </section>
 
@@ -742,11 +769,35 @@ router.navegarA(&#x27;contacto&#x27;);</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo3_bom_navegacion.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_bom_navegacion.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT3 - Ejemplo 3: BOM
-console.log(&quot;Location href:&quot;, window.location ? window.location.href : &quot;SSR&quot;);
-</code></pre>
+          <pre><code class="language-javascript">// Creación y control seguro de una ventana emergente auxiliar
+let ventanaAuxiliar = null;
+
+function abrirVisorAyuda() {
+    // Debe llamarse dentro de un controlador de eventos de clic
+    const configuracion = &quot;width=500,height=400,left=200,top=150,resizable=yes,scrollbars=yes&quot;;
+    
+    // Abrir ventana en blanco
+    ventanaAuxiliar = window.open(&quot;&quot;, &quot;VisorAyuda&quot;, configuracion);
+
+    if (!ventanaAuxiliar || ventanaAuxiliar.closed || typeof ventanaAuxiliar.closed === &#x27;undefined&#x27;) {
+        console.warn(&quot;⚠️ Popup bloqueado por la configuración de seguridad del navegador.&quot;);
+        return;
+    }
+
+    // Inyección de contenido dinámico en la nueva ventana
+    ventanaAuxiliar.document.write(`
+        &lt;html&gt;
+        &lt;head&gt;&lt;title&gt;Ventana de Ayuda&lt;/title&gt;&lt;/head&gt;
+        &lt;body style=&quot;font-family: sans-serif; padding: 20px; background: #f1f5f9;&quot;&gt;
+            &lt;h2&gt;💡 Centro de Asistencia Rápida&lt;/h2&gt;
+            &lt;p&gt;Esta ventana fue creada dinámicamente mediante window.open().&lt;/p&gt;
+            &lt;button onclick=&quot;window.close()&quot; style=&quot;padding: 8px 16px; background: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer;&quot;&gt;Cerrar Ventana&lt;/button&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;
+    `);
+}</code></pre>
         </div>
       </section>
 
@@ -868,14 +919,32 @@ const gestor = new GestorVentanaEmergente(640, 480);
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo4_storage_indexeddb.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_storage_indexeddb.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT3 - Ejemplo 4: Storage vs IndexedDB
-if (typeof localStorage !== &#x27;undefined&#x27;) {
-    localStorage.setItem(&quot;tema_preferido&quot;, &quot;dark&quot;);
-    console.log(&quot;Tema en localStorage:&quot;, localStorage.getItem(&quot;tema_preferido&quot;));
+          <pre><code class="language-javascript">// Comunicación Bidireccional Segura con postMessage
+
+// 1. En la Ventana Principal (Emisora)
+function enviarDatosAPopup(ventanaPopup, pedido) {
+    const origenPermitido = &quot;https://tienda.com&quot;;
+    // Envío seguro tipado
+    ventanaPopup.postMessage({ tipo: &quot;NUEVO_PEDIDO&quot;, payload: pedido }, origenPermitido);
 }
-</code></pre>
+
+// 2. En la Ventana Popup o Iframe (Receptora)
+window.addEventListener(&#x27;message&#x27;, (evento) =&gt; {
+    // Comprobación estricta de origen
+    if (evento.origin !== &quot;https://tienda.com&quot;) {
+        console.warn(&quot;Mensaje descartado: Origen no autorizado:&quot;, evento.origin);
+        return;
+    }
+
+    console.log(&quot;Mensaje seguro recibido:&quot;, evento.data);
+
+    // Respuesta a la ventana que envió el mensaje
+    if (evento.source) {
+        evento.source.postMessage({ estado: &quot;CONFIRMADO&quot;, id: evento.data.payload.id }, evento.origin);
+    }
+});</code></pre>
         </div>
       </section>
 

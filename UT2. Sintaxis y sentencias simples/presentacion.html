@@ -506,21 +506,25 @@
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo1_scrum_solid.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_scrum_solid.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT2 - Ejemplo 1: Scrum y SOLID
-class GeneradorInforme {
-    crearReporteSprint(sprintNumero, historias) {
-        return { sprint: `Sprint #${sprintNumero}`, totalHistorias: historias.length, fecha: new Date().toISOString() };
+          <pre><code class="language-javascript">// Comparativa de Ámbitos y Mutabilidad de Referencia
+function demostrarAmbitos() {
+    if (true) {
+        var variableVar = &quot;Accesible en toda la función&quot;;
+        let variableLet = &quot;Sólo dentro de este bloque if&quot;;
+        const objetoConst = { propiedad: 100 };
+
+        // Mutación interna permitida en const
+        objetoConst.propiedad = 200; 
+        console.log(&quot;const mutado:&quot;, objetoConst.propiedad);
     }
+
+    console.log(&quot;var fuera del bloque:&quot;, variableVar); // Funciona
+    // console.log(variableLet); // ReferenceError: variableLet is not defined
 }
-class FormateadorJSON {
-    exportar(datos) { return JSON.stringify(datos, null, 2); }
-}
-const generador = new GeneradorInforme();
-const formateador = new FormateadorJSON();
-console.log(formateador.exportar(generador.crearReporteSprint(4, [&quot;US1: Login JWT&quot;, &quot;US2: Dashboard UI&quot;])));
-</code></pre>
+
+demostrarAmbitos();</code></pre>
         </div>
       </section>
 
@@ -684,17 +688,25 @@ laboratorioScopeYTipos();</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo2_scope_tdz.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_scope_tdz.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT2 - Ejemplo 2: Scope y TDZ
-function probarScope() {
-    if (true) {
-        let variableLet = &quot;Aislada en el bloque (let)&quot;;
-        console.log(&quot;Dentro del bloque:&quot;, variableLet);
-    }
-}
-probarScope();
-</code></pre>
+          <pre><code class="language-javascript">// Demostración de Coerción, Casting Seguro y Asignación por Desestructuración
+console.log(&quot;=== Coerción vs Casting ===&quot;);
+console.log(&quot;&#x27;20&#x27; + 5 =&quot;, &quot;20&quot; + 5);      // &quot;205&quot; (Concatenación)
+console.log(&quot;Number(&#x27;20&#x27;) + 5 =&quot;, Number(&quot;20&quot;) + 5); // 25 (Aritmética)
+console.log(&quot;&#x27;&#x27; == false:&quot;, &quot;&quot; == false); // true (Coerción peligrosa)
+console.log(&quot;&#x27;&#x27; === false:&quot;, &quot;&quot; === false); // false (Comparación estricta)
+
+// Asignación por desestructuración de datos de usuario
+const respuestaAPI = { id: 104, nombre: &quot;Elena&quot;, rol: &quot;admin&quot;, configuracion: { activa: true } };
+const { nombre, rol, configuracion: { activa }, nivel = &quot;junior&quot; } = respuestaAPI;
+
+console.log(`Usuario extraído: ${nombre} (${rol}), Nivel: ${nivel}, Activa: ${activa}`);
+
+// Asignación lógica nula (??=)
+let temaSeleccionado = null;
+temaSeleccionado ??= &quot;dark-theme&quot;; // Asigna porque es null
+console.log(&quot;Tema configurado:&quot;, temaSeleccionado);</code></pre>
         </div>
       </section>
 
@@ -813,12 +825,28 @@ console.table(normalizarUsuario(usuarioBruto));</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo3_bucles_spread.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_bucles_spread.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT2 - Ejemplo 3: Bucles y Spread
-const productos = [{ id: 1, nombre: &quot;Teclado&quot;, precio: 85 }, { id: 2, nombre: &quot;Ratón&quot;, precio: 45 }];
-for (const prod of productos) { console.log(`Producto: ${prod.nombre} | Precio: €${prod.precio}`); }
-</code></pre>
+          <pre><code class="language-javascript">// Demostración de Optional Chaining, Nullish Coalescing y Cortocircuito
+const perfil = {
+    nombre: &quot;Marina&quot;,
+    config: {
+        intentosMaximos: 0, // 0 es falsy, ¡pero es un valor válido de intentos!
+        notificaciones: false
+    }
+};
+
+// Problema con operador OR || tradicional
+const intentosIncorrecto = perfil.config.intentosMaximos || 5; // Asigna 5 por error (0 es falsy)
+// Solución con Nullish Coalescing ??
+const intentosCorrecto = perfil.config.intentosMaximos ?? 5;   // Conserva 0 (no es null ni undefined)
+
+console.log(&quot;Con || (incorrecto):&quot;, intentosIncorrecto); // 5
+console.log(&quot;Con ?? (correcto):&quot;, intentosCorrecto);     // 0
+
+// Acceso seguro con encadenamiento opcional
+const codigoPostal = perfil?.datosBancarios?.direccion?.cp ?? &quot;Sin Código Postal&quot;;
+console.log(&quot;Código Postal:&quot;, codigoPostal);</code></pre>
         </div>
       </section>
 
@@ -936,18 +964,34 @@ console.table(procesarPedidosExpress(pedidos));</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo4_arrow_this.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_arrow_this.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT2 - Ejemplo 4: Arrow Functions y Contexto this
-const usuario = {
-    nombre: &quot;Rubén&quot;,
-    lenguajes: [&quot;JavaScript&quot;, &quot;TypeScript&quot;],
-    mostrarLenguajes() {
-        this.lenguajes.forEach(lang =&gt; console.log(`${this.nombre} programa en ${lang}`));
+          <pre><code class="language-javascript">// Demostración de estructuras de decisión y bucles iteradores modernos
+const transacciones = [
+    { id: 1, tipo: &quot;ingreso&quot;, cantidad: 500 },
+    { id: 2, tipo: &quot;gasto&quot;, cantidad: 120 },
+    { id: 3, tipo: &quot;comision&quot;, cantidad: 15 },
+    { id: 4, tipo: &quot;ingreso&quot;, cantidad: 300 }
+];
+
+let balanceTotal = 0;
+
+// Bucle for...of para recorrer valores de objetos
+for (const transaccion of transacciones) {
+    switch (transaccion.tipo) {
+        case &quot;ingreso&quot;:
+            balanceTotal += transaccion.cantidad;
+            break;
+        case &quot;gasto&quot;:
+        case &quot;comision&quot;: // Casos agrupados
+            balanceTotal -= transaccion.cantidad;
+            break;
+        default:
+            console.warn(&quot;Tipo de transacción desconocido:&quot;, transaccion.tipo);
     }
-};
-usuario.mostrarLenguajes();
-</code></pre>
+}
+
+console.log(`Balance financiero final calculado: ${balanceTotal}€`);</code></pre>
         </div>
       </section>
 

@@ -533,14 +533,25 @@
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo1_event_listeners.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_event_listeners.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT5 - Ejemplo 1: Event Listeners
-if (typeof document !== &#x27;undefined&#x27;) {
-    const btn = document.createElement(&quot;button&quot;);
-    btn.addEventListener(&quot;click&quot;, (e) =&gt; console.log(&quot;Clic registrado en:&quot;, e.target), { once: true });
-}
-</code></pre>
+          <pre><code class="language-javascript">// Registro moderno de eventos con opciones avanzadas y AbortController
+const botonAccion = document.getElementById(&quot;btn-guardar&quot;);
+const controladorAbort = new AbortController();
+
+// 1. Escuchador de ejecución única (once: true)
+botonAccion.addEventListener(&quot;click&quot;, (e) =&gt; {
+    console.log(&quot;Acción inicial ejecutada una sola vez:&quot;, e.target.id);
+}, { once: true });
+
+// 2. Escuchador gestionado por señal de cancelación
+botonAccion.addEventListener(&quot;click&quot;, function(e) {
+    console.log(&quot;Elemento emisor (target):&quot;, e.target);
+    console.log(&quot;Elemento receptor (currentTarget):&quot;, e.currentTarget);
+}, { signal: controladorAbort.signal });
+
+// Cancelar escuchadores cuando el componente se desmonte
+// controladorAbort.abort();</code></pre>
         </div>
       </section>
 
@@ -644,16 +655,30 @@ if (typeof document !== &#x27;undefined&#x27;) {
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo2_propagacion_delegacion.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_propagacion_delegacion.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT5 - Ejemplo 2: Delegación de Eventos
-if (typeof document !== &#x27;undefined&#x27;) {
-    document.addEventListener(&quot;click&quot;, (e) =&gt; {
-        const item = e.target.closest(&quot;.item-lista&quot;);
-        if (item) console.log(&quot;Elemento seleccionado por delegación:&quot;, item.dataset.id);
-    });
-}
-</code></pre>
+          <pre><code class="language-javascript">// Demostración de Delegación de Eventos con e.target.closest()
+const listaTareas = document.getElementById(&quot;contenedor-tareas&quot;);
+
+// Un solo listener en el contenedor padre para toda la lista
+listaTareas.addEventListener(&quot;click&quot;, (e) =&gt; {
+    // 1. Detectar si se hizo clic en el botón de borrar
+    const botonBorrar = e.target.closest(&quot;.btn-eliminar&quot;);
+    if (botonBorrar) {
+        e.stopPropagation(); // Evita otros eventos del contenedor
+        const fila = botonBorrar.closest(&quot;.item-tarea&quot;);
+        console.log(&quot;Eliminando fila con ID:&quot;, fila.dataset.id);
+        fila.remove();
+        return;
+    }
+
+    // 2. Detectar si se hizo clic en el texto para marcar como completada
+    const item = e.target.closest(&quot;.item-tarea&quot;);
+    if (item) {
+        item.classList.toggle(&quot;completada&quot;);
+        console.log(&quot;Estado de tarea conmutado:&quot;, item.dataset.id);
+    }
+});</code></pre>
         </div>
       </section>
 
@@ -775,15 +800,29 @@ if (typeof document !== &#x27;undefined&#x27;) {
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo3_eventos_teclado_raton.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_eventos_teclado_raton.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT5 - Ejemplo 3: Keydown Events
-if (typeof document !== &#x27;undefined&#x27;) {
-    document.addEventListener(&quot;keydown&quot;, (e) =&gt; {
-        console.log(`Tecla: ${e.key} | Código: ${e.code}`);
-    });
-}
-</code></pre>
+          <pre><code class="language-javascript">// Eventos de Teclado (Atajos Globales) y Creación de CustomEvent
+
+// 1. Escuchador de atajos de teclado (Ctrl + S para guardar)
+window.addEventListener(&quot;keydown&quot;, (e) =&gt; {
+    if ((e.ctrlKey || e.metaKey) &amp;&amp; e.key.toLowerCase() === &quot;s&quot;) {
+        e.preventDefault(); // Evita que el navegador guarde la página web en disco
+        console.log(&quot;Atajo interceptado: Guardando proyecto...&quot;);
+
+        // 2. Despacho de evento personalizado desacoplado
+        const eventoGuardar = new CustomEvent(&quot;app:guardar-datos&quot;, {
+            detail: { fecha: new Date(), usuario: &quot;admin_dwec&quot; },
+            bubbles: true
+        });
+        document.dispatchEvent(eventoGuardar);
+    }
+});
+
+// 3. Receptor del evento personalizado en otro componente
+document.addEventListener(&quot;app:guardar-datos&quot;, (e) =&gt; {
+    console.log(&quot;Componente sincronizado. Datos recibidos:&quot;, e.detail);
+});</code></pre>
         </div>
       </section>
 
@@ -907,16 +946,31 @@ inicializarAtajosGlobales();</code></pre>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo4_constraint_validation.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_constraint_validation.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT5 - Ejemplo 4: Constraint Validation
-if (typeof document !== &#x27;undefined&#x27;) {
-    const input = document.createElement(&quot;input&quot;);
-    input.type = &quot;email&quot;;
-    input.value = &quot;correo-invalido&quot;;
-    console.log(&quot;¿Input email válido?:&quot;, input.checkValidity());
-}
-</code></pre>
+          <pre><code class="language-javascript">// Intercepción del formulario, lectura con FormData y prevención de recarga
+const formulario = document.getElementById(&quot;formulario-contacto&quot;);
+
+formulario.addEventListener(&quot;submit&quot;, (e) =&gt; {
+    // 1. Detener el envío tradicional del navegador (evita recarga)
+    e.preventDefault();
+
+    // 2. Empaquetar los datos del formulario automáticamente
+    const formData = new FormData(formulario);
+
+    // 3. Convertir a objeto plano JavaScript
+    const datosUsuario = Object.fromEntries(formData.entries());
+    console.log(&quot;Datos de formulario extraídos listos para enviar:&quot;, datosUsuario);
+
+    // 4. Ejemplo de lectura de campos individuales
+    const aceptaTerminos = formulario.elements[&quot;terminos&quot;].checked;
+    if (!aceptaTerminos) {
+        console.warn(&quot;Debe aceptar las condiciones legales.&quot;);
+        return;
+    }
+
+    console.log(&quot;Formulario válido. Transmitiendo por Fetch API...&quot;);
+});</code></pre>
         </div>
       </section>
 

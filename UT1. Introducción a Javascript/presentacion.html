@@ -424,7 +424,7 @@
         <div class="badge">01</div>
         <h1>UT1: Introducción a JavaScript y Mecanismos de Ejecución</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Mecanismos de ejecución de código en el navegador web, capacidades y limitaciones del sandbox, lenguajes asociados (TypeScript, WebAssembly), integración de scripts en HTML y herramientas de desarrollo.</div>
+        <div class="tagline">Mecanismos de ejecución de código en el navegador web, capacidades y limitaciones del sandbox, lenguajes asociados, integración de scripts en HTML, control de versiones con Git y herramientas de desarrollo.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -439,35 +439,42 @@
             <div class="index-badge">1</div>
             <div class="index-info">
               <div class="index-title">Mecanismos de Ejecución de Código en el Navegador Web</div>
-              <p class="index-desc">JavaScript es el único lenguaje de programación interpretado que se ejecuta nativamente en todos los navegadores web. Su ejecución se rige por un entorno de ejecución (Runtime Environment) monohilo no bloqueante compuesto por.</p>
+              <p class="index-desc">JavaScript es el lenguaje de programación interpretado que dota de dinamismo e interactividad a las páginas web. Se ejecuta directamente en el cliente a través de un entorno de ejecución (Runtime Environment) integrado en el propio navegador.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">2</div>
             <div class="index-info">
               <div class="index-title">Capacidades y Limitaciones de Ejecución en Entorno Cliente</div>
-              <p class="index-desc">La ejecución de código en el cliente opera bajo un modelo de caja de arena (Sandbox) que equilibra potencia interactiva y estrictas restricciones de seguridad para proteger al usuario.</p>
+              <p class="index-desc">La ejecución de código en el navegador web equilibra grandes posibilidades de interacción con estrictas barreras de seguridad para proteger los datos del usuario.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">3</div>
             <div class="index-info">
               <div class="index-title">Lenguajes de Programación en Entorno Cliente y Tecnologías Asociadas</div>
-              <p class="index-desc">Aunque JavaScript es la lengua franca del navegador estandarizada bajo la especificación ECMAScript (ECMA-262) , el desarrollo moderno en cliente convive con lenguajes tipados, tecnologías de transpilación y bytecode nativo.</p>
+              <p class="index-desc">El desarrollo web moderno en el entorno cliente se articula en torno a tres tecnologías estándar y una serie de lenguajes y herramientas complementarias.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">4</div>
             <div class="index-info">
               <div class="index-title">Integración del Código JavaScript con las Etiquetas HTML</div>
-              <p class="index-desc">La integración de JavaScript en documentos HTML5 determina la velocidad de renderizado (FCP/LCP) y la prevención de colisiones de variables globales.</p>
+              <p class="index-desc">Para que el navegador ejecute código JavaScript, este debe vincularse a un documento HTML mediante la etiqueta &amp;lt;script&amp;gt; a través de diferentes modalidades.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">5</div>
             <div class="index-info">
-              <div class="index-title">Herramientas de Programación, Depuración, Librerías y Frameworks</div>
-              <p class="index-desc">El ecosistema profesional de programación en cliente se fundamenta en herramientas avanzadas de diagnóstico integradas en los navegadores y un rico ecosistema de librerías.</p>
+              <div class="index-title">Control de Versiones Distribuido con Git para Desarrollo Web</div>
+              <p class="index-desc">El control de versiones es una herramienta imprescindible en cualquier proyecto web. Git es el sistema de control de versiones distribuido estándar en la industria del software.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">6</div>
+            <div class="index-info">
+              <div class="index-title">Herramientas de Programación, Depuración y Prueba sobre Clientes Web</div>
+              <p class="index-desc">El desarrollo profesional en JavaScript se apoya en un conjunto de herramientas integradas en los navegadores y editores de código para diagnosticar y corregir errores.</p>
             </div>
           </div>
         </div>
@@ -546,63 +553,68 @@
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 5 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
           <h2>1. Mecanismos de Ejecución de Código en el Navegador Web</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>JavaScript es el único lenguaje de programación interpretado que se ejecuta nativamente en todos los navegadores web. Su ejecución se rige por un <strong>entorno de ejecución (Runtime Environment)</strong> monohilo no bloqueante compuesto por:</p>
+            <div class="card-text"><p>JavaScript es el lenguaje de programación interpretado que dota de dinamismo e interactividad a las páginas web. Se ejecuta directamente en el cliente a través de un <strong>entorno de ejecución (Runtime Environment)</strong> integrado en el propio navegador:</p>
 <ul class="concept-list">
-  <li><strong>Motor de JavaScript (JS Engine):</strong> Implementaciones como <em>V8</em> (Chrome, Edge, Node.js), <em>SpiderMonkey</em> (Firefox) o <em>JavaScriptCore</em> (Safari). Se compone del compilador JIT (Just-In-Time) y el recolector de basura (Garbage Collector).</li>
-  <li><strong>Fase de Parsing y AST:</strong> El código fuente se analiza léxica y sintácticamente generando un <em>Abstract Syntax Tree (AST)</em> que representa la gramática del programa en memoria.</li>
-  <li><strong>Compilación JIT (Just-In-Time):</strong> El intérprete (ej. <em>Ignition</em> en V8) genera bytecode rápido inicial, mientras que el compilador optimizador (ej. <em>TurboFan</em>) perfila el código caliente (hot code) y lo compila directamente a código máquina nativo de la CPU.</li>
-  <li><strong>Call Stack (Pila de Llamadas):</strong> Estructura LIFO (Last In, First Out) donde se apilan los marcos de contexto de ejecución de las funciones que se están ejecutando secuencialmente.</li>
-  <li><strong>Event Loop y Colas de Tareas:</strong> Coordina la ejecución asíncrona enviando tareas de la <em>Microtask Queue</em> (Promesas, mutation observers) y de la <em>Macrotask Queue</em> (setTimeout, I/O) a la pila de llamadas una vez que esta se encuentra completamente vacía.</li>
+  <li><strong>El Motor de JavaScript (JS Engine):</strong> Cada navegador dispone de un motor optimizado encargado de leer, interpretar y ejecutar el código fuente:
+    <ul>
+      <li><em>V8</em>: Motor de Google Chrome, Microsoft Edge, Opera y entornos como Node.js.</li>
+      <li><em>SpiderMonkey</em>: El motor histórico y robusto de Mozilla Firefox.</li>
+      <li><em>JavaScriptCore (Nitro)</em>: El motor de Apple Safari y dispositivos iOS.</li>
+    </ul>
+  </li>
+  <li><strong>Proceso de Interpretación y Ejecución:</strong> El motor analiza la sintaxis del código (parsing) y lo traduce a instrucciones que la máquina puede procesar de forma inmediata, sin necesidad de compilar un ejecutable previo.</li>
+  <li><strong>El Objeto Global (<code>window</code> / <code>globalThis</code>):</strong> En el navegador, todo el código se ejecuta dentro de un contexto global representado por el objeto <code>window</code>. En los estándares modernos de ECMAScript, la variable universal <code>globalThis</code> apunta a dicho objeto en cualquier entorno.</li>
+  <li><strong>La Consola del Navegador:</strong> Herramienta interactiva disponible en todos los navegadores modernos (tecla <strong>F12</strong>) que permite ejecutar líneas de JavaScript en tiempo real, visualizar resultados con <code>console.log()</code> y detectar fallos.</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>Arquitectura de Ejecución en Navegadores Modernos:</strong></p>
+            <div class="card-text"><p><strong>El Rol del Navegador como Plataforma de Aplicaciones:</strong></p>
 <ul class="concept-list">
-  <li><strong>Separación Motor de Render vs Motor JS:</strong> El motor de renderizado (Blink, Gecko, WebKit) procesa HTML/CSS para construir el DOM y CSSOM, mientras el motor JS procesa la lógica. Ambos comparten el hilo principal (Main Thread), por lo que ejecuciones pesadas de JS congelan el repintado de la pantalla.</li>
-  <li><strong>Modelo de Concurrencia Basado en Eventos:</strong> JavaScript delega operaciones de red, temporizadores o eventos en las <em>Web APIs</em> del navegador, evitando bloquear el hilo de ejecución del usuario.</li>
-  <li><strong>Gestión de Memoria y Heap:</strong> Los objetos complejos se alojan en el montículo de memoria (Memory Heap), y el recolector de basura libera automáticamente referencias huérfanas mediante algoritmos de <em>Mark-and-Sweep</em>.</li>
+  <li><strong>Entorno Monohilo (Single-Threaded):</strong> JavaScript ejecuta una sola instrucción a la vez en su hilo principal. Si un script realiza un bucle infinito o una operación pesada sin control, congela temporalmente la respuesta de la ventana del navegador.</li>
+  <li><strong>Compatibilidad Estándar ECMAScript:</strong> JavaScript se rige por el estándar internacional <em>ECMA-262</em>, garantizando que el código básico escrito funcione de manera consistente en cualquier navegador moderno.</li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo1_arquitectura_v8.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo1_arquitectura_v8.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT1 - Ejemplo 1: Arquitectura V8 y Entorno
-console.log(&quot;=== Inspección del Motor V8 y Entorno de Ejecución ===&quot;);
-if (typeof window !== &quot;undefined&quot;) {
-    console.log(&quot;Navegador User Agent:&quot;, navigator.userAgent);
-    console.log(&quot;Identidad globalThis === window:&quot;, window === globalThis);
-    console.log(&quot;Precisión de tiempo JIT:&quot;, performance.now().toFixed(2), &quot;ms&quot;);
-} else {
-    console.log(&quot;Entorno Node.js versión:&quot;, process.version);
-    console.log(&quot;Identidad globalThis === global:&quot;, global === globalThis);
-}
-</code></pre>
+          <pre><code class="language-javascript">// Primer contacto con el entorno de ejecución en la consola
+console.log(&quot;¡Hola, mundo! Bienvenido al desarrollo en entorno cliente.&quot;);
+
+// Inspección del navegador actual
+console.log(&quot;Identificador del navegador:&quot;, navigator.userAgent);
+
+// Comprobación de equivalencia del objeto global
+console.log(&quot;¿window es idéntico a globalThis?:&quot;, window === globalThis);
+
+// Operación aritmética básica
+let resultado = 100 * 5;
+console.log(&quot;Cálculo básico realizado por el motor:&quot;, resultado);</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 1</span>
-          <h2>🎯 Reto 1: Inspección del Motor, Tiempos de Ejecución y Prioridades del Event Loop</h2>
+          <h2>🎯 Reto 1: Primer Contacto con la Consola del Navegador e Inspección del Entorno</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Diseña un script que: 1) Extraiga y clasifique mediante expresiones regulares el nombre y versión exacta del motor de JavaScript y navegador a partir de `navigator.userAgent`, 2) Evalúe la identidad del objeto global unificado (`window === globalThis`), y 3) Demuestre cuantitativamente con `performance.now()` la prioridad del Event Loop programando una macrotarea (`setTimeout 0ms`) antes de una microtarea (`Promise.resolve()` y `queueMicrotask()`), registrando una tabla de traza y validando el orden secuencial de resolución.</div>
+            <div class="callout-body">Abre las herramientas de desarrollo del navegador (pulsando F12 o Ctrl+Shift+I) en la pestaña &quot;Console&quot;. Escribe un script inicial que: 1) Imprima un mensaje de bienvenida personalizado con `console.log()`, 2) Muestre la identificación del navegador accediendo a `navigator.userAgent`, 3) Compruebe la identidad del objeto global unificado (`window === globalThis`), y 4) Realice una operación aritmética sencilla mostrando el resultado.</div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
-            <div class="callout-body">Usa expresiones regulares como /Chrome\/([0-9.]+)/, /Firefox\/([0-9.]+)/ o /Version\/([0-9.]+).*Safari/ sobre navigator.userAgent. Almacena en un array de traza cada evento con performance.now() y muestra console.table().</div>
+            <div class="callout-body">Escribe instrucciones secuenciales usando console.log() para cada comprobación. Recuerda que window === globalThis devuelve un valor booleano (true o false).</div>
           </div>
           
           <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
@@ -612,99 +624,22 @@ if (typeof window !== &quot;undefined&quot;) {
             </summary>
             <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
               <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
-                <strong style="color: #0f172a;">Explicación Técnica:</strong> La especificación HTML/W3C define que el Event Loop procesa todo el Call Stack síncrono primero, luego vacía completamente la cola de microtareas (Promesas y queueMicrotask) y finalmente, en el siguiente ciclo, atiende la cola de macrotareas (como temporizadores de setTimeout).
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La consola web permite evaluar código en vivo dentro del contexto activo. navigator.userAgent identifica el navegador y globalThis es el estándar unificado de ECMAScript para el objeto global.
               </div>
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
-                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function auditarMotorYEventLoop() {
-    console.group(&quot;🔍 1. Detección y Extracción del Motor JS mediante navigator.userAgent&quot;);
-    const ua = navigator.userAgent;
-    let motorDetectado = &quot;Desconocido&quot;;
-    let versionMotor = &quot;Desconocida&quot;;
-    let navegador = &quot;Navegador no identificado&quot;;
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// 1. Mensaje de bienvenida inicial
+console.log(&quot;🚀 ¡Hola! Iniciando el aprendizaje de JavaScript en el entorno cliente.&quot;);
 
-    // Expresiones regulares para extraer motor y versión exacta
-    if (/Edg\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = &quot;V8 (Blink)&quot;;
-        versionMotor = ua.match(/Edg\/([0-9.]+)/i)[1];
-        navegador = &quot;Microsoft Edge&quot;;
-    } else if (/Chrome\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = &quot;V8 (Blink)&quot;;
-        versionMotor = ua.match(/Chrome\/([0-9.]+)/i)[1];
-        navegador = &quot;Google Chrome / Chromium&quot;;
-    } else if (/Firefox\/([0-9.]+)/i.test(ua)) {
-        motorDetectado = &quot;SpiderMonkey (Gecko)&quot;;
-        versionMotor = ua.match(/Firefox\/([0-9.]+)/i)[1];
-        navegador = &quot;Mozilla Firefox&quot;;
-    } else if (/Version\/([0-9.]+).*Safari/i.test(ua)) {
-        motorDetectado = &quot;JavaScriptCore (Nitro/WebKit)&quot;;
-        versionMotor = ua.match(/Version\/([0-9.]+)/i)[1];
-        navegador = &quot;Apple Safari&quot;;
-    }
+// 2. Inspección del navegador mediante navigator.userAgent
+console.log(&quot;Navegador detectado (User Agent):&quot;, navigator.userAgent);
 
-    console.log(&quot;Navegador:&quot;, navegador);
-    console.log(&quot;Motor de JavaScript:&quot;, motorDetectado);
-    console.log(&quot;Versión detectada:&quot;, versionMotor);
-    console.log(&quot;User-Agent en bruto:&quot;, ua);
-    console.groupEnd();
+// 3. Comprobación de identidad del objeto global
+console.log(&quot;¿El objeto window es equivalente a globalThis?:&quot;, window === globalThis);
 
-    console.group(&quot;🌐 2. Comparativa de Identidad del Objeto Global&quot;);
-    const auditoriaGlobal = {
-        &quot;window === globalThis&quot;: window === globalThis,
-        &quot;self === globalThis&quot;: typeof self !== &quot;undefined&quot; &amp;&amp; self === globalThis,
-        &quot;typeof window&quot;: typeof window,
-        &quot;typeof globalThis&quot;: typeof globalThis,
-        &quot;Entorno estandarizado&quot;: &quot;globalThis (ES2020)&quot;
-    };
-    console.table(auditoriaGlobal);
-    console.groupEnd();
-
-    console.group(&quot;⚡ 3. Demostración Cuantitativa de Prioridades del Event Loop&quot;);
-    const t0 = performance.now();
-    const traza = [];
-
-    function registrarPaso(fase, tipo, prioridadTeorica) {
-        traza.push({
-            &quot;Orden de Ejecución&quot;: traza.length + 1,
-            &quot;Fase / Cola&quot;: fase,
-            &quot;Tipo de Tarea&quot;: tipo,
-            &quot;Prioridad&quot;: prioridadTeorica,
-            &quot;Timestamp Relativo (ms)&quot;: Number((performance.now() - t0).toFixed(4))
-        });
-    }
-
-    // 1. Sentencia Síncrona Inicial en Call Stack
-    registrarPaso(&quot;Call Stack&quot;, &quot;Síncrono (Inicio)&quot;, &quot;1 - Inmediata&quot;);
-
-    // 2. Macrotarea: Se programa PRIMERO en el código deliberadamente
-    setTimeout(() =&gt; {
-        registrarPaso(&quot;Macrotask Queue&quot;, &quot;Macrotarea (setTimeout 0ms)&quot;, &quot;3 - Baja&quot;);
-
-        // Al ejecutarse la macrotarea, el ciclo ha concluido y mostramos la tabla
-        console.table(traza);
-        const ordenCorrecto = traza[2][&quot;Tipo de Tarea&quot;].includes(&quot;Microtarea&quot;) &amp;&amp; 
-                              traza[traza.length - 1][&quot;Tipo de Tarea&quot;].includes(&quot;Macrotarea&quot;);
-        console.log(&quot;¿Se demostró la prioridad de microtareas frente a macrotareas?:&quot;, ordenCorrecto ? &quot;SÍ ✅&quot; : &quot;NO ❌&quot;);
-        console.groupEnd();
-    }, 0);
-
-    // 3. Microtarea (Promise.resolve): Se programa DESPUÉS de setTimeout
-    Promise.resolve().then(() =&gt; {
-        registrarPaso(&quot;Microtask Queue&quot;, &quot;Microtarea (Promise.resolve)&quot;, &quot;2 - Alta&quot;);
-    });
-
-    // 4. Microtarea Nativa (queueMicrotask)
-    if (typeof queueMicrotask === &quot;function&quot;) {
-        queueMicrotask(() =&gt; {
-            registrarPaso(&quot;Microtask Queue&quot;, &quot;Microtarea (queueMicrotask)&quot;, &quot;2 - Alta&quot;);
-        });
-    }
-
-    // 5. Sentencia Síncrona Final en Call Stack
-    registrarPaso(&quot;Call Stack&quot;, &quot;Síncrono (Fin)&quot;, &quot;1 - Inmediata&quot;);
-}
-
-auditarMotorYEventLoop();</code></pre>
+// 4. Operación matemática elemental
+const calculo = 1024 / 8;
+console.log(&quot;Resultado del cálculo (1024 / 8):&quot;, calculo);</code></pre>
               </div>
             </div>
           </details>
@@ -723,38 +658,37 @@ auditarMotorYEventLoop();</code></pre>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 5 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 2 de 6 · Teoría y Demostración</span>
           <h2>2. Capacidades y Limitaciones de Ejecución en Entorno Cliente</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>La ejecución de código en el cliente opera bajo un modelo de <strong>caja de arena (Sandbox)</strong> que equilibra potencia interactiva y estrictas restricciones de seguridad para proteger al usuario:</p>
+            <div class="card-text"><p>La ejecución de código en el navegador web equilibra grandes posibilidades de interacción con estrictas barreras de seguridad para proteger los datos del usuario:</p>
 <ul class="concept-list">
-  <li><strong>Capacidades de Ejecución:</strong>
+  <li><strong>Capacidades de Ejecución (Lo que SÍ puede hacer):</strong>
     <ul>
-      <li>Manipulación en tiempo real del árbol DOM y modificación dinámica de estilos CSS.</li>
-      <li>Interacción con APIs web del dispositivo: Geolocalización, Web Workers (hilos secundarios), Canvas/WebGL, Audio/Vídeo y WebSockets para comunicación bidireccional.</li>
-      <li>Persistencia local de datos aislada por origen: LocalStorage, SessionStorage e IndexedDB.</li>
-      <li>Comunicaciones asíncronas de fondo mediante la Fetch API sin recarga de página.</li>
+      <li>Manipular el contenido visible de la página web (textos, imágenes, formularios y estilos CSS).</li>
+      <li>Reaccionar a las acciones del usuario (clics de ratón, pulsaciones de teclas, desplazamientos).</li>
+      <li>Consultar el estado del entorno: si el dispositivo está conectado a Internet (<code>navigator.onLine</code>), el idioma configurado (<code>navigator.language</code>) o el tamaño de la pantalla (<code>screen.width</code>, <code>screen.height</code>).</li>
+      <li>Almacenar información local específica del sitio web mediante <code>localStorage</code> y <code>sessionStorage</code>.</li>
     </ul>
   </li>
-  <li><strong>Limitaciones y Restricciones de Seguridad:</strong>
+  <li><strong>Limitaciones y Restricciones de Seguridad (Lo que NO puede hacer):</strong>
     <ul>
-      <li><strong>Aislamiento de Sistema (Sandbox):</strong> JavaScript cliente no puede acceder directamente al sistema de archivos local (disco duro), ni ejecutar procesos binarios en el sistema operativo del usuario.</li>
-      <li><strong>Same-Origin Policy (SOP):</strong> Restringe el acceso a recursos entre diferentes orígenes (combinación de protocolo, dominio y puerto).</li>
-      <li><strong>Protección contra ataques XSS y CSRF:</strong> Se prohíbe la lectura de cookies con bandera <code>HttpOnly</code> desde JavaScript.</li>
+      <li><strong>Modelo Sandbox (Caja de Arena):</strong> JavaScript en el navegador se ejecuta completamente aislado del sistema operativo. No puede leer ni modificar archivos del disco duro del usuario sin su consentimiento explícito (mediante un control <code>&lt;input type="file"&gt;</code>).</li>
+      <li><strong>Imposibilidad de Ejecutar Programas:</strong> Un script web no puede iniciar aplicaciones externas, procesos ni comandos en el ordenador del cliente.</li>
+      <li><strong>Política del Mismo Origen (Same-Origin Policy):</strong> Impide que un script procedente de un dominio acceda a datos confidenciales (como cookies o sesiones) de otro dominio diferente.</li>
     </ul>
   </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>Seguridad Avanzada en Clientes Web Modernos:</strong></p>
+            <div class="card-text"><p><strong>Por qué es Fundamental el Modelo Sandbox:</strong></p>
 <ul class="concept-list">
-  <li><strong>Content Security Policy (CSP):</strong> Cabecera HTTP que restringe de qué dominios se pueden cargar scripts, estilos y fuentes, bloqueando la inyección de código malicioso no autorizado.</li>
-  <li><strong>Feature Detection vs Browser Detection:</strong> La técnica profesional para comprobar capacidades nunca debe evaluar el <code>navigator.userAgent</code> (fácilmente manipulable), sino verificar la existencia de la propiedad en el objeto correspondiente (ej: <code>if ('geolocation' in navigator)</code>).</li>
-  <li><strong>Permisos del Navegador (Permissions API):</strong> El acceso a APIs sensibles (cámara, micrófono, geolocalización) requiere consentimiento explícito del usuario gestionado mediante la Permissions API.</li>
+  <li><strong>Navegación Segura:</strong> Gracias al sandbox, cualquier usuario puede entrar en un enlace desconocido sin temor a que la página borre sus carpetas personales, instale software malicioso o acceda a ficheros de su sistema.</li>
+  <li><strong>Consentimiento de Permisos:</strong> Para acceder a sensores delicados (cámara, micrófono o ubicación geográfica), el navegador solicita obligatoriamente una ventana de confirmación al usuario.</li>
 </ul></div>
           </div>
         </div>
@@ -763,158 +697,29 @@ auditarMotorYEventLoop();</code></pre>
             <span>💻 Demostración Práctica e Implementación de Código</span>
             <a href="ejemplos/ejemplo2_modulos_es6.html" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo2_modulos_es6.html) 🔗</a>
           </div>
-          <pre><code class="language-javascript">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;es&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;/&gt;
-  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
-  &lt;title&gt;Demostración Real: Modos de Inclusión JS y type=&quot;module&quot;&lt;/title&gt;
-  &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body class=&quot;bg-slate-900 text-slate-100 p-6 font-sans min-h-screen&quot;&gt;
-  &lt;div class=&quot;max-w-4xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-2xl space-y-6&quot;&gt;
-    
-    &lt;div class=&quot;border-b border-slate-700 pb-4&quot;&gt;
-      &lt;span class=&quot;px-2.5 py-1 text-xs font-bold bg-indigo-500/20 text-indigo-300 rounded-lg border border-indigo-500/30 uppercase tracking-wider&quot;&gt;UT1 · Epígrafe 2&lt;/span&gt;
-      &lt;h1 class=&quot;text-2xl font-extrabold text-white mt-2&quot;&gt;📦 Comparativa de Modos de Inclusión de JavaScript y Beneficios de &lt;code class=&quot;text-amber-400&quot;&gt;type=&quot;module&quot;&lt;/code&gt;&lt;/h1&gt;
-      &lt;p class=&quot;text-xs text-slate-400 mt-1&quot;&gt;Análisis práctico: ¿Cómo influye la ubicación y el atributo de script en el acceso a elementos DOM y la contaminación/sobreescritura de variables globales?&lt;/p&gt;
-    &lt;/div&gt;
+          <pre><code class="language-javascript">// Consulta de capacidades básicas del navegador
+console.log(&quot;¿Conexión a Internet activa?:&quot;, navigator.onLine ? &quot;En línea ✅&quot; : &quot;Sin conexión ❌&quot;);
+console.log(&quot;Idioma del sistema:&quot;, navigator.language);
+console.log(&quot;Resolución de la pantalla:&quot;, screen.width, &quot;x&quot;, screen.height, &quot;px&quot;);
 
-    &lt;!-- Tabla Comparativa de los 4 Modos --&gt;
-    &lt;div class=&quot;overflow-x-auto&quot;&gt;
-      &lt;table class=&quot;w-full text-left border-collapse text-xs&quot;&gt;
-        &lt;thead&gt;
-          &lt;tr class=&quot;bg-slate-950 text-indigo-300 border-b border-slate-700&quot;&gt;
-            &lt;th class=&quot;p-3&quot;&gt;Modo de Inclusión&lt;/th&gt;
-            &lt;th class=&quot;p-3&quot;&gt;Acceso al DOM&lt;/th&gt;
-            &lt;th class=&quot;p-3&quot;&gt;Ámbito de Variables&lt;/th&gt;
-            &lt;th class=&quot;p-3&quot;&gt;Riesgo de Sobreescritura&lt;/th&gt;
-            &lt;th class=&quot;p-3&quot;&gt;Modo Estricto&lt;/th&gt;
-          &lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody class=&quot;divide-y divide-slate-700/50 text-slate-300&quot;&gt;
-          &lt;tr class=&quot;hover:bg-slate-750&quot;&gt;
-            &lt;td class=&quot;p-3 font-mono text-amber-300&quot;&gt;1. &amp;lt;script&amp;gt; en &amp;lt;head&amp;gt; (Sync)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-red-400 font-bold&quot;&gt;❌ FALLA (null)&lt;/td&gt;
-            &lt;td class=&quot;p-3&quot;&gt;Global (&lt;code class=&quot;text-amber-300&quot;&gt;window&lt;/code&gt;)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-red-400 font-bold&quot;&gt;⚠️ ALTO (Sobreescribible)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-slate-500&quot;&gt;Opcional&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr class=&quot;hover:bg-slate-750&quot;&gt;
-            &lt;td class=&quot;p-3 font-mono text-blue-300&quot;&gt;2. &amp;lt;script&amp;gt; al pie de &amp;lt;/body&amp;gt;&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-emerald-400 font-bold&quot;&gt;✅ OK (DOM listo)&lt;/td&gt;
-            &lt;td class=&quot;p-3&quot;&gt;Global (&lt;code class=&quot;text-amber-300&quot;&gt;window&lt;/code&gt;)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-red-400 font-bold&quot;&gt;⚠️ ALTO (Colisión de scripts)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-slate-500&quot;&gt;Opcional&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr class=&quot;hover:bg-slate-750&quot;&gt;
-            &lt;td class=&quot;p-3 font-mono text-purple-300&quot;&gt;3. &amp;lt;script defer&amp;gt; en &amp;lt;head&amp;gt;&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-emerald-400 font-bold&quot;&gt;✅ OK (Deferido)&lt;/td&gt;
-            &lt;td class=&quot;p-3&quot;&gt;Global (&lt;code class=&quot;text-amber-300&quot;&gt;window&lt;/code&gt;)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-amber-400 font-bold&quot;&gt;⚠️ MEDIO (Mismo espacio)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-slate-500&quot;&gt;Opcional&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr class=&quot;bg-indigo-950/40 font-bold border-l-4 border-emerald-400&quot;&gt;
-            &lt;td class=&quot;p-3 font-mono text-emerald-400&quot;&gt;4. &amp;lt;script type=&quot;module&quot;&amp;gt; 🚀&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-emerald-400&quot;&gt;✅ OK (Defer implícito)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-emerald-300&quot;&gt;🔒 Aislado (Module Scope)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-emerald-400&quot;&gt;✅ NULO (Imposible sobreescribir)&lt;/td&gt;
-            &lt;td class=&quot;p-3 text-emerald-400&quot;&gt;✅ Automático (&#x27;use strict&#x27;)&lt;/td&gt;
-          &lt;/tr&gt;
-        &lt;/tbody&gt;
-      &lt;/table&gt;
-    &lt;/div&gt;
-
-    &lt;!-- Demostración en Código y Salida Real --&gt;
-    &lt;div class=&quot;grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono&quot;&gt;
-      
-      &lt;!-- Script Tradicional: Sobreescritura Accidentada --&gt;
-      &lt;div class=&quot;bg-slate-950 p-4 rounded-xl border border-red-900/40 space-y-2&quot;&gt;
-        &lt;div class=&quot;text-red-400 font-bold border-b border-slate-800 pb-1 flex justify-between&quot;&gt;
-          &lt;span&gt;❌ Scripts Tradicionales (Sin Módulo)&lt;/span&gt;
-          &lt;span class=&quot;text-[10px] text-red-400/80&quot;&gt;Colisión Global&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;pre class=&quot;text-slate-300 overflow-x-auto&quot;&gt;&lt;code&gt;// script1.js
-var usuario = &quot;Ana García&quot;; // En window.usuario
-
-// script2.js (Cargado después)
-var usuario = &quot;Pedro López&quot;; // ¡SOBREESCRIBE A ANA!
-
-console.log(window.usuario); // &quot;Pedro López&quot; 😱&lt;/code&gt;&lt;/pre&gt;
-        &lt;div class=&quot;p-2.5 bg-red-950/30 rounded border border-red-900/50 text-red-300 text-[11px]&quot;&gt;
-          &lt;strong&gt;Resultado:&lt;/strong&gt; Las variables se sobreescriben accidentalmente entre archivos distintos sin ningún aviso.
-        &lt;/div&gt;
-      &lt;/div&gt;
-
-      &lt;!-- ES Modules: Aislamiento Seguro --&gt;
-      &lt;div class=&quot;bg-slate-950 p-4 rounded-xl border border-emerald-900/40 space-y-2&quot;&gt;
-        &lt;div class=&quot;text-emerald-400 font-bold border-b border-slate-800 pb-1 flex justify-between&quot;&gt;
-          &lt;span&gt;✅ ES Modules (type=&quot;module&quot;)&lt;/span&gt;
-          &lt;span class=&quot;text-[10px] text-emerald-400/80&quot;&gt;Module Scope&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;pre class=&quot;text-slate-300 overflow-x-auto&quot;&gt;&lt;code&gt;// modulo1.js
-const usuario = &quot;Ana García&quot;; // Privada al módulo
-
-// modulo2.js
-const usuario = &quot;Pedro López&quot;; // Privada al módulo
-
-console.log(window.usuario); // undefined 🎉&lt;/code&gt;&lt;/pre&gt;
-        &lt;div class=&quot;p-2.5 bg-emerald-950/30 rounded border border-emerald-900/50 text-emerald-300 text-[11px]&quot;&gt;
-          &lt;strong&gt;Resultado:&lt;/strong&gt; Cada módulo tiene su propio espacio aislado. Imposible sobreescribir desde fuera.
-        &lt;/div&gt;
-      &lt;/div&gt;
-
-    &lt;/div&gt;
-
-    &lt;!-- Salida Interactiva en Vivo --&gt;
-    &lt;div class=&quot;bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3&quot;&gt;
-      &lt;div class=&quot;text-xs font-bold text-amber-400 flex items-center justify-between&quot;&gt;
-        &lt;span&gt;▶️ Prueba de Ejecución en Vivo en este Navegador:&lt;/span&gt;
-        &lt;span class=&quot;text-[10px] text-slate-500&quot;&gt;Ejecutando script de Módulo&lt;/span&gt;
-      &lt;/div&gt;
-      &lt;div id=&quot;salida-demo&quot; class=&quot;text-xs font-mono space-y-1.5 text-slate-200&quot;&gt;
-        &lt;div class=&quot;text-slate-500 italic&quot;&gt;Evaluando variables globales vs variables de módulo...&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-
-  &lt;/div&gt;
-
-  &lt;script type=&quot;module&quot;&gt;
-    // Simulación de ámbito de módulo
-    const usuarioModulo = &quot;Ana García (Módulo Aislado)&quot;;
-    
-    // Intentar acceder al DOM directamente (demuestra defer automático)
-    const salida = document.getElementById(&#x27;salida-demo&#x27;);
-    
-    salida.innerHTML = `
-      &lt;div class=&quot;text-emerald-400&quot;&gt;✅ Acceso al DOM desde type=&quot;module&quot;: &lt;strong&gt;Éxito (se ejecutó tras construir el DOM)&lt;/strong&gt;&lt;/div&gt;
-      &lt;div class=&quot;text-indigo-300&quot;&gt;🔒 Variable de Módulo (const usuarioModulo): &lt;strong&gt;&quot;${usuarioModulo}&quot;&lt;/strong&gt;&lt;/div&gt;
-      &lt;div class=&quot;text-amber-300&quot;&gt;🌐 window.usuarioModulo en el objeto global: &lt;strong&gt;${window.usuarioModulo} (Totalmente Aislado)&lt;/strong&gt;&lt;/div&gt;
-      &lt;div class=&quot;text-slate-400 pt-2 border-t border-slate-800 mt-2 text-[11px]&quot;&gt;
-        💡 &lt;strong&gt;Conclusión:&lt;/strong&gt; ES Modules otorga aislamiento absoluto de variables, prevención de sobreescrituras accidentales y acceso 100% seguro a los elementos del DOM.
-      &lt;/div&gt;
-    `;
-  &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-</code></pre>
+// Demostración de limitación: acceso a archivos restringido
+console.log(&quot;Sandbox activo: JavaScript no tiene acceso directo al disco duro.&quot;);</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 2</span>
-          <h2>🎯 Reto 2: Auditor de Capacidades y Verificación del Sandbox del Navegador</h2>
+          <h2>🎯 Reto 2: Auditoría Elemental de Capacidades y Seguridad Sandbox</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Crea una función llamada `auditarNavegador()` que verifique mediante Feature Detection el soporte de al menos 5 APIs modernas del cliente (Geolocalización, Web Storage, Web Workers, IndexedDB y Clipboard API). Muestra un informe estructurado indicando el estado de cada una y comprueba que la API de almacenamiento local funciona dentro del origen actual.</div>
+            <div class="callout-body">Escribe un script que consulte a través de los objetos `navigator` y `screen`: 1) Si el navegador tiene conexión a Internet activa (`navigator.onLine`), 2) El idioma preferido del sistema (`navigator.language`), y 3) Las dimensiones de la pantalla del usuario (`screen.width` y `screen.height`). Añade comentarios explicativos indicando por qué el modelo Sandbox del navegador prohíbe que JavaScript acceda directamente al sistema de archivos local.</div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
-            <div class="callout-body">Usa el operador &quot;in&quot; para comprobar las propiedades en window o navigator. Envuelve la prueba de localStorage en un bloque try-catch para capturar excepciones si las cookies de terceros están bloqueadas.</div>
+            <div class="callout-body">Accede a las propiedades directamente desde navigator y screen. Muestra cada dato en consola mediante console.log().</div>
           </div>
           
           <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
@@ -924,34 +729,23 @@ console.log(window.usuario); // undefined 🎉&lt;/code&gt;&lt;/pre&gt;
             </summary>
             <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
               <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
-                <strong style="color: #0f172a;">Explicación Técnica:</strong> La detección de características garantiza que la aplicación web pueda ofrecer degradación elegante (fallback) o mejoras progresivas dependiendo de las capacidades del cliente donde se ejecute.
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El modelo sandbox es el pilar de la seguridad web: garantiza que cualquier página web se ejecute en un entorno protegido sin poner en riesgo la privacidad ni la integridad del equipo del usuario.
               </div>
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
-                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function auditarNavegador() {
-    const informe = {
-        &#x27;Geolocalización&#x27;: &#x27;geolocation&#x27; in navigator,
-        &#x27;Web Storage (localStorage)&#x27;: &#x27;localStorage&#x27; in window,
-        &#x27;Web Workers (Multihilo)&#x27;: typeof Worker !== &#x27;undefined&#x27;,
-        &#x27;IndexedDB (NoSQL Cliente)&#x27;: &#x27;indexedDB&#x27; in window,
-        &#x27;Clipboard API (Portapapeles)&#x27;: &#x27;clipboard&#x27; in navigator
-    };
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// 1. Estado de la conexión a Internet
+console.log(&quot;¿Conexión activa a Internet?:&quot;, navigator.onLine ? &quot;Sí, conectado ✅&quot; : &quot;No, sin conexión ❌&quot;);
 
-    console.log(&quot;=== INFORME DE CAPACIDADES CLIENTE ===&quot;);
-    console.table(informe);
+// 2. Idioma configurado en el navegador
+console.log(&quot;Idioma preferente del navegador:&quot;, navigator.language);
 
-    // Verificación práctica de sandbox de almacenamiento
-    try {
-        localStorage.setItem(&#x27;__test_sandbox__&#x27;, &#x27;ok&#x27;);
-        const lectura = localStorage.getItem(&#x27;__test_sandbox__&#x27;);
-        localStorage.removeItem(&#x27;__test_sandbox__&#x27;);
-        console.log(&quot;Sandbox de almacenamiento verificado con éxito:&quot;, lectura === &#x27;ok&#x27;);
-    } catch (e) {
-        console.warn(&quot;Almacenamiento bloqueado o restringido por políticas de privacidad:&quot;, e.message);
-    }
-}
+// 3. Resolución y dimensiones de pantalla
+console.log(&quot;Resolución de pantalla disponible:&quot;, screen.width + &quot; x &quot; + screen.height + &quot; píxeles&quot;);
 
-auditarNavegador();</code></pre>
+// 4. Justificación de seguridad (Modelo Sandbox):
+// Por motivos de seguridad, JavaScript en el cliente se ejecuta dentro de una &#x27;caja de arena&#x27; (sandbox).
+// Esto impide que una página web maliciosa pueda leer contraseñas, documentos o modificar ficheros
+// del disco duro del usuario de forma silenciosa.</code></pre>
               </div>
             </div>
           </details>
@@ -970,59 +764,66 @@ auditarNavegador();</code></pre>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 5 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 3 de 6 · Teoría y Demostración</span>
           <h2>3. Lenguajes de Programación en Entorno Cliente y Tecnologías Asociadas</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Aunque JavaScript es la lengua franca del navegador estandarizada bajo la especificación <strong>ECMAScript (ECMA-262)</strong>, el desarrollo moderno en cliente convive con lenguajes tipados, tecnologías de transpilación y bytecode nativo:</p>
+            <div class="card-text"><p>El desarrollo web moderno en el entorno cliente se articula en torno a tres tecnologías estándar y una serie de lenguajes y herramientas complementarias:</p>
 <ul class="concept-list">
-  <li><strong>Evolución ECMAScript:</strong> Desde la refundación con <em>ES6 (ES2015)</em>, el estándar evoluciona anualmente incorporando clases, módulos nativos, async/await, optional chaining y operadores lógicos modernos.</li>
-  <li><strong>TypeScript:</strong> Superconjunto tipado estático desarrollado por Microsoft. Aporta tipado estricto, interfaces y genéricos que se compilan (transpilan) a JavaScript plano compatible con cualquier navegador, erradicando errores en tiempo de desarrollo.</li>
-  <li><strong>WebAssembly (Wasm):</strong> Formato binario ejecutable de bajo nivel estandarizado por el W3C. Permite compilar lenguajes como C, C++, Rust o Go a un bytecode que se ejecuta en el navegador a una velocidad casi idéntica a la nativa, comunicándose directamente con la memoria de JavaScript.</li>
-  <li><strong>Transpiladores y Polyfills:</strong> Herramientas como <em>Babel</em> convierten código JavaScript moderno (ES2024+) a versiones compatibles con navegadores heredados (ES5), mientras que los <em>polyfills</em> (como Core-js) inyectan funciones o APIs inexistentes.</li>
-  <li><strong>Empaquetadores (Bundlers):</strong> Motores modernos como <em>Vite (esbuild/Rollup)</em> o <em>Webpack</em> empaquetan, minifican y optimizan los árboles de dependencias para despliegue en producción.</li>
+  <li><strong>El Trinomio Fundamental de la Web:</strong>
+    <ul>
+      <li><strong>HTML (HyperText Markup Language):</strong> Proporciona la estructura semántica y el contenido de la página web (títulos, párrafos, formularios).</li>
+      <li><strong>CSS (Cascading Style Sheets):</strong> Define la presentación estética, diseño visual, colores, tipografías y adaptación a diferentes pantallas (Responsive Web Design).</li>
+      <li><strong>JavaScript:</strong> Aporta el comportamiento dinámico, la lógica de programación y la interactividad con el usuario.</li>
+    </ul>
+  </li>
+  <li><strong>Tecnologías Asociadas y Superconjuntos:</strong>
+    <ul>
+      <li><strong>TypeScript:</strong> Lenguaje de código abierto desarrollado por Microsoft que añade tipado estático opcional y autocompletado avanzado sobre JavaScript. Dado que los navegadores solo entienden JavaScript, el código TypeScript se "transpila" (convierte) a JavaScript plano antes de ejecutarse.</li>
+      <li><strong>WebAssembly (Wasm):</strong> Estándar complementario de bajo nivel que permite ejecutar código compilado (desde C, C++ o Rust) a velocidades cercanas al código máquina nativo. Se utiliza para tareas de cálculo intensivo (edición de gráficos, juegos 3D, emuladores), conviviendo en armonía con JavaScript.</li>
+      <li><strong>Herramientas de Construcción:</strong> Utilidades como <em>Vite</em> o transpiladores como <em>Babel</em> que empaquetan y optimizan los ficheros para su despliegue en los navegadores.</li>
+    </ul>
+  </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>El Rol Transformador de WebAssembly y Transpilación:</strong></p>
+            <div class="card-text"><p><strong>La Regla de Oro de la Web: "Separación de Capas":</strong></p>
 <ul class="concept-list">
-  <li><strong>Complementariedad Wasm + JS:</strong> WebAssembly no sustituye a JavaScript; se complementan. JS gestiona el DOM, los eventos de usuario y la lógica de interfaz, mientras Wasm asume tareas de cómputo intensivo (edición de vídeo, física de videojuegos 3D, compresión o criptografía).</li>
-  <li><strong>Compatibilidad Retroactiva (Backward Compatibility):</strong> Un principio inviolable de la web es <em>"Don't break the web"</em>: el código JavaScript escrito en 1997 sigue funcionando en los navegadores actuales.</li>
+  <li><strong>Estructura (HTML), Diseño (CSS) y Comportamiento (JS):</strong> Mantener cada lenguaje en su propio archivo facilita el mantenimiento, el trabajo en equipo y el rendimiento de la aplicación.</li>
+  <li><strong>JavaScript Universal:</strong> A día de hoy, JavaScript es el único lenguaje de scripting interpretado soportado de forma nativa por el 100% de los navegadores web del mundo sin requerir plugins ni instalaciones adicionales.</li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            <a href="ejemplos/ejemplo3_git_workflow.js" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo3_git_workflow.js) 🔗</a>
+            
           </div>
-          <pre><code class="language-javascript">// UT1 - Ejemplo 3: Flujo de Trabajo con Git
-console.log(&quot;=== Trazabilidad del Grafo DAG en Git ===&quot;);
-const commits = [
-    { hash: &quot;a1b2c3d&quot;, msg: &quot;feat: inicializar estructura de proyecto&quot;, autor: &quot;Docente DAW&quot; },
-    { hash: &quot;e5f6g7h&quot;, msg: &quot;feat(auth): implementar módulo de inicio de sesión&quot;, autor: &quot;Dev Team&quot; }
-];
-commits.forEach((c, idx) =&gt; console.log(`[Commit #${idx + 1}] SHA: ${c.hash} | ${c.msg}`));
-</code></pre>
+          <pre><code class="language-javascript">// Resumen de las tecnologías asociadas al cliente web
+console.log(&quot;Tecnología estándar nativa: JavaScript (ECMAScript)&quot;);
+
+// Comprobación de disponibilidad de WebAssembly en el navegador
+const tieneWasm = typeof WebAssembly !== &quot;undefined&quot;;
+console.log(&quot;¿Soporte nativo de WebAssembly en este cliente?:&quot;, tieneWasm);</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 3</span>
-          <h2>🎯 Reto 3: Comprobador de Soporte WebAssembly e Instanciación Binaria</h2>
+          <h2>🎯 Reto 3: Mapa de Tecnologías Web y Comprobación de Entorno</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Escribe una función que verifique si el entorno cliente soporta WebAssembly mediante instanciación de un módulo mínimo en memoria binaria. En caso afirmativo, imprime &quot;Wasm Activo&quot;, y si no, ejecuta un algoritmo de Fibonacci puro en JavaScript mostrando el tiempo de ejecución.</div>
+            <div class="callout-body">Diseña un script que presente un resumen de las tecnologías asociadas al cliente web: 1) Imprime en consola qué papel cumple cada lenguaje básico (HTML, CSS, JavaScript y TypeScript), 2) Comprueba si el navegador actual soporta WebAssembly comprobando si `typeof WebAssembly !== &quot;undefined&quot;`, y 3) Muestra un mensaje en consola indicando si el entorno cliente está preparado para el desarrollo web moderno.</div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
-            <div class="callout-body">Utiliza WebAssembly.instantiate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0])) para instanciar el módulo en memoria. Mide el tiempo de cálculo con console.time y console.timeEnd.</div>
+            <div class="callout-body">Utiliza console.log() para imprimir cada apartado de forma limpia y ordenada. Puedes usar typeof WebAssembly para verificar si el objeto existe.</div>
           </div>
           
           <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
@@ -1032,45 +833,23 @@ commits.forEach((c, idx) =&gt; console.log(`[Commit #${idx + 1}] SHA: ${c.hash} 
             </summary>
             <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
               <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
-                <strong style="color: #0f172a;">Explicación Técnica:</strong> La verificación e instanciación de WebAssembly en cliente permite decidir en tiempo de ejecución si se delega el cálculo matemático intensivo en un módulo Wasm o en un algoritmo JavaScript.
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Comprender qué rol ocupa cada tecnología permite al desarrollador saber en qué capa trabajar: la estructura con HTML, la estética con CSS, la lógica de interacción con JS/TypeScript y el alto rendimiento con WebAssembly.
               </div>
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
-                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">async function probarWasmYBenchmark() {
-    console.log(&quot;=== Comprobación e Instanciación de WebAssembly ===&quot;);
-    
-    // Módulo Wasm mínimo válido con cabecera mágica \0asm y versión 1
-    const wasmBytes = new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]);
-    let wasmActivo = false;
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">console.log(&quot;=== MAPA DE TECNOLOGÍAS WEB EN CLIENTE ===&quot;);
+console.log(&quot;1. HTML: Define la estructura semántica del documento.&quot;);
+console.log(&quot;2. CSS: Define la apariencia visual, colores y maquetación responsive.&quot;);
+console.log(&quot;3. JavaScript: Implementa la lógica de interacción, dinamismo y eventos.&quot;);
+console.log(&quot;4. TypeScript: Superconjunto tipado que se transpila a JavaScript estándar.&quot;);
 
-    if (typeof WebAssembly === &quot;object&quot; &amp;&amp; typeof WebAssembly.instantiate === &quot;function&quot;) {
-        try {
-            const resultado = await WebAssembly.instantiate(wasmBytes);
-            if (resultado &amp;&amp; resultado.instance) {
-                wasmActivo = true;
-                console.log(&quot;✅ Wasm Activo: Módulo binario WebAssembly instanciado con éxito en memoria.&quot;);
-                console.log(&quot;Instancia WebAssembly creada:&quot;, resultado.instance);
-            }
-        } catch (e) {
-            console.warn(&quot;Fallo al instanciar binario Wasm:&quot;, e.message);
-        }
-    }
+// Comprobación de soporte de tecnologías modernas
+const soporteWasm = typeof WebAssembly !== &quot;undefined&quot;;
+console.log(&quot;¿Soporta WebAssembly este navegador?:&quot;, soporteWasm ? &quot;Sí ✅&quot; : &quot;No ❌&quot;);
 
-    if (!wasmActivo) {
-        console.warn(&quot;⚠️ WebAssembly no disponible en este cliente. Activando motor JavaScript estándar.&quot;);
-    }
-
-    // Benchmark computacional comparativo en JavaScript
-    console.time(&quot;Cálculo Fibonacci en JS (n=32)&quot;);
-    function fibonacci(n) {
-        return n &lt;= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-    }
-    const valorFib = fibonacci(32);
-    console.timeEnd(&quot;Cálculo Fibonacci en JS (n=32)&quot;);
-    console.log(&quot;Resultado Fibonacci(32) en JS:&quot;, valorFib);
-}
-
-probarWasmYBenchmark();</code></pre>
+if (soporteWasm) {
+    console.log(&quot;🚀 El entorno cliente está 100% preparado para ejecutar tecnologías web modernas.&quot;);
+}</code></pre>
               </div>
             </div>
           </details>
@@ -1089,27 +868,38 @@ probarWasmYBenchmark();</code></pre>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 5 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 4 de 6 · Teoría y Demostración</span>
           <h2>4. Integración del Código JavaScript con las Etiquetas HTML</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>La integración de JavaScript en documentos HTML5 determina la velocidad de renderizado (FCP/LCP) y la prevención de colisiones de variables globales:</p>
+            <div class="card-text"><p>Para que el navegador ejecute código JavaScript, este debe vincularse a un documento HTML mediante la etiqueta <code>&lt;script&gt;</code> a través de diferentes modalidades:</p>
 <ul class="concept-list">
-  <li><strong>1. Script Clásico en <code>&lt;head&gt;</code> (Bloqueante):</strong> Detiene el parseo del HTML mientras se descarga y ejecuta el script. Puede provocar errores si intenta acceder a elementos del DOM aún no creados.</li>
-  <li><strong>2. Script al pie de <code>&lt;body&gt;</code>:</strong> Asegura que todo el DOM esté parseado antes de ejecutar el código. Históricamente la técnica más extendida, aunque retrasa el inicio de la descarga.</li>
-  <li><strong>3. Atributo <code>defer</code> en <code>&lt;head&gt;</code>:</strong> Descarga el archivo en paralelo sin bloquear el parseo HTML y ejecuta los scripts en el orden exacto en que fueron declarados una vez completado el DOM.</li>
-  <li><strong>4. Atributo <code>async</code> en <code>&lt;head&gt;</code>:</strong> Descarga en paralelo y ejecuta inmediatamente al completarse la descarga, interrumpiendo el HTML y sin garantizar el orden relativo entre scripts. Adecuado únicamente para analítica independiente.</li>
-  <li><strong>5. Módulos ES6 (<code>&lt;script type="module"&gt;</code>):</strong> El estándar moderno. Tienen comportamiento <code>defer</code> implícito, se ejecutan en <em>Modo Estricto ('use strict')</em> automáticamente y poseen <strong>ámbito de módulo aislado</strong> (no contaminan <code>window</code>).</li>
+  <li><strong>1. Script Externo (Modalidad Recomendada):</strong>
+    <p>El código reside en un fichero independiente con extensión <code>.js</code> vinculado con el atributo <code>src</code>: <code>&lt;script src="app.js"&gt;&lt;/script&gt;</code>. Facilita la reutilización y el almacenamiento en caché del navegador.</p>
+  </li>
+  <li><strong>2. Script Embebido / Interno:</strong>
+    <p>Las sentencias se escriben directamente dentro de las etiquetas <code>&lt;script&gt; ... &lt;/script&gt;</code> en el HTML. Adecuado únicamente para pequeños scripts de inicialización.</p>
+  </li>
+  <li><strong>3. Script en Línea (Desaconsejado):</strong>
+    <p>Escrito dentro de atributos de eventos HTML (como <code>onclick="alert('Hola')"</code>). Viola el principio de separación de capas y está en desuso en el desarrollo profesional.</p>
+  </li>
+  <li><strong>Ubicación y Atributos de Control de Carga (<code>head</code> vs <code>body</code>, <code>defer</code> y <code>async</code>):</strong>
+    <ul>
+      <li><em>Al pie del <code>&lt;body&gt;</code></em>: Garantiza que todo el árbol HTML esté cargado antes de que el script intente buscar elementos.</li>
+      <li><em>Atributo <code>defer</code> (Recomendado en <code>&lt;head&gt;</code>)</em>: Descarga el archivo en segundo plano sin interrumpir la lectura del HTML y lo ejecuta de forma ordenada justo cuando el documento ha finalizado su carga.</li>
+      <li><em>Atributo <code>async</code></em>: Descarga en paralelo y ejecuta inmediatamente al terminar, interrumpiendo el HTML. Indicado para scripts independientes como herramientas de analítica.</li>
+    </ul>
+  </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>Buenas Prácticas de Arquitectura Frontend:</strong></p>
+            <div class="card-text"><p><strong>Optimización de la Carga de Páginas (Performance):</strong></p>
 <ul class="concept-list">
-  <li><strong>Separación Estricta de Capas:</strong> Queda totalmente desaconsejado el uso de scripts en línea dentro de atributos HTML (como <code>onclick="..."</code> o <code>onload="..."</code>). El comportamiento debe residir en ficheros JavaScript externos vinculados mediante escuchadores de eventos.</li>
-  <li><strong>Precarga de Scripts Críticos:</strong> El uso de <code>&lt;link rel="preload" as="script" href="..."&gt;</code> o <code>&lt;link rel="modulepreload" ...&gt;</code> permite priorizar en la red la obtención de scripts cruciales para la primera interacción del usuario.</li>
+  <li><strong>Evitar Scripts Bloqueantes:</strong> Un script tradicional en el <code>&lt;head&gt;</code> detiene la lectura del documento hasta que el archivo se descarga y ejecuta, dejando la pantalla en blanco durante ese tiempo. El uso de <code>defer</code> elimina por completo ese bloqueo.</li>
+  <li><strong>Módulos ES6 (<code>type="module"</code>):</strong> Al añadir <code>type="module"</code> a la etiqueta script, el navegador activa automáticamente el comportamiento de carga diferida (equivalente a <code>defer</code>) y aísla el ámbito de sus variables.</li>
 </ul></div>
           </div>
         </div>
@@ -1118,29 +908,41 @@ probarWasmYBenchmark();</code></pre>
             <span>💻 Demostración Práctica e Implementación de Código</span>
             <a href="ejemplos/ejemplo4_insercion_dom.html" target="_blank" style="color: #79c0ff; font-weight: bold; text-decoration: underline; font-size: 0.9em; background: rgba(121, 192, 255, 0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(121, 192, 255, 0.3);">🚀 Abrir Ejemplo Real en Vivo (ejemplo4_insercion_dom.html) 🔗</a>
           </div>
-          <pre><code class="language-javascript">// UT1 - Ejemplo 4: Inserción Segura en el DOM
-console.log(&quot;=== Métodos de Inserción DOM Segura ===&quot;);
-const nuevoElemento = document.createElement(&quot;div&quot;);
-nuevoElemento.className = &quot;tarjeta-info&quot;;
-nuevoElemento.textContent = &quot;Contenido seguro generado con textContent (Anti-XSS)&quot;;
-console.log(&quot;Elemento creado exitosamente en memoria:&quot;, nuevoElemento.nodeName);
-</code></pre>
+          <pre><code class="language-javascript">&lt;!-- Ejemplo de estructura de integración de scripts en HTML5 --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Integración de Scripts&lt;/title&gt;
+  
+  &lt;!-- Inclusión recomendada en head con atributo defer --&gt;
+  &lt;script defer src=&quot;main.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hola, DWEC&lt;/h1&gt;
+
+  &lt;!-- Script interno al final del body --&gt;
+  &lt;script&gt;
+    console.log(&quot;El documento HTML ya está accesible.&quot;);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 4</span>
-          <h2>🎯 Reto 4: Simulador de Orden de Carga: Sync vs Async vs Defer vs Module</h2>
+          <h2>🎯 Reto 4: Integración Práctica de Scripts en HTML y Orden de Carga</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Escribe una página HTML con scripts que demuestren de forma práctica cómo influye el modo de inclusión en el acceso a elementos del DOM. Comprueba qué sucede cuando un script clásico en `&lt;head&gt;` intenta acceder a un elemento del `&lt;body&gt;` frente a un script con `defer` o `type=&quot;module&quot;`.</div>
+            <div class="callout-body">Crea una página HTML básica que contenga: 1) Un título `&lt;h1&gt;` con el texto &quot;Mi Primera Página con JavaScript&quot;, 2) Un script con el atributo `defer` en la cabecera `&lt;head&gt;`, y 3) Un script situado al final de la etiqueta `&lt;body&gt;`. Dentro de cada script, utiliza `console.log()` para mostrar un mensaje identificativo y comprueba en la consola el orden en el que se ejecutan.</div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
-            <div class="callout-body">Comprueba document.getElementById(&quot;titulo&quot;) desde un script síncrono en &lt;head&gt; (devolverá null) y compáralo con un script type=&quot;module&quot; que lo encontrará sin error.</div>
+            <div class="callout-body">Crea la estructura HTML con &lt;head&gt; y &lt;body&gt;. En head pon &lt;script defer&gt;console.log(&quot;Mensaje Defer&quot;);&lt;/script&gt; y antes de &lt;/body&gt; pon &lt;script&gt;console.log(&quot;Mensaje Body&quot;);&lt;/script&gt;.</div>
           </div>
           
           <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
@@ -1150,7 +952,7 @@ console.log(&quot;Elemento creado exitosamente en memoria:&quot;, nuevoElemento.
             </summary>
             <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
               <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
-                <strong style="color: #0f172a;">Explicación Técnica:</strong> Los scripts síncronos en head detienen el parser antes de que el elemento exista en el DOM. Por contra, los módulos ES y scripts con defer esperan a que el árbol DOM esté completamente disponible en memoria.
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El atributo defer asegura que los scripts se descarguen mientras el navegador construye la página, ejecutándose cuando todo el árbol HTML ya está listo, evitando bloqueos y mejorando la experiencia del usuario.
               </div>
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
@@ -1158,30 +960,20 @@ console.log(&quot;Elemento creado exitosamente en memoria:&quot;, nuevoElemento.
 &lt;html lang=&quot;es&quot;&gt;
 &lt;head&gt;
   &lt;meta charset=&quot;UTF-8&quot;/&gt;
-  &lt;title&gt;Demostración de Carga y Acceso al DOM&lt;/title&gt;
+  &lt;title&gt;Práctica de Integración de Scripts&lt;/title&gt;
   
-  &lt;!-- Intento 1: Script síncrono en head --&gt;
-  &lt;script&gt;
-    console.log(&quot;1. [Sync en Head] Intento leer #caja:&quot;, document.getElementById(&#x27;caja&#x27;)); // null
-  &lt;/script&gt;
-
-  &lt;!-- Intento 2: Script con defer --&gt;
+  &lt;!-- Script con atributo defer: no bloquea la lectura del HTML --&gt;
   &lt;script defer&gt;
-    // Se ejecuta al finalizar el parseo del DOM
-    console.log(&quot;3. [Defer] Acceso a #caja:&quot;, document.getElementById(&#x27;caja&#x27;) ? &quot;Éxito ✅&quot; : &quot;Fallo ❌&quot;);
-  &lt;/script&gt;
-
-  &lt;!-- Intento 3: Módulo ES6 --&gt;
-  &lt;script type=&quot;module&quot;&gt;
-    const elemento = document.getElementById(&#x27;caja&#x27;);
-    console.log(&quot;4. [Type=Module] Acceso a #caja:&quot;, elemento ? &quot;Éxito ✅&quot; : &quot;Fallo ❌&quot;);
-    console.log(&quot;   Ámbito aislado: window.elemento es&quot;, window.elemento); // undefined
+    console.log(&quot;2. [Script Defer]: Se ejecuta cuando el HTML ya ha terminado de parsearse.&quot;);
   &lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;div id=&quot;caja&quot;&gt;Elemento contenedor del DOM&lt;/div&gt;
+  &lt;h1&gt;Mi Primera Página con JavaScript&lt;/h1&gt;
+  &lt;p&gt;Abre la consola del navegador (F12) para comprobar el orden de ejecución.&lt;/p&gt;
+
+  &lt;!-- Script al final del body --&gt;
   &lt;script&gt;
-    console.log(&quot;2. [Pie de Body] Acceso inmediato a #caja:&quot;, document.getElementById(&#x27;caja&#x27;) ? &quot;Éxito ✅&quot; : &quot;Fallo ❌&quot;);
+    console.log(&quot;1. [Script Body]: Se ejecuta en cuanto el analizador llega a esta línea.&quot;);
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
@@ -1203,42 +995,46 @@ console.log(&quot;Elemento creado exitosamente en memoria:&quot;, nuevoElemento.
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 5 de 5 · Teoría y Demostración</span>
-          <h2>5. Herramientas de Programación, Depuración, Librerías y Frameworks</h2>
+          <span class="badge-sub">Bloque 5 de 6 · Teoría y Demostración</span>
+          <h2>5. Control de Versiones Distribuido con Git para Desarrollo Web</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>El ecosistema profesional de programación en cliente se fundamenta en herramientas avanzadas de diagnóstico integradas en los navegadores y un rico ecosistema de librerías:</p>
+            <div class="card-text"><p>El control de versiones es una herramienta imprescindible en cualquier proyecto web. <strong>Git</strong> es el sistema de control de versiones distribuido estándar en la industria del software:</p>
 <ul class="concept-list">
-  <li><strong>DevTools del Navegador (F12):</strong>
+  <li><strong>¿Por qué usar Control de Versiones?:</strong>
     <ul>
-      <li><strong>Console (Consola):</strong> Ejecución de comandos en vivo y métodos de diagnóstico (<code>console.table</code>, <code>console.group</code>, <code>console.time</code>).</li>
-      <li><strong>Sources / Debugger:</strong> Inspección del código fuente, establecimiento de puntos de interrupción (breakpoints condicionales), inspección de variables locales/clausuras y navegación paso a paso (Step Over, Step Into, Step Out).</li>
-      <li><strong>Network (Red):</strong> Monitorización de peticiones HTTP, estado del caché, tiempos de latencia y cascada de descargas (Waterfall).</li>
-      <li><strong>Performance y Lighthouse:</strong> Auditorías de accesibilidad, SEO y métricas de rendimiento Web Vitals (LCP, FID/INP, CLS).</li>
+      <li>Guarda un historial completo de cambios realizados en los archivos del proyecto.</li>
+      <li>Permite volver a cualquier versión anterior si se produce un fallo o error imprevisto.</li>
+      <li>Facilita el trabajo coordinado entre múltiples desarrolladores sin sobrescribir el trabajo de los demás.</li>
     </ul>
   </li>
-  <li><strong>Herramientas de Entorno y Calidad de Código:</strong>
+  <li><strong>Las Tres Áreas de Trabajo de Git:</strong>
     <ul>
-      <li><strong>IDEs y Editores:</strong> Visual Studio Code con extensiones de depuración integrada.</li>
-      <li><strong>Linters y Formateadores:</strong> <em>ESLint</em> para análisis estático de errores y <em>Prettier</em> para consistencia de estilo.</li>
+      <li><strong>1. Working Directory (Directorio de Trabajo):</strong> La carpeta de tu ordenador donde creas y editas tus archivos HTML, CSS y JavaScript.</li>
+      <li><strong>2. Staging Area (Zona de Preparación):</strong> Espacio intermedio donde seleccionas qué archivos modificados van a formar parte del siguiente guardado mediante <code>git add</code>.</li>
+      <li><strong>3. Repositorio Local (Carpeta <code>.git</code>):</strong> Base de datos donde se registran de forma permanente las instantáneas (snapshots) del proyecto mediante <code>git commit</code>.</li>
     </ul>
   </li>
-  <li><strong>Librerías vs Frameworks Cliente:</strong>
+  <li><strong>Comandos Fundamentales de la Terminal:</strong>
     <ul>
-      <li><strong>Librerías de Utilidad (ej. jQuery):</strong> Históricamente esenciales para abstraer discrepancias entre navegadores; hoy reemplazadas por las APIs nativas modernas del DOM.</li>
-      <li><strong>Frameworks y Librerías Reactivas (React, Vue, Angular, Svelte):</strong> Arquitectura basada en componentes reutilizables, reactividad de estado y manipulación virtual o declarativa del DOM para Single Page Applications (SPA).</li>
+      <li><code>git init</code>: Inicializa un nuevo repositorio Git en la carpeta actual.</li>
+      <li><code>git config user.name "Nombre"</code> y <code>git config user.email "correo@ies.es"</code>: Configuran la autoría de los cambios.</li>
+      <li><code>git status</code>: Informa sobre qué archivos han sido creados, modificados o preparados.</li>
+      <li><code>git add .</code>: Añade todos los archivos modificados a la Zona de Preparación.</li>
+      <li><code>git commit -m "mensaje"</code>: Confirma los cambios creando una nueva versión con un mensaje descriptivo.</li>
+      <li><code>git checkout -b develop</code>: Crea y cambia a una nueva rama de desarrollo para trabajar de forma aislada.</li>
     </ul>
   </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>Estrategias Avanzadas de Depuración y Rendimiento:</strong></p>
+            <div class="card-text"><p><strong>Buenas Prácticas en el Uso de Git:</strong></p>
 <ul class="concept-list">
-  <li><strong>La sentencia <code>debugger;</code>:</strong> Al insertarla en el código fuente, si las DevTools están abiertas, el motor del navegador detiene automáticamente la ejecución en esa línea exacta, permitiendo inspeccionar el estado de la pila sin necesidad de configurar el breakpoint a mano.</li>
-  <li><strong>Source Maps (<code>.map</code>):</strong> Ficheros que mapean el código empaquetado y minificado de producción con los ficheros fuente originales de TypeScript o ES Modules, facilitando la depuración como si estuviéramos en desarrollo.</li>
+  <li><strong>Mensajes de Commit Semánticos:</strong> Describir con claridad qué añade o corrige cada commit (ej: <code>feat: añadir formulario de contacto</code> o <code>fix: corregir ruta de script</code>).</li>
+  <li><strong>El Fichero <code>.gitignore</code>:</strong> Archivo de texto que indica a Git qué carpetas o ficheros locales temporales no deben subirse al repositorio (como <code>node_modules/</code> o ficheros de configuración privada).</li>
 </ul></div>
           </div>
         </div>
@@ -1247,41 +1043,34 @@ console.log(&quot;Elemento creado exitosamente en memoria:&quot;, nuevoElemento.
             <span>💻 Demostración Práctica e Implementación de Código</span>
             
           </div>
-          <pre><code class="language-javascript">// Diagnóstico profesional con la API Console de DevTools
-console.group(&quot;Diagnóstico de Rendimiento y Datos&quot;);
+          <pre><code class="language-javascript"># Flujo de trabajo estándar con Git desde la terminal
+git init
+git config user.name &quot;Estudiante DAW&quot;
+git config user.email &quot;estudiante@ies.es&quot;
 
-// Medición de tiempos de ejecución
-console.time(&quot;Procesamiento de 100.000 elementos&quot;);
-const datos = Array.from({ length: 1000 }, (_, i) =&gt; ({
-    id: i + 1,
-    nombre: `Usuario_${i + 1}`,
-    activo: i % 2 === 0
-}));
-console.timeEnd(&quot;Procesamiento de 100.000 elementos&quot;);
+# Comprobación de estado y preparación de archivos
+git status
+git add index.html app.js
+git commit -m &quot;feat: inicializar estructura del proyecto web&quot;
 
-// Visualización tabular de objetos
-console.table(datos.slice(0, 5));
-
-// Aserciones para control de calidad
-console.assert(datos.length === 1000, &quot;Error: El array no tiene la longitud esperada&quot;);
-
-console.groupEnd();</code></pre>
+# Creación de rama de trabajo
+git checkout -b develop</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 5</span>
-          <h2>🎯 Reto 5: Taller de Depuración con Breakpoints, Tiempos y Diagnóstico en Consola</h2>
+          <h2>🎯 Reto 5: Secuencia de Trabajo y Primer Repositorio con Git</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Escribe una función de procesamiento de pedidos que utilice `console.groupCollapsed()`, mida tiempos de cálculo con `console.time()`, utilice `console.assert()` para validar que los importes sean positivos, muestre el resultado en `console.table()` y coloque una sentencia `debugger;` condicional si un pedido supera los 1.000€.</div>
+            <div class="callout-body">Escribe la secuencia completa de comandos de terminal de Git para: 1) Inicializar un nuevo repositorio en la carpeta de tu proyecto web, 2) Configurar tu nombre de usuario y correo electrónico, 3) Comprobar el estado de los archivos con `git status`, 4) Añadir todos los archivos a la zona de preparación (Staging Area), 5) Realizar un commit inicial con un mensaje semántico, y 6) Crear y cambiarte a una rama de trabajo llamada `develop`.</div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
-            <div class="callout-body">Abre F12 en tu navegador antes de ejecutar la función. Comprueba cómo debugger detiene el hilo sólo cuando se cumple la condición del importe alto.</div>
+            <div class="callout-body">Utiliza git init para comenzar, git config para la identidad, git add . para preparar todos los ficheros, git commit -m para confirmar y git checkout -b develop para crear la rama.</div>
           </div>
           
           <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
@@ -1291,46 +1080,31 @@ console.groupEnd();</code></pre>
             </summary>
             <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
               <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
-                <strong style="color: #0f172a;">Explicación Técnica:</strong> El dominio de los métodos de consola avanzados y la instrucción debugger permite aislar cuellos de botella y auditar estructuras de datos complejas sin ensuciar la salida estándar.
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El control de versiones con Git es una competencia indispensable para cualquier desarrollador. Separar el trabajo en ramas (como develop) asegura que el código en producción (main) se mantenga siempre estable y libre de errores.
               </div>
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
-                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function procesarPedidos(pedidos) {
-    console.groupCollapsed(&quot;📦 Auditoría de Procesamiento de Pedidos&quot;);
-    console.time(&quot;Tiempo de cálculo de totales&quot;);
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript"># 1. Inicializar el repositorio en la carpeta local del proyecto
+git init
 
-    const procesados = pedidos.map(p =&gt; {
-        // Aserción de integridad de datos
-        console.assert(p.precio &gt; 0, &quot;Alerta: Precio no válido para el pedido ID &quot; + p.id);
+# 2. Configurar la identidad del desarrollador
+git config user.name &quot;Estudiante DWEC&quot;
+git config user.email &quot;estudiante@daw.es&quot;
 
-        const totalConIva = Number((p.precio * 1.21).toFixed(2));
+# 3. Comprobar el estado de los archivos en el directorio de trabajo
+git status
 
-        // Punto de interrupción condicional para auditoría en DevTools
-        if (totalConIva &gt; 1000) {
-            console.warn(&quot;Pedido de alto importe detectado:&quot;, p.id, totalConIva);
-            debugger; // Pausará la ejecución si DevTools está abierto
-        }
+# 4. Añadir todos los archivos modificados a la Zona de Preparación (Staging Area)
+git add .
 
-        return {
-            id: p.id,
-            articulo: p.articulo,
-            base: p.precio,
-            totalIva: totalConIva
-        };
-    });
+# 5. Confirmar los cambios creando el primer commit del proyecto
+git commit -m &quot;feat: inicializar proyecto web con HTML5 y JavaScript&quot;
 
-    console.timeEnd(&quot;Tiempo de cálculo de totales&quot;);
-    console.table(procesados);
-    console.groupEnd();
-    return procesados;
-}
+# 6. Crear y posicionarse en una rama de trabajo llamada &#x27;develop&#x27;
+git checkout -b develop
 
-// Datos de prueba
-procesarPedidos([
-    { id: 101, articulo: &quot;Monitor 4K&quot;, precio: 350 },
-    { id: 102, articulo: &quot;Servidor Rack&quot;, precio: 1200 },
-    { id: 103, articulo: &quot;Teclado Mecánico&quot;, precio: 80 }
-]);</code></pre>
+# Verificación final del historial de versiones
+git log --oneline</code></pre>
               </div>
             </div>
           </details>
@@ -1349,8 +1123,128 @@ procesarPedidos([
 
       <section>
         <div class="slide-header">
+          <span class="badge-sub">Bloque 6 de 6 · Teoría y Demostración</span>
+          <h2>6. Herramientas de Programación, Depuración y Prueba sobre Clientes Web</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>El desarrollo profesional en JavaScript se apoya en un conjunto de herramientas integradas en los navegadores y editores de código para diagnosticar y corregir errores:</p>
+<ul class="concept-list">
+  <li><strong>Herramientas de Desarrollador del Navegador (DevTools - Tecla F12):</strong>
+    <ul>
+      <li><strong>Pestaña Elements (Elementos):</strong> Permite inspeccionar la estructura HTML en vivo, modificar etiquetas y alterar reglas CSS en tiempo real para previsualizar cambios de diseño.</li>
+      <li><strong>Pestaña Console (Consola):</strong> Muestra errores de ejecución, advertencias y mensajes de depuración generados mediante métodos como:
+        <ul>
+          <li><code>console.log()</code>: Mensajes informativos habituales.</li>
+          <li><code>console.warn()</code>: Avisos y advertencias de advertencia (color amarillo).</li>
+          <li><code>console.error()</code>: Errores graves destacados (color rojo).</li>
+          <li><code>console.table()</code>: Muestra listas de objetos o datos en una tabla legible.</li>
+        </ul>
+      </li>
+      <li><strong>Pestaña Sources (Fuentes / Depurador):</strong> Permite navegar por los ficheros de código fuente cargados y establecer <strong>puntos de interrupción (Breakpoints)</strong>.</li>
+      <li><strong>La Sentencia <code>debugger;</code>:</strong> Instrucción especial de JavaScript que detiene automáticamente la ejecución en esa línea exacta si las herramientas de desarrollador están abiertas, permitiendo inspeccionar las variables paso a paso.</li>
+    </ul>
+  </li>
+  <li><strong>Editores de Código Modernos:</strong>
+    <p>Entornos como <em>Visual Studio Code</em> ofrecen resaltado de sintaxis, detección temprana de fallos, autocompletado y extensiones como <em>Live Server</em> para recarga automática en el navegador.</p>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Estrategias Básicas para Encontrar y Corregir Errores:</strong></p>
+<ul class="concept-list">
+  <li><strong>Leer la Consola Primero:</strong> Siempre que una página no responda como se espera, abrir la pestaña Console de DevTools es el primer paso. El navegador indicará el fichero y el número de línea exacto donde se produjo el error.</li>
+  <li><strong>Evitar las Alertas Invasivas:</strong> El uso de <code>alert()</code> para depurar interrumpe el uso de la página y es molesto. Se recomienda utilizar siempre la consola (<code>console.log</code>, <code>console.table</code>) y los puntos de interrupción.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Diagnóstico con diferentes niveles de consola
+console.log(&quot;Mensaje ordinario de seguimiento.&quot;);
+console.warn(&quot;Aviso: Comprueba la resolución en dispositivos móviles.&quot;);
+console.error(&quot;Error simulado para comprobar la gestión de fallos.&quot;);
+
+// Visualización organizada de datos con console.table
+const resumenEntorno = {
+    sistema: &quot;Cliente Web&quot;,
+    depuracion: &quot;DevTools F12&quot;,
+    estado: &quot;Activo&quot;
+};
+console.table(resumenEntorno);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
+          <h2>🎯 Reto 6: Taller Práctico con las DevTools del Navegador y Métodos de Consola</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Utilizando las herramientas de desarrollador del navegador (F12): 1) Escribe un script que emita tres mensajes en consola diferenciando su severidad: un mensaje informativo ordinario con `console.log()`, una advertencia con `console.warn()` y un error con `console.error()`, 2) Utiliza `console.table()` para mostrar de forma tabular los datos básicos de tu navegador (`plataforma`, `idioma` y `conectado`), y 3) Añade la sentencia `debugger;` para pausar la ejecución en el navegador y comprobar en la pestaña Sources cómo se detiene el código.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Abre la consola con F12. Declara un objeto con las propiedades que quieras mostrar en la tabla y pásaselo a console.table(). Al ejecutar, la palabra debugger detendrá la ejecución si las herramientas están abiertas.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Aprender a depurar código con la consola y las DevTools desde la primera semana es crucial: evita depender de alertas invasivas y enseña a encontrar errores de manera profesional.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// 1. Mensajes en consola con diferentes niveles de severidad
+console.log(&quot;ℹ️ [INFO]: La aplicación se ha iniciado correctamente.&quot;);
+console.warn(&quot;⚠️ [AVISO]: Comprueba que la pantalla tenga suficiente resolución.&quot;);
+console.error(&quot;❌ [ERROR]: Ejemplo de mensaje de error para diagnóstico.&quot;);
+
+// 2. Visualización tabular de datos del navegador
+const estadoNavegador = {
+    plataforma: navigator.userAgent.includes(&quot;Windows&quot;) ? &quot;Windows&quot; : &quot;Otro Sistema&quot;,
+    idioma: navigator.language,
+    conectado: navigator.onLine ? &quot;En línea&quot; : &quot;Desconectado&quot;
+};
+
+console.log(&quot;📊 Resumen del entorno del cliente:&quot;);
+console.table(estadoNavegador);
+
+// 3. Sentencia debugger: pausa la ejecución en DevTools (F12)
+console.log(&quot;Iniciando pausa de depuración con la sentencia debugger...&quot;);
+debugger; // Si abres F12 -&gt; Sources, el navegador pausará la ejecución aquí
+console.log(&quot;Depuración finalizada con éxito.&quot;);</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 6 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
           <span class="badge-sub badge-exercise">Resumen Curricular</span>
-          <h2>📋 Listado de Retos Propuestos en la Unidad (5)</h2>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (6)</h2>
         </div>
         <div class="final-workshop-card">
           <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
@@ -1361,7 +1255,7 @@ procesarPedidos([
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 1</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Inspección del Motor, Tiempos de Ejecución y Prioridades del Event Loop</strong>
+          <strong style="font-size: 0.76em; color: #0f172a;">Primer Contacto con la Consola del Navegador e Inspección del Entorno</strong>
           <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 1: Mecanismos de Ejecución de Código en el Navegador Web</p>
         </div>
         <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
@@ -1371,7 +1265,7 @@ procesarPedidos([
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 2</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Auditor de Capacidades y Verificación del Sandbox del Navegador</strong>
+          <strong style="font-size: 0.76em; color: #0f172a;">Auditoría Elemental de Capacidades y Seguridad Sandbox</strong>
           <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 2: Capacidades y Limitaciones de Ejecución en Entorno Cliente</p>
         </div>
         <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
@@ -1381,7 +1275,7 @@ procesarPedidos([
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 3</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Comprobador de Soporte WebAssembly e Instanciación Binaria</strong>
+          <strong style="font-size: 0.76em; color: #0f172a;">Mapa de Tecnologías Web y Comprobación de Entorno</strong>
           <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 3: Lenguajes de Programación en Entorno Cliente y Tecnologías Asociadas</p>
         </div>
         <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
@@ -1391,7 +1285,7 @@ procesarPedidos([
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 4</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Simulador de Orden de Carga: Sync vs Async vs Defer vs Module</strong>
+          <strong style="font-size: 0.76em; color: #0f172a;">Integración Práctica de Scripts en HTML y Orden de Carga</strong>
           <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 4: Integración del Código JavaScript con las Etiquetas HTML</p>
         </div>
         <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
@@ -1401,10 +1295,20 @@ procesarPedidos([
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 5</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Taller de Depuración con Breakpoints, Tiempos y Diagnóstico en Consola</strong>
-          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Herramientas de Programación, Depuración, Librerías y Frameworks</p>
+          <strong style="font-size: 0.76em; color: #0f172a;">Secuencia de Trabajo y Primer Repositorio con Git</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Control de Versiones Distribuido con Git para Desarrollo Web</p>
         </div>
         <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 6</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Taller Práctico con las DevTools del Navegador y Métodos de Consola</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: Herramientas de Programación, Depuración y Prueba sobre Clientes Web</p>
+        </div>
+        <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
           🚀 Ver Solución
         </a>
       </li>

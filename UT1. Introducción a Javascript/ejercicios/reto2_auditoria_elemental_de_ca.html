@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reto 5: Taller de Depuración con Breakpoints, Tiempos y Diagnóstico en Consola - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
+  <title>Reto 2: Auditoría Elemental de Capacidades y Seguridad Sandbox - UT1: Introducción a JavaScript y Mecanismos de Ejecución</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -16,15 +16,15 @@
     <!-- Header -->
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl">
       <div class="flex items-center justify-between gap-4 flex-wrap mb-2">
-        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 5 Propuesto en Presentación</span>
-        <span class="text-xs text-slate-400 font-medium">Bloque 5: Herramientas de Programación, Depuración, Librerías y Frameworks</span>
+        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 2 Propuesto en Presentación</span>
+        <span class="text-xs text-slate-400 font-medium">Bloque 2: Capacidades y Limitaciones de Ejecución en Entorno Cliente</span>
       </div>
-      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 5: Taller de Depuración con Breakpoints, Tiempos y Diagnóstico en Consola</h1>
+      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 2: Auditoría Elemental de Capacidades y Seguridad Sandbox</h1>
       <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
         <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
-        <p class="text-xs text-slate-300 leading-relaxed">Escribe una función de procesamiento de pedidos que utilice `console.groupCollapsed()`, mida tiempos de cálculo con `console.time()`, utilice `console.assert()` para validar que los importes sean positivos, muestre el resultado en `console.table()` y coloque una sentencia `debugger;` condicional si un pedido supera los 1.000€.</p>
+        <p class="text-xs text-slate-300 leading-relaxed">Escribe un script que consulte a través de los objetos `navigator` y `screen`: 1) Si el navegador tiene conexión a Internet activa (`navigator.onLine`), 2) El idioma preferido del sistema (`navigator.language`), y 3) Las dimensiones de la pantalla del usuario (`screen.width` y `screen.height`). Añade comentarios explicativos indicando por qué el modelo Sandbox del navegador prohíbe que JavaScript acceda directamente al sistema de archivos local.</p>
       </div>
-      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Abre F12 en tu navegador antes de ejecutar la función. Comprueba cómo debugger detiene el hilo sólo cuando se cumple la condición del importe alto.</div>
+      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Accede a las propiedades directamente desde navigator y screen. Muestra cada dato en consola mediante console.log().</div>
     </div>
 
     <!-- Playground Action Bar -->
@@ -76,43 +76,20 @@
         <span class="text-slate-500 text-[11px] bg-slate-800 px-2 py-0.5 rounded">Ver código</span>
       </summary>
       <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
-        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">El dominio de los métodos de consola avanzados y la instrucción debugger permite aislar cuellos de botella y auditar estructuras de datos complejas sin ensuciar la salida estándar.</p>
-        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>function procesarPedidos(pedidos) {
-    console.groupCollapsed(&quot;📦 Auditoría de Procesamiento de Pedidos&quot;);
-    console.time(&quot;Tiempo de cálculo de totales&quot;);
+        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">El modelo sandbox es el pilar de la seguridad web: garantiza que cualquier página web se ejecute en un entorno protegido sin poner en riesgo la privacidad ni la integridad del equipo del usuario.</p>
+        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>// 1. Estado de la conexión a Internet
+console.log(&quot;¿Conexión activa a Internet?:&quot;, navigator.onLine ? &quot;Sí, conectado ✅&quot; : &quot;No, sin conexión ❌&quot;);
 
-    const procesados = pedidos.map(p =&gt; {
-        // Aserción de integridad de datos
-        console.assert(p.precio &gt; 0, &quot;Alerta: Precio no válido para el pedido ID &quot; + p.id);
+// 2. Idioma configurado en el navegador
+console.log(&quot;Idioma preferente del navegador:&quot;, navigator.language);
 
-        const totalConIva = Number((p.precio * 1.21).toFixed(2));
+// 3. Resolución y dimensiones de pantalla
+console.log(&quot;Resolución de pantalla disponible:&quot;, screen.width + &quot; x &quot; + screen.height + &quot; píxeles&quot;);
 
-        // Punto de interrupción condicional para auditoría en DevTools
-        if (totalConIva &gt; 1000) {
-            console.warn(&quot;Pedido de alto importe detectado:&quot;, p.id, totalConIva);
-            debugger; // Pausará la ejecución si DevTools está abierto
-        }
-
-        return {
-            id: p.id,
-            articulo: p.articulo,
-            base: p.precio,
-            totalIva: totalConIva
-        };
-    });
-
-    console.timeEnd(&quot;Tiempo de cálculo de totales&quot;);
-    console.table(procesados);
-    console.groupEnd();
-    return procesados;
-}
-
-// Datos de prueba
-procesarPedidos([
-    { id: 101, articulo: &quot;Monitor 4K&quot;, precio: 350 },
-    { id: 102, articulo: &quot;Servidor Rack&quot;, precio: 1200 },
-    { id: 103, articulo: &quot;Teclado Mecánico&quot;, precio: 80 }
-]);</code></pre>
+// 4. Justificación de seguridad (Modelo Sandbox):
+// Por motivos de seguridad, JavaScript en el cliente se ejecuta dentro de una &#x27;caja de arena&#x27; (sandbox).
+// Esto impide que una página web maliciosa pueda leer contraseñas, documentos o modificar ficheros
+// del disco duro del usuario de forma silenciosa.</code></pre>
       </div>
     </details>
   </div>
@@ -224,42 +201,19 @@ procesarPedidos([
       appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
       try {
         (async () => {
-function procesarPedidos(pedidos) {
-    console.groupCollapsed("📦 Auditoría de Procesamiento de Pedidos");
-    console.time("Tiempo de cálculo de totales");
+// 1. Estado de la conexión a Internet
+console.log("¿Conexión activa a Internet?:", navigator.onLine ? "Sí, conectado ✅" : "No, sin conexión ❌");
 
-    const procesados = pedidos.map(p => {
-        // Aserción de integridad de datos
-        console.assert(p.precio > 0, "Alerta: Precio no válido para el pedido ID " + p.id);
+// 2. Idioma configurado en el navegador
+console.log("Idioma preferente del navegador:", navigator.language);
 
-        const totalConIva = Number((p.precio * 1.21).toFixed(2));
+// 3. Resolución y dimensiones de pantalla
+console.log("Resolución de pantalla disponible:", screen.width + " x " + screen.height + " píxeles");
 
-        // Punto de interrupción condicional para auditoría en DevTools
-        if (totalConIva > 1000) {
-            console.warn("Pedido de alto importe detectado:", p.id, totalConIva);
-            debugger; // Pausará la ejecución si DevTools está abierto
-        }
-
-        return {
-            id: p.id,
-            articulo: p.articulo,
-            base: p.precio,
-            totalIva: totalConIva
-        };
-    });
-
-    console.timeEnd("Tiempo de cálculo de totales");
-    console.table(procesados);
-    console.groupEnd();
-    return procesados;
-}
-
-// Datos de prueba
-procesarPedidos([
-    { id: 101, articulo: "Monitor 4K", precio: 350 },
-    { id: 102, articulo: "Servidor Rack", precio: 1200 },
-    { id: 103, articulo: "Teclado Mecánico", precio: 80 }
-]);
+// 4. Justificación de seguridad (Modelo Sandbox):
+// Por motivos de seguridad, JavaScript en el cliente se ejecuta dentro de una 'caja de arena' (sandbox).
+// Esto impide que una página web maliciosa pueda leer contraseñas, documentos o modificar ficheros
+// del disco duro del usuario de forma silenciosa.
         })();
       } catch (err) {
         console.error("Excepción en la ejecución:", err.message);
