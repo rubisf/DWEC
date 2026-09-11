@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --accent: #d97706;
+      --accent: #059669;
       --text-main: #0f172a;
       --text-muted: #475569;
     }
@@ -135,7 +135,7 @@
     .index-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       flex-grow: 1;
       align-content: start;
       overflow-y: auto;
@@ -144,10 +144,10 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
       box-sizing: border-box;
     }
@@ -302,6 +302,28 @@
       color: #334155;
     }
 
+    /* Componente de Solución Embebida Desplegable */
+    .reto-solution-details {
+      transition: all 0.25s ease-in-out;
+      border: 1.5px solid #6366f1 !important;
+      background: #ffffff !important;
+      border-radius: 10px !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+    }
+    .reto-solution-details[open] {
+      background: #fdfcff !important;
+      border-color: #4f46e5 !important;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.12) !important;
+    }
+    .reto-solution-details summary {
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+    }
+    .reto-solution-details summary::-webkit-details-marker {
+      display: none;
+    }
+
     .reto-action-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -402,7 +424,7 @@
         <div class="badge">03</div>
         <h1>UT3: Objetos Predefinidos del Lenguaje y del Navegador</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Objetos estándar del lenguaje (Date, Math, Number, String, RegExp, Intl), jerarquía BOM (Window, Navigator, Location) y almacenamiento en el cliente (Cookies seguras, Web Storage, IndexedDB).</div>
+        <div class="tagline">Objetos nativos (String, Number, Math, Date), jerarquía BOM (window, navigator, location, history), ventanas emergentes y comunicación con postMessage, interacción con usuario, Web Storage (localStorage, cookies) y DOM dinámico.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -416,29 +438,43 @@
           <div class="index-card">
             <div class="index-badge">1</div>
             <div class="index-info">
-              <div class="index-title">Objetos Nativos del Núcleo de JavaScript</div>
-              <p class="index-desc">El núcleo de JavaScript proporciona un conjunto de objetos predefinidos estándar para manipular datos numéricos, fechas y estructuras de datos.</p>
+              <div class="index-title">Objetos Nativos del Lenguaje: String, Number, Math y Date</div>
+              <p class="index-desc">JavaScript proporciona un conjunto de objetos nativos globales con métodos estáticos y de instancia para operar con cadenas, números, matemáticas y marcas temporales.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">2</div>
             <div class="index-info">
-              <div class="index-title">Expresiones Regulares (RegExp) en Validación</div>
-              <p class="index-desc">Las Expresiones Regulares (RegExp) son patrones utilizados para la búsqueda, extracción y validación de cadenas de texto.</p>
+              <div class="index-title">Jerarquía del Browser Object Model (BOM): window, navigator, history y location</div>
+              <p class="index-desc">El Browser Object Model (BOM) expone las APIs del navegador organizadas en una jerarquía encabezada por el objeto supremo window.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">3</div>
             <div class="index-info">
-              <div class="index-title">Jerarquía BOM (Browser Object Model)</div>
-              <p class="index-desc">El BOM (Browser Object Model) permite a JavaScript interactuar con el entorno de software proporcionado por el navegador web.</p>
+              <div class="index-title">Gestión de la Apariencia de la Ventana y Creación de Nuevas Ventanas</div>
+              <p class="index-desc">El objeto window proporciona métodos para interactuar con ventanas secundarias, pestañas y la geometría física del área de visualización.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">4</div>
             <div class="index-info">
-              <div class="index-title">Almacenamiento en Cliente: Storage vs IndexedDB vs Cookies</div>
-              <p class="index-desc">JavaScript dispone de distintos mecanismos para almacenar información de forma persistente en el navegador del cliente.</p>
+              <div class="index-title">Comunicación Entre Ventanas (Métodos y Propiedades de window)</div>
+              <p class="index-desc">Cuando una aplicación web abre ventanas secundarias o integra marcos anidados (iframes), surgen mecanismos de comunicación bidireccional coordinados.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">5</div>
+            <div class="index-info">
+              <div class="index-title">Interacción con el Usuario (alert, prompt, confirm y Formularios)</div>
+              <p class="index-desc">La interacción con el usuario en el cliente abarca desde cuadros de diálogo modales nativos hasta la captura estructurada de controles de formulario.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">6</div>
+            <div class="index-info">
+              <div class="index-title">Almacenamiento Local y de Sesión (Storage, Cookies) y Manipulación DOM</div>
+              <p class="index-desc">La persistencia en cliente y la manipulación dinámica del contenido son pilares fundamentales para crear aplicaciones web reactivas y personalizadas.</p>
             </div>
           </div>
         </div>
@@ -446,17 +482,27 @@
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
-          <h2>1. Objetos Nativos del Núcleo de JavaScript</h2>
+          <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
+          <h2>1. Objetos Nativos del Lenguaje: String, Number, Math y Date</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>El núcleo de JavaScript proporciona un conjunto de objetos predefinidos estándar para manipular datos numéricos, fechas y estructuras de datos:</p><ul class="concept-list"><li><strong>Objeto <code>Object</code>:</strong> Base de todos los objetos. Métodos como <code>Object.keys()</code>, <code>Object.values()</code> y <code>Object.entries()</code> permiten inspeccionar propiedades.</li><li><strong>Objeto <code>Math</code>:</strong> Proporciona constantes matemáticas (<code>Math.PI</code>) y funciones estáticas para cálculos (<code>Math.round</code>, <code>Math.floor</code>, <code>Math.random</code>).</li><li><strong>Objeto <code>Date</code>:</strong> Gestiona instantes temporales basados en marcas de tiempo UNIX (milisegundos desde el 1 de enero de 1970 UTC).</li></ul></div>
+            <div class="card-text"><p>JavaScript proporciona un conjunto de objetos nativos globales con métodos estáticos y de instancia para operar con cadenas, números, matemáticas y marcas temporales:</p>
+<ul class="concept-list">
+  <li><strong>Objeto <code>String</code> (Inmutable):</strong> Métodos de búsqueda (<code>includes</code>, <code>indexOf</code>, <code>startsWith</code>, <code>endsWith</code>), manipulación de subcadenas (<code>slice</code>, <code>substring</code>), reemplazo con literales o expresiones regulares (<code>replace</code>, <code>replaceAll</code>), normalización (<code>trim</code>, <code>toLowerCase</code>, <code>toUpperCase</code>), división en arrays (<code>split</code>) y plantillas literales (Template Literals con interpolación <code>${...}</code>).</li>
+  <li><strong>Objeto <code>Number</code>:</strong> Métodos estáticos de validación numérica: <code>Number.isInteger()</code>, <code>Number.isFinite()</code> y <code>Number.isNaN()</code>. Formateo de precisión y decimales con <code>toFixed(decimales)</code>. Constantes fundamentales: <code>Number.MAX_SAFE_INTEGER</code> (2<sup>53</sup> - 1) y <code>Number.EPSILON</code>.</li>
+  <li><strong>Objeto <code>Math</code> (Funciones Matemáticas Estáticas):</strong> Redondeos: <code>Math.round()</code> (al entero más próximo), <code>Math.floor()</code> (hacia abajo), <code>Math.ceil()</code> (hacia arriba) y <code>Math.trunc()</code> (elimina decimales). Aritmética avanzada: <code>Math.abs()</code>, <code>Math.sqrt()</code>, <code>Math.pow()</code> (o <code>**</code>), <code>Math.min()</code>, <code>Math.max()</code> y generación pseudoaleatoria con <code>Math.random()</code>.</li>
+  <li><strong>Objeto <code>Date</code> (Gestión Temporal):</strong> Representa momentos temporales en milisegundos desde el Epoch (1 de enero de 1970 UTC). Métodos get/set para año, mes (0-11), día del mes, horas y milisegundos. Obtención de timestamp actual de alta velocidad con <code>Date.now()</code>. Internacionalización avanzada de fechas y monedas con la API nativa <code>Intl.DateTimeFormat</code> y <code>Intl.NumberFormat</code>.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Estructuras de datos modernas introducidas en ES6 y la API de precisión temporal:</p><ul class="concept-list"><li><strong><code>Map</code> y <code>Set</code>:</strong> <code>Map</code> almacena pares clave-valor permitiendo claves de cualquier tipo (incluidos objetos); <code>Set</code> almacena colecciones de valores únicos sin duplicados.</li><li><strong><code>WeakMap</code> y <code>WeakSet</code>:</strong> Mantienen referencias débiles a los objetos clave, permitiendo que el <strong>Garbage Collector (Recolector de Basura)</strong> libere memoria cuando no existen otras referencias activas.</li><li><strong>API <code>performance.now()</code>:</strong> Proporciona marcas de tiempo de alta resolución con precisión de microsegundos para medir rendimiento de código.</li></ul></div>
+            <div class="card-text"><p><strong>Internacionalización Moderna con la API Intl:</strong></p>
+<ul class="concept-list">
+  <li><strong>Formateo Localizado:</strong> Evitar la concatenación manual de cadenas para fechas o divisas. Usar <code>new Intl.DateTimeFormat('es-ES', { dateStyle: 'full', timeStyle: 'short' }).format(fecha)</code> para garantizar localización automática respetando el huso horario y las normas culturales del usuario.</li>
+  <li><strong>Inmutabilidad de Cadenas y Garbage Collection:</strong> Como las cadenas son inmutables, operaciones continuas de concatenación en bucles largos generan múltiples copias en memoria. Es más eficiente acumular fragmentos en un array y aplicar <code>.join('')</code>.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -474,25 +520,72 @@ console.log(&quot;Values:&quot;, Object.values(datos));
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
-          <h2>🎯 Reto: Frecuencias y Unicidad con Map y Set</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 1</span>
+          <h2>🎯 Reto 1: Generador de Tokens Temporales y Calculadora de Diferencia de Fechas</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Crea una función que tome una lista de nombres con duplicados y devuelva un objeto Map con el recuento de frecuencias de cada nombre y un Set con los nombres únicos.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una función llamada `calcularAntiguedad(fechaISO)` que reciba una fecha en formato ISO (ej. &quot;2022-03-15T10:30:00&quot;) y calcule con precisión de milisegundos la diferencia respecto al instante actual (`Date.now()`). Debe devolver un objeto indicando los días transcurridos completos, los meses aproximados y una cadena formateada en español mediante `Intl.DateTimeFormat`. Genera además un código alfanumérico único para la consulta combinando `Math.random()` y métodos de `String`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Calcula la diferencia de milisegundos restando fechaISO.getTime() a Date.now(). Divide entre (1000 * 60 * 60 * 24) y aplica Math.floor() para obtener los días completos.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La gestión de diferencias temporales mediante marcas de tiempo en milisegundos asegura cálculos exactos sin depender de ambigüedades en nombres de meses o zonas horarias.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function calcularAntiguedad(fechaISO) {
+    const fechaEntrada = new Date(fechaISO);
+    const ahora = Date.now();
+    const diferenciaMs = ahora - fechaEntrada.getTime();
+
+    if (Number.isNaN(diferenciaMs) || diferenciaMs &lt; 0) {
+        throw new Error(&quot;La fecha proporcionada es inválida o posterior a la actual.&quot;);
+    }
+
+    const unDiaMs = 1000 * 60 * 60 * 24;
+    const diasTranscurridos = Math.floor(diferenciaMs / unDiaMs);
+    const mesesAproximados = Math.floor(diasTranscurridos / 30.44);
+
+    // Formateo con API Intl nativa
+    const fechaFormateada = new Intl.DateTimeFormat(&#x27;es-ES&#x27;, {
+        dateStyle: &#x27;full&#x27;,
+        timeStyle: &#x27;medium&#x27;
+    }).format(fechaEntrada);
+
+    // Generador de Token con Math y String (base 36)
+    const token = &quot;AUDIT-&quot; + Math.random().toString(36).substring(2, 8).toUpperCase() + &quot;-&quot; + Date.now().toString(36).toUpperCase();
+
+    return {
+        tokenConsulta: token,
+        fechaOriginal: fechaFormateada,
+        diasTranscurridos,
+        mesesAproximados
+    };
+}
+
+console.table(calcularAntiguedad(&quot;2023-01-15T08:00:00&quot;));</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 1 en Taller
             </a>
           </div>
         </div>
@@ -500,17 +593,27 @@ console.log(&quot;Values:&quot;, Object.values(datos));
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
-          <h2>2. Expresiones Regulares (RegExp) en Validación</h2>
+          <span class="badge-sub">Bloque 2 de 6 · Teoría y Demostración</span>
+          <h2>2. Jerarquía del Browser Object Model (BOM): window, navigator, history y location</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Las <strong>Expresiones Regulares (RegExp)</strong> son patrones utilizados para la búsqueda, extracción y validación de cadenas de texto:</p><ul class="concept-list"><li><strong>Sintaxis y Banderas (Flags):</strong> Se delimitan entre barras (<code>/patron/flags</code>). Banderas comunes: <code>g</code> (búsqueda global), <code>i</code> (insensible a mayúsculas/minúsculas), <code>m</code> (multilínea) y <code>u</code> (soporte Unicode nativo).</li><li><strong>Clases de Caracteres y Cuantificadores:</strong> <code>\d</code> (dígito), <code>\w</code> (alfanumérico), <code>+</code> (1 o más), <code>*</code> (0 o más), <code>?</code> (0 o 1), <code>{n,m}</code> (rango de repeticiones).</li><li><strong>Métodos Clave:</strong> <code>RegExp.prototype.test(str)</code> devuelve un booleano; <code>String.prototype.match(regex)</code> o <code>matchAll()</code> extraen las coincidencias.</li></ul></div>
+            <div class="card-text"><p>El <strong>Browser Object Model (BOM)</strong> expone las APIs del navegador organizadas en una jerarquía encabezada por el objeto supremo <code>window</code>:</p>
+<ul class="concept-list">
+  <li><strong>Objeto <code>window</code> (Entorno Global):</strong> Representa la ventana o pestaña activa del navegador. Cualquier variable o función declarada en el ámbito global (con <code>var</code>) se convierte en propiedad de <code>window</code>. Proporciona dimensiones de pantalla útil (<code>innerWidth</code>, <code>innerHeight</code>) y posición de scroll (<code>scrollX</code>, <code>scrollY</code>).</li>
+  <li><strong>Objeto <code>navigator</code> (Información del Cliente):</strong> Permite inspeccionar el estado del navegador y del hardware: <code>navigator.userAgent</code> (identificación), <code>navigator.language</code> (idioma preferido), <code>navigator.onLine</code> (estado de conexión de red booleano) y acceso a portapapeles con <code>navigator.clipboard</code>.</li>
+  <li><strong>Objeto <code>location</code> (Dirección y Navegación URL):</strong> Expone los componentes de la URL activa (<code>href</code>, <code>origin</code>, <code>protocol</code>, <code>host</code>, <code>pathname</code>, <code>search</code>, <code>hash</code>). Métodos de navegación: <code>location.assign(url)</code> (navega guardando en historial), <code>location.replace(url)</code> (reemplaza la página actual sin guardar historial) y <code>location.reload()</code> (recarga).</li>
+  <li><strong>Objeto <code>history</code> (Historial de Navegación de Sesión):</strong> Métodos tradicionales: <code>history.back()</code>, <code>history.forward()</code> y <code>history.go(delta)</code>. Métodos de la HTML5 History API para Single Page Applications (SPA): <code>history.pushState(estado, titulo, url)</code> y <code>history.replaceState()</code>, coordinados con el evento <code>popstate</code> para cambiar la URL sin recargar la página.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Técnicas avanzadas de captura y aserciones en expresiones regulares según los estándares actuales:</p><ul class="concept-list"><li><strong>Grupos de Captura Nombrados:</strong> Sintaxis <code>(?&lt;nombre&gt;patron)</code> para extraer subcadenas directamente asociadas a claves en el objeto result.groups.</li><li><strong>Lookahead y Lookbehind (Aserciones de Mirada):</strong> Permiten validar condiciones antes o después del patrón sin incluir ese texto en la coincidencia final (ej. <code>(?&lt;=USD)\d+</code>).</li><li><strong>Seguridad en Validación:</strong> Evitar patrones vulnerables a ataques ReDoS (Regular Expression Denial of Service) mediante cuantificadores no codiciosos y estructuras no anidadas.</li></ul></div>
+            <div class="card-text"><p><strong>Enrutamiento en Cliente con History API (pushState):</strong></p>
+<ul class="concept-list">
+  <li><strong>Base de los Enrutadores SPA (React Router, Vue Router, Angular):</strong> Al hacer clic en un enlace de navegación, se intercepta con <code>e.preventDefault()</code> y se invoca <code>history.pushState({ vista: 'contacto' }, '', '/contacto')</code>. La URL cambia instantáneamente en la barra de navegación del navegador sin provocar una petición de recarga al servidor web.</li>
+  <li><strong>Detección de Estado de Red Reactivo:</strong> Escuchando los eventos <code>window.addEventListener('online', ...)</code> y <code>window.addEventListener('offline', ...)</code>, las aplicaciones web pueden alertar al usuario en tiempo real cuando pierde la conexión a Internet.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -527,25 +630,72 @@ console.log(&quot;¿Email válido?:&quot;, patronEmail.test(&quot;alumno@estudia
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
-          <h2>🎯 Reto: Validación Estricta de Contraseñas con RegExp</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 2</span>
+          <h2>🎯 Reto 2: Mini-Enrutador de Navegación SPA con History y Location API</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Escribe una Expresión Regular para validar contraseñas seguras (mínimo 8 caracteres, al menos una mayúscula y un número) y prueba su funcionamiento con &#x27;RegExp.prototype.test()&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un sistema de enrutamiento en cliente para una aplicación de una sola página. Debe implementar una función `navegarA(seccion)` que use `history.pushState()` para actualizar la URL sin recarga, actualizar un contenedor en el DOM según la ruta activa, y registrar un listener para el evento `popstate` que sincronice la vista cuando el usuario presione los botones de retroceder o avanzar del navegador.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa history.pushState({ vista: seccion }, &quot;&quot;, &quot;#&quot; + seccion) para modificar el hash o path de la URL. Al saltar el evento popstate, lee event.state?.vista para restaurar el contenido.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La HTML5 History API es el pilar de todas las Single Page Applications (SPA), permitiendo manipular el historial de navegación sin generar peticiones síncronas al servidor.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function inicializarEnrutador() {
+    const vistas = {
+        &#x27;inicio&#x27;: &#x27;&lt;h1&gt;🏠 Inicio&lt;/h1&gt;&lt;p&gt;Bienvenido al portal de formación DWEC.&lt;/p&gt;&#x27;,
+        &#x27;cursos&#x27;: &#x27;&lt;h1&gt;📚 Cursos&lt;/h1&gt;&lt;p&gt;Catálogo completo de módulos y especialidades.&lt;/p&gt;&#x27;,
+        &#x27;contacto&#x27;: &#x27;&lt;h1&gt;✉️ Contacto&lt;/h1&gt;&lt;p&gt;Formulario de atención y soporte al alumno.&lt;/p&gt;&#x27;
+    };
+
+    function renderizar(vista) {
+        const contenido = vistas[vista] || &#x27;&lt;h1&gt;404&lt;/h1&gt;&lt;p&gt;Sección no encontrada.&lt;/p&gt;&#x27;;
+        console.log(&quot;Renderizando vista en DOM:&quot;, vista);
+        // En una página real: document.getElementById(&#x27;app&#x27;).innerHTML = contenido;
+    }
+
+    function navegarA(seccion) {
+        window.history.pushState({ seccion }, &quot;&quot;, &quot;#&quot; + seccion);
+        renderizar(seccion);
+    }
+
+    // Manejo de botones atrás/adelante del navegador
+    window.addEventListener(&#x27;popstate&#x27;, (e) =&gt; {
+        const seccionActual = e.state?.seccion || &#x27;inicio&#x27;;
+        console.log(&quot;Navegación por historial detectada hacia:&quot;, seccionActual);
+        renderizar(seccionActual);
+    });
+
+    return { navegarA, renderizar };
+}
+
+const router = inicializarEnrutador();
+router.navegarA(&#x27;cursos&#x27;);
+router.navegarA(&#x27;contacto&#x27;);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 2 en Taller
             </a>
           </div>
         </div>
@@ -553,17 +703,40 @@ console.log(&quot;¿Email válido?:&quot;, patronEmail.test(&quot;alumno@estudia
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
-          <h2>3. Jerarquía BOM (Browser Object Model)</h2>
+          <span class="badge-sub">Bloque 3 de 6 · Teoría y Demostración</span>
+          <h2>3. Gestión de la Apariencia de la Ventana y Creación de Nuevas Ventanas</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>El <strong>BOM (Browser Object Model)</strong> permite a JavaScript interactuar con el entorno de software proporcionado por el navegador web:</p><ul class="concept-list"><li><strong>Objeto Global <code>window</code>:</strong> Representa la ventana o pestaña activa del navegador y actúa como contenedor del ámbito global.</li><li><strong>Objeto <code>navigator</code>:</strong> Proporciona información sobre el agente de usuario, estado de red (<code>navigator.onLine</code>), geolocalización y permisos.</li><li><strong>Objeto <code>location</code>:</strong> Permite leer y manipular la URL actual de la página (<code>href</code>, <code>pathname</code>, <code>search</code>) y forzar redirecciones.</li><li><strong>Objeto <code>history</code>:</strong> Controla el historial de navegación de la pestaña mediante <code>history.pushState()</code> y <code>history.back()</code>.</li></ul></div>
+            <div class="card-text"><p>El objeto <code>window</code> proporciona métodos para interactuar con ventanas secundarias, pestañas y la geometría física del área de visualización:</p>
+<ul class="concept-list">
+  <li><strong>Creación de Nuevas Ventanas con <code>window.open()</code>:</strong>
+    <p>Sintaxis: <code>const ventanaHija = window.open(url, target, specs);</code></p>
+    <ul>
+      <li><code>url</code>: Dirección web del recurso a cargar (o cadena vacía para ventana en blanco).</li>
+      <li><code>target</code>: Nombre de la ventana, o palabras reservadas (<code>_blank</code> para nueva pestaña/ventana, <code>_self</code> para actual).</li>
+      <li><code>specs</code>: Cadena de características separadas por comas que condicionan la apariencia: <code>width=600</code>, <code>height=400</code>, <code>left=100</code>, <code>top=100</code>, <code>resizable=yes</code>, <code>scrollbars=yes</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Cierre y Verificación:</strong> El método <code>ventana.close()</code> cierra la ventana referenciada. La propiedad booleana <code>ventana.closed</code> permite verificar si el usuario o un script ya han cerrado la ventana secundaria.</li>
+  <li><strong>Gestión de Tamaño y Posición (Restringido por seguridad):</strong>
+    <ul>
+      <li>Redimensionamiento: <code>window.resizeTo(ancho, alto)</code> y <code>window.resizeBy(deltaX, deltaY)</code>.</li>
+      <li>Movimiento: <code>window.moveTo(x, y)</code> y <code>window.moveBy(deltaX, deltaY)</code>.</li>
+      <li>Foco: <code>window.focus()</code> (trae al frente) y <code>window.blur()</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Políticas Anti-Popup de Navegadores Modernos:</strong> Los navegadores bloquean por defecto cualquier invocación a <code>window.open()</code> que no se desencadene como resultado directo de una acción explícita del usuario (como un evento <code>click</code>).</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>APIs de rendimiento y temporización expuestas a través del objeto <code>window</code>:</p><ul class="concept-list"><li><strong>Temporizadores:</strong> <code>setTimeout</code> y <code>setInterval</code> ejecutan código tras un retardo. Deben cancelarse con <code>clearTimeout</code> y <code>clearInterval</code> para evitar fugas de memoria.</li><li><strong><code>requestAnimationFrame(callback)</code>:</strong> Sincroniza la ejecución de animaciones de código con la tasa de refresco del monitor (habitualmente 60Hz/120Hz), logrando un rendimiento fluido sin sobrecargar la CPU/GPU.</li><li><strong>Manejadores de Diálogo:</strong> Uso de diálogos no bloqueantes modernos (<code>&lt;dialog&gt;</code> HTML5) frente a los métodos bloqueantes heredados (<code>alert</code>, <code>confirm</code>, <code>prompt</code>).</li></ul></div>
+            <div class="card-text"><p><strong>Seguridad y Aislamiento en Creación de Ventanas:</strong></p>
+<ul class="concept-list">
+  <li><strong>Vulnerabilidad Tabnabbing y <code>noopener</code> / <code>noreferrer</code>:</strong> Al abrir enlaces a sitios de terceros con <code>target="_blank"</code>, la página de destino tiene acceso a <code>window.opener</code> y podría redirigir maliciosamente la página de origen a un sitio de phishing. Para mitigarlo, los navegadores modernos aplican automáticamente <code>rel="noopener"</code>.</li>
+  <li><strong>Restricciones de Manipulación:</strong> Los navegadores prohíben mover o redimensionar pestañas que no hayan sido abiertas programáticamente mediante <code>window.open()</code> con dimensiones personalizadas explícitas.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -579,25 +752,79 @@ console.log(&quot;Location href:&quot;, window.location ? window.location.href :
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
-          <h2>🎯 Reto: Interacción con Entorno Cliente y BOM</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 3</span>
+          <h2>🎯 Reto 3: Controlador de Ventanas Auxiliares con Posicionamiento Dinámico y Protección Anti-Bloqueo</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Construir un script que obtenga la resolución de pantalla del usuario, compruebe si está online (&#x27;navigator.onLine&#x27;) y mantenga la navegación usando el historial del BOM (&#x27;history&#x27;).</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un módulo que gestione una ventana secundaria de previsualización. Debe incluir una función para abrir la ventana centrada exactamente en la pantalla del usuario (calculando `left` y `top` a partir de `screen.width` y `screen.height`), comprobar si el navegador ha bloqueado el popup mostrando un mensaje informativo, y proporcionar una función para cerrar la ventana comprobando previamente si sigue abierta mediante `ventana.closed`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Para centrar la ventana: left = (screen.width - ancho) / 2 y top = (screen.height - alto) / 2. Si window.open devuelve null, notifica el bloqueo al usuario.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El cálculo matemático de coordenadas relativas a screen permite ofrecer una experiencia de usuario ergonómica, respetando al mismo tiempo los filtros de seguridad contra ventanas emergentes no deseadas.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">class GestorVentanaEmergente {
+    constructor(ancho = 600, alto = 450) {
+        this.ancho = ancho;
+        this.alto = alto;
+        this.referencia = null;
+    }
+
+    abrirCentrada(url = &quot;&quot;) {
+        // Cálculo de posición centrada en el monitor del usuario
+        const left = Math.max(0, Math.floor((window.screen.width - this.ancho) / 2));
+        const top = Math.max(0, Math.floor((window.screen.height - this.alto) / 2));
+        const specs = \`width=\${this.ancho},height=\${this.alto},left=\${left},top=\${top},resizable=yes,scrollbars=yes\`;
+
+        this.referencia = window.open(url, &quot;VentanaCentrada&quot;, specs);
+
+        if (!this.referencia) {
+            console.error(&quot;❌ Ventana bloqueada. Por favor, habilite los popups en la barra de direcciones.&quot;);
+            return false;
+        }
+
+        console.log(&quot;✅ Ventana abierta con éxito en posición:&quot;, { left, top });
+        return true;
+    }
+
+    cerrar() {
+        if (this.referencia &amp;&amp; !this.referencia.closed) {
+            this.referencia.close();
+            console.log(&quot;Ventana auxiliar cerrada programáticamente.&quot;);
+            this.referencia = null;
+        } else {
+            console.warn(&quot;La ventana ya estaba cerrada o nunca fue abierta.&quot;);
+        }
+    }
+}
+
+// Uso del gestor
+const gestor = new GestorVentanaEmergente(640, 480);
+// gestor.abrirCentrada(); // Requiere evento de usuario en navegador</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 3 en Taller
             </a>
           </div>
         </div>
@@ -605,17 +832,37 @@ console.log(&quot;Location href:&quot;, window.location ? window.location.href :
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
-          <h2>4. Almacenamiento en Cliente: Storage vs IndexedDB vs Cookies</h2>
+          <span class="badge-sub">Bloque 4 de 6 · Teoría y Demostración</span>
+          <h2>4. Comunicación Entre Ventanas (Métodos y Propiedades de window)</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>JavaScript dispone de distintos mecanismos para almacenar información de forma persistente en el navegador del cliente:</p><ul class="concept-list"><li><strong>Cookies HTTP:</strong> Cadenas de texto pequeñas (máx. 4KB) que se envían automáticamente al servidor en cada petición HTTP. Susceptibles a ataques si no llevan las banderas <code>HttpOnly</code>, <code>Secure</code> y <code>SameSite</code>.</li><li><strong>Web Storage API (<code>localStorage</code> / <code>sessionStorage</code>):</strong> Almacenamiento clave-valor de hasta 5MB-10MB por origen. <code>localStorage</code> persiste indefinidamente; <code>sessionStorage</code> se destruye al cerrar la pestaña. Síncrono y bloqueante.</li></ul></div>
+            <div class="card-text"><p>Cuando una aplicación web abre ventanas secundarias o integra marcos anidados (iframes), surgen mecanismos de comunicación bidireccional coordinados:</p>
+<ul class="concept-list">
+  <li><strong>Referencias de Parentesco entre Ventanas:</strong>
+    <ul>
+      <li><strong>Ventana Principal hacia Ventana Hija:</strong> La llamada <code>const popup = window.open(...)</code> devuelve una referencia al objeto <code>window</code> de la ventana secundaria, permitiendo invocar funciones públicas o acceder a su DOM si comparten el mismo origen.</li>
+      <li><strong>Ventana Hija hacia Ventana Principal:</strong> La ventana secundaria puede acceder a su creadora mediante la propiedad <code>window.opener</code>.</li>
+      <li><strong>Jerarquía de Iframes:</strong> Dentro de un iframe, <code>window.parent</code> referencia al marco inmediatamente superior, y <code>window.top</code> referencia a la ventana raíz de la jerarquía.</li>
+    </ul>
+  </li>
+  <li><strong>Restricción del Mismo Origen (Same-Origin Policy en Ventanas):</strong> Si la ventana principal y la ventana secundaria pertenecen a dominios, protocolos o puertos distintos, el navegador bloquea el acceso directo a sus variables o DOM por seguridad (arrojando <em>SecurityError</em>).</li>
+  <li><strong>Mensajería Segura con <code>window.postMessage()</code>:</strong> Es el estándar oficial W3C para comunicación segura entre ventanas de distintos orígenes (Cross-Origin):
+    <ul>
+      <li><strong>Envío:</strong> <code>destinoVentana.postMessage(datos, targetOrigin);</code> donde <code>targetOrigin</code> especifica qué dominio tiene permiso para recibirlo (ej. <code>"https://mi-dominio.com"</code>) para evitar interceptación.</li>
+      <li><strong>Recepción:</strong> Se escucha el evento <code>window.addEventListener('message', (event) =&gt; { ... })</code>, comprobando siempre de forma estricta <code>if (event.origin !== "https://origen-esperado.com") return;</code>.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Persistencia estructurada asíncrona de gran capacidad en aplicaciones cliente:</p><ul class="concept-list"><li><strong>IndexedDB:</strong> Base de datos transaccional NoSQL orientada a objetos en el cliente. Permite almacenar gigabytes de datos estructurados, blobs y archivos, ofreciendo índices de búsqueda asíncronos y no bloqueantes.</li><li><strong>Políticas de Origen Mismo (Same-Origin Policy):</strong> El almacenamiento está estrictamente aislado por protocolo, dominio y puerto. Dominio A no puede leer el <code>localStorage</code> de Dominio B.</li><li><strong>Seguridad en Almacenamiento:</strong> No almacenar tokens JWT o credenciales sensibles en <code>localStorage</code> debido al riesgo de extracción ante ataques de inyección XSS.</li></ul></div>
+            <div class="card-text"><p><strong>Seguridad Crítica en el Uso de postMessage:</strong></p>
+<ul class="concept-list">
+  <li><strong>Nunca usar el comodín <code>"*"</code> en entornos de producción:</strong> Usar <code>postMessage(datos, "*")</code> expone la información enviada a cualquier iframe o ventana maliciosa que pueda residir en la página. Se debe indicar siempre el origen explícito.</li>
+  <li><strong>Validación Obligatoria de <code>event.origin</code>:</strong> Un receptor que procese mensajes sin validar el origen remitente es vulnerable a ataques de inyección de comandos o suplantación de identidad.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -634,25 +881,88 @@ if (typeof localStorage !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
-          <h2>🎯 Reto: Gestor de Sesión y Preferencias con localStorage</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 4</span>
+          <h2>🎯 Reto 4: Canal de Mensajería Bidireccional entre Ventana Principal y Popup con postMessage</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Escribe un gestor de preferencias que serialice un objeto de configuración de usuario en JSON dentro de &#x27;localStorage&#x27;, con manejo robusto de excepciones (cuota excedida).</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un protocolo de comunicación cliente entre dos ventanas. Escribe el código del emisor (ventana principal) que envía un objeto de autenticación con `postMessage(token, targetOrigin)` y el código del receptor que valida el origen (`event.origin === window.location.origin`), procesa el token y responde al emisor con una confirmación utilizando `event.source.postMessage()`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Recuerda comprobar siempre event.origin antes de leer event.data. Utiliza event.source para responder directamente al remitente sin necesidad de almacenar variables globales.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La API postMessage supera de forma segura la restricción de Same-Origin Policy, permitiendo orquestar arquitecturas desacopladas de micro-frontends y pasarelas de pago.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// === PROTOCOLO DE MENSAJERÍA SEGURA CLIENTE ===
+
+// CÓDIGO DEL RECEPTOR (Popup o Iframe)
+function configurarReceptorSeguro() {
+    window.addEventListener(&#x27;message&#x27;, (evento) =&gt; {
+        // 1. Verificación obligatoria de origen de procedencia
+        if (evento.origin !== window.location.origin) {
+            console.error(&quot;Acceso denegado: Procedencia no confiable -&gt;&quot;, evento.origin);
+            return;
+        }
+
+        const mensaje = evento.data;
+        console.log(&quot;📨 Mensaje recibido de origen legítimo:&quot;, mensaje);
+
+        // 2. Procesar acción requerida
+        if (mensaje?.accion === &quot;AUTENTICAR&quot;) {
+            console.log(&quot;Procesando token de sesión:&quot;, mensaje.token);
+
+            // 3. Responder al remitente a través de event.source
+            if (evento.source) {
+                evento.source.postMessage({
+                    estado: &quot;SESION_ESTABLECIDA&quot;,
+                    tiempo: Date.now()
+                }, evento.origin);
+            }
+        }
+    });
+}
+
+// CÓDIGO DEL EMISOR (Ventana Principal)
+function emitirAutenticacion(ventanaDestino) {
+    if (!ventanaDestino || ventanaDestino.closed) {
+        console.warn(&quot;Imposible enviar mensaje: Ventana destino cerrada.&quot;);
+        return;
+    }
+
+    const payload = {
+        accion: &quot;AUTENTICAR&quot;,
+        token: &quot;JWT_SECURE_TOKEN_XYZ_123&quot;
+    };
+
+    // Envío especificando origen exacto (sin comodín &#x27;*&#x27;)
+    ventanaDestino.postMessage(payload, window.location.origin);
+    console.log(&quot;📤 Mensaje de autenticación despachado.&quot;);
+}
+
+configurarReceptorSeguro();</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 4 en Taller
             </a>
           </div>
         </div>
@@ -660,37 +970,461 @@ if (typeof localStorage !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Taller Práctico</span>
-          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+          <span class="badge-sub">Bloque 5 de 6 · Teoría y Demostración</span>
+          <h2>5. Interacción con el Usuario (alert, prompt, confirm y Formularios)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La interacción con el usuario en el cliente abarca desde cuadros de diálogo modales nativos hasta la captura estructurada de controles de formulario:</p>
+<ul class="concept-list">
+  <li><strong>Diálogos Modales Nativos del Navegador (BOM):</strong>
+    <ul>
+      <li><code>window.alert(mensaje)</code>: Muestra un cuadro de diálogo informativo modal con botón de aceptar. Detiene la ejecución del hilo principal de JavaScript hasta que el usuario lo cierra.</li>
+      <li><code>window.confirm(pregunta)</code>: Diálogo de confirmación con botones Aceptar y Cancelar. Devuelve un booleano síncrono (<code>true</code> si pulsa Aceptar, <code>false</code> si cancela o cierra).</li>
+      <li><code>window.prompt(texto, valorPorDefecto)</code>: Solicita una entrada textual. Devuelve la cadena ingresada por el usuario o <code>null</code> si presiona Cancelar.</li>
+    </ul>
+  </li>
+  <li><strong>Inconvenientes y Bloqueo de UI:</strong> Los diálogos clásicos (alert, confirm, prompt) son <strong>bloqueantes y síncronos</strong>. Congelan el renderizado, detienen animaciones CSS y degradan la experiencia de usuario. En aplicaciones modernas se sustituyen por modales declarativos HTML5 (<code>&lt;dialog&gt;</code>) o componentes personalizados.</li>
+  <li><strong>El Elemento HTML5 <code>&lt;dialog&gt;</code>:</strong> Alternativa moderna no bloqueante estandarizada:
+    <ul>
+      <li>Método <code>dialog.showModal()</code>: Abre el diálogo modal generando automáticamente un backdrop atenuado y bloqueando la interacción con el fondo sin congelar el hilo de JS.</li>
+      <li>Método <code>dialog.close(valorRetorno)</code>: Cierra el diálogo y propaga el evento <code>'close'</code>, recuperando la respuesta en <code>dialog.returnValue</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Interacción Básica con Controles de Formulario:</strong> Acceso a formularios mediante la colección <code>document.forms</code> o <code>document.querySelector</code>. Lectura y asignación de valores de campos de texto (<code>input.value</code>), casillas de verificación (<code>checkbox.checked</code>) y desplegables (<code>select.value</code>).</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Accesibilidad y Foco en Modales Modernos:</strong></p>
+<ul class="concept-list">
+  <li><strong>Focus Trap (Atrapamiento del Foco):</strong> El elemento <code>&lt;dialog&gt;</code> nativo gestiona automáticamente el atrapamiento del foco del teclado (accesibilidad WCAG) e intercepta la tecla <code>Escape</code> para cerrar el diálogo limpiamente sin código adicional.</li>
+  <li><strong>Validación Preliminar en Tiempo de Captura:</strong> Antes de enviar formularios, los escuchadores de evento <code>input</code> y <code>change</code> permiten validar los datos introducidos en tiempo real antes de recurrir a diálogos de confirmación.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Comparativa: Confirm clásico bloqueante vs Diálogo Moderno &lt;dialog&gt;
+
+// 1. Método tradicional síncrono bloqueante
+function eliminarElementoClasico() {
+    const confirmado = window.confirm(&quot;¿Seguro que desea eliminar el registro permanentemente?&quot;);
+    if (confirmado) {
+        console.log(&quot;Registro eliminado mediante confirm clásico.&quot;);
+    }
+}
+
+// 2. Método moderno con elemento HTML5 &lt;dialog&gt;
+function mostrarModalModerno() {
+    const dialog = document.getElementById(&#x27;mi-modal&#x27;);
+    if (dialog &amp;&amp; typeof dialog.showModal === &#x27;function&#x27;) {
+        dialog.showModal(); // Modal no bloqueante con backdrop nativo
+        
+        dialog.addEventListener(&#x27;close&#x27;, () =&gt; {
+            console.log(&quot;Diálogo cerrado. Respuesta del usuario:&quot;, dialog.returnValue);
+        }, { once: true });
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 5</span>
+          <h2>🎯 Reto 5: Sistema de Modales Accesibles y Captura de Formulario Dinámico sin Bloqueo</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Construye un gestor de modales que reemplace el uso de `prompt()` y `confirm()` mediante un diálogo HTML5 `&lt;dialog&gt;`. Debe incluir una función asíncrona `pedirConfirmacion(mensaje)` que devuelva una Promesa que se resuelva con `true` o `false` según la interacción del usuario con los botones del modal, permitiendo su uso con `await` sin bloquear la UI del navegador.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Crea el elemento dialog dinámicamente o usa uno existente. Devuelve new Promise(resolve =&gt; { botonAceptar.onclick = () =&gt; { dialog.close(); resolve(true); } }).</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Encapsular modales asíncronos en Promesas permite mantener una sintaxis secuencial limpia con async/await sin sufrir el bloqueo del hilo de ejecución característico de alert o confirm.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Gestor asíncrono de confirmaciones basado en Promesas y &lt;dialog&gt;
+function confirmarAccionModal(mensaje) {
+    return new Promise((resolve) =&gt; {
+        // Crear elemento dialog dinámico si no existe
+        let dialog = document.getElementById(&#x27;modal-confirmacion-dinamico&#x27;);
+        if (!dialog) {
+            dialog = document.createElement(&#x27;dialog&#x27;);
+            dialog.id = &#x27;modal-confirmacion-dinamico&#x27;;
+            dialog.style.cssText = &quot;border: none; border-radius: 12px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-family: sans-serif;&quot;;
+            document.body.appendChild(dialog);
+        }
+
+        dialog.innerHTML = \`
+            &lt;div style=&quot;min-width: 300px;&quot;&gt;
+                &lt;h3 style=&quot;margin-top: 0; color: #0f172a;&quot;&gt;Confirmación Requerida&lt;/h3&gt;
+                &lt;p style=&quot;color: #475569; font-size: 0.9em;&quot;&gt;\${mensaje}&lt;/p&gt;
+                &lt;div style=&quot;display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;&quot;&gt;
+                    &lt;button id=&quot;btn-cancelar&quot; style=&quot;padding: 8px 14px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 6px; cursor: pointer;&quot;&gt;Cancelar&lt;/button&gt;
+                    &lt;button id=&quot;btn-aceptar&quot; style=&quot;padding: 8px 14px; border: none; background: #2563eb; color: white; border-radius: 6px; cursor: pointer;&quot;&gt;Aceptar&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        \`;
+
+        dialog.querySelector(&#x27;#btn-cancelar&#x27;).onclick = () =&gt; {
+            dialog.close();
+            resolve(false);
+        };
+
+        dialog.querySelector(&#x27;#btn-aceptar&#x27;).onclick = () =&gt; {
+            dialog.close();
+            resolve(true);
+        };
+
+        dialog.showModal();
+    });
+}
+
+// Ejemplo de consumo con async/await
+async function ejecutarEliminacion() {
+    const respuesta = await confirmarAccionModal(&quot;¿Deseas purgar la base de datos temporal?&quot;);
+    console.log(&quot;Resultado de confirmación asíncrona:&quot;, respuesta);
+}</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 5 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 6 de 6 · Teoría y Demostración</span>
+          <h2>6. Almacenamiento Local y de Sesión (Storage, Cookies) y Manipulación DOM</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La persistencia en cliente y la manipulación dinámica del contenido son pilares fundamentales para crear aplicaciones web reactivas y personalizadas:</p>
+<ul class="concept-list">
+  <li><strong>Cookies del Navegador (<code>document.cookie</code>):</strong>
+    <p>Pares clave-valor enviados automáticamente al servidor en cada cabecera HTTP. Limitadas a 4 KB. Directivas de seguridad: <code>expires</code> / <code>max-age</code> (caducidad), <code>path</code> (ámbito), <code>domain</code>, <code>Secure</code> (sólo HTTPS), <code>SameSite=Strict/Lax</code> (protección anti-CSRF) y <code>HttpOnly</code> (inmune a lectura por JavaScript).</p>
+  </li>
+  <li><strong>Web Storage API (Almacenamiento Local vs Sesión):</strong>
+    <ul>
+      <li><code>localStorage</code>: Persistencia permanente en el navegador aislada por origen (protocolo + dominio + puerto). Límite de ~5 MB. Los datos sobreviven al cierre del navegador.</li>
+      <li><code>sessionStorage</code>: Persistencia vinculada a la pestaña de navegación actual. Se destruye automáticamente al cerrar la pestaña o ventana.</li>
+      <li>Métodos estándar: <code>setItem(clave, valor)</code>, <code>getItem(clave)</code>, <code>removeItem(clave)</code>, <code>clear()</code>, <code>length</code> y <code>key(indice)</code>.</li>
+      <li>Serialización obligatoria de objetos con <code>JSON.stringify()</code> y recuperación con <code>JSON.parse()</code>.</li>
+      <li>Evento <code>window.addEventListener('storage', ...)</code>: Se dispara en todas las demás pestañas abiertas del mismo origen cuando una pestaña altera el localStorage.</li>
+    </ul>
+  </li>
+  <li><strong>Manipulación Dinámica del DOM y Depuración:</strong> Generación segura de elementos HTML en memoria mediante <code>document.createElement()</code>, asignación de atributos y clases con <code>classList</code>, inserción con <code>appendChild()</code> o <code>append()</code>, y uso de <code>console.dir()</code> para inspeccionar las propiedades del objeto DOM en consola.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Seguridad y Rendimiento en Almacenamiento Cliente:</strong></p>
+<ul class="concept-list">
+  <li><strong>Jamás almacenar secretos en Web Storage:</strong> La Web Storage API (localStorage/sessionStorage) es totalmente accesible por cualquier script JavaScript que se ejecute en la página. Almacenar tokens JWT o contraseñas en localStorage expone la aplicación a robo de sesión en caso de vulnerabilidades XSS. Las credenciales sensibles deben almacenarse en cookies con bandera <code>HttpOnly; Secure; SameSite=Strict</code>.</li>
+  <li><strong>Manejo del Límite de Cuota (QuotaExceededError):</strong> Si el almacenamiento local se satura, <code>setItem()</code> arroja una excepción <em>QuotaExceededError</em> que debe capturarse con bloques <code>try/catch</code>.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Gestor de Web Storage con Serialización JSON y sincronización
+const GestorPreferencias = {
+    guardar(clave, valor) {
+        try {
+            const serializado = JSON.stringify(valor);
+            localStorage.setItem(clave, serializado);
+            console.log(`Dato guardado en localStorage [${clave}]`);
+        } catch (error) {
+            console.error(&quot;Error al persistir en Storage:&quot;, error.name);
+        }
+    },
+    leer(clave, valorPorDefecto = null) {
+        const item = localStorage.getItem(clave);
+        if (item === null) return valorPorDefecto;
+        try {
+            return JSON.parse(item);
+        } catch {
+            return item; // Si no era JSON, devuelve la cadena plana
+        }
+    }
+};
+
+// Ejemplo: Guardar configuración de usuario
+GestorPreferencias.guardar(&quot;usuario_config&quot;, { tema: &quot;dark&quot;, zoom: 1.2 });
+console.log(&quot;Configuración recuperada:&quot;, GestorPreferencias.leer(&quot;usuario_config&quot;));</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
+          <h2>🎯 Reto 6: Carrito de Compras Persistente con Sincronización en localStorage y DOM Seguro</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una clase `CarritoPersistente` que guarde una lista de productos en `localStorage`. Debe incluir métodos para añadir producto (gestionando cantidades si ya existe), eliminar producto y vaciar la cesta. Cada mutación debe persistir en Storage y renderizar una lista en el DOM mediante `document.createElement()`. Registra además un escuchador para el evento `window.onstorage` que actualice la interfaz si el carrito cambia desde otra pestaña.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa JSON.stringify y JSON.parse para la lista de productos. En el evento storage, comprueba si e.key === &quot;carrito_compras&quot; y llama al método de renderizado.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La sincronización entre pestañas mediante el evento storage garantiza coherencia de estado en aplicaciones de comercio electrónico donde el usuario trabaja en múltiples ventanas simultáneamente.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">class CarritoPersistente {
+    constructor(claveStorage = &quot;carrito_compras&quot;, selectorContenedor = &quot;#lista-carrito&quot;) {
+        this.clave = claveStorage;
+        this.selectorContenedor = selectorContenedor;
+        this.items = this.cargar();
+        this.sincronizarPestanas();
+        this.renderizar();
+    }
+
+    cargar() {
+        try {
+            const raw = localStorage.getItem(this.clave);
+            return raw ? JSON.parse(raw) : [];
+        } catch (e) {
+            console.warn(&quot;Fallo al leer Storage, iniciando cesta vacía:&quot;, e);
+            return [];
+        }
+    }
+
+    guardar() {
+        try {
+            localStorage.setItem(this.clave, JSON.stringify(this.items));
+            this.renderizar();
+        } catch (e) {
+            console.error(&quot;Error de cuota en Storage (QuotaExceededError):&quot;, e);
+        }
+    }
+
+    agregar(id, nombre, precio) {
+        const existente = this.items.find(i =&gt; i.id === id);
+        if (existente) {
+            existente.cantidad += 1;
+        } else {
+            this.items.push({ id, nombre, precio, cantidad: 1 });
+        }
+        this.guardar();
+    }
+
+    eliminar(id) {
+        this.items = this.items.filter(i =&gt; i.id !== id);
+        this.guardar();
+    }
+
+    vaciar() {
+        this.items = [];
+        this.guardar();
+        console.log(&quot;Cesta de compras vaciada completamente.&quot;);
+    }
+
+    sincronizarPestanas() {
+        window.addEventListener(&#x27;storage&#x27;, (e) =&gt; {
+            if (e.key === this.clave) {
+                console.log(&quot;🔄 Sincronización: El carrito fue modificado en otra pestaña o ventana.&quot;);
+                this.items = e.newValue ? JSON.parse(e.newValue) : [];
+                this.renderizar();
+            }
+        });
+    }
+
+    renderizar() {
+        // 1. Diagnóstico estructurado en consola
+        const total = this.items.reduce((acc, item) =&gt; acc + (item.precio * item.cantidad), 0);
+        console.group(&quot;🛒 Estado Actual del Carrito (Sincronizado)&quot;);
+        console.table(this.items);
+        console.log(`Importe Total Acumulado: ${total.toFixed(2)}€`);
+        console.groupEnd();
+
+        // 2. Renderizado dinámico y seguro en el DOM con document.createElement
+        if (typeof document !== &quot;undefined&quot;) {
+            let contenedor = document.querySelector(this.selectorContenedor);
+            if (!contenedor) {
+                // Si no existe, crear un contenedor de demostración en el body
+                contenedor = document.createElement(&quot;div&quot;);
+                contenedor.id = this.selectorContenedor.replace(&quot;#&quot;, &quot;&quot;);
+                contenedor.style.cssText = &quot;padding: 16px; background: #f8fafc; border-radius: 8px; font-family: sans-serif;&quot;;
+                document.body.appendChild(contenedor);
+            }
+
+            contenedor.replaceChildren(); // Limpieza eficiente de nodos previos
+
+            if (this.items.length === 0) {
+                const vacioP = document.createElement(&quot;p&quot;);
+                vacioP.textContent = &quot;Tu cesta de compras está vacía.&quot;;
+                vacioP.style.color = &quot;#64748b&quot;;
+                contenedor.appendChild(vacioP);
+                return;
+            }
+
+            const ul = document.createElement(&quot;ul&quot;);
+            ul.style.cssText = &quot;list-style: none; padding: 0; margin: 0 0 12px 0;&quot;;
+
+            const fragmento = document.createDocumentFragment();
+            this.items.forEach(item =&gt; {
+                const li = document.createElement(&quot;li&quot;);
+                li.style.cssText = &quot;display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #e2e8f0;&quot;;
+
+                const infoSpan = document.createElement(&quot;span&quot;);
+                infoSpan.textContent = `${item.nombre} x${item.cantidad} - ${(item.precio * item.cantidad).toFixed(2)}€`;
+
+                const btnBorrar = document.createElement(&quot;button&quot;);
+                btnBorrar.textContent = &quot;✖&quot;;
+                btnBorrar.title = &quot;Eliminar artículo&quot;;
+                btnBorrar.style.cssText = &quot;background: #ef4444; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;&quot;;
+                btnBorrar.onclick = () =&gt; this.eliminar(item.id);
+
+                li.append(infoSpan, btnBorrar);
+                fragmento.appendChild(li);
+            });
+
+            ul.appendChild(fragmento);
+
+            const totalDiv = document.createElement(&quot;div&quot;);
+            totalDiv.style.cssText = &quot;font-weight: bold; color: #0f172a; margin-top: 8px;&quot;;
+            totalDiv.textContent = `Total a Pagar: ${total.toFixed(2)}€`;
+
+            contenedor.append(ul, totalDiv);
+        }
+    }
+}
+
+// Inicialización y pruebas prácticas
+const miCesta = new CarritoPersistente();
+miCesta.agregar(1, &quot;Ratón Óptico Ergonómico&quot;, 19.99);
+miCesta.agregar(2, &quot;Teclado Mecánico RGB&quot;, 69.50);</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 6 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Resumen Curricular</span>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (6)</h2>
         </div>
         <div class="final-workshop-card">
-          <ul class="final-ex-list">
+          <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
+            Cada uno de los siguientes retos ha sido propuesto tras la explicación de su bloque conceptual para afianzar los conocimientos adquiridos:
+          </p>
+          <ul class="final-ex-list" style="max-height: 380px; overflow-y: auto;">
             
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 1</span>
-        <div class="final-ex-text">
-          <strong>Suite de Validación con RegExp e Intl</strong>
-          <p>Formulario interactivo de registro que valida en vivo DNI, NIE, correos electrónicos corporativos y formatea salarios y fechas según estándares locales españoles.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 1</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Generador de Tokens Temporales y Calculadora de Diferencia de Fechas</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 1: Objetos Nativos del Lenguaje: String, Number, Math y Date</p>
         </div>
+        <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 2</span>
-        <div class="final-ex-text">
-          <strong>Gestor de Preferencias (Theme / Offline) con Web Storage</strong>
-          <p>Aplicación que guarda modo oscuro/claro, preferencias de usuario y detecta cambios de conectividad (online/offline) con sincronización en Storage.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 2</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Mini-Enrutador de Navegación SPA con History y Location API</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 2: Jerarquía del Browser Object Model (BOM): window, navigator, history y location</p>
         </div>
+        <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 3</span>
-        <div class="final-ex-text">
-          <strong>Base de Datos de Clientes con IndexedDB Transaccional</strong>
-          <p>Mini-sistema CRUD que almacena registros complejos con índices de búsqueda en IndexedDB del navegador, soportando operaciones asíncronas de inserción y consulta.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 3</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Controlador de Ventanas Auxiliares con Posicionamiento Dinámico y Protección Anti-Bloqueo</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 3: Gestión de la Apariencia de la Ventana y Creación de Nuevas Ventanas</p>
         </div>
+        <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 4</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Canal de Mensajería Bidireccional entre Ventana Principal y Popup con postMessage</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 4: Comunicación Entre Ventanas (Métodos y Propiedades de window)</p>
+        </div>
+        <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 5</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Sistema de Modales Accesibles y Captura de Formulario Dinámico sin Bloqueo</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Interacción con el Usuario (alert, prompt, confirm y Formularios)</p>
+        </div>
+        <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 6</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Carrito de Compras Persistente con Sincronización en localStorage y DOM Seguro</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: Almacenamiento Local y de Sesión (Storage, Cookies) y Manipulación DOM</p>
+        </div>
+        <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
           </ul>
-          <div class="final-action-bar">
+          <div class="final-action-bar" style="margin-top: 10px;">
             <a href="ejercicios.html" class="btn-primary">
-              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+              💻 Abrir Taller Completo de Retos y Soluciones
             </a>
             <a href="../index.html" class="btn-secondary">
               🏠 Volver al Panel General

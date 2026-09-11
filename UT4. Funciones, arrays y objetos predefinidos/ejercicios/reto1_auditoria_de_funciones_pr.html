@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reto 1: Auditoría de Funciones Predefinidas, Ámbito Léxico de this y Procesador de URLs - UT4: Funciones, Arrays, Programación Orientada a Objetos y Patrones</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 p-4 sm:p-6 min-h-screen">
+  <div class="max-w-4xl mx-auto space-y-4">
+    <!-- Header -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl">
+      <div class="flex items-center justify-between gap-4 flex-wrap mb-2">
+        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 1 Propuesto en Presentación</span>
+        <span class="text-xs text-slate-400 font-medium">Bloque 1: Funciones Predefinidas del Lenguaje y Funciones Personalizadas</span>
+      </div>
+      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 1: Auditoría de Funciones Predefinidas, Ámbito Léxico de this y Procesador de URLs</h1>
+      <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
+        <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
+        <p class="text-xs text-slate-300 leading-relaxed">Diseña un script que: 1) Audite y demuestre el comportamiento de las funciones predefinidas globales (`parseInt` con base explícita, `parseFloat`, la diferencia entre `isNaN` y `Number.isNaN`, `isFinite`, y la codificación/decodificación segura con `encodeURIComponent` y `decodeURIComponent`), 2) Contraste empíricamente el enlace léxico de `this` en una Función Flecha (Arrow Function) frente al enlace dinámico en una Declaración de Función tradicional, y 3) Construya una función `construirURLConsulta(baseURL, endpoint, ...parametros)` que reciba parámetros rest, sanitice y codifique los pares clave-valor y ensamble la URL final.</p>
+      </div>
+      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Usa Number.isNaN(&quot;abc&quot;) (false) vs isNaN(&quot;abc&quot;) (true) para contrastar la coerción previa. Diseña un objeto con un método clásico y una función flecha interna para demostrar cómo la flecha retiene el this léxico.</div>
+    </div>
+
+    <!-- Playground Action Bar -->
+    <div class="flex items-center justify-between gap-3 bg-slate-900 border border-slate-800 px-4 py-3 rounded-xl">
+      <div class="flex items-center gap-2">
+        <button id="btn-ejecutar" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg shadow-lg shadow-indigo-600/20 transition-all flex items-center gap-1.5 hover:scale-[1.02]">
+          <span>▶️ Ejecutar Solución</span>
+        </button>
+        <button id="btn-limpiar" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg transition-colors">
+          🧹 Limpiar Consola
+        </button>
+      </div>
+      <span class="text-[11px] text-slate-400 hidden sm:inline">Salida dual: Terminal interactivo y Consola F12</span>
+    </div>
+
+    <!-- Interactive Terminal Output -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+      <div class="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+          <span class="ml-2 font-bold text-slate-300">Terminal de Ejecución en Vivo</span>
+        </div>
+        <span id="log-count" class="text-[11px] text-slate-500">0 entradas</span>
+      </div>
+      <div id="console-output" class="p-4 font-mono text-xs max-h-[360px] overflow-y-auto space-y-1.5 text-slate-300 leading-relaxed bg-[#0a0d14]">
+        <!-- Logs dinámicos -->
+      </div>
+    </div>
+
+    <!-- DOM Sandbox Area for Retos that manipulate DOM -->
+    <div id="sandbox-container" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-2">
+      <div class="flex items-center justify-between border-b border-slate-800/80 pb-2 mb-2">
+        <span class="font-bold text-slate-400 flex items-center gap-1.5">
+          <span>🖥️ Área de Renderizado DOM / Contenedor de Pruebas</span>
+        </span>
+        <span class="text-[10px] text-slate-500">#sandbox-container</span>
+      </div>
+      <div id="app" class="min-h-[20px]"></div>
+      <div id="contenedor" class="min-h-[20px]"></div>
+      <div id="lista-carrito"></div>
+    </div>
+
+    <!-- Code Explanation & Source -->
+    <details class="bg-slate-900/80 border border-slate-800 rounded-xl p-4 text-xs">
+      <summary class="font-bold text-indigo-400 cursor-pointer flex items-center justify-between select-none">
+        <span>📖 Explicación Técnica y Código Fuente</span>
+        <span class="text-slate-500 text-[11px] bg-slate-800 px-2 py-0.5 rounded">Ver código</span>
+      </summary>
+      <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
+        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">Las funciones globales predefinidas gestionan transformaciones elementales seguras, mientras que las funciones flecha resuelven el problema histórico de la pérdida de contexto de this en callbacks asíncronos.</p>
+        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>function laboratorioFunciones() {
+    console.group(&quot;🔍 1. Auditoría de Funciones Predefinidas Globales&quot;);
+    
+    // parseInt con base explícita vs parseFloat
+    const enteroParseado = parseInt(&quot;100px&quot;, 10);
+    const floatParseado = parseFloat(&quot;3.14159265rad&quot;);
+    console.log(&quot;parseInt(&#x27;100px&#x27;, 10):&quot;, enteroParseado);
+    console.log(&quot;parseFloat(&#x27;3.14159265rad&#x27;):&quot;, floatParseado);
+
+    // Comparativa crítica: isNaN vs Number.isNaN
+    console.log(&quot;isNaN(&#x27;texto&#x27;):&quot;, isNaN(&quot;texto&quot;), &quot;(coacciona a NaN primero)&quot;);
+    console.log(&quot;Number.isNaN(&#x27;texto&#x27;):&quot;, Number.isNaN(&quot;texto&quot;), &quot;(estricto: no coacciona)&quot;);
+    console.log(&quot;Number.isFinite(100 / 0):&quot;, Number.isFinite(100 / 0), &quot;(Infinity no es finito)&quot;);
+
+    // Codificación y decodificación de URLs
+    const querySensible = &quot;categoría=desarrollo web &amp; cliente=100%&quot;;
+    const codificado = encodeURIComponent(querySensible);
+    const decodificado = decodeURIComponent(codificado);
+    console.log(&quot;encodeURIComponent:&quot;, codificado);
+    console.log(&quot;decodeURIComponent:&quot;, decodificado);
+    console.groupEnd();
+
+    console.group(&quot;🎯 2. Enlace Léxico de &#x27;this&#x27;: Función Clásica vs Función Flecha&quot;);
+    const componenteUsuario = {
+        nombre: &quot;Docente DWEC&quot;,
+        rol: &quot;Profesor&quot;,
+        
+        // Método con Function Declaration clásica: su propio &#x27;this&#x27; depende de quién lo llame
+        metodoClasico: function() {
+            return `Usuario clásico: ${this.nombre} (${this.rol})`;
+        },
+
+        // Demostración de flecha reteniendo el &#x27;this&#x27; léxico envolvente
+        ejecutarConCallback: function() {
+            // En una función clásica interna, &#x27;this&#x27; se perdería a undefined o window en modo estricto.
+            // La función flecha captura estáticamente el &#x27;this&#x27; del método envolvente:
+            const callbackFlecha = () =&gt; {
+                return `Captura léxica exitosa: ${this.nombre} - ${this.rol}`;
+            };
+            return callbackFlecha();
+        }
+    };
+
+    console.log(componenteUsuario.metodoClasico());
+    console.log(componenteUsuario.ejecutarConCallback());
+    console.groupEnd();
+
+    console.group(&quot;🔗 3. Procesador de URLs con Parámetros Rest y Sanitización&quot;);
+    const construirURLConsulta = (baseURL, endpoint, ...parametros) =&gt; {
+        const urlLimpia = baseURL.replace(/\/$/, &quot;&quot;) + &quot;/&quot; + endpoint.replace(/^\//, &quot;&quot;);
+        if (parametros.length === 0) return urlLimpia;
+
+        const pares = parametros.map(([clave, valor]) =&gt; {
+            const k = encodeURIComponent(String(clave).trim());
+            const v = encodeURIComponent(String(valor).trim());
+            return `${k}=${v}`;
+        });
+
+        return `${urlLimpia}?${pares.join(&quot;&amp;&quot;)}`;
+    };
+
+    const urlGenerada = construirURLConsulta(
+        &quot;https://api.formacion.es/v1&quot;,
+        &quot;cursos/buscar&quot;,
+        [&quot;modulo&quot;, &quot;Desarrollo Web en Entorno Cliente&quot;],
+        [&quot;notaMinima&quot;, 7],
+        [&quot;orden&quot;, &quot;prioritario &amp; seguro&quot;]
+    );
+    console.log(&quot;URL Final Generada y Sanitizada:&quot;);
+    console.log(urlGenerada);
+    console.groupEnd();
+}
+
+laboratorioFunciones();</code></pre>
+      </div>
+    </details>
+  </div>
+
+  <script>
+    const outputEl = document.getElementById('console-output');
+    const countEl = document.getElementById('log-count');
+    let logCount = 0;
+
+    function renderTable(data) {
+      if (!data) return String(data);
+      if (Array.isArray(data)) {
+        if (data.length === 0) return '[] (Array vacío)';
+        const keys = Object.keys(data[0] || {});
+        if (keys.length === 0) return JSON.stringify(data);
+        let ths = keys.map(k => `<th class="border border-slate-700 bg-slate-800 px-2 py-1 text-left font-semibold text-indigo-300 text-[10px]">${k}</th>`).join('');
+        let rows = data.map((row, i) => {
+          let tds = keys.map(k => `<td class="border border-slate-800/80 px-2 py-1 text-[11px] text-slate-300">${row[k] !== undefined ? String(row[k]) : ''}</td>`).join('');
+          let bg = i % 2 === 0 ? 'bg-slate-900/50' : 'bg-slate-950/50';
+          return `<tr class="${bg}">${tds}</tr>`;
+        }).join('');
+        return `<div class="overflow-x-auto my-1"><table class="w-full border-collapse border border-slate-700 text-xs"><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table></div>`;
+      } else if (typeof data === 'object') {
+        const keys = Object.keys(data);
+        let rows = keys.map(k => `<tr><td class="border border-slate-800 bg-slate-800/60 font-semibold text-indigo-300 px-2 py-1 text-[11px]">${k}</td><td class="border border-slate-800 px-2 py-1 text-[11px] text-slate-300">${String(data[k])}</td></tr>`).join('');
+        return `<div class="overflow-x-auto my-1"><table class="border-collapse border border-slate-700 text-xs"><tbody>${rows}</tbody></table></div>`;
+      }
+      return String(data);
+    }
+
+    function appendLog(type, args) {
+      logCount++;
+      countEl.textContent = logCount + " entradas";
+      const line = document.createElement('div');
+      line.className = "flex items-start gap-2 py-1 border-b border-slate-800/40";
+      
+      const time = new Date().toLocaleTimeString();
+      const timeSpan = `<span class="text-slate-600 text-[10px] font-mono select-none pt-0.5">${time}</span>`;
+      
+      let badgeColor = "bg-slate-800 text-slate-300 border border-slate-700";
+      let textCol = "text-slate-200";
+      if (type === 'warn') { badgeColor = "bg-amber-950 text-amber-300 border border-amber-800"; textCol = "text-amber-200"; }
+      if (type === 'error') { badgeColor = "bg-rose-950 text-rose-300 border border-rose-800"; textCol = "text-rose-200"; }
+      if (type === 'table') { badgeColor = "bg-indigo-950 text-indigo-300 border border-indigo-800"; }
+      if (type === 'time') { badgeColor = "bg-emerald-950 text-emerald-300 border border-emerald-800"; textCol = "text-emerald-300"; }
+      if (type === 'group') { badgeColor = "bg-blue-950 text-blue-300 border border-blue-800 font-bold"; textCol = "text-blue-200 font-bold"; }
+      if (type === 'system') { badgeColor = "bg-purple-950 text-purple-300 border border-purple-800"; textCol = "text-purple-200 italic"; }
+
+      const badge = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${badgeColor} flex-shrink-0">${type}</span>`;
+      
+      let contentHtml = "";
+      if (type === 'table') {
+        contentHtml = renderTable(args[0]);
+      } else {
+        let str = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+        contentHtml = `<pre class="font-mono text-xs whitespace-pre-wrap break-all ${textCol} flex-1 m-0">${str}</pre>`;
+      }
+      
+      line.innerHTML = `${timeSpan} ${badge} <div class="flex-1">${contentHtml}</div>`;
+      outputEl.appendChild(line);
+      outputEl.scrollTop = outputEl.scrollHeight;
+    }
+
+    const origLog = console.log;
+    const origWarn = console.warn;
+    const origErr = console.error;
+    const origTable = console.table;
+    const origGroup = console.group || console.log;
+    const origGroupEnd = console.groupEnd || (() => {});
+    const origAssert = console.assert;
+    const origTime = console.time || (() => {});
+    const origTimeEnd = console.timeEnd || (() => {});
+
+    const timers = {};
+
+    console.log = (...args) => { origLog(...args); appendLog('log', args); };
+    console.warn = (...args) => { origWarn(...args); appendLog('warn', args); };
+    console.error = (...args) => { origErr(...args); appendLog('error', args); };
+    console.table = (data) => { origTable(data); appendLog('table', [data]); };
+    console.group = (name) => { origGroup(name); appendLog('group', [name]); };
+    console.groupCollapsed = (name) => { origGroup(name); appendLog('group', [name]); };
+    console.groupEnd = () => { origGroupEnd(); };
+    console.assert = (assertion, ...args) => {
+      origAssert(assertion, ...args);
+      if (!assertion) {
+        appendLog('error', ['Assertion failed ❌', ...args]);
+      } else {
+        appendLog('log', ['Assertion passed ✅', ...args]);
+      }
+    };
+    console.time = (label = 'default') => {
+      timers[label] = performance.now();
+      origTime(label);
+      appendLog('time', [`⏱️ Inicio temporizador: "${label}"`]);
+    };
+    console.timeEnd = (label = 'default') => {
+      const elapsed = timers[label] !== undefined ? (performance.now() - timers[label]).toFixed(3) : 0;
+      origTimeEnd(label);
+      appendLog('time', [`⏱️ Fin temporizador "${label}": ${elapsed} ms`]);
+    };
+
+    document.getElementById('btn-limpiar').onclick = () => {
+      outputEl.innerHTML = '<div class="text-slate-500 italic py-1">Consola limpia. Presiona "Ejecutar Solución" para correr el script.</div>';
+      logCount = 0;
+      countEl.textContent = "0 entradas";
+    };
+
+    async function ejecutarSolucion() {
+      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      try {
+        (async () => {
+function laboratorioFunciones() {
+    console.group("🔍 1. Auditoría de Funciones Predefinidas Globales");
+    
+    // parseInt con base explícita vs parseFloat
+    const enteroParseado = parseInt("100px", 10);
+    const floatParseado = parseFloat("3.14159265rad");
+    console.log("parseInt('100px', 10):", enteroParseado);
+    console.log("parseFloat('3.14159265rad'):", floatParseado);
+
+    // Comparativa crítica: isNaN vs Number.isNaN
+    console.log("isNaN('texto'):", isNaN("texto"), "(coacciona a NaN primero)");
+    console.log("Number.isNaN('texto'):", Number.isNaN("texto"), "(estricto: no coacciona)");
+    console.log("Number.isFinite(100 / 0):", Number.isFinite(100 / 0), "(Infinity no es finito)");
+
+    // Codificación y decodificación de URLs
+    const querySensible = "categoría=desarrollo web & cliente=100%";
+    const codificado = encodeURIComponent(querySensible);
+    const decodificado = decodeURIComponent(codificado);
+    console.log("encodeURIComponent:", codificado);
+    console.log("decodeURIComponent:", decodificado);
+    console.groupEnd();
+
+    console.group("🎯 2. Enlace Léxico de 'this': Función Clásica vs Función Flecha");
+    const componenteUsuario = {
+        nombre: "Docente DWEC",
+        rol: "Profesor",
+        
+        // Método con Function Declaration clásica: su propio 'this' depende de quién lo llame
+        metodoClasico: function() {
+            return `Usuario clásico: ${this.nombre} (${this.rol})`;
+        },
+
+        // Demostración de flecha reteniendo el 'this' léxico envolvente
+        ejecutarConCallback: function() {
+            // En una función clásica interna, 'this' se perdería a undefined o window en modo estricto.
+            // La función flecha captura estáticamente el 'this' del método envolvente:
+            const callbackFlecha = () => {
+                return `Captura léxica exitosa: ${this.nombre} - ${this.rol}`;
+            };
+            return callbackFlecha();
+        }
+    };
+
+    console.log(componenteUsuario.metodoClasico());
+    console.log(componenteUsuario.ejecutarConCallback());
+    console.groupEnd();
+
+    console.group("🔗 3. Procesador de URLs con Parámetros Rest y Sanitización");
+    const construirURLConsulta = (baseURL, endpoint, ...parametros) => {
+        const urlLimpia = baseURL.replace(/\/$/, "") + "/" + endpoint.replace(/^\//, "");
+        if (parametros.length === 0) return urlLimpia;
+
+        const pares = parametros.map(([clave, valor]) => {
+            const k = encodeURIComponent(String(clave).trim());
+            const v = encodeURIComponent(String(valor).trim());
+            return `${k}=${v}`;
+        });
+
+        return `${urlLimpia}?${pares.join("&")}`;
+    };
+
+    const urlGenerada = construirURLConsulta(
+        "https://api.formacion.es/v1",
+        "cursos/buscar",
+        ["modulo", "Desarrollo Web en Entorno Cliente"],
+        ["notaMinima", 7],
+        ["orden", "prioritario & seguro"]
+    );
+    console.log("URL Final Generada y Sanitizada:");
+    console.log(urlGenerada);
+    console.groupEnd();
+}
+
+laboratorioFunciones();
+        })();
+      } catch (err) {
+        console.error("Excepción en la ejecución:", err.message);
+      }
+    }
+
+    document.getElementById('btn-ejecutar').onclick = () => {
+      ejecutarSolucion();
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      ejecutarSolucion();
+    });
+  </script>
+</body>
+</html>

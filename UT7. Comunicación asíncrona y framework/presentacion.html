@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UT7: Comunicación Asíncrona, Frameworks (Angular) y Bases NoSQL (MongoDB)</title>
+  <title>UT7: Comunicación Asíncrona (AJAX), Fetch API, Formatos y Frameworks</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --accent: #e11d48;
+      --accent: #ec4899;
       --text-main: #0f172a;
       --text-muted: #475569;
     }
@@ -135,7 +135,7 @@
     .index-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       flex-grow: 1;
       align-content: start;
       overflow-y: auto;
@@ -144,10 +144,10 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
       box-sizing: border-box;
     }
@@ -302,6 +302,28 @@
       color: #334155;
     }
 
+    /* Componente de Solución Embebida Desplegable */
+    .reto-solution-details {
+      transition: all 0.25s ease-in-out;
+      border: 1.5px solid #6366f1 !important;
+      background: #ffffff !important;
+      border-radius: 10px !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+    }
+    .reto-solution-details[open] {
+      background: #fdfcff !important;
+      border-color: #4f46e5 !important;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.12) !important;
+    }
+    .reto-solution-details summary {
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+    }
+    .reto-solution-details summary::-webkit-details-marker {
+      display: none;
+    }
+
     .reto-action-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -400,9 +422,9 @@
       
       <section class="cover-slide">
         <div class="badge">07</div>
-        <h1>UT7: Comunicación Asíncrona, Frameworks (Angular) y Bases NoSQL (MongoDB)</h1>
+        <h1>UT7: Comunicación Asíncrona (AJAX), Fetch API, Formatos y Frameworks</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Asincronía moderna con Fetch API y Async/Await, arquitectura Single Page Application (SPA), framework Angular (componentes standalone, bindings, routing) y modelado NoSQL con MongoDB.</div>
+        <div class="tagline">Fundamentos de comunicación asíncrona cliente-servidor, XMLHttpRequest vs Fetch API, modificación dinámica del DOM, formatos de datos (JSON, XML, FormData), librerías (Axios, jQuery) y frameworks SPA, compatibilidad CORS y pruebas con DevTools.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -416,29 +438,43 @@
           <div class="index-card">
             <div class="index-badge">1</div>
             <div class="index-info">
-              <div class="index-title">Asincronía en JavaScript: Event Loop, Promesas y Fetch API</div>
-              <p class="index-desc">JavaScript gestiona operaciones asíncronas de red mediante el bucle de eventos y la estructura de Promesas.</p>
+              <div class="index-title">Fundamentos de la Comunicación Asíncrona Cliente-Servidor (AJAX)</div>
+              <p class="index-desc">La web moderna se basa en la comunicación asíncrona entre el navegador y los servidores web mediante el modelo AJAX (Asynchronous JavaScript and XML).</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">2</div>
             <div class="index-info">
-              <div class="index-title">Arquitectura SPA (Single Page Applications)</div>
-              <p class="index-desc">Una SPA (Single Page Application) es una aplicación web que carga un único documento HTML inicial y actualiza dinámicamente el contenido sin recargar la página completa.</p>
+              <div class="index-title">Objetos y Métodos para la Comunicación Asíncrona: XMLHttpRequest vs Fetch API</div>
+              <p class="index-desc">JavaScript ofrece dos APIs nativas para la comunicación asíncrona: el objeto clásico XMLHttpRequest y la moderna Fetch API.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">3</div>
             <div class="index-info">
-              <div class="index-title">Introducción al Framework Angular</div>
-              <p class="index-desc">Angular es un framework de desarrollo frontend mantenido por Google diseñado para construir SPAs escalables en TypeScript.</p>
+              <div class="index-title">Formatos de Envío y Recepción de Datos: JSON, XML y FormData</div>
+              <p class="index-desc">El intercambio de información en la web utiliza formatos estructurados de serialización que condicionan el tamaño del mensaje y su facilidad de procesamiento.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">4</div>
             <div class="index-info">
-              <div class="index-title">Persistencia NoSQL con MongoDB y Modelado Documental</div>
-              <p class="index-desc">MongoDB es una base de datos NoSQL orientada a documentos que almacena información en formato flexible de tipo BSON (Binary JSON).</p>
+              <div class="index-title">Modificación Dinámica del DOM con Datos Asíncronos y Estados de UI</div>
+              <p class="index-desc">La obtención de datos remotos exige una gestión escrupulosa de la experiencia de usuario (UX) mediante el control explícito de los cuatro estados de la interfaz.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">5</div>
+            <div class="index-info">
+              <div class="index-title">Introducción y Uso de Librerías y Frameworks: Fetch API, Axios, jQuery y SPAs</div>
+              <p class="index-desc">El ecosistema de comunicaciones asíncronas abarca desde librerías especializadas en red hasta la arquitectura integrada de frameworks SPA.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">6</div>
+            <div class="index-info">
+              <div class="index-title">Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</div>
+              <p class="index-desc">La comunicación asíncrona está fuertemente condicionada por políticas de seguridad del navegador y requiere herramientas de auditoría en red.</p>
             </div>
           </div>
         </div>
@@ -446,17 +482,53 @@
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
-          <h2>1. Asincronía en JavaScript: Event Loop, Promesas y Fetch API</h2>
+          <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
+          <h2>1. Fundamentos de la Comunicación Asíncrona Cliente-Servidor (AJAX)</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>JavaScript gestiona operaciones asíncronas de red mediante el bucle de eventos y la estructura de Promesas:</p><ul class="concept-list"><li><strong>Promesas (Promises):</strong> Objetos que representan el resultado eventual (éxito o fallo) de una operación asíncrona. Tienen 3 estados: <em>Pending</em> (pendiente), <em>Fulfilled</em> (resuelta con éxito) o <em>Rejected</em> (rechazada con error).</li><li><strong>Sintaxis <code>async / await</code>:</strong> Azúcar sintáctico sobre Promesas que permite escribir código asíncrono con apariencia secuencial sincrónica utilizando bloques <code>try...catch</code> para captura de errores.</li><li><strong>Fetch API:</strong> Interfaz nativa basada en Promesas para realizar peticiones HTTP (<code>fetch(url, options)</code>).</li></ul></div>
+            <div class="card-text"><p>La web moderna se basa en la comunicación asíncrona entre el navegador y los servidores web mediante el modelo <strong>AJAX (Asynchronous JavaScript and XML)</strong>:</p>
+<ul class="concept-list">
+  <li><strong>Modelo Síncrono Tradicional vs Modelo Asíncrono AJAX:</strong>
+    <ul>
+      <li><em>Modelo Tradicional (Síncrono):</em> Cada interacción del usuario (como enviar un formulario o hacer clic en un enlace) requiere solicitar una página HTML completa al servidor. La pantalla se queda en blanco temporalmente, se descarga todo el documento de nuevo y se pierde el estado visual previo de la aplicación.</li>
+      <li><em>Modelo AJAX (Asíncrono):</em> Las peticiones de datos se transmiten en <strong>segundo plano (background)</strong> sin bloquear la interfaz de usuario ni recargar la página. El servidor responde únicamente con datos en bruto (habitualmente JSON), y JavaScript actualiza de forma granular exclusivamente la sección del DOM afectada.</li>
+    </ul>
+  </li>
+  <li><strong>El Ciclo de Petición-Respuesta HTTP/HTTPS:</strong>
+    <p>Protocolo sin estado cliente-servidor compuesto por:</p>
+    <ul>
+      <li><strong>Petición (Request):</strong> Método/Verbo HTTP, URL de destino, Cabeceras (Headers: <code>Content-Type</code>, <code>Authorization</code>) y Cuerpo opcional (Payload/Body).</li>
+      <li><strong>Respuesta (Response):</strong> Código de estado HTTP, Cabeceras del servidor y Cuerpo con los datos.</li>
+    </ul>
+  </li>
+  <li><strong>Métodos HTTP RESTful Principales:</strong>
+    <ul>
+      <li><code>GET</code>: Recuperar o consultar recursos sin alterar el estado en el servidor (idempotente y seguro).</li>
+      <li><code>POST</code>: Crear un nuevo recurso en el servidor con los datos facilitados en el cuerpo.</li>
+      <li><code>PUT</code>: Reemplazar completamente un recurso existente.</li>
+      <li><code>PATCH</code>: Actualizar parcialmente campos específicos de un recurso existente.</li>
+      <li><code>DELETE</code>: Eliminar un recurso del servidor.</li>
+    </ul>
+  </li>
+  <li><strong>Códigos de Estado HTTP Fundamentales:</strong>
+    <ul>
+      <li><code>2xx (Éxito):</code> <code>200 OK</code>, <code>201 Created</code> (creación exitosa), <code>204 No Content</code> (éxito sin cuerpo de respuesta).</li>
+      <li><code>3xx (Redirección):</code> <code>301 Moved Permanently</code>, <code>304 Not Modified</code> (recurso en caché).</li>
+      <li><code>4xx (Error de Cliente):</code> <code>400 Bad Request</code> (datos incorrectos), <code>401 Unauthorized</code> (requiere autenticación), <code>403 Forbidden</code> (sin permisos), <code>404 Not Found</code> (recurso inexistente), <code>422 Unprocessable Entity</code> (fallo de validación).</li>
+      <li><code>5xx (Error de Servidor):</code> <code>500 Internal Server Error</code>, <code>502 Bad Gateway</code>, <code>503 Service Unavailable</code>.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Gestión avanzada de colas asíncronas y cancelación de peticiones de red:</p><ul class="concept-list"><li><strong>Microtareas vs Macrotareas:</strong> Las Promesas (<code>.then</code>/<code>await</code>) y <code>queueMicrotask</code> se ejecutan en la <strong>Microtask Queue</strong>, la cual se vacía por completo antes de procesar la siguiente macrotarea (<code>setTimeout</code>, eventos I/O) del Event Loop.</li><li><strong>Mapeo de Errores en Fetch:</strong> <code>fetch()</code> NO rechaza la promesa ante códigos HTTP 404 o 500. Debe comprobarse manualmente la propiedad <code>response.ok</code>.</li><li><strong>AbortController API:</strong> Permite cancelar peticiones HTTP en curso mediante un <code>AbortSignal</code> ante eventos de tiempo de espera (timeout) o navegación activa.</li></ul></div>
+            <div class="card-text"><p><strong>De AJAX Clásico a la Arquitectura SPA y JAMstack:</strong></p>
+<ul class="concept-list">
+  <li><strong>La Revolución de las Single Page Applications (SPA):</strong> Al independizar la obtención de datos del renderizado HTML, las aplicaciones web funcionan con la misma fluidez e inmediatez que una aplicación nativa de escritorio o móvil, comunicándose exclusivamente mediante APIs RESTful o GraphQL.</li>
+  <li><strong>Idempotencia en APIs REST:</strong> Métodos como GET, PUT y DELETE son idempotentes (ejecutarlos múltiples veces produce el mismo resultado en el servidor). POST no es idempotente (repetirlo genera múltiples recursos duplicados).</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -480,25 +552,100 @@ obtenerDatos(&quot;https://api.ejemplo.com/v1/usuarios&quot;).then(res =&gt; con
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
-          <h2>🎯 Reto: Petición Asíncrona Robusta con Fetch y Async/Await</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 1</span>
+          <h2>🎯 Reto 1: Simulador de Peticiones HTTP y Clasificador de Respuestas por Código de Estado</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Crea una función asíncrona con &#x27;async/await&#x27; para consultar usuarios desde una API pública (&#x27;https://jsonplaceholder.typicode.com/users&#x27;), controlando errores de red, verificando &#x27;response.ok&#x27; y permitiendo la cancelación con &#x27;AbortController&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una función llamada `procesarRespuestaServidor(respuestaHttp)` que reciba un objeto simulando una respuesta HTTP (con propiedades `status`, `statusText`, `headers` y `data`). Debe clasificar la respuesta en una de las 4 familias (Éxito 2xx, Redirección 3xx, Error de Cliente 4xx, Error de Servidor 5xx), extraer el tipo de contenido desde la cabecera `Content-Type`, y devolver un informe estructurado listo para mostrar al usuario.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa Math.floor(respuesta.status / 100) para obtener el dígito principal de la familia (2, 3, 4 o 5). Valida el statusText y devuelve un objeto con { familia, esValido, mensaje }.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La correcta interpretación de los códigos de estado HTTP es indispensable para que el frontend gestione la navegación y notifique errores al usuario de forma contextualizada.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function procesarRespuestaServidor(respuesta) {
+    const status = respuesta.status;
+    const familiaCodigo = Math.floor(status / 100);
+    const contentType = respuesta.headers?.[&quot;Content-Type&quot;] || &quot;desconocido&quot;;
+
+    let diagnostico = {
+        status,
+        statusText: respuesta.statusText || &quot;Sin descripción&quot;,
+        contentType,
+        esExito: false,
+        categoria: &quot;&quot;,
+        mensajeUsuario: &quot;&quot;
+    };
+
+    switch (familiaCodigo) {
+        case 2:
+            diagnostico.esExito = true;
+            diagnostico.categoria = &quot;2xx - Éxito&quot;;
+            diagnostico.mensajeUsuario = status === 201 
+                ? &quot;Registro creado correctamente.&quot; 
+                : &quot;Operación realizada con éxito.&quot;;
+            break;
+        case 3:
+            diagnostico.categoria = &quot;3xx - Redirección&quot;;
+            diagnostico.mensajeUsuario = &quot;El recurso ha sido reubicado.&quot;;
+            break;
+        case 4:
+            diagnostico.categoria = &quot;4xx - Error de Cliente&quot;;
+            diagnostico.mensajeUsuario = status === 404 
+                ? &quot;El elemento solicitado no existe.&quot; 
+                : &quot;Solicitud incorrecta o sin autorización suficiente.&quot;;
+            break;
+        case 5:
+            diagnostico.categoria = &quot;5xx - Error de Servidor&quot;;
+            diagnostico.mensajeUsuario = &quot;Fallo interno en el servidor. Reintentando en unos momentos...&quot;;
+            break;
+        default:
+            diagnostico.categoria = &quot;Código Desconocido&quot;;
+            diagnostico.mensajeUsuario = &quot;Respuesta de red no estandarizada.&quot;;
+    }
+
+    console.log(&quot;=== Diagnóstico de Respuesta HTTP ===&quot;);
+    console.table(diagnostico);
+    return diagnostico;
+}
+
+// Prueba con simulación de respuestas
+procesarRespuestaServidor({
+    status: 200,
+    statusText: &quot;OK&quot;,
+    headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
+    data: { usuarios: [] }
+});
+
+procesarRespuestaServidor({
+    status: 404,
+    statusText: &quot;Not Found&quot;,
+    headers: { &quot;Content-Type&quot;: &quot;application/json&quot; }
+});</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 1 en Taller
             </a>
           </div>
         </div>
@@ -506,17 +653,50 @@ obtenerDatos(&quot;https://api.ejemplo.com/v1/usuarios&quot;).then(res =&gt; con
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
-          <h2>2. Arquitectura SPA (Single Page Applications)</h2>
+          <span class="badge-sub">Bloque 2 de 6 · Teoría y Demostración</span>
+          <h2>2. Objetos y Métodos para la Comunicación Asíncrona: XMLHttpRequest vs Fetch API</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Una <strong>SPA (Single Page Application)</strong> es una aplicación web que carga un único documento HTML inicial y actualiza dinámicamente el contenido sin recargar la página completa:</p><ul class="concept-list"><li><strong>Enrutamiento en Cliente (Client-Side Routing):</strong> Intercepción de eventos de navegación para cambiar la vista cliente sin realizar solicitudes de página completa al servidor.</li><li><strong>HTML5 History API:</strong> Métodos <code>history.pushState()</code> y <code>history.replaceState()</code> combinados con el evento <code>window.addEventListener('popstate')</code> para manipular la URL visible y mantener el funcionamiento de los botones Atrás/Adelante.</li></ul></div>
+            <div class="card-text"><p>JavaScript ofrece dos APIs nativas para la comunicación asíncrona: el objeto clásico <code>XMLHttpRequest</code> y la moderna <code>Fetch API</code>:</p>
+<ul class="concept-list">
+  <li><strong>El Objeto Clásico <code>XMLHttpRequest</code> (XHR):</strong>
+    <p>API original introducida por Microsoft y estandarizada por W3C. Basada en eventos y estados:</p>
+    <ul>
+      <li>Creación: <code>const xhr = new XMLHttpRequest();</code></li>
+      <li>Configuración: <code>xhr.open(metodo, url, esAsincrono);</code></li>
+      <li>Cabeceras: <code>xhr.setRequestHeader("Content-Type", "application/json");</code></li>
+      <li>Envío: <code>xhr.send(cuerpo);</code></li>
+      <li>Propiedad <code>xhr.readyState</code> (Estados de 0 a 4): 0 (UNSENT), 1 (OPENED), 2 (HEADERS_RECEIVED), 3 (LOADING), <strong>4 (DONE)</strong>.</li>
+      <li>Evento de escucha: <code>xhr.onreadystatechange</code> o <code>xhr.onload</code>.</li>
+      <li>Inconvenientes: Sintaxis verbosa basada en callbacks que provocaba <em>Callback Hell</em> en llamadas encadenadas.</li>
+    </ul>
+  </li>
+  <li><strong>La API Moderna <code>Fetch API</code> (Estándar W3C/WHATWG):</strong>
+    <p>Reemplazo moderno basado en <strong>Promesas de ES6</strong> que permite una sintaxis imperativa limpia mediante <code>async / await</code>:</p>
+    <ul>
+      <li>Invocación básica: <code>const respuesta = await fetch(url, opciones);</code></li>
+      <li>Opciones de configuración: <code>method</code>, <code>headers</code>, <code>body</code> (usualmente <code>JSON.stringify(datos)</code>), <code>mode: 'cors'</code>, <code>credentials: 'include'</code>.</li>
+      <li>Lectura del cuerpo según formato:
+        <ul>
+          <li><code>await respuesta.json()</code>: Parsea el cuerpo directamente a objeto JavaScript.</li>
+          <li><code>await respuesta.text()</code>: Lee el cuerpo como texto plano o XML.</li>
+          <li><code>await respuesta.blob()</code>: Descarga ficheros binarios (imágenes, PDFs).</li>
+        </ul>
+      </li>
+      <li><strong>⚠️ La Gran Trampa de Fetch:</strong> Fetch <strong>NO rechaza la Promesa</strong> en códigos de error HTTP como 404 o 500 (solo la rechaza si hay un fallo físico de red o DNS). Por ello, es obligatorio comprobar siempre la propiedad booleana <code>if (!respuesta.ok) throw new Error(...)</code>.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Arquitectura de componentes y renderizado dinámico en cliente:</p><ul class="concept-list"><li><strong>Componentes Web Nativos (Web Components):</strong> Conjunto de APIs de la plataforma web formadas por <strong>Custom Elements</strong> (etiquetas personalizadas), <strong>Shadow DOM</strong> (árbol DOM encapsulado e independiente que aísla los estilos CSS) y <code>&lt;template&gt;</code> HTML.</li><li><strong>Gestión de Estado Centralizada:</strong> Mantener una fuente única de la verdad (Single Source of Truth) para sincronizar las vistas UI ante cambios de datos en la SPA.</li></ul></div>
+            <div class="card-text"><p><strong>Cancelación de Peticiones Fetch con <code>AbortController</code>:</strong></p>
+<ul class="concept-list">
+  <li><strong>Control de Timeouts Nativos:</strong> Fetch no posee un parámetro nativo de timeout. La forma estándar de cancelarla tras un tiempo límite es asociar un <code>AbortController</code>: <code>fetch(url, { signal: AbortSignal.timeout(5000) })</code>, cancelando la petición automáticamente si el servidor tarda más de 5 segundos.</li>
+  <li><strong>Streaming de Respuestas:</strong> Fetch soporta <code>response.body.getReader()</code> para procesar flujos continuos de datos (Streaming) en tiempo real conforme van llegando del servidor.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -535,25 +715,84 @@ if (typeof window !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
-          <h2>🎯 Reto: Mini-Router SPA en JavaScript Puro</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 2</span>
+          <h2>🎯 Reto 2: Cliente API Dual con Comparativa Funcional entre XMLHttpRequest y Fetch con Async/Await</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Implementa un sencillo router en JavaScript que intercepte los clics en enlaces &#x27;&lt;a href=&quot;#...&quot;&gt;&#x27;, lea el hash de la URL (&#x27;window.location.hash&#x27;) y renderice la vista correspondiente dentro de un contenedor &#x27;#app&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un módulo que implemente la misma petición de consulta a una API REST utilizando dos funciones distintas: 1) `consultarConXHR(url)` implementada con el objeto clásico `XMLHttpRequest`, y 2) `consultarConFetch(url)` implementada con la moderna `Fetch API` y sintaxis `async/await`. Ambas deben devolver una Promesa que resuelva los datos parseados a JSON o rechace con un error descriptivo si el código HTTP no es satisfactorio.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">En XHR, escucha xhr.onload y comprueba xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300. En Fetch, comprueba response.ok antes de hacer response.json().</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Comparar XHR y Fetch permite comprender la evolución de la asincronía en JavaScript, desde los callbacks basados en eventos hasta las Promesas nativas con async/await.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// 1. Implementación clásica con XMLHttpRequest encapsulada en Promesa
+function consultarConXHR(url) {
+    return new Promise((resolve, reject) =&gt; {
+        const xhr = new XMLHttpRequest();
+        xhr.open(&quot;GET&quot;, url, true);
+        xhr.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);
+
+        xhr.onload = () =&gt; {
+            if (xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300) {
+                try {
+                    const datos = JSON.parse(xhr.responseText);
+                    resolve({ motor: &quot;XMLHttpRequest&quot;, status: xhr.status, datos });
+                } catch (e) {
+                    reject(new Error(&quot;Error al parsear JSON en XHR: &quot; + e.message));
+                }
+            } else {
+                reject(new Error(\`Error XHR [\${xhr.status}]: \${xhr.statusText}\`));
+            }
+        };
+
+        xhr.onerror = () =&gt; reject(new Error(&quot;Fallo de red a nivel de socket en XHR.&quot;));
+        xhr.send();
+    });
+}
+
+// 2. Implementación moderna con Fetch API y Async/Await
+async function consultarConFetch(url) {
+    try {
+        const respuesta = await fetch(url, { headers: { &quot;Accept&quot;: &quot;application/json&quot; } });
+        
+        if (!respuesta.ok) {
+            throw new Error(\`Error Fetch [\${respuesta.status}]: \${respuesta.statusText}\`);
+        }
+
+        const datos = await respuesta.json();
+        return { motor: &quot;Fetch API&quot;, status: respuesta.status, datos };
+    } catch (error) {
+        throw new Error(&quot;Fallo en cliente Fetch: &quot; + error.message);
+    }
+}
+
+// Ejemplo de prueba:
+// consultarConFetch(&quot;https://jsonplaceholder.typicode.com/todos/1&quot;).then(console.log);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 2 en Taller
             </a>
           </div>
         </div>
@@ -561,17 +800,46 @@ if (typeof window !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
-          <h2>3. Introducción al Framework Angular</h2>
+          <span class="badge-sub">Bloque 3 de 6 · Teoría y Demostración</span>
+          <h2>3. Formatos de Envío y Recepción de Datos: JSON, XML y FormData</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p><strong>Angular</strong> es un framework de desarrollo frontend mantenido por Google diseñado para construir SPAs escalables en TypeScript:</p><ul class="concept-list"><li><strong>Arquitectura Basada en Componentes:</strong> La interfaz se divide en componentes modulares compuestos por una plantilla HTML (Template), estilos CSS y una clase TypeScript (<code>@Component</code>).</li><li><strong>Inyección de Dependencias (Dependency Injection):</strong> Patrón de diseño donde el framework suministra automáticamente las instancias de los servicios requeridos a los componentes.</li><li><strong>Enlace de Datos Bidireccional (Two-Way Data Binding):</strong> Sincronización automática de datos entre el modelo de TypeScript y la vista HTML mediante <code>[(ngModel)]</code> o Signals modernos.</li></ul></div>
+            <div class="card-text"><p>El intercambio de información en la web utiliza formatos estructurados de serialización que condicionan el tamaño del mensaje y su facilidad de procesamiento:</p>
+<ul class="concept-list">
+  <li><strong>Formato JSON (JavaScript Object Notation):</strong>
+    <p>El estándar absoluto en la web moderna. Ligero, compacto y nativo para JavaScript:</p>
+    <ul>
+      <li>Tipos válidos: Cadenas (con comillas dobles obligatorias <code>"clave"</code>), números, booleanos, arrays, objetos anidados y <code>null</code>. No admite funciones, comentarios ni valores <code>undefined</code>.</li>
+      <li>Serialización: <code>JSON.stringify(objeto, sustituto, sangria)</code>: Convierte objetos en memoria a cadenas para envío HTTP.</li>
+      <li>Deserialización: <code>JSON.parse(cadenaTexto)</code>: Parsea una cadena JSON a objetos vivos. Arroja <em>SyntaxError</em> si la cadena está malformada (requiere <code>try/catch</code>).</li>
+    </ul>
+  </li>
+  <li><strong>Formato XML (eXtensible Markup Language):</strong>
+    <p>Formato clásico basado en etiquetas jerárquicas extensibles. Más pesado debido a las etiquetas de apertura y cierre duplicadas:</p>
+    <ul>
+      <li>Procesamiento en Cliente: Se parsea mediante la API nativa <code>const doc = new DOMParser().parseFromString(xmlString, "text/xml");</code>.</li>
+      <li>Navegación: El documento resultante se navega exactamente igual que el DOM HTML, utilizando métodos como <code>doc.getElementsByTagName("item")</code> y <code>nodo.textContent</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Objeto <code>FormData</code> (Transmisión Multipart):</strong>
+    <p>Diseñado específicamente para el envío de formularios complejos y transferencia binaria de ficheros (<code>multipart/form-data</code>):</p>
+    <ul>
+      <li>Creación: <code>const fd = new FormData();</code></li>
+      <li>Añadir campos: <code>fd.append("usuario", "marcos"); fd.append("avatar", inputFichero.files[0]);</code></li>
+      <li>Al enviar con <code>fetch(url, { method: "POST", body: fd })</code>, el navegador configura <strong>automáticamente</strong> la cabecera <code>Content-Type: multipart/form-data; boundary=...</code>. Jamás se debe sobreescribir esa cabecera manualmente.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Programación reactiva con RxJS y nuevos paradigmas de reactividad en Angular:</p><ul class="concept-list"><li><strong>RxJS y Observables:</strong> Biblioteca de programación reactiva que maneja flujos de datos asíncronos mediante colecciones observables (<code>Observable</code>, <code>Subject</code>) y operadores como <code>pipe()</code>, <code>map()</code> y <code>switchMap()</code>.</li><li><strong>Angular Signals:</strong> Modelo reactivo moderno que realiza un seguimiento fino y granular de las dependencias de datos actualizando solo las partes afectadas del DOM.</li><li><strong>Módulos y Standalone Components:</strong> Los componentes independientes (<code>standalone: true</code>) simplifican la arquitectura eliminando la necesidad de los antiguos <code>NgModule</code>.</li></ul></div>
+            <div class="card-text"><p><strong>El Reemplazador y Revividor en JSON:</strong></p>
+<ul class="concept-list">
+  <li><strong>JSON.parse con Función Reviver:</strong> Permite transformar datos durante el parseo, como convertir automáticamente cadenas de fecha ISO a objetos nativos <code>new Date()</code>: <code>JSON.parse(texto, (k, v) => /^\d{4}-\d{2}-\d{2}/.test(v) ? new Date(v) : v)</code>.</li>
+  <li><strong>JSON.stringify con Indentación:</strong> <code>JSON.stringify(datos, null, 2)</code> formatea la salida con sangría de 2 espacios, esencial para exportación de ficheros y depuración visual.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -594,25 +862,91 @@ contadorSignal.set(10);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
-          <h2>🎯 Reto: Componente Standalone en Angular</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 3</span>
+          <h2>🎯 Reto 3: Conversor y Validador de Datos Bidireccional JSON ⇄ XML</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Escribe la definición de un componente Standalone en TypeScript con decorador &#x27;@Component&#x27; (standalone: true) que gestione un contador interactivo con binding de eventos e interpolación.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una utilidad que contenga dos funciones: 1) `xmlAJson(cadenaXML)` que utilice `DOMParser` para leer una estructura XML simple de estudiantes y devuelva un array de objetos JavaScript planos, y 2) `jsonAXml(arrayObjetos)` que reciba la colección y devuelva una cadena de texto XML bien formateada con etiquetas raíz `&lt;estudiantes&gt;` e hijos `&lt;estudiante&gt;`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa new DOMParser().parseFromString(cadenaXML, &quot;text/xml&quot;). Itera sobre getElementsByTagName(&quot;estudiante&quot;) y extrae textContent de cada hijo.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El dominio del parseo de múltiples formatos de datos asegura la interoperabilidad de la aplicación cliente con sistemas legados basados en XML (como servicios SOAP) y arquitecturas modernas basadas en JSON.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Conversor de XML a Objetos JSON
+function xmlAJson(cadenaXML) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(cadenaXML, &quot;text/xml&quot;);
+    
+    // Comprobación de errores de parseo XML
+    const parseError = doc.querySelector(&quot;parsererror&quot;);
+    if (parseError) {
+        throw new Error(&quot;Sintaxis XML defectuosa: &quot; + parseError.textContent);
+    }
+
+    const estudiantesXML = doc.getElementsByTagName(&quot;estudiante&quot;);
+    const resultado = [];
+
+    for (const est of estudiantesXML) {
+        resultado.push({
+            id: Number(est.getAttribute(&quot;id&quot;)),
+            nombre: est.getElementsByTagName(&quot;nombre&quot;)[0]?.textContent || &quot;&quot;,
+            nota: Number(est.getElementsByTagName(&quot;nota&quot;)[0]?.textContent || 0)
+        });
+    }
+
+    return resultado;
+}
+
+// Conversor de Objetos JSON a XML
+function jsonAXml(estudiantes) {
+    let xml = &#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\\n&lt;estudiantes&gt;\\n&#x27;;
+    
+    for (const est of estudiantes) {
+        xml += \`  &lt;estudiante id=&quot;\${est.id}&quot;&gt;\\n\`;
+        xml += \`    &lt;nombre&gt;\${est.nombre}&lt;/nombre&gt;\\n\`;
+        xml += \`    &lt;nota&gt;\${est.nota}&lt;/nota&gt;\\n\`;
+        xml += \`  &lt;/estudiante&gt;\\n\`;
+    }
+    
+    xml += &#x27;&lt;/estudiantes&gt;&#x27;;
+    return xml;
+}
+
+// Prueba con datos
+const xmlEntrada = \`&lt;estudiantes&gt;
+  &lt;estudiante id=&quot;1&quot;&gt;&lt;nombre&gt;Ana&lt;/nombre&gt;&lt;nota&gt;9.5&lt;/nota&gt;&lt;/estudiante&gt;
+  &lt;estudiante id=&quot;2&quot;&gt;&lt;nombre&gt;Luis&lt;/nombre&gt;&lt;nota&gt;7.2&lt;/nota&gt;&lt;/estudiante&gt;
+&lt;/estudiantes&gt;\`;
+
+const alumnos = xmlAJson(xmlEntrada);
+console.log(&quot;Objetos extraídos del XML:&quot;, alumnos);
+console.log(&quot;XML Regenerado:&quot;);
+console.log(jsonAXml(alumnos));</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 3 en Taller
             </a>
           </div>
         </div>
@@ -620,17 +954,33 @@ contadorSignal.set(10);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
-          <h2>4. Persistencia NoSQL con MongoDB y Modelado Documental</h2>
+          <span class="badge-sub">Bloque 4 de 6 · Teoría y Demostración</span>
+          <h2>4. Modificación Dinámica del DOM con Datos Asíncronos y Estados de UI</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p><strong>MongoDB</strong> es una base de datos NoSQL orientada a documentos que almacena información en formato flexible de tipo BSON (Binary JSON):</p><ul class="concept-list"><li><strong>Conceptos Clave vs Relacional:</strong> Las <em>Tablas</em> se convierten en <strong>Colecciones</strong>, las <em>Filas</em> se convierten en <strong>Documentos JSON/BSON</strong> y las <em>Columnas</em> en <strong>Campos</strong> de clave-valor.</li><li><strong>Identificador Único (<code>_id</code> / <code>ObjectId</code>):</strong> Cada documento generado incluye un campo <code>_id</code> obligatorio de 12 bytes que actúa como clave primaria.</li><li><strong>Operaciones CRUD Básicas:</strong> <code>insertOne()</code> / <code>insertMany()</code>, <code>find()</code>, <code>updateOne()</code> / <code>updateMany()</code>, <code>deleteOne()</code> / <code>deleteMany()</code>.</li></ul></div>
+            <div class="card-text"><p>La obtención de datos remotos exige una gestión escrupulosa de la <strong>experiencia de usuario (UX)</strong> mediante el control explícito de los cuatro estados de la interfaz:</p>
+<ul class="concept-list">
+  <li><strong>Los 4 Estados Fundamentales de la Interfaz Asíncrona (UI States):</strong>
+    <ul>
+      <li><strong>1. Estado Inicial / Vacío (Empty State):</strong> Mensaje o ilustración informativa cuando no hay datos disponibles o la búsqueda aún no se ha iniciado.</li>
+      <li><strong>2. Estado de Carga (Loading State):</strong> Indicador visual activo (spinner circular o <em>Skeleton Loading Screens</em>) que informa al usuario de que la petición está en curso y evita que el usuario pulse múltiples veces.</li>
+      <li><strong>3. Estado de Éxito (Success State):</strong> Renderizado de los datos recibidos mediante plantillas literales o creación segura de nodos DOM.</li>
+      <li><strong>4. Estado de Error (Error State):</strong> Mensaje comprensible que explica el motivo del fallo y ofrece un botón interactivo de <strong>reintento (Retry)</strong> sin recargar la página.</li>
+    </ul>
+  </li>
+  <li><strong>Skeleton Screens frente a Spinners:</strong> Las pantallas de esqueleto (tarjetas provisionales con fondo animado simulando texto y fotos) reducen la sensación subjetiva de tiempo de espera percibido frente a los spinners tradicionales.</li>
+  <li><strong>Paginación Asíncrona y Scroll Infinito (Infinite Scroll):</strong> Carga bajo demanda de lotes adicionales de datos (ej. mediante <code>IntersectionObserver</code> cuando el usuario alcanza el final del contenedor) agregando nuevos nodos sin reemplazar los existentes.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Modelado de datos documental e integración mediante ODM (Mongoose):</p><ul class="concept-list"><li><strong>Estrategias de Modelado:</strong> Documentos incrustados (Embedding) para relaciones de alta cardinalidad/lectura rápida frente a referencias (Referencing) para relaciones complejas.</li><li><strong>ODM Mongoose (Object Data Modeling):</strong> Biblioteca para Node.js que añade esquemas estrictos (Schemas), validaciones de campos y middleware sobre MongoDB.</li><li><strong>Framework de Agregación (Aggregation Pipeline):</strong> Procesamiento y transformación de datos en etapas secuenciales (<code>$match</code>, <code>$group</code>, <code>$project</code>, <code>$lookup</code>) similar a las consultas SQL avanzadas.</li></ul></div>
+            <div class="card-text"><p><strong>Optimización de Renderizado Reactivo:</strong></p>
+<ul class="concept-list">
+  <li><strong>Evitar Parpadeos (Flickering) de Carga Rápida:</strong> Si una petición asíncrona responde en menos de 100 ms, mostrar y quitar inmediatamente un spinner provoca un parpadeo visual molesto. Conviene retrasar la aparición del spinner 200 ms con un <code>setTimeout</code> cancelable.</li>
+  <li><strong>Sanitización en Plantillas Dinámicas:</strong> Al renderizar datos con Template Strings (<code>contenedor.innerHTML = `&lt;h3&gt;${usuario.nombre}&lt;/h3&gt;`</code>), se debe sanitizar previamente cualquier cadena textual para neutralizar caracteres HTML (<code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>) y prevenir ataques XSS.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -651,25 +1001,116 @@ console.log(&quot;Etapas de agregación configuradas:&quot;, pipeline.length);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
-          <h2>🎯 Reto: Pipeline de Agregación en MongoDB</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 4</span>
+          <h2>🎯 Reto 4: Catálogo Asíncrono con Skeleton Loading, Renderizado Dinámico y Manejo de Errores</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Escribe una consulta de agregación en MongoDB (db.ventas.aggregate([...])) que filtre las ventas completadas (&#x27;status: &quot;completed&quot;&#x27;), las agrupe por categoría calculando el importe total (&#x27;$group&#x27;, &#x27;$sum&#x27;) y ordene el resultado de mayor a menor (&#x27;$sort&#x27;).</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un componente que consuma una lista de productos desde una URL de prueba. Debe mostrar una estructura de Skeleton Loading mientras la petición esté activa (simulando 1 segundo de latencia con `setTimeout`), renderizar las tarjetas de productos con `DocumentFragment` y `textContent` en caso de éxito, y si la URL es incorrecta o falla, renderizar una tarjeta de error estilizada con un botón interactivo de reintento.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa una función asíncrona. Inyecta HTML con clase skeleton antes del fetch. Envuelve en try/catch y añade un event listener al botón de reintentar para volver a ejecutar la función.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La robusta gestión de los estados de carga, éxito y error diferencia las aplicaciones profesionales de los prototipos informales, garantizando resiliencia frente a caídas de red.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">class CatalogoAsincronoUI {
+    constructor(contenedorId, apiUrl) {
+        this.contenedor = document.getElementById(contenedorId);
+        this.apiUrl = apiUrl;
+    }
+
+    mostrarCargando() {
+        this.contenedor.innerHTML = \`
+            &lt;div style=&quot;display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: sans-serif;&quot;&gt;
+                &lt;div style=&quot;height: 80px; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite;&quot;&gt;&lt;/div&gt;
+                &lt;div style=&quot;height: 80px; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite;&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;p style=&quot;text-align: center; color: #64748b; font-size: 0.8em; margin-top: 6px;&quot;&gt;Cargando datos remotos...&lt;/p&gt;
+        \`;
+    }
+
+    mostrarError(mensaje) {
+        this.contenedor.innerHTML = \`
+            &lt;div style=&quot;padding: 16px; background: #fef2f2; border: 1px solid #f87171; border-radius: 8px; color: #b91c1c; font-family: sans-serif;&quot;&gt;
+                &lt;strong&gt;⚠️ Fallo de Conexión:&lt;/strong&gt; \${mensaje}
+                &lt;div style=&quot;margin-top: 10px;&quot;&gt;
+                    &lt;button id=&quot;btn-reintentar&quot; style=&quot;background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;&quot;&gt;
+                        🔄 Reintentar Ahora
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        \`;
+        this.contenedor.querySelector(&quot;#btn-reintentar&quot;).onclick = () =&gt; this.cargar();
+    }
+
+    mostrarDatos(items) {
+        this.contenedor.replaceChildren(); // Limpiar
+        const fragment = document.createDocumentFragment();
+
+        items.forEach(item =&gt; {
+            const card = document.createElement(&quot;div&quot;);
+            card.style.cssText = &quot;border: 1px solid #cbd5e1; padding: 12px; border-radius: 8px; margin-bottom: 8px; background: #fff;&quot;;
+
+            const tit = document.createElement(&quot;h4&quot;);
+            tit.style.margin = &quot;0 0 4px 0&quot;;
+            tit.textContent = item.title || item.nombre; // Seguro
+
+            const desc = document.createElement(&quot;p&quot;);
+            desc.style.margin = &quot;0&quot;;
+            desc.style.fontSize = &quot;0.85em&quot;;
+            desc.style.color = &quot;#64748b&quot;;
+            desc.textContent = item.body || item.descripcion || &quot;Sin descripción disponible.&quot;;
+
+            card.append(tit, desc);
+            fragment.appendChild(card);
+        });
+
+        this.contenedor.appendChild(fragment);
+    }
+
+    async cargar() {
+        this.mostrarCargando();
+        try {
+            // Simular retardo de red de 600ms para apreciar el skeleton
+            await new Promise(r =&gt; setTimeout(r, 600));
+
+            const res = await fetch(this.apiUrl);
+            if (!res.ok) throw new Error(\`HTTP \${res.status} (\${res.statusText})\`);
+
+            const datos = await res.json();
+            this.mostrarDatos(datos.slice(0, 4));
+        } catch (err) {
+            this.mostrarError(err.message);
+        }
+    }
+}
+
+// Simulación:
+// const catalogo = new CatalogoAsincronoUI(&#x27;mi-contenedor&#x27;, &#x27;https://jsonplaceholder.typicode.com/posts&#x27;);
+// catalogo.cargar();</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 4 en Taller
             </a>
           </div>
         </div>
@@ -677,37 +1118,424 @@ console.log(&quot;Etapas de agregación configuradas:&quot;, pipeline.length);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Taller Práctico</span>
-          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+          <span class="badge-sub">Bloque 5 de 6 · Teoría y Demostración</span>
+          <h2>5. Introducción y Uso de Librerías y Frameworks: Fetch API, Axios, jQuery y SPAs</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>El ecosistema de comunicaciones asíncronas abarca desde librerías especializadas en red hasta la arquitectura integrada de frameworks SPA:</p>
+<ul class="concept-list">
+  <li><strong>La Librería Axios:</strong>
+    <p>Cliente HTTP basado en Promesas para navegador y Node.js ampliamente adoptado en proyectos empresariales:</p>
+    <ul>
+      <li><em>Transformación Automática de JSON:</em> Serializa automáticamente los objetos a JSON al enviar y los deserializa al recibir, sin requerir <code>JSON.stringify()</code> ni <code>res.json()</code>.</li>
+      <li><em>Manejo de Errores Intuitivo:</em> Axios rechaza la Promesa automáticamente si el código HTTP es 4xx o 5xx, simplificando el bloque <code>try/catch</code>.</li>
+      <li><em>Interceptores de Petición y Respuesta:</em> Permiten adjuntar automáticamente tokens de autenticación JWT (<code>Authorization: Bearer ...</code>) a todas las peticiones salientes y gestionar refrescos de sesión de forma centralizada.</li>
+      <li><em>Instancias Personalizadas:</em> Creación de clientes con configuración base predefinida: <code>const api = axios.create({ baseURL: "https://api.empresa.com", timeout: 5000 });</code>.</li>
+    </ul>
+  </li>
+  <li><strong>jQuery AJAX (Perspectiva Histórica y Mantenimiento Legado):</strong>
+    <p>Los métodos <code>$.ajax()</code>, <code>$.get()</code> y <code>$.post()</code> fueron el estándar absoluto antes de la llegada de las Promesas y la Fetch API. Su uso en proyectos nuevos está desaconsejado, pero es imprescindible conocer su sintaxis para mantenimiento de código heredado.</p>
+  </li>
+  <li><strong>Comunicaciones Asíncronas en Frameworks SPA Modernos:</strong>
+    <ul>
+      <li><strong>Angular:</strong> Utiliza el módulo <code>HttpClient</code> basado en <em>Observables reactivos (RxJS)</em>, permitiendo operadores como <code>debounceTime</code>, <code>retry(3)</code> y cancelación automática al destruir componentes.</li>
+      <li><strong>React y Vue:</strong> Utilizan nativamente <code>fetch</code> o <code>axios</code> orquestados mediante hooks/composables reactivos (ej. <code>useEffect</code>, <code>useQuery</code> de TanStack Query o librerías de estado global).</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Ventajas de TanStack Query (React/Vue/Svelte) sobre Fetch Plano:</strong></p>
+<ul class="concept-list">
+  <li><strong>Caché Automática y Revalidación de Fondo:</strong> Las librerías modernas de gestión de datos asíncronos guardan en memoria las respuestas previas, revalidan datos automáticamente cuando la ventana recupera el foco (<em>Stale-While-Revalidate</em>) y eliminan peticiones duplicadas.</li>
+  <li><strong>Cancelación Masiva:</strong> Al desmontar una pantalla, cancelan automáticamente las peticiones de red pendientes para no consumir ancho de banda innecesario.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Ejemplo con Axios: Instancia personalizada, Interceptor y Petición
+// En un proyecto real: import axios from &#x27;axios&#x27;; o mediante CDN
+
+const clienteAPI = {
+    // Simulación de cliente HTTP estilo Axios con interceptor
+    tokenAcceso: &quot;TOKEN_SECRETO_JWT_2024&quot;,
+
+    async get(endpoint) {
+        console.log(`[Interceptor Saliente] Inyectando cabecera Authorization para: ${endpoint}`);
+        
+        const cabeceras = {
+            &quot;Authorization&quot;: `Bearer ${this.tokenAcceso}`,
+            &quot;Accept&quot;: &quot;application/json&quot;
+        };
+
+        const res = await fetch(`https://jsonplaceholder.typicode.com${endpoint}`, { headers: cabeceras });
+        
+        // Simulación del rechazo automático de Axios para códigos 4xx/5xx
+        if (!res.ok) {
+            const error = new Error(`Fallo Axios HTTP ${res.status}`);
+            error.response = { status: res.status, statusText: res.statusText };
+            throw error;
+        }
+
+        return { data: await res.json(), status: res.status };
+    }
+};
+
+// Consumo con manejo automático de errores
+clienteAPI.get(&quot;/users/1&quot;)
+    .then(respuesta =&gt; console.log(&quot;Usuario recuperado vía Axios-like:&quot;, respuesta.data.name))
+    .catch(err =&gt; console.error(&quot;Error capturado por Axios:&quot;, err.message));</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 5</span>
+          <h2>🎯 Reto 5: Gestor de Peticiones HTTP con Interceptor de Autenticación y Cancelación por Timeout</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña una clase cliente `HttpClient` que emule el comportamiento de Axios sobre Fetch API. Debe implementar: 1) Una configuración base con `baseURL` y `timeoutMs`, 2) Un interceptor que añada automáticamente una cabecera `Authorization: Bearer &lt;token&gt;` a cada petición, 3) Cancelación automática mediante `AbortSignal.timeout(timeoutMs)`, y 4) Conversión automática de la respuesta a JSON.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa AbortSignal.timeout(this.timeout) en el objeto de opciones de fetch. Lanza un error si response.ok es falso.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Crear una capa de abstracción HTTP centralizada desacopla los componentes de la aplicación de las URLs específicas y centraliza la inyección de credenciales y el control de tiempos de espera.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">class HttpClient {
+    constructor(baseURL = &quot;&quot;, timeoutMs = 5000) {
+        this.baseURL = baseURL.replace(/\\/$/, &quot;&quot;);
+        this.timeoutMs = timeoutMs;
+        this.tokenAuth = null;
+    }
+
+    setToken(token) {
+        this.tokenAuth = token;
+    }
+
+    async get(endpoint) {
+        const urlCompleta = this.baseURL + &quot;/&quot; + endpoint.replace(/^\\//, &quot;&quot;);
+        
+        // Configuración de cabeceras (Interceptor)
+        const headers = { &quot;Accept&quot;: &quot;application/json&quot; };
+        if (this.tokenAuth) {
+            headers[&quot;Authorization&quot;] = \`Bearer \${this.tokenAuth}\`;
+        }
+
+        try {
+            // Cancelación nativa con AbortSignal por timeout
+            const respuesta = await fetch(urlCompleta, {
+                method: &quot;GET&quot;,
+                headers,
+                signal: AbortSignal.timeout(this.timeoutMs)
+            });
+
+            if (!respuesta.ok) {
+                const error = new Error(\`Error HTTP \${respuesta.status}: \${respuesta.statusText}\`);
+                error.status = respuesta.status;
+                throw error;
+            }
+
+            const data = await respuesta.json();
+            return { data, status: respuesta.status };
+
+        } catch (error) {
+            if (error.name === &quot;TimeoutError&quot;) {
+                console.error(\`⏱️ Petición cancelada: Superó el tiempo límite de \${this.timeoutMs}ms.\`);
+            }
+            throw error;
+        }
+    }
+}
+
+// Comprobación de uso
+const api = new HttpClient(&quot;https://jsonplaceholder.typicode.com&quot;, 3000);
+api.setToken(&quot;MI_JWT_DE_PRUEBA&quot;);
+api.get(&quot;/todos/1&quot;).then(res =&gt; console.log(&quot;Datos recibidos:&quot;, res.data));</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 5 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 6 de 6 · Teoría y Demostración</span>
+          <h2>6. Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La comunicación asíncrona está fuertemente condicionada por políticas de seguridad del navegador y requiere herramientas de auditoría en red:</p>
+<ul class="concept-list">
+  <li><strong>La Política de Mismo Origen (Same-Origin Policy - SOP):</strong>
+    <p>Mecanismo fundamental de seguridad del navegador. Prohíbe que un script ejecutado en el origen A (ej. <code>http://midominio.com:80</code>) acceda libremente a los recursos o datos de un origen B diferente (distinto protocolo, dominio o puerto).</p>
+  </li>
+  <li><strong>CORS (Cross-Origin Resource Sharing):</strong>
+    <p>Estándar que permite a los servidores autorizar selectivamente peticiones procedentes de orígenes cruzados mediante cabeceras HTTP específicas:</p>
+    <ul>
+      <li><code>Access-Control-Allow-Origin: *</code> (o dominio específico <code>https://mi-frontend.es</code>).</li>
+      <li><code>Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS</code>.</li>
+      <li><code>Access-Control-Allow-Headers: Content-Type, Authorization</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Peticiones Preflight (Vuelo Previo con OPTIONS):</strong>
+    <p>Para peticiones complejas (ej. aquellas que usan métodos PUT/DELETE o cabeceras personalizadas como <code>Content-Type: application/json</code>), el navegador envía automáticamente una petición previa invisible con el método <code>OPTIONS</code> para consultar si el servidor autoriza la operación antes de transmitir la petición real.</p>
+  </li>
+  <li><strong>Auditoría y Pruebas en DevTools (Panel Network / Red):</strong>
+    <ul>
+      <li><strong>Filtro Fetch/XHR:</strong> Aísla exclusivamente las peticiones asíncronas ignorando imágenes y CSS.</li>
+      <li><strong>Inspección de Headers y Payload:</strong> Verificación de cabeceras de petición, cabeceras de respuesta y cuerpos JSON transmitidos.</li>
+      <li><strong>Gráfico en Cascada (Waterfall):</strong> Análisis de tiempos: DNS Lookup, TCP Handshake, SSL/TLS, <strong>TTFB (Time to First Byte)</strong> y tiempo de descarga del contenido.</li>
+      <li><strong>Simulación de Condiciones Hostiles:</strong> Modo <em>Offline</em> (sin conexión) y <em>Throttling</em> de velocidad (Fast 3G, Slow 3G) para verificar la robustez de los spinners y mensajes de error.</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Técnicas Profesionales de Mocking de APIs:</strong></p>
+<ul class="concept-list">
+  <li><strong>Mock Service Worker (MSW):</strong> Herramienta estándar que utiliza <em>Service Workers</em> para interceptar las peticiones Fetch a nivel de red en el navegador, devolviendo datos simulados sin necesidad de modificar ni una sola línea del código fuente real de la aplicación.</li>
+  <li><strong>APIs Públicas de Pruebas:</strong> Servicios como <em>JSONPlaceholder</em>, <em>DummyJSON</em> o <em>ReqRes</em> permiten desarrollar y probar la lógica cliente de forma inmediata sin depender de que el backend esté listo.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Diagnóstico de Fallos de Red y Origen Cruzado (CORS) con Fetch
+async function probarConexionSegura(urlDestino) {
+    console.group(`Auditoría de Red: ${urlDestino}`);
+    const tInicio = performance.now();
+
+    try {
+        const res = await fetch(urlDestino, {
+            method: &quot;GET&quot;,
+            headers: { &quot;Content-Type&quot;: &quot;application/json&quot; }
+        });
+
+        const latencia = (performance.now() - tInicio).toFixed(2);
+        console.log(`Respuesta HTTP recibida en ${latencia} ms. Código: ${res.status}`);
+
+        // Inspección de cabeceras CORS del servidor
+        const corsPermitido = res.headers.get(&quot;access-control-allow-origin&quot;);
+        console.log(&quot;Cabecera Access-Control-Allow-Origin del servidor:&quot;, corsPermitido || &quot;No especificada (Mismo origen)&quot;);
+
+    } catch (error) {
+        // En navegadores, los bloqueos por CORS se manifiestan genéricamente como TypeError: Failed to fetch
+        console.error(&quot;❌ Fallo en la petición de red (Posible bloqueo CORS o servidor caído):&quot;, error.message);
+    } finally {
+        console.groupEnd();
+    }
+}
+
+// probarConexionSegura(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
+          <h2>🎯 Reto 6: Laboratorio de Diagnóstico de Errores de Red y Simulación de Fallos CORS</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una función llamada `auditarEndpointAPI(url)` que intente realizar una petición con `fetch()` y analice minuciosamente el resultado. Si la petición falla, debe discriminar si el fallo se debió a un error de conexión/CORS (`TypeError: Failed to fetch`), a una cancelación por timeout con `AbortController` (`TimeoutError`), o a una respuesta con código de error HTTP (4xx o 5xx), registrando en consola un informe detallado con el tiempo de latencia medido mediante `performance.now()`.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa try/catch. Comprueba error.name === &quot;TimeoutError&quot; para tiempos agotados. Si res.ok es false, lee res.status. Mide tiempo con performance.now().</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La capacidad de clasificar con precisión la causa de un fallo asíncrono permite proporcionar al usuario una solución adecuada (revisar la conexión, reintentar o reportar un error del servidor).
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">async function auditarEndpointAPI(url, limiteMs = 3000) {
+    console.log(\`🔍 Auditando conectividad con: \${url} (Timeout: \${limiteMs}ms)\`);
+    const t0 = performance.now();
+
+    try {
+        const respuesta = await fetch(url, {
+            signal: AbortSignal.timeout(limiteMs)
+        });
+
+        const tiempoRespuestaMs = Number((performance.now() - t0).toFixed(2));
+
+        if (!respuesta.ok) {
+            return {
+                url,
+                estado: &quot;Error HTTP&quot;,
+                codigo: respuesta.status,
+                statusText: respuesta.statusText,
+                latenciaMs: tiempoRespuestaMs,
+                diagnostico: &quot;El servidor respondió, pero rechazó la solicitud (código &quot; + respuesta.status + &quot;).&quot;
+            };
+        }
+
+        return {
+            url,
+            estado: &quot;OK&quot;,
+            codigo: respuesta.status,
+            latenciaMs: tiempoRespuestaMs,
+            diagnostico: &quot;Conexión óptima y datos recibidos sin restricciones CORS.&quot;
+        };
+
+    } catch (error) {
+        const tiempoFalloMs = Number((performance.now() - t0).toFixed(2));
+
+        if (error.name === &quot;TimeoutError&quot;) {
+            return {
+                url,
+                estado: &quot;Timeout&quot;,
+                latenciaMs: tiempoFalloMs,
+                diagnostico: \`La petición fue cancelada tras superar el límite de \${limiteMs}ms.\`
+            };
+        }
+
+        return {
+            url,
+            estado: &quot;Fallo de Red / CORS&quot;,
+            latenciaMs: tiempoFalloMs,
+            diagnostico: &quot;Bloqueo por directiva CORS del navegador o servidor inalcanzable (Failed to fetch).&quot;
+        };
+    }
+}
+
+// Prueba con endpoint válido
+auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
+    .then(informe =&gt; console.table([informe]));</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 6 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Resumen Curricular</span>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (6)</h2>
         </div>
         <div class="final-workshop-card">
-          <ul class="final-ex-list">
+          <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
+            Cada uno de los siguientes retos ha sido propuesto tras la explicación de su bloque conceptual para afianzar los conocimientos adquiridos:
+          </p>
+          <ul class="final-ex-list" style="max-height: 380px; overflow-y: auto;">
             
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 1</span>
-        <div class="final-ex-text">
-          <strong>Consumo de API Externa Asíncrona con Fetch y Grid</strong>
-          <p>Buscador en vivo de usuarios y posts que consulta una API REST asíncrona mediante async/await, muestra spinners de carga y renderiza tarjetas dinámicas.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 1</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Simulador de Peticiones HTTP y Clasificador de Respuestas por Código de Estado</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 1: Fundamentos de la Comunicación Asíncrona Cliente-Servidor (AJAX)</p>
         </div>
+        <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 2</span>
-        <div class="final-ex-text">
-          <strong>Simulador de Componentes y Data-Binding Angular</strong>
-          <p>Entorno didáctico que emula el comportamiento de plantillas Angular, ilustrando interpolación {{ }}, property binding [ ] y two-way binding [( )] de forma visual.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 2</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Cliente API Dual con Comparativa Funcional entre XMLHttpRequest y Fetch con Async/Await</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 2: Objetos y Métodos para la Comunicación Asíncrona: XMLHttpRequest vs Fetch API</p>
         </div>
+        <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 3</span>
-        <div class="final-ex-text">
-          <strong>Visualizador Interactivo de Aggregation Pipelines (MongoDB)</strong>
-          <p>Herramienta visual que permite al estudiante cargar documentos BSON y aplicar interactivamente etapas $match, $group y $sort viendo la transformación paso a paso.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 3</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Conversor y Validador de Datos Bidireccional JSON ⇄ XML</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 3: Formatos de Envío y Recepción de Datos: JSON, XML y FormData</p>
         </div>
+        <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 4</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Catálogo Asíncrono con Skeleton Loading, Renderizado Dinámico y Manejo de Errores</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 4: Modificación Dinámica del DOM con Datos Asíncronos y Estados de UI</p>
+        </div>
+        <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 5</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Gestor de Peticiones HTTP con Interceptor de Autenticación y Cancelación por Timeout</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Introducción y Uso de Librerías y Frameworks: Fetch API, Axios, jQuery y SPAs</p>
+        </div>
+        <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 6</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Laboratorio de Diagnóstico de Errores de Red y Simulación de Fallos CORS</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</p>
+        </div>
+        <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
           </ul>
-          <div class="final-action-bar">
+          <div class="final-action-bar" style="margin-top: 10px;">
             <a href="ejercicios.html" class="btn-primary">
-              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+              💻 Abrir Taller Completo de Retos y Soluciones
             </a>
             <a href="../index.html" class="btn-secondary">
               🏠 Volver al Panel General

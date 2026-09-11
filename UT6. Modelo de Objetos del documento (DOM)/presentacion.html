@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UT6: Modelo de Objetos del Documento (DOM) y APIs REST</title>
+  <title>UT6: Modelo de Objetos del Documento (DOM) y Arquitectura Limpia</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --accent: #0d9488;
+      --accent: #06b6d4;
       --text-main: #0f172a;
       --text-muted: #475569;
     }
@@ -135,7 +135,7 @@
     .index-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       flex-grow: 1;
       align-content: start;
       overflow-y: auto;
@@ -144,10 +144,10 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
       box-sizing: border-box;
     }
@@ -302,6 +302,28 @@
       color: #334155;
     }
 
+    /* Componente de Solución Embebida Desplegable */
+    .reto-solution-details {
+      transition: all 0.25s ease-in-out;
+      border: 1.5px solid #6366f1 !important;
+      background: #ffffff !important;
+      border-radius: 10px !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+    }
+    .reto-solution-details[open] {
+      background: #fdfcff !important;
+      border-color: #4f46e5 !important;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.12) !important;
+    }
+    .reto-solution-details summary {
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+    }
+    .reto-solution-details summary::-webkit-details-marker {
+      display: none;
+    }
+
     .reto-action-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -400,9 +422,9 @@
       
       <section class="cover-slide">
         <div class="badge">06</div>
-        <h1>UT6: Modelo de Objetos del Documento (DOM) y APIs REST</h1>
+        <h1>UT6: Modelo de Objetos del Documento (DOM) y Arquitectura Limpia</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Estructura del árbol DOM, selección avanzada (querySelector), recorrido bidireccional, manipulación dinámica moderna (append, closest), y fundamentos de diseño y consumo de APIs RESTful.</div>
+        <div class="tagline">Estructura del DOM y niveles jerárquicos, propiedades y métodos, acceso y selección moderna, creación/modificación/eliminación de nodos, eventos del DOM y MutationObserver, diferencias entre navegadores y separación de capas.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -416,29 +438,43 @@
           <div class="index-card">
             <div class="index-badge">1</div>
             <div class="index-info">
-              <div class="index-title">El Árbol DOM y Jerarquía de Nodos</div>
-              <p class="index-desc">El Document Object Model (DOM) representa cualquier documento HTML como un árbol jerárquico de nodos orientados a objetos.</p>
+              <div class="index-title">Estructura del Árbol DOM y sus Niveles Jerárquicos</div>
+              <p class="index-desc">El Document Object Model (DOM) es una interfaz de programación estandarizada por el W3C y WHATWG que representa un documento HTML como un árbol jerárquico de nodos de objetos en memoria.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">2</div>
             <div class="index-info">
-              <div class="index-title">Selección y Recorrido del DOM (QuerySelector y Closest)</div>
-              <p class="index-desc">Selección y recorrido eficiente del árbol DOM mediante selectores CSS estandarizados.</p>
+              <div class="index-title">Objetos del DOM: Acceso a Elementos y Selección Moderna</div>
+              <p class="index-desc">Para manipular el documento, JavaScript debe localizar los elementos en memoria. La especificación ha evolucionado desde métodos clásicos hacia selectores CSS universales.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">3</div>
             <div class="index-info">
-              <div class="index-title">Manipulación Dinámica Moderna: Clases, Atributos y Dataset</div>
-              <p class="index-desc">Manipulación dinámica de la estructura, atributos y clases visuales del DOM.</p>
+              <div class="index-title">Creación, Inserción, Modificación y Eliminación de Nodos en el Documento</div>
+              <p class="index-desc">La alteración de la estructura del documento en tiempo de ejecución debe conciliar seguridad contra inyecciones de código y optimización de rendimiento.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">4</div>
             <div class="index-info">
-              <div class="index-title">Fundamentos de APIs RESTful y Códigos de Respuesta</div>
-              <p class="index-desc">Una API RESTful (Representational State Transfer) es una arquitectura de comunicación HTTP para el intercambio de datos estructurados (generalmente JSON).</p>
+              <div class="index-title">Manipulación de Atributos, Propiedades y Atributos de Datos (dataset)</div>
+              <p class="index-desc">En el DOM existe una diferencia sustancial entre los atributos HTML del marcado inicial y las propiedades vivas del objeto JavaScript en memoria.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">5</div>
+            <div class="index-info">
+              <div class="index-title">Programación de Eventos Asociados al DOM y Observación de Mutaciones (MutationObserver)</div>
+              <p class="index-desc">La sincronización entre el estado de carga del documento y la reacción ante cambios estructurales en el DOM se coordina mediante eventos de ciclo de vida y observadores reactivos.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">6</div>
+            <div class="index-info">
+              <div class="index-title">Diferencias entre Navegadores y Separación de Contenido, Estilo y Comportamiento</div>
+              <p class="index-desc">La arquitectura profesional de software en cliente exige neutralizar divergencias entre navegadores y aplicar rigurosamente la separación de las tres capas de la web.</p>
             </div>
           </div>
         </div>
@@ -446,17 +482,44 @@
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
-          <h2>1. El Árbol DOM y Jerarquía de Nodos</h2>
+          <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
+          <h2>1. Estructura del Árbol DOM y sus Niveles Jerárquicos</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>El <strong>Document Object Model (DOM)</strong> representa cualquier documento HTML como un árbol jerárquico de nodos orientados a objetos:</p><ul class="concept-list"><li><strong>Tipos Principales de Nodos:</strong> <code>Document</code> (raíz), <code>Element</code> (etiquetas HTML), <code>Text</code> (contenido textual dentro de etiquetas) y <code>Comment</code> (comentarios HTML).</li><li><strong>Propiedades de Navegación de Nodos (Incluyen texto/espacios):</strong> <code>parentNode</code>, <code>childNodes</code>, <code>firstChild</code>, <code>lastChild</code>, <code>nextSibling</code>, <code>previousSibling</code>.</li></ul></div>
+            <div class="card-text"><p>El <strong>Document Object Model (DOM)</strong> es una interfaz de programación estandarizada por el W3C y WHATWG que representa un documento HTML como un <strong>árbol jerárquico de nodos de objetos en memoria</strong>:</p>
+<ul class="concept-list">
+  <li><strong>Tipos de Nodos Fundamentales (Jerarquía <code>Node</code>):</strong>
+    <ul>
+      <li><code>Node.DOCUMENT_NODE</code> (Tipo 9): El nodo raíz supremo, representado por <code>document</code>.</li>
+      <li><code>Node.ELEMENT_NODE</code> (Tipo 1): Representa cada una de las etiquetas HTML del documento (<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code>).</li>
+      <li><code>Node.TEXT_NODE</code> (Tipo 3): Contiene el texto textual dentro de una etiqueta o entre elementos (incluyendo saltos de línea y espacios en blanco del código HTML).</li>
+      <li><code>Node.COMMENT_NODE</code> (Tipo 8): Comentarios HTML (<code>&lt;!-- ... --&gt;</code>).</li>
+    </ul>
+  </li>
+  <li><strong>Navegación Tradicional por Nodos (Incluye Nodos de Texto y Espacios):</strong>
+    <p><code>parentNode</code>, <code>childNodes</code> (NodeList viva de todos los hijos), <code>firstChild</code>, <code>lastChild</code>, <code>nextSibling</code>, <code>previousSibling</code>. ⚠️ <em>Peligro:</em> Los saltos de línea en el HTML generan nodos de texto invisibles que pueden hacer que <code>firstChild</code> no sea el primer elemento esperado.</p>
+  </li>
+  <li><strong>Navegación Moderna Exclusiva por Elementos (Recomendada):</strong>
+    <p>Ignora espacios y comentarios, navegando estrictamente entre etiquetas HTML:</p>
+    <ul>
+      <li><code>parentElement</code>: Elemento padre directo.</li>
+      <li><code>children</code>: Colección <code>HTMLCollection</code> conteniendo únicamente los nodos de tipo elemento.</li>
+      <li><code>firstElementChild</code> y <code>lastElementChild</code>: Primer y último hijo de tipo etiqueta.</li>
+      <li><code>nextElementSibling</code> y <code>previousElementSibling</code>: Elementos hermanos contiguos.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Propiedades de navegación orientadas exclusivamente a elementos HTML (Element Traversal):</p><ul class="concept-list"><li><strong>Navegación Limpia entre Elementos:</strong> <code>parentElement</code>, <code>children</code> (HTMLCollection de nodos elemento), <code>firstElementChild</code>, <code>lastElementChild</code>, <code>nextElementSibling</code>, <code>previousElementSibling</code>. Ignoran saltos de línea y texto plano.</li><li><strong>Diferencia <code>NodeList</code> vs <code>HTMLCollection</code>:</strong> <code>HTMLCollection</code> es una colección viva (live) de elementos; <code>querySelectorAll()</code> devuelve un <code>NodeList</code> estático que soporta <code>forEach()</code>.</li></ul></div>
+            <div class="card-text"><p><strong>El Coste de Acceso al DOM (Reflow y Repaint):</strong></p>
+<ul class="concept-list">
+  <li><strong>Reflow (Layout):</strong> Recálculo de la geometría y posición física de los elementos en el documento. Ocurre al añadir o eliminar nodos o cambiar dimensiones. Es la operación más costosa en rendimiento.</li>
+  <li><strong>Repaint:</strong> Redibujado de píxeles en pantalla (colores, sombras) sin alterar la geometría.</li>
+  <li><strong>Minimizar Lecturas y Escrituras Intercaladas:</strong> Leer una propiedad geométrica (como <code>offsetHeight</code>) tras modificar estilos en el DOM fuerza al navegador a ejecutar un <em>Reflow síncrono involuntario (Layout Thrashing)</em>.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -474,25 +537,68 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
-          <h2>🎯 Reto: Inserción Optimizada con DocumentFragment</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 1</span>
+          <h2>🎯 Reto 1: Inspector Jerárquico del Árbol DOM y Recorrido de Familias de Nodos en Vivo</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Inserta 100 elementos &#x27;&lt;li&gt;&#x27; numerados dentro de una lista &#x27;&lt;ul&gt;&#x27; asegurando que el DOM sufra un solo proceso de renderizado mediante un DocumentFragment.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una función recursiva llamada `inspeccionarJerarquiaDOM(nodoRaiz, nivel = 0)` que recorra un contenedor del documento e imprima en consola un árbol visual estructurado con sangría. Para cada nodo debe mostrar su tipo (`ELEMENT_NODE`, `TEXT_NODE`), su nombre de etiqueta y, en caso de ser un elemento, cuántos hijos posee mediante `children.length`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa &quot;  &quot;.repeat(nivel) para indentar. Comprueba nodo.nodeType === Node.ELEMENT_NODE para leer tagName y children.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Comprender la anatomía del árbol de nodos y distinguir entre nodos de texto y nodos de elemento es indispensable para manipular el DOM sin errores derivados de saltos de línea.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function inspeccionarJerarquiaDOM(nodo, nivel = 0) {
+    const indentacion = &quot;  &quot;.repeat(nivel);
+    const tipoTexto = nodo.nodeType === Node.ELEMENT_NODE ? &quot;Etiqueta&quot; :
+                      nodo.nodeType === Node.TEXT_NODE ? &quot;Texto&quot; :
+                      nodo.nodeType === Node.COMMENT_NODE ? &quot;Comentario&quot; : &quot;Otro&quot;;
+
+    // Si es un nodo de texto con sólo espacios en blanco, omitir o resumir
+    if (nodo.nodeType === Node.TEXT_NODE) {
+        const textoLimpio = nodo.nodeValue.trim();
+        if (textoLimpio) {
+            console.log(\`\${indentacion}📄 [Texto]: &quot;\${textoLimpio}&quot;\`);
+        }
+        return;
+    }
+
+    if (nodo.nodeType === Node.ELEMENT_NODE) {
+        console.log(\`\${indentacion}📁 &lt;\${nodo.tagName.toLowerCase()}&gt; [ID: \${nodo.id || &quot;sin id&quot;}, Hijos: \${nodo.children.length}]\`);
+        
+        // Recorrido recursivo de los hijos de elemento
+        for (const hijo of nodo.childNodes) {
+            inspeccionarJerarquiaDOM(hijo, nivel + 1);
+        }
+    }
+}
+
+// Simulación de inspección:
+// inspeccionarJerarquiaDOM(document.body);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 1 en Taller
             </a>
           </div>
         </div>
@@ -500,17 +606,45 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
-          <h2>2. Selección y Recorrido del DOM (QuerySelector y Closest)</h2>
+          <span class="badge-sub">Bloque 2 de 6 · Teoría y Demostración</span>
+          <h2>2. Objetos del DOM: Acceso a Elementos y Selección Moderna</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Selección y recorrido eficiente del árbol DOM mediante selectores CSS estandarizados:</p><ul class="concept-list"><li><strong><code>document.querySelector(selectorCSS)</code>:</strong> Devuelve el primer elemento que coincide con el selector CSS especificado (o <code>null</code> si no existe).</li><li><strong><code>document.querySelectorAll(selectorCSS)</code>:</strong> Devuelve una <code>NodeList</code> estática con todos los elementos coincidentes.</li><li><strong><code>element.closest(selectorCSS)</code>:</strong> Asciende por la cadena de ancestros desde el elemento actual buscando el primer nodo padre que coincida con el selector.</li></ul></div>
+            <div class="card-text"><p>Para manipular el documento, JavaScript debe localizar los elementos en memoria. La especificación ha evolucionado desde métodos clásicos hacia selectores CSS universales:</p>
+<ul class="concept-list">
+  <li><strong>Métodos Clásicos de Selección:</strong>
+    <ul>
+      <li><code>document.getElementById("id")</code>: Extremadamente rápido. Devuelve una única referencia de elemento o <code>null</code>.</li>
+      <li><code>document.getElementsByClassName("clase")</code>: Devuelve una colección <strong>HTMLCollection viva (Live Collection)</strong> con todos los elementos coincidentes.</li>
+      <li><code>document.getElementsByTagName("tag")</code>: Devuelve una <code>HTMLCollection</code> viva con todas las etiquetas de ese tipo.</li>
+    </ul>
+  </li>
+  <li><strong>Colecciones Vivas (Live) vs Estáticas (Static):</strong>
+    <p>Una <code>HTMLCollection</code> es <em>viva</em>: si se añade o elimina un elemento en el DOM, la colección se actualiza automáticamente en memoria al instante. Por el contrario, una <code>NodeList</code> estática es una <em>foto fija</em> en el instante de la consulta.</p>
+  </li>
+  <li><strong>Selectores W3C Modernos (Selectors API):</strong>
+    <ul>
+      <li><code>document.querySelector("selectorCSS")</code>: Devuelve el <strong>primer elemento</strong> que coincida con cualquier selector CSS complejo (clases, IDs, atributos, pseudoclases) o <code>null</code>.</li>
+      <li><code>document.querySelectorAll("selectorCSS")</code>: Devuelve una colección <strong>NodeList estática</strong> con todos los elementos coincidentes. Soporta directamente el método <code>.forEach()</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Métodos Contextuales de Elemento:</strong>
+    <ul>
+      <li><code>elemento.matches("selector")</code>: Comprueba si el elemento actual satisface un selector CSS (devuelve booleano).</li>
+      <li><code>elemento.closest("selector")</code>: Busca hacia arriba en el árbol DOM el ancestro más cercano (incluyendo al propio elemento) que coincida con el selector. Imprescindible para delegación de eventos.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Métodos de comprobación de coincidencia y rendimiento de búsqueda:</p><ul class="concept-list"><li><strong><code>element.matches(selectorCSS)</code>:</strong> Evalúa si el elemento actual coincide con un selector CSS determinado devolviendo <code>true</code> o <code>false</code>.</li><li><strong>Comparación de Rendimiento:</strong> <code>document.getElementById()</code> y <code>getElementsByClassName()</code> ofrecen un rendimiento ligeramente superior en bucles masivos respecto a <code>querySelector</code> por evitar el motor de evaluación CSS.</li></ul></div>
+            <div class="card-text"><p><strong>Conversión de NodeList y HTMLCollection a Arrays:</strong></p>
+<ul class="concept-list">
+  <li><strong>Uso de <code>Array.from()</code> o Spread:</strong> Ni <code>HTMLCollection</code> ni <code>NodeList</code> poseen los métodos funcionales de array (como <code>.map()</code>, <code>.filter()</code> o <code>.reduce()</code>). Para utilizarlos, se debe convertir la colección: <code>const elementos = Array.from(document.querySelectorAll('.card'));</code> o <code>[...document.querySelectorAll('.card')]</code>.</li>
+  <li><strong>Búsquedas Ágiles Contextuales:</strong> Tanto <code>querySelector</code> como <code>querySelectorAll</code> pueden invocarse desde cualquier elemento del DOM, no sólo desde <code>document</code>, restringiendo la búsqueda exclusivamente al subárbol interno de ese contenedor.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -529,25 +663,68 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
-          <h2>🎯 Reto: Búsqueda y Destacado de Fila en Tabla</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 2</span>
+          <h2>🎯 Reto 2: Selector Contextual Avanzado en Estructuras Anidadas con matches y closest</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Dado un botón de borrado dentro de una celda &#x27;&lt;td&gt;&#x27; de una tabla, escribe una función que localice la fila &#x27;&lt;tr&gt;&#x27; completa mediante &#x27;closest(&#x27;tr&#x27;)&#x27; y le aplique una clase de advertencia antes de eliminarla.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña una función llamada `resaltarFilaContextual(elementoClicado)` que, al hacer clic en cualquier sub-elemento dentro de una tabla compleja (un icono, un enlace, un span o un botón), utilice `closest()` para localizar la fila `&lt;tr&gt;` contenedora, verifique con `matches(&quot;.fila-activa&quot;)` si la fila ya estaba seleccionada, y conmute su clase visual cambiando el fondo y emitiendo el identificador de la fila en consola.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa elementoClicado.closest(&quot;tr&quot;) para garantizar que siempre obtienes la fila sin importar cuán profundo esté anidado el elemento pulsado.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El método closest() desacopla por completo la lógica JavaScript de la estructura interna del HTML, permitiendo modificar el marcado interno sin romper los controladores de eventos.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function resaltarFilaContextual(elementoClicado) {
+    // 1. Localizar la fila &lt;tr&gt; ascendiendo en el árbol DOM
+    const fila = elementoClicado.closest(&quot;tr&quot;);
+    
+    if (!fila) {
+        console.warn(&quot;El clic no ocurrió dentro de ninguna fila de tabla.&quot;);
+        return null;
+    }
+
+    // 2. Verificar el estado actual con matches()
+    const yaSeleccionada = fila.matches(&quot;.fila-activa&quot;);
+
+    if (yaSeleccionada) {
+        fila.classList.remove(&quot;fila-activa&quot;);
+        fila.style.backgroundColor = &quot;&quot;;
+        console.log(\`Fila deseleccionada: ID \${fila.dataset.id || &#x27;S/N&#x27;}\`);
+    } else {
+        fila.classList.add(&quot;fila-activa&quot;);
+        fila.style.backgroundColor = &quot;#e0e7ff&quot;;
+        console.log(\`Fila seleccionada: ID \${fila.dataset.id || &#x27;S/N&#x27;}\`);
+    }
+
+    return fila;
+}
+
+// Simulación de llamada:
+// document.querySelector(&#x27;table&#x27;).onclick = (e) =&gt; resaltarFilaContextual(e.target);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 2 en Taller
             </a>
           </div>
         </div>
@@ -555,17 +732,45 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
-          <h2>3. Manipulación Dinámica Moderna: Clases, Atributos y Dataset</h2>
+          <span class="badge-sub">Bloque 3 de 6 · Teoría y Demostración</span>
+          <h2>3. Creación, Inserción, Modificación y Eliminación de Nodos en el Documento</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Manipulación dinámica de la estructura, atributos y clases visuales del DOM:</p><ul class="concept-list"><li><strong>Gestión de Clases con <code>classList</code>:</strong> Proporciona métodos limpios como <code>add()</code>, <code>remove()</code>, <code>toggle()</code> y <code>contains()</code> sin necesidad de manipular la cadena <code>className</code>.</li><li><strong>Manipulación de Atributos:</strong> <code>getAttribute()</code>, <code>setAttribute()</code>, <code>removeAttribute()</code> y <code>hasAttribute()</code> para interactuar con atributos HTML nativos.</li><li><strong>Atributos Personalizados <code>data-*</code>:</strong> Permiten almacenar datos arbitrarios en elementos HTML. Se acceden programáticamente mediante la propiedad <code>element.dataset</code>.</li></ul></div>
+            <div class="card-text"><p>La alteración de la estructura del documento en tiempo de ejecución debe conciliar seguridad contra inyecciones de código y optimización de rendimiento:</p>
+<ul class="concept-list">
+  <li><strong>Creación de Nodos en Memoria:</strong>
+    <ul>
+      <li><code>document.createElement("tag")</code>: Crea un nuevo nodo de tipo elemento HTML en memoria desconectado del árbol.</li>
+      <li><code>document.createTextNode("texto")</code>: Crea un nodo de texto puro.</li>
+      <li><code>nodo.cloneNode(deep)</code>: Clona un nodo existente. Si <code>deep</code> es <code>true</code>, copia recursivamente todos sus descendientes e hijos.</li>
+    </ul>
+  </li>
+  <li><strong>Manipulación de Contenido Textual y HTML:</strong>
+    <ul>
+      <li><code>nodo.textContent</code>: ✅ <em>100% Inmune a XSS</em>. Asigna o lee texto plano escapando cualquier etiqueta HTML automáticamente.</li>
+      <li><code>nodo.innerHTML</code>: Parsea una cadena como código HTML. ⚠️ <em>Riesgo grave de XSS</em> si la cadena proviene de datos no confiables de usuarios. Además, destruye y recrea todos los listeners previos de sus hijos.</li>
+    </ul>
+  </li>
+  <li><strong>Métodos de Inserción en el Árbol DOM:</strong>
+    <ul>
+      <li>Clásicos: <code>padre.appendChild(nuevoHijo)</code> (añade al final) y <code>padre.insertBefore(nuevo, referencia)</code>.</li>
+      <li>Modernos (W3C DOM Living Standard): <code>padre.append(...nodosOCadenas)</code> (permite múltiples argumentos y texto directo), <code>padre.prepend()</code> (inserta al principio), <code>elemento.before()</code> (hermano anterior) y <code>elemento.after()</code> (hermano posterior).</li>
+      <li><code>elemento.insertAdjacentHTML(posicion, html)</code>: Inyecta plantillas HTML sin destruir los nodos existentes. Admite 4 posiciones exactas: <code>'beforebegin'</code>, <code>'afterbegin'</code>, <code>'beforeend'</code>, <code>'afterend'</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Eliminación de Nodos:</strong> Método moderno y conciso <code>elemento.remove()</code>, o método clásico <code>padre.removeChild(hijo)</code>. Sustitución con <code>padre.replaceChild(nuevo, viejo)</code>.</li>
+  <li><strong>Optimización de Rendimiento con <code>DocumentFragment</code>:</strong> Contenedor ligero en memoria (<code>document.createDocumentFragment()</code>). Permite acumular cientos de nodos y anexarlos al DOM real en <strong>una única operación atómica</strong>, produciendo un único Reflow del navegador.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Optimización de renderizado y prevención de problemas de reflow (reflujo de diseño):</p><ul class="concept-list"><li><strong>DocumentFragment:</strong> Contenedor temporal ligero fuera del árbol DOM principal. Permite acumular decenas de nuevos nodos e insertarlos en el documento en una única operación DOM.</li><li><strong>Evitar Reflow / Repaint:</strong> Leer propiedades geométricas como <code>offsetHeight</code> o <code>getBoundingClientRect()</code> fuerza al navegador a recalcular el diseño inmediatamente. Debe agruparse la lectura de propiedades geométricas separada de la escritura de clases o estilos.</li></ul></div>
+            <div class="card-text"><p><strong>Rendimiento Crítico: innerHTML vs createElement vs DocumentFragment:</strong></p>
+<ul class="concept-list">
+  <li><strong>El Error de Acumular con innerHTML (<code>innerHTML += ...</code>):</strong> Cada vez que se ejecuta <code>contenedor.innerHTML += html</code> dentro de un bucle, el navegador serializa todo el contenido previo a cadena, destruye todos los elementos DOM hijos, invalida los listeners registrados y vuelve a parsear el HTML entero. Se debe construir la estructura completa con <code>DocumentFragment</code> antes de tocar el DOM.</li>
+  <li><strong>Plantillas Nativas con <code>&lt;template&gt;</code>:</strong> Elemento HTML cuyo contenido no se renderiza al cargar. Mediante <code>template.content.cloneNode(true)</code> se generan clones instantáneos listos para rellenar con datos.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -585,25 +790,80 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
-          <h2>🎯 Reto: Alternancia de Modo Oscuro con Dataset</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 3</span>
+          <h2>🎯 Reto 3: Constructor de Listas Dinámicas con DocumentFragment, Inserción Segura y Borrado Animado</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Crea una función que conmute el tema del documento alternando el atributo &#x27;data-theme=&quot;dark&quot;&#x27; en la etiqueta &#x27;&lt;html&gt;&#x27; mediante dataset / setAttribute y actualice el texto de un botón indicador.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una función llamada `generarListaTareas(tareas, contenedor)` que reciba un array de cadenas de texto y las inserte de forma segura utilizando `document.createDocumentFragment()`, `document.createElement()` y `textContent`. Cada elemento de la lista debe incluir un botón de eliminación. Al pulsar el botón, aplica una clase CSS de transición (&quot;fade-out&quot;) y elimina físicamente el nodo del DOM tras completarse la animación mediante el evento `transitionend`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Crea el fragmento con document.createDocumentFragment(). En el botón de borrar: li.classList.add(&quot;fade-out&quot;); li.addEventListener(&quot;transitionend&quot;, () =&gt; li.remove());.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La combinación de DocumentFragment para inserción masiva y el evento transitionend para borrado coordinado proporciona una experiencia fluida y libre de saltos visuales.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function generarListaTareas(tareas, contenedor) {
+    // Vaciar contenedor de forma eficiente
+    contenedor.replaceChildren();
+
+    const fragmento = document.createDocumentFragment();
+
+    tareas.forEach((textoTarea, indice) =&gt; {
+        const li = document.createElement(&quot;li&quot;);
+        li.className = &quot;item-tarea-dinamica&quot;;
+        li.style.cssText = &quot;display: flex; justify-content: space-between; padding: 8px; margin-bottom: 6px; background: #f8fafc; border-radius: 6px; transition: opacity 0.3s, transform 0.3s;&quot;;
+
+        const spanTexto = document.createElement(&quot;span&quot;);
+        spanTexto.textContent = \`\${indice + 1}. \${textoTarea}\`; // Seguro contra XSS
+
+        const btnBorrar = document.createElement(&quot;button&quot;);
+        btnBorrar.textContent = &quot;🗑️ Borrar&quot;;
+        btnBorrar.style.cssText = &quot;background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;&quot;;
+
+        // Borrado coordinado con animación
+        btnBorrar.onclick = () =&gt; {
+            li.style.opacity = &quot;0&quot;;
+            li.style.transform = &quot;translateX(20px)&quot;;
+            li.addEventListener(&quot;transitionend&quot;, () =&gt; {
+                li.remove();
+                console.log(&quot;Nodo eliminado del DOM tras finalizar transición CSS.&quot;);
+            }, { once: true });
+        };
+
+        li.append(spanTexto, btnBorrar);
+        fragmento.appendChild(li);
+    });
+
+    // Inserción única en el DOM
+    contenedor.appendChild(fragmento);
+}
+
+// Prueba:
+// const ul = document.getElementById(&#x27;lista-tareas&#x27;);
+// generarListaTareas([&quot;Repasar DOM&quot;, &quot;Preparar entrega UT6&quot;, &quot;Configurar linter&quot;], ul);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 3 en Taller
             </a>
           </div>
         </div>
@@ -611,17 +871,46 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
-          <h2>4. Fundamentos de APIs RESTful y Códigos de Respuesta</h2>
+          <span class="badge-sub">Bloque 4 de 6 · Teoría y Demostración</span>
+          <h2>4. Manipulación de Atributos, Propiedades y Atributos de Datos (dataset)</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Una <strong>API RESTful (Representational State Transfer)</strong> es una arquitectura de comunicación HTTP para el intercambio de datos estructurados (generalmente JSON):</p><ul class="concept-list"><li><strong>Verbos HTTP Principales:</strong> <code>GET</code> (recuperar recurso), <code>POST</code> (crear recurso), <code>PUT</code> (reemplazar recurso completo), <code>PATCH</code> (modificar recurso parcialmente), <code>DELETE</code> (eliminar recurso).</li><li><strong>Códigos de Estado HTTP:</strong> <ul style="margin-top:4px;"><li><code>200 OK</code> / <code>201 Created</code>: Éxito en la operación.</li><li><code>400 Bad Request</code> / <code>401 Unauthorized</code> / <code>404 Not Found</code>: Errores del cliente.</li><li><code>500 Internal Server Error</code>: Error interno del servidor.</li></ul></li></ul></div>
+            <div class="card-text"><p>En el DOM existe una diferencia sustancial entre los <strong>atributos HTML del marcado inicial</strong> y las <strong>propiedades vivas del objeto JavaScript</strong> en memoria:</p>
+<ul class="concept-list">
+  <li><strong>Atributos HTML vs Propiedades del Objeto DOM:</strong>
+    <ul>
+      <li><em>Atributo HTML:</em> Lo que está escrito textualmente en la etiqueta del documento (ej. <code>&lt;input value="inicio"&gt;</code>). Se manipula con <code>getAttribute()</code> y <code>setAttribute()</code>.</li>
+      <li><em>Propiedad DOM:</em> La propiedad viva en memoria dentro del objeto JavaScript (ej. <code>input.value</code>). Si el usuario escribe en el campo, <code>input.value</code> cambia a lo escrito, pero <code>input.getAttribute("value")</code> sigue reflejando el valor inicial estático del HTML.</li>
+    </ul>
+  </li>
+  <li><strong>Métodos de Gestión de Atributos:</strong>
+    <ul>
+      <li><code>elemento.getAttribute("nombre")</code>: Devuelve el valor textual del atributo o <code>null</code>.</li>
+      <li><code>elemento.setAttribute("nombre", "valor")</code>: Asigna o modifica el atributo.</li>
+      <li><code>elemento.hasAttribute("nombre")</code>: Booleano de comprobación.</li>
+      <li><code>elemento.removeAttribute("nombre")</code>: Elimina el atributo.</li>
+      <li><em>Atributos Booleanos (<code>disabled</code>, <code>checked</code>, <code>hidden</code>):</em> Su presencia en el HTML implica valor verdadero, independientemente de su contenido textual.</li>
+    </ul>
+  </li>
+  <li><strong>Atributos Personalizados de Datos (HTML5 <code>data-*</code> y <code>dataset</code>):</strong>
+    <p>Estándar formal para asociar metadatos personalizados a elementos del DOM sin inventar atributos no estándar:</p>
+    <ul>
+      <li>En HTML: Se escriben con prefijo <code>data-</code> y palabras en minúsculas separadas por guiones (ej. <code>data-usuario-id="105"</code>, <code>data-precio-descuento="19.99"</code>).</li>
+      <li>En JavaScript: Se accede mediante la propiedad <code>elemento.dataset</code> convertida automáticamente a notación <strong>camelCase</strong> (ej. <code>elemento.dataset.usuarioId</code>, <code>elemento.dataset.precioDescuento</code>).</li>
+      <li>Soporta lectura, asignación y eliminación (<code>delete elemento.dataset.miClave</code>).</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Endpoints, payloads y buenas prácticas de diseño de arquitecturas REST:</p><ul class="concept-list"><li><strong>Estructura de Recursos Nombres/URLs:</strong> Las URIs deben representar recursos en plural (ej. <code>/api/v1/usuarios/42</code>) y no acciones o verbos.</li><li><strong>Cabeceras de Petición HTTP:</strong> <code>Content-Type: application/json</code> especifica el formato del cuerpo; <code>Authorization: Bearer &lt;token&gt;</code> transmite credenciales seguras.</li></ul></div>
+            <div class="card-text"><p><strong>Sincronización Bidireccional y Selectores CSS por dataset:</strong></p>
+<ul class="concept-list">
+  <li><strong>Los Atributos data-* son Selectores CSS Válidos:</strong> Se puede aplicar estilo en CSS según metadatos: <code>article[data-estado="agotado"] { opacity: 0.5; }</code>.</li>
+  <li><strong>Serialización Automática:</strong> Los valores en <code>dataset</code> se almacenan siempre como cadenas de texto (Strings). Si se almacena un número o booleano, se debe convertir explícitamente al recuperarlo (<code>Number(el.dataset.precio)</code>).</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -638,25 +927,67 @@ console.log(&quot;GET /api/v1/usuarios | POST /api/v1/usuarios | DELETE /api/v1/
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
-          <h2>🎯 Reto: Construcción de Endpoints Semánticos REST</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 4</span>
+          <h2>🎯 Reto 4: Catálogo Interactivo con Metadatos data-* y Filtrado Reactivo por Atributos</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Diseña la estructura de URIs y métodos HTTP para un recurso &#x27;alumnos&#x27;: listar todos los alumnos (GET /alumnos), crear uno nuevo (POST /alumnos), obtener el alumno id 42 (GET /alumnos/42), actualizar teléfono (PATCH /alumnos/42) y darlo de baja (DELETE /alumnos/42).</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Construye un módulo para filtrar un catálogo de cursos. Cada tarjeta de curso posee atributos `data-categoria` (ej. &quot;frontend&quot;, &quot;backend&quot;, &quot;seguridad&quot;) y `data-nivel` (&quot;iniciacion&quot;, &quot;avanzado&quot;). Crea una función `filtrarCatalogo(categoria, nivelMinimo)` que recorra todos los artículos del catálogo con `querySelectorAll()`, lea los metadatos con `elemento.dataset`, oculte con `elemento.hidden = true` aquellos que no coincidan y muestre con `elemento.hidden = false` los que satisfagan los criterios.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Lee articulo.dataset.categoria y articulo.dataset.nivel. Compara los valores y actualiza la propiedad booleana articulo.hidden.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El uso de dataset combinado con la propiedad nativa hidden permite crear sistemas de filtrado de contenido instantáneos y declarativos sin tocar clases complejas.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function filtrarCatalogoCursos(categoriaFiltro, nivelFiltro) {
+    const articulos = document.querySelectorAll(&quot;article.tarjeta-curso&quot;);
+    let visibles = 0;
+
+    articulos.forEach(art =&gt; {
+        // Extracción de metadatos desde dataset
+        const categoria = art.dataset.categoria;
+        const nivel = art.dataset.nivel;
+
+        const coincideCategoria = !categoriaFiltro || categoriaFiltro === &quot;todas&quot; || categoria === categoriaFiltro;
+        const coincideNivel = !nivelFiltro || nivelFiltro === &quot;todos&quot; || nivel === nivelFiltro;
+
+        if (coincideCategoria &amp;&amp; coincideNivel) {
+            art.hidden = false;
+            visibles++;
+        } else {
+            art.hidden = true;
+        }
+    });
+
+    console.log(\`Filtrado completado: \${visibles}/\${articulos.length} cursos visibles.\`);
+    return visibles;
+}
+
+// Simulación:
+// filtrarCatalogoCursos(&quot;frontend&quot;, &quot;avanzado&quot;);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 4 en Taller
             </a>
           </div>
         </div>
@@ -664,37 +995,392 @@ console.log(&quot;GET /api/v1/usuarios | POST /api/v1/usuarios | DELETE /api/v1/
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Taller Práctico</span>
-          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+          <span class="badge-sub">Bloque 5 de 6 · Teoría y Demostración</span>
+          <h2>5. Programación de Eventos Asociados al DOM y Observación de Mutaciones (MutationObserver)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La sincronización entre el estado de carga del documento y la reacción ante cambios estructurales en el DOM se coordina mediante eventos de ciclo de vida y observadores reactivos:</p>
+<ul class="concept-list">
+  <li><strong>Eventos de Ciclo de Vida del Documento:</strong>
+    <ul>
+      <li><code>DOMContentLoaded</code>: Se emite en <code>document</code> cuando el HTML ha sido parseado por completo y el árbol DOM está listo en memoria. Es el momento idóneo para inicializar la lógica JavaScript sin esperar a imágenes ni hojas de estilo pesadas.</li>
+      <li><code>window.onload</code>: Se emite en <code>window</code> cuando la página completa, incluyendo imágenes, fuentes externas, iframes y hojas de estilo CSS han finalizado su descarga.</li>
+      <li><code>readystatechange</code>: Se dispara en <code>document</code> al cambiar <code>document.readyState</code> (<code>"loading"</code>, <code>"interactive"</code>, <code>"complete"</code>).</li>
+    </ul>
+  </li>
+  <li><strong>La API <code>MutationObserver</code> (Vigilancia Reactiva del DOM):</strong>
+    <p>API nativa de alto rendimiento diseñada para reemplazar los antiguos y obsoletos <em>Mutation Events</em>. Permite reaccionar a cambios en el árbol DOM de forma asíncrona sin sobrecargar el hilo principal:</p>
+    <ul>
+      <li><strong>Instanciación:</strong> <code>const observer = new MutationObserver(callback);</code></li>
+      <li><strong>El Callback de Mutaciones:</strong> Recibe una lista de objetos <code>MutationRecord</code> con detalles sobre: tipo de cambio (<code>childList</code>, <code>attributes</code>, <code>characterData</code>), nodos añadidos (<code>addedNodes</code>), nodos eliminados (<code>removedNodes</code>) y nombre del atributo alterado.</li>
+      <li><strong>Configuración y Activación con <code>observe()</code>:</strong>
+        <pre><code class="language-javascript">observer.observe(nodoObjetivo, {
+    childList: true,      // Observar adición/borrado de hijos directos
+    subtree: true,        // Observar en todos los descendientes anidados
+    attributes: true,     // Observar mutación de atributos
+    attributeOldValue: true // Registrar valor previo del atributo
+});</code></pre>
+      </li>
+      <li><strong>Desconexión con <code>observer.disconnect()</code>:</strong> Detiene la monitorización liberando recursos.</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Casos de Uso Críticos para MutationObserver:</strong></p>
+<ul class="concept-list">
+  <li><strong>Integración con Librerías Externas y Web Components:</strong> Permite detectar cuándo un framework o plugin de terceros inyecta contenido en el DOM para aplicarle automáticamente estilos, inicializar tooltips o registrar interactividad sin recurrir a ineficientes bucles de sondeo <code>setInterval()</code>.</li>
+  <li><strong>Agrupación de Notificaciones:</strong> MutationObserver no dispara el callback de forma síncrona por cada nodo insertado; agrupa todos los cambios de un ciclo en un único lote procesado como microtarea, garantizando un rendimiento óptimo.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Monitorización de Cambios Estructurales en el DOM con MutationObserver
+const contenedorMonitorizado = document.getElementById(&quot;zona-dinamica&quot;);
+
+const vigilanteDOM = new MutationObserver((mutaciones, observador) =&gt; {
+    mutaciones.forEach(mutacion =&gt; {
+        if (mutacion.type === &quot;childList&quot;) {
+            console.log(&quot;Nodos añadidos:&quot;, mutacion.addedNodes.length);
+            console.log(&quot;Nodos eliminados:&quot;, mutacion.removedNodes.length);
+        } else if (mutacion.type === &quot;attributes&quot;) {
+            console.log(`Atributo alterado: &#x27;${mutacion.attributeName}&#x27;. Valor previo: &#x27;${mutacion.oldValue}&#x27;`);
+        }
+    });
+});
+
+// Iniciar vigilancia profunda en el contenedor
+vigilanteDOM.observe(contenedorMonitorizado, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeOldValue: true
+});
+
+// Para finalizar la vigilancia:
+// vigilanteDOM.disconnect();</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 5</span>
+          <h2>🎯 Reto 5: Monitor de Mutaciones del DOM en Tiempo Real con MutationObserver</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Implementa un sistema de auditoría del DOM que vigile un contenedor `#panel-notificaciones`. Mediante `MutationObserver`, detecta cuando se añada un nuevo nodo hijo de tipo elemento y comprueba si posee la clase `&quot;notificacion-urgente&quot;`. En caso afirmativo, emite un aviso sonoro o alerta en consola, imprime el contenido del texto insertado y registra la marca de tiempo exacta del cambio.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">En el callback de MutationObserver, itera sobre mutacion.addedNodes. Comprueba nodo.nodeType === Node.ELEMENT_NODE y nodo.classList.contains(&quot;notificacion-urgente&quot;).</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> MutationObserver proporciona un mecanismo desacoplado para interceptar y validar cambios en la estructura del documento en tiempo real sin interferir en el código que produce la inserción.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function auditarNotificaciones(contenedor) {
+    const observer = new MutationObserver((mutaciones) =&gt; {
+        for (const mutacion of mutaciones) {
+            if (mutacion.type === &quot;childList&quot;) {
+                mutacion.addedNodes.forEach(nodo =&gt; {
+                    // Filtrar sólo nodos de elemento
+                    if (nodo.nodeType === Node.ELEMENT_NODE) {
+                        const esUrgente = nodo.classList.contains(&quot;notificacion-urgente&quot;);
+                        const mensaje = nodo.textContent.trim();
+                        const hora = new Date().toLocaleTimeString();
+
+                        if (esUrgente) {
+                            console.warn(\`🚨 [\${hora}] ALERTA URGENTE DETECTADA EN DOM: &quot;\${mensaje}&quot;\`);
+                        } else {
+                            console.log(\`ℹ️ [\${hora}] Notificación estándar añadida: &quot;\${mensaje}&quot;\`);
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    observer.observe(contenedor, { childList: true, subtree: false });
+    console.log(&quot;Vigilante MutationObserver activo en:&quot;, contenedor.id);
+
+    return observer;
+}
+
+// Simulación:
+// const panel = document.getElementById(&#x27;panel-notificaciones&#x27;);
+// const vigilante = auditarNotificaciones(panel);</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 5 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 6 de 6 · Teoría y Demostración</span>
+          <h2>6. Diferencias entre Navegadores y Separación de Contenido, Estilo y Comportamiento</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La arquitectura profesional de software en cliente exige neutralizar divergencias entre navegadores y aplicar rigurosamente la <strong>separación de las tres capas de la web</strong>:</p>
+<ul class="concept-list">
+  <li><strong>Diferencias de Implementación entre Navegadores:</strong>
+    <ul>
+      <li><em>Evolución de Motores:</em> En el pasado existían fuertes discrepancias entre Internet Explorer (modelo de eventos <code>attachEvent</code>, <code>event.srcElement</code>) y los estándares W3C. Hoy en día, la convergencia hacia motores basados en Chromium (Blink), Firefox (Gecko) y Safari (WebKit) ha estandarizado casi todo el DOM Living Standard.</li>
+      <li><em>Herramientas de Compatibilidad:</em> Consulta obligatoria en <strong>Can I Use</strong> (caniuse.com) y <strong>MDN Web Docs</strong> para auditar el soporte de APIs recientes.</li>
+      <li><em>Polyfills:</em> Scripts de relleno (como los proporcionados por <em>Polyfill.io</em> o <em>core-js</em>) que emulan APIs nativas modernas en navegadores que aún no las han implementado.</li>
+    </ul>
+  </li>
+  <li><strong>El Principio Arquitectónico de las Tres Capas Desacopladas:</strong>
+    <ul>
+      <li><strong>1. Capa de Contenido y Estructura (HTML5 Semántico):</strong> Define el significado, la jerarquía y los datos del documento mediante etiquetas semánticas accesibles (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;footer&gt;</code>). Libre de estilos visuales y de código JavaScript.</li>
+      <li><strong>2. Capa de Presentación y Diseño (CSS3):</strong> Define la estética, distribución espacial (Grid, Flexbox), tipografías, colores y temas mediante hojas de estilo externas y variables CSS.</li>
+      <li><strong>3. Capa de Comportamiento e Interacción (JavaScript):</strong> Lógica dinámica, validaciones y peticiones asíncronas alojadas exclusivamente en archivos <code>.js</code> externos vinculados sin atributos en línea (<em>Unobtrusive JavaScript</em>).</li>
+    </ul>
+  </li>
+  <li><strong>Reglas de Oro del Código Limpio:</strong>
+    <ul>
+      <li>Prohibido el uso de estilos en línea mediante <code>style="..."</code> en el marcado HTML.</li>
+      <li>Prohibido el uso de manejadores de eventos en línea en atributos HTML (como <code>onclick="..."</code>).</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Accesibilidad Universal (WAI-ARIA) y Mejora Progresiva:</strong></p>
+<ul class="concept-list">
+  <li><strong>Mejora Progresiva (Progressive Enhancement):</strong> La página web debe ser plenamente legible, navegable y estructurada incluso si el navegador tiene JavaScript desactivado o una conexión de red inestable que impida cargar los scripts.</li>
+  <li><strong>Atributos ARIA (Accessible Rich Internet Applications):</strong> Uso de <code>aria-expanded</code>, <code>aria-hidden</code>, <code>aria-live</code> y roles semánticos para comunicar cambios dinámicos del DOM a lectores de pantalla para usuarios con discapacidad visual.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Demostración de Código Limpio y Separación de Tres Capas (Unobtrusive JS)
+
+// MAL (Acoplamiento de capas en HTML):
+// &lt;button onclick=&quot;alert(&#x27;hola&#x27;)&quot; style=&quot;color: red;&quot;&gt;Enviar&lt;/button&gt;
+
+// BIEN (Capas totalmente desacopladas):
+// HTML: &lt;button id=&quot;btn-enviar&quot; class=&quot;boton-primario&quot; type=&quot;button&quot;&gt;Enviar Mensaje&lt;/button&gt;
+// CSS:  .boton-primario { color: var(--color-texto); background: var(--color-acento); }
+// JS:
+
+document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+    const boton = document.getElementById(&quot;btn-enviar&quot;);
+    
+    if (boton) {
+        boton.addEventListener(&quot;click&quot;, () =&gt; {
+            console.log(&quot;Comportamiento desacoplado ejecutado limpiamente.&quot;);
+            boton.classList.toggle(&quot;activo&quot;);
+        });
+    }
+});</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
+          <h2>🎯 Reto 6: Refactorización Arquitectónica de Código Espagueti a Tres Capas Desacopladas</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Dado un componente legado con marcado sucio (etiquetas con estilos en línea `style=&quot;color:red;font-size:18px&quot;`, eventos en línea `onclick=&quot;validar()&quot;` y manipulación directa de cadenas), refactorízalo aplicando la separación estricta de capas: 1) Estructura semántica en HTML5, 2) Reglas de diseño y variables en CSS, y 3) Lógica de interacción en JavaScript moderno mediante `addEventListener()` y manipulación de `classList`.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Elimina todos los atributos style y onclick del HTML. Crea clases CSS semánticas (.alerta-error, .boton-accion). Vincula los escuchadores en JavaScript tras DOMContentLoaded.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La separación de capas es el principio rector del desarrollo web profesional, facilitando el trabajo colaborativo, la mantenibilidad a largo plazo y la accesibilidad.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">/* 
+=== EJEMPLO DE REFACTORIZACIÓN A TRES CAPAS ===
+
+--- CAPA 1: HTML5 Semántico y Accesible ---
+&lt;section class=&quot;tarjeta-perfil&quot; aria-labelledby=&quot;perfil-titulo&quot;&gt;
+    &lt;h2 id=&quot;perfil-titulo&quot; class=&quot;tarjeta-perfil__titulo&quot;&gt;Perfil de Usuario&lt;/h2&gt;
+    &lt;p class=&quot;tarjeta-perfil__descripcion&quot;&gt;Gestión de datos personales y suscripción.&lt;/p&gt;
+    &lt;button id=&quot;btn-suscripcion&quot; class=&quot;btn btn--primario&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;
+        Activar Suscripción
+    &lt;/button&gt;
+&lt;/section&gt;
+
+--- CAPA 2: CSS Modular con Variables (fichero estilos.css) ---
+:root {
+    --color-primario: #4f46e5;
+    --color-activo: #059669;
+    --radio-borde: 8px;
+}
+.tarjeta-perfil {
+    background: #ffffff;
+    border-radius: var(--radio-borde);
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.btn--primario {
+    background-color: var(--color-primario);
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radio-borde);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.btn--primario.is-active {
+    background-color: var(--color-activo);
+}
+*/
+
+// --- CAPA 3: Comportamiento Desacoplado (fichero app.js) ---
+document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+    const boton = document.getElementById(&quot;btn-suscripcion&quot;);
+    if (!boton) return;
+
+    boton.addEventListener(&quot;click&quot;, () =&gt; {
+        const estaActivo = boton.classList.toggle(&quot;is-active&quot;);
+        
+        // Actualizar accesibilidad ARIA
+        boton.setAttribute(&quot;aria-pressed&quot;, String(estaActivo));
+        boton.textContent = estaActivo ? &quot;Suscripción Activa ✅&quot; : &quot;Activar Suscripción&quot;;
+
+        console.log(&quot;Estado de suscripción actualizado limpiamente:&quot;, estaActivo);
+    });
+});</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 6 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Resumen Curricular</span>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (6)</h2>
         </div>
         <div class="final-workshop-card">
-          <ul class="final-ex-list">
+          <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
+            Cada uno de los siguientes retos ha sido propuesto tras la explicación de su bloque conceptual para afianzar los conocimientos adquiridos:
+          </p>
+          <ul class="final-ex-list" style="max-height: 380px; overflow-y: auto;">
             
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 1</span>
-        <div class="final-ex-text">
-          <strong>Gestor de Tareas Interactivo con Métodos DOM Modernos</strong>
-          <p>Aplicación de lista de tareas que implementa creación con DocumentFragment, edición con dataset, eliminación con closest() y filtrado dinámico.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 1</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Inspector Jerárquico del Árbol DOM y Recorrido de Familias de Nodos en Vivo</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 1: Estructura del Árbol DOM y sus Niveles Jerárquicos</p>
         </div>
+        <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 2</span>
-        <div class="final-ex-text">
-          <strong>Simulador de Cliente API REST con Respuestas HTTP</strong>
-          <p>Consola interactiva que simula operaciones GET, POST, PUT, DELETE sobre una colección de usuarios, mostrando cabeceras, códigos de estado (200, 201, 404) y cuerpo JSON.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 2</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Selector Contextual Avanzado en Estructuras Anidadas con matches y closest</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 2: Objetos del DOM: Acceso a Elementos y Selección Moderna</p>
         </div>
+        <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 3</span>
-        <div class="final-ex-text">
-          <strong>Constructor Dinámico de Tablas con Ordenación y Filtrado</strong>
-          <p>Tabla interactiva que lee datos estructurados, permite ordenar columnas dinámicamente navegando por los nodos hermanos y resalta celdas mediante classList.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 3</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Constructor de Listas Dinámicas con DocumentFragment, Inserción Segura y Borrado Animado</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 3: Creación, Inserción, Modificación y Eliminación de Nodos en el Documento</p>
         </div>
+        <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 4</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Catálogo Interactivo con Metadatos data-* y Filtrado Reactivo por Atributos</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 4: Manipulación de Atributos, Propiedades y Atributos de Datos (dataset)</p>
+        </div>
+        <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 5</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Monitor de Mutaciones del DOM en Tiempo Real con MutationObserver</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Programación de Eventos Asociados al DOM y Observación de Mutaciones (MutationObserver)</p>
+        </div>
+        <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 6</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Refactorización Arquitectónica de Código Espagueti a Tres Capas Desacopladas</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: Diferencias entre Navegadores y Separación de Contenido, Estilo y Comportamiento</p>
+        </div>
+        <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
           </ul>
-          <div class="final-action-bar">
+          <div class="final-action-bar" style="margin-top: 10px;">
             <a href="ejercicios.html" class="btn-primary">
-              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+              💻 Abrir Taller Completo de Retos y Soluciones
             </a>
             <a href="../index.html" class="btn-secondary">
               🏠 Volver al Panel General

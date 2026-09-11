@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reto 4: Motor de Reglas de Descuento y Filtrado de Stock con Bucles e Interrupciones - UT2: Sintaxis, Variables, Operadores y Estructuras de Control</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 p-4 sm:p-6 min-h-screen">
+  <div class="max-w-4xl mx-auto space-y-4">
+    <!-- Header -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl">
+      <div class="flex items-center justify-between gap-4 flex-wrap mb-2">
+        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 4 Propuesto en Presentación</span>
+        <span class="text-xs text-slate-400 font-medium">Bloque 4: Estructuras de Control: Decisiones y Bucles</span>
+      </div>
+      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 4: Motor de Reglas de Descuento y Filtrado de Stock con Bucles e Interrupciones</h1>
+      <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
+        <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
+        <p class="text-xs text-slate-300 leading-relaxed">Escribe una función que procese un inventario de artículos aplicando descuentos según la categoría con una estructura `switch`. Recorre el inventario con `for...of`. Si un producto tiene stock 0, salta al siguiente con `continue`. Si se detecta un artículo con precio negativo (error de base de datos), interrumpe el procesamiento global con `break` y notifica la anomalía.</p>
+      </div>
+      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Declara un array de artículos. Usa switch(articulo.categoria) para fijar el porcentaje de descuento. Controla articulo.stock === 0 con continue y articulo.precio &lt; 0 con break.</div>
+    </div>
+
+    <!-- Playground Action Bar -->
+    <div class="flex items-center justify-between gap-3 bg-slate-900 border border-slate-800 px-4 py-3 rounded-xl">
+      <div class="flex items-center gap-2">
+        <button id="btn-ejecutar" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg shadow-lg shadow-indigo-600/20 transition-all flex items-center gap-1.5 hover:scale-[1.02]">
+          <span>▶️ Ejecutar Solución</span>
+        </button>
+        <button id="btn-limpiar" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg transition-colors">
+          🧹 Limpiar Consola
+        </button>
+      </div>
+      <span class="text-[11px] text-slate-400 hidden sm:inline">Salida dual: Terminal interactivo y Consola F12</span>
+    </div>
+
+    <!-- Interactive Terminal Output -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+      <div class="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+          <span class="ml-2 font-bold text-slate-300">Terminal de Ejecución en Vivo</span>
+        </div>
+        <span id="log-count" class="text-[11px] text-slate-500">0 entradas</span>
+      </div>
+      <div id="console-output" class="p-4 font-mono text-xs max-h-[360px] overflow-y-auto space-y-1.5 text-slate-300 leading-relaxed bg-[#0a0d14]">
+        <!-- Logs dinámicos -->
+      </div>
+    </div>
+
+    <!-- DOM Sandbox Area for Retos that manipulate DOM -->
+    <div id="sandbox-container" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-2">
+      <div class="flex items-center justify-between border-b border-slate-800/80 pb-2 mb-2">
+        <span class="font-bold text-slate-400 flex items-center gap-1.5">
+          <span>🖥️ Área de Renderizado DOM / Contenedor de Pruebas</span>
+        </span>
+        <span class="text-[10px] text-slate-500">#sandbox-container</span>
+      </div>
+      <div id="app" class="min-h-[20px]"></div>
+      <div id="contenedor" class="min-h-[20px]"></div>
+      <div id="lista-carrito"></div>
+    </div>
+
+    <!-- Code Explanation & Source -->
+    <details class="bg-slate-900/80 border border-slate-800 rounded-xl p-4 text-xs">
+      <summary class="font-bold text-indigo-400 cursor-pointer flex items-center justify-between select-none">
+        <span>📖 Explicación Técnica y Código Fuente</span>
+        <span class="text-slate-500 text-[11px] bg-slate-800 px-2 py-0.5 rounded">Ver código</span>
+      </summary>
+      <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
+        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">La combinación de switch con sentencias continue y break permite estructurar flujos de validación robustos y eficientes en colecciones de datos comerciales.</p>
+        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>function procesarInventario(articulos) {
+    const catalogoProcesado = [];
+    let errorCritico = false;
+
+    for (const prod of articulos) {
+        // Control de anomalía crítica: interrupción con break
+        if (prod.precio &lt; 0) {
+            console.error(&quot;ALERTA CRÍTICA: Precio negativo detectado en ID &quot; + prod.id + &quot;. Proceso detenido.&quot;);
+            errorCritico = true;
+            break;
+        }
+
+        // Producto sin existencias: salto con continue
+        if (prod.stock === 0) {
+            console.warn(&quot;Stock agotado para &quot; + prod.nombre + &quot;. Omitiendo de catálogo activo.&quot;);
+            continue;
+        }
+
+        let descuento = 0;
+        switch (prod.categoria) {
+            case &quot;informatica&quot;:
+                descuento = 0.10; // 10%
+                break;
+            case &quot;telefonia&quot;:
+                descuento = 0.15; // 15%
+                break;
+            case &quot;accesorios&quot;:
+                descuento = 0.20; // 20%
+                break;
+            default:
+                descuento = 0.05; // 5% base
+        }
+
+        const precioFinal = Number((prod.precio * (1 - descuento)).toFixed(2));
+        catalogoProcesado.push({
+            id: prod.id,
+            nombre: prod.nombre,
+            precioOriginal: prod.precio,
+            precioFinal,
+            ahorro: Number((prod.precio - precioFinal).toFixed(2))
+        });
+    }
+
+    return { catalogoProcesado, estado: errorCritico ? &quot;Interrumpido con Errores&quot; : &quot;Procesado con Éxito&quot; };
+}
+
+const productosTest = [
+    { id: 1, nombre: &quot;Portátil i7&quot;, categoria: &quot;informatica&quot;, precio: 899, stock: 5 },
+    { id: 2, nombre: &quot;Ratón Gaming&quot;, categoria: &quot;accesorios&quot;, precio: 25, stock: 0 }, // Salta
+    { id: 3, nombre: &quot;Funda Móvil&quot;, categoria: &quot;telefonia&quot;, precio: 15, stock: 20 },
+    { id: 4, nombre: &quot;Teclado&quot;, categoria: &quot;informatica&quot;, precio: 45, stock: 12 }
+];
+
+console.table(procesarInventario(productosTest).catalogoProcesado);</code></pre>
+      </div>
+    </details>
+  </div>
+
+  <script>
+    const outputEl = document.getElementById('console-output');
+    const countEl = document.getElementById('log-count');
+    let logCount = 0;
+
+    function renderTable(data) {
+      if (!data) return String(data);
+      if (Array.isArray(data)) {
+        if (data.length === 0) return '[] (Array vacío)';
+        const keys = Object.keys(data[0] || {});
+        if (keys.length === 0) return JSON.stringify(data);
+        let ths = keys.map(k => `<th class="border border-slate-700 bg-slate-800 px-2 py-1 text-left font-semibold text-indigo-300 text-[10px]">${k}</th>`).join('');
+        let rows = data.map((row, i) => {
+          let tds = keys.map(k => `<td class="border border-slate-800/80 px-2 py-1 text-[11px] text-slate-300">${row[k] !== undefined ? String(row[k]) : ''}</td>`).join('');
+          let bg = i % 2 === 0 ? 'bg-slate-900/50' : 'bg-slate-950/50';
+          return `<tr class="${bg}">${tds}</tr>`;
+        }).join('');
+        return `<div class="overflow-x-auto my-1"><table class="w-full border-collapse border border-slate-700 text-xs"><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table></div>`;
+      } else if (typeof data === 'object') {
+        const keys = Object.keys(data);
+        let rows = keys.map(k => `<tr><td class="border border-slate-800 bg-slate-800/60 font-semibold text-indigo-300 px-2 py-1 text-[11px]">${k}</td><td class="border border-slate-800 px-2 py-1 text-[11px] text-slate-300">${String(data[k])}</td></tr>`).join('');
+        return `<div class="overflow-x-auto my-1"><table class="border-collapse border border-slate-700 text-xs"><tbody>${rows}</tbody></table></div>`;
+      }
+      return String(data);
+    }
+
+    function appendLog(type, args) {
+      logCount++;
+      countEl.textContent = logCount + " entradas";
+      const line = document.createElement('div');
+      line.className = "flex items-start gap-2 py-1 border-b border-slate-800/40";
+      
+      const time = new Date().toLocaleTimeString();
+      const timeSpan = `<span class="text-slate-600 text-[10px] font-mono select-none pt-0.5">${time}</span>`;
+      
+      let badgeColor = "bg-slate-800 text-slate-300 border border-slate-700";
+      let textCol = "text-slate-200";
+      if (type === 'warn') { badgeColor = "bg-amber-950 text-amber-300 border border-amber-800"; textCol = "text-amber-200"; }
+      if (type === 'error') { badgeColor = "bg-rose-950 text-rose-300 border border-rose-800"; textCol = "text-rose-200"; }
+      if (type === 'table') { badgeColor = "bg-indigo-950 text-indigo-300 border border-indigo-800"; }
+      if (type === 'time') { badgeColor = "bg-emerald-950 text-emerald-300 border border-emerald-800"; textCol = "text-emerald-300"; }
+      if (type === 'group') { badgeColor = "bg-blue-950 text-blue-300 border border-blue-800 font-bold"; textCol = "text-blue-200 font-bold"; }
+      if (type === 'system') { badgeColor = "bg-purple-950 text-purple-300 border border-purple-800"; textCol = "text-purple-200 italic"; }
+
+      const badge = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${badgeColor} flex-shrink-0">${type}</span>`;
+      
+      let contentHtml = "";
+      if (type === 'table') {
+        contentHtml = renderTable(args[0]);
+      } else {
+        let str = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+        contentHtml = `<pre class="font-mono text-xs whitespace-pre-wrap break-all ${textCol} flex-1 m-0">${str}</pre>`;
+      }
+      
+      line.innerHTML = `${timeSpan} ${badge} <div class="flex-1">${contentHtml}</div>`;
+      outputEl.appendChild(line);
+      outputEl.scrollTop = outputEl.scrollHeight;
+    }
+
+    const origLog = console.log;
+    const origWarn = console.warn;
+    const origErr = console.error;
+    const origTable = console.table;
+    const origGroup = console.group || console.log;
+    const origGroupEnd = console.groupEnd || (() => {});
+    const origAssert = console.assert;
+    const origTime = console.time || (() => {});
+    const origTimeEnd = console.timeEnd || (() => {});
+
+    const timers = {};
+
+    console.log = (...args) => { origLog(...args); appendLog('log', args); };
+    console.warn = (...args) => { origWarn(...args); appendLog('warn', args); };
+    console.error = (...args) => { origErr(...args); appendLog('error', args); };
+    console.table = (data) => { origTable(data); appendLog('table', [data]); };
+    console.group = (name) => { origGroup(name); appendLog('group', [name]); };
+    console.groupCollapsed = (name) => { origGroup(name); appendLog('group', [name]); };
+    console.groupEnd = () => { origGroupEnd(); };
+    console.assert = (assertion, ...args) => {
+      origAssert(assertion, ...args);
+      if (!assertion) {
+        appendLog('error', ['Assertion failed ❌', ...args]);
+      } else {
+        appendLog('log', ['Assertion passed ✅', ...args]);
+      }
+    };
+    console.time = (label = 'default') => {
+      timers[label] = performance.now();
+      origTime(label);
+      appendLog('time', [`⏱️ Inicio temporizador: "${label}"`]);
+    };
+    console.timeEnd = (label = 'default') => {
+      const elapsed = timers[label] !== undefined ? (performance.now() - timers[label]).toFixed(3) : 0;
+      origTimeEnd(label);
+      appendLog('time', [`⏱️ Fin temporizador "${label}": ${elapsed} ms`]);
+    };
+
+    document.getElementById('btn-limpiar').onclick = () => {
+      outputEl.innerHTML = '<div class="text-slate-500 italic py-1">Consola limpia. Presiona "Ejecutar Solución" para correr el script.</div>';
+      logCount = 0;
+      countEl.textContent = "0 entradas";
+    };
+
+    async function ejecutarSolucion() {
+      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      try {
+        (async () => {
+function procesarInventario(articulos) {
+    const catalogoProcesado = [];
+    let errorCritico = false;
+
+    for (const prod of articulos) {
+        // Control de anomalía crítica: interrupción con break
+        if (prod.precio < 0) {
+            console.error("ALERTA CRÍTICA: Precio negativo detectado en ID " + prod.id + ". Proceso detenido.");
+            errorCritico = true;
+            break;
+        }
+
+        // Producto sin existencias: salto con continue
+        if (prod.stock === 0) {
+            console.warn("Stock agotado para " + prod.nombre + ". Omitiendo de catálogo activo.");
+            continue;
+        }
+
+        let descuento = 0;
+        switch (prod.categoria) {
+            case "informatica":
+                descuento = 0.10; // 10%
+                break;
+            case "telefonia":
+                descuento = 0.15; // 15%
+                break;
+            case "accesorios":
+                descuento = 0.20; // 20%
+                break;
+            default:
+                descuento = 0.05; // 5% base
+        }
+
+        const precioFinal = Number((prod.precio * (1 - descuento)).toFixed(2));
+        catalogoProcesado.push({
+            id: prod.id,
+            nombre: prod.nombre,
+            precioOriginal: prod.precio,
+            precioFinal,
+            ahorro: Number((prod.precio - precioFinal).toFixed(2))
+        });
+    }
+
+    return { catalogoProcesado, estado: errorCritico ? "Interrumpido con Errores" : "Procesado con Éxito" };
+}
+
+const productosTest = [
+    { id: 1, nombre: "Portátil i7", categoria: "informatica", precio: 899, stock: 5 },
+    { id: 2, nombre: "Ratón Gaming", categoria: "accesorios", precio: 25, stock: 0 }, // Salta
+    { id: 3, nombre: "Funda Móvil", categoria: "telefonia", precio: 15, stock: 20 },
+    { id: 4, nombre: "Teclado", categoria: "informatica", precio: 45, stock: 12 }
+];
+
+console.table(procesarInventario(productosTest).catalogoProcesado);
+        })();
+      } catch (err) {
+        console.error("Excepción en la ejecución:", err.message);
+      }
+    }
+
+    document.getElementById('btn-ejecutar').onclick = () => {
+      ejecutarSolucion();
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      ejecutarSolucion();
+    });
+  </script>
+</body>
+</html>

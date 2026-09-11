@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UT2: Sintaxis, Sentencias Simples y Principios de Diseño</title>
+  <title>UT2: Sintaxis, Variables, Operadores y Estructuras de Control</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --accent: #059669;
+      --accent: #4f46e5;
       --text-main: #0f172a;
       --text-muted: #475569;
     }
@@ -135,7 +135,7 @@
     .index-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       flex-grow: 1;
       align-content: start;
       overflow-y: auto;
@@ -144,10 +144,10 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
       box-sizing: border-box;
     }
@@ -302,6 +302,28 @@
       color: #334155;
     }
 
+    /* Componente de Solución Embebida Desplegable */
+    .reto-solution-details {
+      transition: all 0.25s ease-in-out;
+      border: 1.5px solid #6366f1 !important;
+      background: #ffffff !important;
+      border-radius: 10px !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+    }
+    .reto-solution-details[open] {
+      background: #fdfcff !important;
+      border-color: #4f46e5 !important;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.12) !important;
+    }
+    .reto-solution-details summary {
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+    }
+    .reto-solution-details summary::-webkit-details-marker {
+      display: none;
+    }
+
     .reto-action-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -400,9 +422,9 @@
       
       <section class="cover-slide">
         <div class="badge">02</div>
-        <h1>UT2: Sintaxis, Sentencias Simples y Principios de Diseño</h1>
+        <h1>UT2: Sintaxis, Variables, Operadores y Estructuras de Control</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Metodologías ágiles (Scrum), principios de arquitectura de software (SOLID, DRY, KISS), variables de bloque (let/const), coerción de tipos, funciones flecha, modo estricto y contexto this.</div>
+        <div class="tagline">Declaración de variables, tipos de datos y ámbito (let/const/var), conversiones y asignaciones, operadores y expresiones, sentencias simples, estructuras condicionales, bucles y pruebas/documentación en el navegador.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -416,29 +438,36 @@
           <div class="index-card">
             <div class="index-badge">1</div>
             <div class="index-info">
-              <div class="index-title">Metodologías Ágiles (Scrum) y Principios de Diseño (SOLID)</div>
-              <p class="index-desc">El desarrollo web profesional requiere combinar metodologías de trabajo ágiles con principios de diseño de software de alta calidad.</p>
+              <div class="index-title">Variables: Declaración, Tipos de Datos y Ámbito (Scope)</div>
+              <p class="index-desc">En JavaScript, la gestión de la memoria y el ciclo de vida de los identificadores dependen del mecanismo de declaración y el tipo de dato asignado.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">2</div>
             <div class="index-info">
-              <div class="index-title">Tipos Primitivos, Objetos y Declaración de Variables (let / const)</div>
-              <p class="index-desc">JavaScript maneja una distinción clara entre tipos de datos primitivos por valor y objetos complejos por referencia.</p>
+              <div class="index-title">Conversiones de Tipos y Operaciones de Asignación</div>
+              <p class="index-desc">JavaScript es un lenguaje de tipado débil y dinámico donde las variables pueden sufrir conversiones implícitas (coerción) o requerir conversiones explícitas (casting) para garantizar la seguridad aritmética.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">3</div>
             <div class="index-info">
-              <div class="index-title">Estructuras de Control, Bucles Modernos y Operador Spread</div>
-              <p class="index-desc">El control de flujo en JavaScript se estructura mediante condicionales y estructuras repetitivas optimizadas.</p>
+              <div class="index-title">Operadores Básicos, Expresiones y Sentencias Simples</div>
+              <p class="index-desc">Las expresiones combinan operandos y operadores para producir un valor. JavaScript cuenta con una jerarquía formal de precedencia y operadores de última generación.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">4</div>
             <div class="index-info">
-              <div class="index-title">Funciones Clásicas, Funciones Flecha y Contexto &#x27;this&#x27;</div>
-              <p class="index-desc">Las funciones son bloques de construcción fundamentales y ciudadanos de primera clase (First-Class Citizens) en JavaScript.</p>
+              <div class="index-title">Estructuras de Control: Decisiones y Bucles</div>
+              <p class="index-desc">El control del flujo de ejecución en JavaScript se organiza en estructuras condicionales y estructuras repetitivas optimizadas.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">5</div>
+            <div class="index-info">
+              <div class="index-title">Comentarios, Documentación con JSDoc y Pruebas en el Navegador</div>
+              <p class="index-desc">El código profesional en JavaScript exige estándares formales de documentación técnica y procedimientos estructurados de depuración y prueba dentro del navegador.</p>
             </div>
           </div>
         </div>
@@ -446,17 +475,32 @@
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
-          <h2>1. Metodologías Ágiles (Scrum) y Principios de Diseño (SOLID)</h2>
+          <span class="badge-sub">Bloque 1 de 5 · Teoría y Demostración</span>
+          <h2>1. Variables: Declaración, Tipos de Datos y Ámbito (Scope)</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>El desarrollo web profesional requiere combinar metodologías de trabajo ágiles con principios de diseño de software de alta calidad:</p><ul class="concept-list"><li><strong>Metodología Ágil Scrum:</strong> Marco de trabajo iterativo enfocado en entregas continuas de valor mediante <em>Sprints</em> (ciclos de 1 a 4 semanas), refinamiento de historias de usuario en el Backlog y reuniones diarias de sincronización (Daily Standups).</li><li><strong>Clean Code (Código Limpio):</strong> Principios de legibilidad que exigen nombres autoexplicativos para variables y funciones, funciones pequeñas orientadas a una sola responsabilidad y ausencia de efectos secundarios ocultos.</li></ul></div>
+            <div class="card-text"><p>En JavaScript, la gestión de la memoria y el ciclo de vida de los identificadores dependen del mecanismo de declaración y el tipo de dato asignado:</p>
+<ul class="concept-list">
+  <li><strong>Mecanismos de Declaración:</strong>
+    <ul>
+      <li><code>var</code> (Heredado): Posee <em>ámbito de función (Function Scope)</em> y sufre elevación (<strong>Hoisting</strong>), permitiendo su uso antes de la declaración con valor <code>undefined</code>. Además, se añade al objeto global <code>window</code> si se declara fuera de funciones.</li>
+      <li><code>let</code> (Estándar Moderno): Posee <em>ámbito de bloque (Block Scope)</em> delimitado por llaves <code>{}</code>. No sufre inicialización por hoisting y reside en la <strong>Temporal Dead Zone (TDZ)</strong> hasta su definición.</li>
+      <li><code>const</code>: Ámbito de bloque. Exige inicialización inmediata y garantiza <em>inmutabilidad de enlace de referencia</em> (no se puede reasignar el identificador, aunque las propiedades internas de objetos y arrays sí son mutables).</li>
+    </ul>
+  </li>
+  <li><strong>Tipos de Datos Primitivos (Inmutables por valor):</strong> <code>number</code> (IEEE 754 de 64 bits), <code>string</code>, <code>boolean</code>, <code>undefined</code> (variable declarada sin valor), <code>null</code> (ausencia intencional de objeto), <code>symbol</code> (identificador único) y <code>bigint</code> (enteros de precisión arbitraria terminados en <code>n</code>).</li>
+  <li><strong>Tipos de Datos Complejos (Referencia):</strong> <code>object</code>, arrays, funciones y colecciones (Map, Set). El operador <code>typeof</code> permite inspeccionar tipos (con la peculiaridad histórica de <code>typeof null === "object"</code>).</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>La arquitectura del código se rige por los 5 principios de diseño orientado a objetos <strong>SOLID</strong> adaptados a JavaScript:</p><ul class="concept-list"><li><strong>S (Single Responsibility):</strong> Principio de Responsabilidad Única. Cada módulo o clase debe tener una sola razón para cambiar.</li><li><strong>O (Open/Closed):</strong> Abierto para la extensión, cerrado para la modificación. Extender funcionalidad mediante herencia o composición sin alterar código testeado.</li><li><strong>L (Liskov Substitution):</strong> Las clases derivadas deben poder sustituir a sus clases base sin alterar el comportamiento correcto del programa.</li><li><strong>I (Interface Segregation):</strong> Los clientes no deben verse obligados a depender de interfaces o métodos que no utilizan.</li><li><strong>D (Dependency Inversion):</strong> Inversión de Dependencias. Módulos de alto nivel no deben depender de detalles de bajo nivel, sino de abstracciones.</li></ul></div>
+            <div class="card-text"><p><strong>Buenas Prácticas de Ámbito y Modo Estricto:</strong></p>
+<ul class="concept-list">
+  <li><strong>Regla de Oro de Declaración:</strong> Usar <code>const</code> por defecto para todo identificador. Usar <code>let</code> únicamente cuando sea estrictamente necesario reasignar el valor (como contadores de bucle). Evitar por completo <code>var</code> en código nuevo.</li>
+  <li><strong>Directiva <code>'use strict'</code>:</strong> Activa el Modo Estricto de ECMAScript, prohibiendo variables globales accidentales sin declarar (ej. <code>x = 10</code> lanzará <em>ReferenceError</em>), impidiendo duplicados en parámetros y optimizando la compilación JIT.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -482,25 +526,114 @@ console.log(formateador.exportar(generador.crearReporteSprint(4, [&quot;US1: Log
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
-          <h2>🎯 Reto: Refactorización hacia Responsabilidad Única (SRP)</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 1</span>
+          <h2>🎯 Reto 1: Laboratorio de Scope, Hoisting, Temporal Dead Zone y Detección de Tipos</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Toma una función que realiza cálculos de impuestos, formatea la salida en HTML y guarda en el almacenamiento local. Sepárala en tres funciones puras y desacopladas (calcularIVA, formatearFactura, guardarRegistro) aplicando SRP.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un script que demuestre de forma rigurosa: 1) El hoisting de `var` (devuelve `undefined` antes de su declaración) frente a la Temporal Dead Zone (TDZ) de `let` y `const` (lanza `ReferenceError` capturado con `try/catch`), 2) La diferencia de ámbito entre Function Scope (`var`) y Block Scope (`let`/`const`) mediante un bloque `if` anidado, 3) El operador `typeof` aplicado a todos los tipos primitivos (number, string, boolean, undefined, symbol, bigint y la anomalía histórica de null), y 4) La inmutabilidad de referencia de `const` frente a la mutabilidad interna de sus propiedades, capturando el `TypeError` al reasignar.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Intenta acceder a una variable let antes de su declaración dentro de un bloque try/catch para capturar el ReferenceError de la TDZ. Comprueba var fuera de un bloque if. Muestra una tabla con typeof para los primitivos.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Las variables let y const no se inicializan durante la fase de creación del contexto de ejecución, residiendo en la TDZ hasta que el hilo alcanza la sentencia de asignación. Por su parte, var se eleva e inicializa con undefined.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function laboratorioScopeYTipos() {
+    console.group(&quot;🚀 1. Demostración de Hoisting y Temporal Dead Zone (TDZ)&quot;);
+    
+    // Demostración de Hoisting con &#x27;var&#x27; (se eleva y se inicializa con undefined)
+    console.log(&quot;Acceso previo a &#x27;variableVar&#x27; (Hoisting):&quot;, typeof variableVar, variableVar); // undefined
+    var variableVar = &quot;Valor asignado a var tras hoisting&quot;;
+
+    // Demostración de Temporal Dead Zone (TDZ) con &#x27;let&#x27;
+    try {
+        console.log(variableLetTDZ); // Lanza ReferenceError
+    } catch (e) {
+        console.warn(&quot;Capturado ReferenceError por TDZ (let antes de declaración):&quot;, e.message);
+    }
+    let variableLetTDZ = &quot;Valor let tras superar la TDZ&quot;;
+
+    // Demostración de TDZ con &#x27;const&#x27;
+    try {
+        console.log(variableConstTDZ); // Lanza ReferenceError
+    } catch (e) {
+        console.warn(&quot;Capturado ReferenceError por TDZ (const antes de declaración):&quot;, e.message);
+    }
+    const variableConstTDZ = &quot;Constante inicializada&quot;;
+    console.groupEnd();
+
+    console.group(&quot;📦 2. Ámbito de Función (var) vs Ámbito de Bloque (let/const)&quot;);
+    if (true) {
+        var visibleFueraDelIf = &quot;var ignora el bloque if (Function Scope)&quot;;
+        let invisibleFueraDelIf = &quot;let respeta el bloque if (Block Scope)&quot;;
+        const constanteDeBloque = &quot;const también tiene Block Scope&quot;;
+        console.log(&quot;Dentro del bloque if: todo es visible.&quot;);
+    }
+
+    console.log(&quot;Fuera del bloque if -&gt; visibleFueraDelIf:&quot;, visibleFueraDelIf);
+    try {
+        console.log(invisibleFueraDelIf);
+    } catch (e) {
+        console.warn(&quot;Capturado ReferenceError al leer &#x27;let&#x27; fuera del bloque:&quot;, e.message);
+    }
+    console.groupEnd();
+
+    console.group(&quot;🏷️ 3. Detección y Clasificación de Tipos Primitivos con typeof&quot;);
+    const auditoriaTipos = [
+        { tipoPrimitivo: &quot;number&quot;, valor: 42, resultadoTypeof: typeof 42 },
+        { tipoPrimitivo: &quot;string&quot;, valor: &quot;&#x27;DWEC 2024&#x27;&quot;, resultadoTypeof: typeof &quot;DWEC 2024&quot; },
+        { tipoPrimitivo: &quot;boolean&quot;, valor: true, resultadoTypeof: typeof true },
+        { tipoPrimitivo: &quot;undefined&quot;, valor: undefined, resultadoTypeof: typeof undefined },
+        { tipoPrimitivo: &quot;symbol&quot;, valor: &quot;Symbol(&#x27;id&#x27;)&quot;, resultadoTypeof: typeof Symbol(&quot;id&quot;) },
+        { tipoPrimitivo: &quot;bigint&quot;, valor: &quot;9007199254740995n&quot;, resultadoTypeof: typeof 9007199254740995n },
+        { tipoPrimitivo: &quot;null&quot;, valor: null, resultadoTypeof: typeof null + &quot; (anomalía histórica JS)&quot; }
+    ];
+    console.table(auditoriaTipos);
+    console.groupEnd();
+
+    console.group(&quot;🔒 4. Inmutabilidad de Enlace vs Mutabilidad de Propiedades en &#x27;const&#x27;&quot;);
+    const configuracionServidor = {
+        puerto: 8080,
+        protocolo: &quot;https&quot;
+    };
+
+    // Mutación de propiedad interna permitida:
+    configuracionServidor.puerto = 3000;
+    console.log(&quot;Propiedad interna mutada con éxito:&quot;, configuracionServidor);
+
+    // Intento de reasignación de referencia prohibido:
+    try {
+        configuracionServidor = { puerto: 9000 };
+    } catch (e) {
+        console.warn(&quot;Capturado TypeError al reasignar identificador const:&quot;, e.message);
+    }
+    console.groupEnd();
+}
+
+laboratorioScopeYTipos();</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 1 en Taller
             </a>
           </div>
         </div>
@@ -508,17 +641,44 @@ console.log(formateador.exportar(generador.crearReporteSprint(4, [&quot;US1: Log
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
-          <h2>2. Tipos Primitivos, Objetos y Declaración de Variables (let / const)</h2>
+          <span class="badge-sub">Bloque 2 de 5 · Teoría y Demostración</span>
+          <h2>2. Conversiones de Tipos y Operaciones de Asignación</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>JavaScript maneja una distinción clara entre tipos de datos primitivos por valor y objetos complejos por referencia:</p><ul class="concept-list"><li><strong>Tipos Primitivos (Inmutables):</strong> <code>number</code>, <code>string</code>, <code>boolean</code>, <code>undefined</code>, <code>null</code>, <code>symbol</code> y <code>bigint</code>. Se comparan y copian directamente por su valor en memoria.</li><li><strong>Tipos por Referencia (Mutables):</strong> Objetos, Arrays y Funciones. Se almacenan en la memoria Heap y las variables guardan una referencia (puntero) a la dirección de memoria.</li><li><strong>Declaración con <code>let</code> y <code>const</code>:</strong> Reemplazan a <code>var</code> introduciendo ámbito de bloque (Block Scope) e impidiendo el <strong>Hoisting perjudicial</strong> (elevación implícita que dejaba variables con valor <code>undefined</code>). La <strong>TDZ (Temporal Dead Zone)</strong> prohíbe acceder a <code>let</code>/<code>const</code> antes de su línea de declaración.</li></ul></div>
+            <div class="card-text"><p>JavaScript es un lenguaje de tipado débil y dinámico donde las variables pueden sufrir <strong>conversiones implícitas (coerción)</strong> o requerir <strong>conversiones explícitas (casting)</strong> para garantizar la seguridad aritmética:</p>
+<ul class="concept-list">
+  <li><strong>Conversión Implícita (Coerción Automática):</strong>
+    <ul>
+      <li>Operador <code>+</code>: Si uno de los operandos es una cadena de texto, actúa como concatenador, convirtiendo al otro operando a string (ej. <code>"5" + 2 === "52"</code>).</li>
+      <li>Operadores aritméticos (<code>-</code>, <code>*</code>, <code>/</code>): Coaccionan los operandos a números (ej. <code>"10" - 3 === 7</code>).</li>
+      <li>Igualdad Débil (<code>==</code>) vs Igualdad Estricta (<code>===</code>): El operador <code>==</code> realiza coerción previa (ej. <code>0 == false</code> es true), mientras que <code>===</code> compara tipo y valor sin conversión, siendo el único estándar admitido en desarrollo profesional.</li>
+      <li>Valores <em>Truthy</em> y <em>Falsy</em>: Se evalúan a falso en contextos booleanos únicamente: <code>false</code>, <code>0</code>, <code>-0</code>, <code>""</code>, <code>null</code>, <code>undefined</code> y <code>NaN</code>. Cualquier otro valor (incluyendo <code>[]</code> y <code>{}</code>) es <em>truthy</em>.</li>
+    </ul>
+  </li>
+  <li><strong>Conversiones Explícitas:</strong>
+    <ul>
+      <li>A Número: <code>Number(valor)</code> (estricto), <code>parseInt(cadena, 10)</code> (extrae enteros con base explícita) y <code>parseFloat(cadena)</code>.</li>
+      <li>A Cadena: <code>String(valor)</code> y método <code>valor.toString()</code>.</li>
+      <li>A Booleano: <code>Boolean(valor)</code> o doble negación <code>!!valor</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Operaciones de Asignación Modernas:</strong>
+    <ul>
+      <li>Asignación compuesta: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>**=</code> (exponenciación) y operadores lógicos de asignación: <code>&&=</code>, <code>||=</code>, <code>??=</code> (asigna sólo si es nulo o indefinido).</li>
+      <li>Asignación por Desestructuración: Extracción concisa de valores en variables independientes desde arrays y objetos (<code>const [a, b] = array; const { nombre, rol } = usuario;</code>).</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Manejo de conversiones y coerciones de tipos según el estándar ECMAScript:</p><ul class="concept-list"><li><strong>Coerción Implícita:</strong> Conversión automática de tipos realizada por el intérprete (ej. <code>'5' - 2 = 3</code> pero <code>'5' + 2 = '52'</code>).</li><li><strong>Igualdad Estricta (<code>===</code>):</strong> Compara tanto el valor como el tipo de dato sin realizar coerción implícita, evitando fallos lógicos respecto a la igualdad débil (<code>==</code>).</li><li><strong>Valores Falsy:</strong> Valores que se evalúan a <code>false</code> en contextos booleanos: <code>false</code>, <code>0</code>, <code></code>, <code>null</code>, <code>undefined</code> y <code>NaN</code>.</li></ul></div>
+            <div class="card-text"><p><strong>Peligros de Coerción y Soluciones Modernas:</strong></p>
+<ul class="concept-list">
+  <li><strong>Validación con <code>Number.isNaN()</code>:</strong> Siempre debe preferirse el método estático <code>Number.isNaN(v)</code> frente a la función global <code>isNaN(v)</code>, ya que esta última intenta coaccionar el argumento antes de evaluar, generando falsos positivos.</li>
+  <li><strong>Desestructuración con Valores por Defecto y Renombrado:</strong> Permite asignar fallbacks inmediatos: <code>const { tema = 'oscuro', usuario: alias } = opciones;</code>.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -540,25 +700,74 @@ probarScope();
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
-          <h2>🎯 Reto: Diferenciación de Scope y Mutabilidad</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 2</span>
+          <h2>🎯 Reto 2: Normalizador de Entradas de Usuario con Coerción Segura y Desestructuración</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Declara un array con &#x27;const&#x27;. Demuestra que se pueden modificar sus elementos internos (.push), pero que reasignar la variable arroja un TypeError. Explica qué ocurre en un bucle &#x27;for&#x27; con &#x27;let&#x27; vs &#x27;var&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una función llamada `normalizarUsuario(entrada)` que reciba un objeto con datos en formatos desordenados (ej: edad como string `&quot;28&quot;`, activo como número `1`, salario con coma `&quot;1450.50&quot;`). Aplica casting seguro, extrae los valores con desestructuración y genera un objeto normalizado con tipos primitivos estrictos (`number`, `boolean`, `string`). Si la edad no es un número válido, asigna un valor por defecto mediante el operador `??=`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa parseFloat con replace(&quot;,&quot;, &quot;.&quot;) para decimales con coma. Comprueba Number.isNaN para la edad y aplica el operador ??= para asignar un valor por defecto.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El saneamiento de entradas en frontend evita errores aritméticos derivados de coerción imprevista y homogeniza los datos recibidos de formularios o APIs externas.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function normalizarUsuario(entrada) {
+    // Desestructuración con valores por defecto
+    let { id, nombre, edad, activo, salario } = entrada;
+
+    // Normalización de tipos
+    id = Number(id);
+    nombre = String(nombre).trim();
+    
+    // Casting de edad y control de NaN
+    let edadNumerica = Number.parseInt(edad, 10);
+    if (Number.isNaN(edadNumerica)) {
+        edadNumerica = null;
+    }
+    edadNumerica ??= 18; // Operador nullish: si es null/undefined toma 18
+
+    // Coerción a booleano estricto
+    activo = Boolean(Number(activo));
+
+    // Conversión de formato numérico decimal con coma a punto
+    salario = Number.parseFloat(String(salario).replace(&#x27;,&#x27;, &#x27;.&#x27;));
+
+    return {
+        id,
+        nombre,
+        edad: edadNumerica,
+        activo,
+        salario: Number.isNaN(salario) ? 0 : salario
+    };
+}
+
+// Prueba con datos sucios de formulario
+const usuarioBruto = { id: &quot;402&quot;, nombre: &quot;  Carlos Santana  &quot;, edad: &quot;invalida&quot;, activo: 1, salario: &quot;2450,75&quot; };
+console.table(normalizarUsuario(usuarioBruto));</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 2 en Taller
             </a>
           </div>
         </div>
@@ -566,17 +775,39 @@ probarScope();
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
-          <h2>3. Estructuras de Control, Bucles Modernos y Operador Spread</h2>
+          <span class="badge-sub">Bloque 3 de 5 · Teoría y Demostración</span>
+          <h2>3. Operadores Básicos, Expresiones y Sentencias Simples</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>El control de flujo en JavaScript se estructura mediante condicionales y estructuras repetitivas optimizadas:</p><ul class="concept-list"><li><strong>Bucle <code>for...of</code>:</strong> Diseñado para iterar directamente sobre los valores de objetos iterables (Arrays, Cadenas, Sets, Maps).</li><li><strong>Bucle <code>for...in</code>:</strong> Diseñado exclusivamente para recorrer las llaves o propiedades enumerables de un objeto.</li><li><strong>Operador Spread (<code>...</code>):</strong> Desempaqueta y expande los elementos de un array u objeto iterable dentro de un nuevo contenedor (permite clonado superficial y concatenación).</li><li><strong>Operador Rest (<code>...</code>):</strong> Agrupa múltiples argumentos sobrantes pasados a una función dentro de un array formal.</li></ul></div>
+            <div class="card-text"><p>Las expresiones combinan operandos y operadores para producir un valor. JavaScript cuenta con una jerarquía formal de precedencia y operadores de última generación:</p>
+<ul class="concept-list">
+  <li><strong>Operadores Aritméticos y de Comparación:</strong> Adición (<code>+</code>), sustracción (<code>-</code>), multiplicación (<code>*</code>), división (<code>/</code>), módulo (<code>%</code>) y exponenciación (<code>**</code>). Operadores de incremento y decremento prefijo (<code>++x</code>) y postfijo (<code>x++</code>). Relacionales: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>.</li>
+  <li><strong>Operadores Lógicos y Cortocircuito (Short-Circuit Evaluation):</strong>
+    <ul>
+      <li><code>&amp;&amp;</code> (AND lógico): Evalúa el primer operando; si es falsy lo devuelve inmediatamente; si es truthy evalúa y devuelve el segundo.</li>
+      <li><code>||</code> (OR lógico): Si el primer operando es truthy lo devuelve inmediatamente; si no, devuelve el segundo operando.</li>
+      <li><code>!</code> (NOT lógico): Invierte el valor booleano.</li>
+    </ul>
+  </li>
+  <li><strong>Operadores Modernos de Acceso y Fallback:</strong>
+    <ul>
+      <li><strong>Operador Ternario (<code>cond ? expr1 : expr2</code>):</strong> Estructura condicional compacta en una sola expresión.</li>
+      <li><strong>Nullish Coalescing (<code>??</code>):</strong> Devuelve el operando de la derecha únicamente si el de la izquierda es <code>null</code> o <code>undefined</code>. A diferencia de <code>||</code>, respeta el <code>0</code>, el <code>false</code> y el <code>""</code> como valores válidos.</li>
+      <li><strong>Optional Chaining (<code>?.</code>):</strong> Permite leer propiedades profundamente anidadas sin provocar una excepción si una referencia intermedia es <code>null</code> o <code>undefined</code> (ej. <code>usuario?.direccion?.calle</code>).</li>
+    </ul>
+  </li>
+  <li><strong>Sentencias Simples y Estructura:</strong> Una sentencia simple expresa una acción (declaración, asignación, llamada a función). Finaliza formalmente con punto y coma (<code>;</code>) regulado por la inserción automática (<strong>ASI - Automatic Semicolon Insertion</strong>). Los bloques <code>{}</code> agrupan cero o más sentencias simples.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Operadores de cortocircuito y evaluación de valores nulos introducidos en las especificaciones modernas:</p><ul class="concept-list"><li><strong>Operador de Fusión Nula (<code>??</code>):</strong> Devuelve el operando de la derecha solo si el de la izquierda es <code>null</code> o <code>undefined</code> (a diferencia de <code>||</code> que salta con cualquier valor falsy como <code>0</code> o <code></code>).</li><li><strong>Encadenamiento Opcional (<code>?.</code>):</strong> Permite leer propiedades anidadas de un objeto sin lanzar un error <code>TypeError</code> si una referencia intermedia es nula.</li><li><strong>Desestructuración (Destructuring):</strong> Sintaxis que permite extraer valores de arrays u objetos y asignarlos directamente a variables individuales.</li></ul></div>
+            <div class="card-text"><p><strong>Precedencia de Operadores y Reglas de Estilo:</strong></p>
+<ul class="concept-list">
+  <li><strong>Peligros de ASI (Inserción Automática de Punto y Coma):</strong> Un retorno de función con la expresión en la línea siguiente (ej: <code>return \n { id: 1 }</code>) devolverá <code>undefined</code> porque el motor inserta un punto y coma tras <code>return</code>. Por convención profesional, se deben usar siempre puntos y comas explícitos.</li>
+  <li><strong>Combinación Segura <code>?.</code> y <code>??</code>:</strong> La sintaxis <code>const cp = cliente?.direccion?.cp ?? 'S/N';</code> previene excepciones y asigna un valor seguro en una sola línea elegante y declarativa.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -593,25 +824,69 @@ for (const prod of productos) { console.log(`Producto: ${prod.nombre} | Precio: 
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
-          <h2>🎯 Reto: Clonación Inmutable y Filtrado con Bucles Modernos</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 3</span>
+          <h2>🎯 Reto 3: Evaluador de Expresiones y Fallbacks con Operadores Modernos</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Dado un array de puntuaciones, clónalo inmutablemente con spread (...), añade dos nuevas notas y calcula la media de los aprobados utilizando un bucle &#x27;for...of&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Dada una lista de pedidos donde algunos clientes no tienen registrada dirección de entrega, otros tienen coste de envío 0€ (envío gratis) y otros datos nulos, crea una función que procese cada pedido calculando el total a pagar (importe base + coste de envío) y devuelva la calle de entrega. Asegúrate de que el envío gratis de 0€ se respete correctamente mediante `??` y no se sustituya por la tarifa base de 4.99€.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Utiliza pedido.envio ?? 4.99 para evitar sobreescribir el 0 con 4.99. Utiliza pedido.cliente?.direccion?.calle ?? &quot;Recogida en tienda&quot; para evitar ReferenceError.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El operador nullish coalescing previene el error común de tratar el 0 o false como datos faltantes, y optional chaining evita que el script falle por acceder a propiedades de undefined.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function procesarPedidosExpress(pedidos) {
+    return pedidos.map(pedido =&gt; {
+        // Fallback seguro de envío respetando el 0€
+        const costeEnvio = pedido.envio ?? 4.99;
+        const total = Number((pedido.base + costeEnvio).toFixed(2));
+        
+        // Extracción segura de dirección profunda
+        const direccionEntrega = pedido.cliente?.direccion?.calle 
+            ? \`\${pedido.cliente.direccion.calle}, \${pedido.cliente.direccion.ciudad ?? &#x27;S/C&#x27;}\` 
+            : &quot;Recogida en Tienda Central&quot;;
+
+        return {
+            id: pedido.id,
+            total,
+            envio: costeEnvio === 0 ? &quot;Gratis&quot; : \`\${costeEnvio}€\`,
+            direccion: direccionEntrega
+        };
+    });
+}
+
+// Datos de prueba con casos límite
+const pedidos = [
+    { id: 1, base: 50, envio: 0, cliente: { direccion: { calle: &quot;Gran Vía 28&quot;, ciudad: &quot;Madrid&quot; } } },
+    { id: 2, base: 25, envio: null, cliente: null }, // Sin cliente ni envío
+    { id: 3, base: 100, envio: 12.5, cliente: { direccion: null } } // Cliente sin dirección
+];
+
+console.table(procesarPedidosExpress(pedidos));</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 3 en Taller
             </a>
           </div>
         </div>
@@ -619,17 +894,43 @@ for (const prod of productos) { console.log(`Producto: ${prod.nombre} | Precio: 
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
-          <h2>4. Funciones Clásicas, Funciones Flecha y Contexto &#x27;this&#x27;</h2>
+          <span class="badge-sub">Bloque 4 de 5 · Teoría y Demostración</span>
+          <h2>4. Estructuras de Control: Decisiones y Bucles</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Las funciones son bloques de construcción fundamentales y ciudadanos de primera clase (First-Class Citizens) en JavaScript:</p><ul class="concept-list"><li><strong>Declaraciones y Expresiones de Función:</strong> Las declaraciones se elevan (Hoisting) al inicio del ámbito; las expresiones asociadas a variables se evalúan en tiempo de ejecución.</li><li><strong>Funciones Flecha (Arrow Functions):</strong> Sintaxis compacta (<code>(args) =&gt; expr</code>) que carece de su propio objeto <code>arguments</code> y realiza un <strong>enlace léxico del contexto <code>this</code></strong>.</li><li><strong>Comportamiento del Contexto <code>this</code>:</strong> En funciones clásicas, <code>this</code> se determina dinámicamente según cómo se invoca la función (el objeto que la llama). En Arrow Functions, <code>this</code> se hereda del ámbito padre envolvente en el momento de su creación.</li></ul></div>
+            <div class="card-text"><p>El control del flujo de ejecución en JavaScript se organiza en estructuras condicionales y estructuras repetitivas optimizadas:</p>
+<ul class="concept-list">
+  <li><strong>Estructuras de Decisión:</strong>
+    <ul>
+      <li><code>if / else if / else</code>: Ramificaciones binarias o múltiples basadas en la evaluación booleana de expresiones.</li>
+      <li><code>switch (expresion)</code>: Comparación de coincidencia estricta (<code>===</code>) con múltiples cláusulas <code>case</code>. Requiere la sentencia <code>break</code> para evitar la ejecución accidental en cascada (fallthrough). Admite cláusula <code>default</code> para casos no coincidentes y agrupamiento de casos para compartir lógica.</li>
+    </ul>
+  </li>
+  <li><strong>Estructuras de Repetición Tradicionales:</strong>
+    <ul>
+      <li><code>for (init; cond; step)</code>: Bucle clásico gobernado por un índice numérico. Óptimo cuando se conoce previamente el número de iteraciones.</li>
+      <li><code>while (condicion)</code>: Bucle con comprobación previa. La condición se valida antes de cada ciclo; si es falsa inicialmente, nunca se ejecuta.</li>
+      <li><code>do ... while (condicion)</code>: Bucle con comprobación posterior. Garantiza al menos una ejecución del bloque de código.</li>
+    </ul>
+  </li>
+  <li><strong>Bucles Iteradores Modernos (ES6+):</strong>
+    <ul>
+      <li><code>for ... of</code>: Itera sobre los <strong>valores</strong> de cualquier objeto iterable (Arrays, Strings, Sets, Maps, NodeLists). Sintaxis limpia y preferida para colecciones.</li>
+      <li><code>for ... in</code>: Itera sobre las <strong>claves/propiedades enumerables</strong> de un objeto. No debe emplearse para recorrer arrays debido a que incluye propiedades del prototipo y no garantiza el orden numérico de índices.</li>
+    </ul>
+  </li>
+  <li><strong>Control de Interrupción:</strong> Sentencias <code>break</code> (finaliza el bucle de inmediato) y <code>continue</code> (salta a la siguiente iteración). Admite etiquetas de bucle (<code>etiqueta: for ...</code>) para saltos en bucles anidados.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Métodos explícitos para la vinculación del contexto de ejecución (Explicit Binding):</p><ul class="concept-list"><li><strong><code>Function.prototype.call(thisArg, arg1, arg2)</code>:</strong> Invoca la función inmediatamente fijando <code>this</code> y pasando argumentos individualmente.</li><li><strong><code>Function.prototype.apply(thisArg, [argsArray])</code>:</strong> Invoca la función fijando <code>this</code> y pasando los argumentos empaquetados en un array.</li><li><strong><code>Function.prototype.bind(thisArg)</code>:</strong> Devuelve una nueva función con el contexto <code>this</code> permanentemente enlazado para ser ejecutada en el futuro.</li></ul></div>
+            <div class="card-text"><p><strong>Optimización de Bucles y Prevención de Bloqueos:</strong></p>
+<ul class="concept-list">
+  <li><strong>Caché de Longitud en Bucles For Clásicos:</strong> Al recorrer colecciones vivas del DOM (como <code>HTMLCollection</code>), es crucial cachear la longitud: <code>for (let i = 0, len = coleccion.length; i &lt; len; i++)</code>, previniendo que el navegador recalcule el tamaño del DOM en cada vuelta.</li>
+  <li><strong>Elección del Bucle Adecuado:</strong> Utilizar <code>for...of</code> para arrays e iterables; reservar <code>for...in</code> exclusivamente para depuración u objetos planos no ordenados.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -652,25 +953,95 @@ usuario.mostrarLenguajes();
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
-          <h2>🎯 Reto: Control del Contexto &#x27;this&#x27; con call, apply y bind</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 4</span>
+          <h2>🎯 Reto 4: Motor de Reglas de Descuento y Filtrado de Stock con Bucles e Interrupciones</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Escribe una función &#x27;presentar(rol)&#x27; y ejecútala cambiando explícitamente el contexto &#x27;this&#x27; con call(), apply() y bind() hacia dos objetos persona distintos.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una función que procese un inventario de artículos aplicando descuentos según la categoría con una estructura `switch`. Recorre el inventario con `for...of`. Si un producto tiene stock 0, salta al siguiente con `continue`. Si se detecta un artículo con precio negativo (error de base de datos), interrumpe el procesamiento global con `break` y notifica la anomalía.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Declara un array de artículos. Usa switch(articulo.categoria) para fijar el porcentaje de descuento. Controla articulo.stock === 0 con continue y articulo.precio &lt; 0 con break.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La combinación de switch con sentencias continue y break permite estructurar flujos de validación robustos y eficientes en colecciones de datos comerciales.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function procesarInventario(articulos) {
+    const catalogoProcesado = [];
+    let errorCritico = false;
+
+    for (const prod of articulos) {
+        // Control de anomalía crítica: interrupción con break
+        if (prod.precio &lt; 0) {
+            console.error(&quot;ALERTA CRÍTICA: Precio negativo detectado en ID &quot; + prod.id + &quot;. Proceso detenido.&quot;);
+            errorCritico = true;
+            break;
+        }
+
+        // Producto sin existencias: salto con continue
+        if (prod.stock === 0) {
+            console.warn(&quot;Stock agotado para &quot; + prod.nombre + &quot;. Omitiendo de catálogo activo.&quot;);
+            continue;
+        }
+
+        let descuento = 0;
+        switch (prod.categoria) {
+            case &quot;informatica&quot;:
+                descuento = 0.10; // 10%
+                break;
+            case &quot;telefonia&quot;:
+                descuento = 0.15; // 15%
+                break;
+            case &quot;accesorios&quot;:
+                descuento = 0.20; // 20%
+                break;
+            default:
+                descuento = 0.05; // 5% base
+        }
+
+        const precioFinal = Number((prod.precio * (1 - descuento)).toFixed(2));
+        catalogoProcesado.push({
+            id: prod.id,
+            nombre: prod.nombre,
+            precioOriginal: prod.precio,
+            precioFinal,
+            ahorro: Number((prod.precio - precioFinal).toFixed(2))
+        });
+    }
+
+    return { catalogoProcesado, estado: errorCritico ? &quot;Interrumpido con Errores&quot; : &quot;Procesado con Éxito&quot; };
+}
+
+const productosTest = [
+    { id: 1, nombre: &quot;Portátil i7&quot;, categoria: &quot;informatica&quot;, precio: 899, stock: 5 },
+    { id: 2, nombre: &quot;Ratón Gaming&quot;, categoria: &quot;accesorios&quot;, precio: 25, stock: 0 }, // Salta
+    { id: 3, nombre: &quot;Funda Móvil&quot;, categoria: &quot;telefonia&quot;, precio: 15, stock: 20 },
+    { id: 4, nombre: &quot;Teclado&quot;, categoria: &quot;informatica&quot;, precio: 45, stock: 12 }
+];
+
+console.table(procesarInventario(productosTest).catalogoProcesado);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 4 en Taller
             </a>
           </div>
         </div>
@@ -678,37 +1049,231 @@ usuario.mostrarLenguajes();
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Taller Práctico</span>
-          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+          <span class="badge-sub">Bloque 5 de 5 · Teoría y Demostración</span>
+          <h2>5. Comentarios, Documentación con JSDoc y Pruebas en el Navegador</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>El código profesional en JavaScript exige estándares formales de documentación técnica y procedimientos estructurados de depuración y prueba dentro del navegador:</p>
+<ul class="concept-list">
+  <li><strong>Tipos de Comentarios:</strong>
+    <ul>
+      <li>Comentarios de una línea (<code>//</code>): Aclaraciones puntuales sobre el <em>porqué</em> de una decisión de diseño, no sobre lo evidente.</li>
+      <li>Comentarios multilínea (<code>/* ... */</code>): Bloques de explicación arquitectónica o desactivación temporal de fragmentos de código.</li>
+    </ul>
+  </li>
+  <li><strong>Estándar JSDoc:</strong> Formato universal de documentación mediante comentarios especiales (<code>/** ... */</code>) que habilita autocompletado inteligente y comprobación estática de tipos en editores como VS Code:
+    <ul>
+      <li><code>@param {tipo} nombre - Descripción</code>: Define tipo y función de un parámetro.</li>
+      <li><code>@returns {tipo} Descripción</code>: Declara el tipo de dato devuelto.</li>
+      <li><code>@type {tipo}</code>: Tipifica variables complejas o constantes.</li>
+      <li><code>@throws {Error}</code>: Especifica las excepciones que la función puede propagar.</li>
+      <li><code>@example</code>: Muestra ejemplos interactivos de llamada y salida.</li>
+    </ul>
+  </li>
+  <li><strong>Técnicas de Prueba y Depuración en el Navegador:</strong>
+    <ul>
+      <li><code>console.table(datos)</code>: Renderiza matrices de objetos en formato de tabla interactiva con ordenación de columnas.</li>
+      <li><code>console.time('etiqueta') / console.timeEnd('etiqueta')</code>: Cronometra el tiempo exacto de ejecución con precisión de microsegundos.</li>
+      <li><code>console.assert(afirmacion, mensaje)</code>: Comprobación condicional que sólo emite un error si la condición es falsa.</li>
+      <li><code>debugger;</code>: Instrucción que fuerza la apertura de las herramientas de desarrollador y pausa el hilo principal para inspección paso a paso.</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>De JSDoc a TypeScript y Pruebas Unitarias:</strong></p>
+<ul class="concept-list">
+  <li><strong>Chequeo Estático con <code>// @ts-check</code>:</strong> Añadiendo esta directiva en la primera línea de cualquier fichero <code>.js</code>, el compilador de TypeScript integrado en el IDE analiza las anotaciones JSDoc y detecta errores de tipos en tiempo real sin requerir compilar a TypeScript.</li>
+  <li><strong>Trazas de Pila con <code>console.trace()</code>:</strong> Permite imprimir la cadena jerárquica exacta de llamadas a funciones que condujeron a un punto determinado del programa.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">/**
+ * Calcula el Impuesto sobre el Valor Añadido (IVA) de una factura comercial.
+ * @param {number} baseImponible - Importe monetario bruto en euros.
+ * @param {number} [tipoIva=0.21] - Tipo impositivo aplicable (0.04, 0.10, 0.21).
+ * @returns {number} Importe total de la factura con IVA incluido.
+ * @throws {TypeError} Si la base imponible no es un número finito positivo.
+ * @example
+ * const total = calcularFacturaConIva(100, 0.21); // Devuelve 121
+ */
+function calcularFacturaConIva(baseImponible, tipoIva = 0.21) {
+    if (typeof baseImponible !== &quot;number&quot; || baseImponible &lt;= 0 || !Number.isFinite(baseImponible)) {
+        throw new TypeError(&quot;La base imponible debe ser un número finito positivo.&quot;);
+    }
+    return Number((baseImponible * (1 + tipoIva)).toFixed(2));
+}
+
+// Comprobación y prueba unitaria en consola
+console.assert(calcularFacturaConIva(100, 0.21) === 121, &quot;Error en cálculo de IVA del 21%&quot;);
+console.log(&quot;Prueba unitaria superada con éxito.&quot;);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 5</span>
+          <h2>🎯 Reto 5: Documentación JSDoc Completa y Suite de Depuración en Consola</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una función llamada `calcularEstadisticas(numeros)` que reciba un array de números y devuelva un objeto con la media, el máximo y el mínimo. Documenta la función exhaustivamente con etiquetas JSDoc (`@param`, `@returns`, `@throws`, `@example`). Incluye mediciones con `console.time`, aserciones con `console.assert` para verificar los resultados y una instrucción `debugger;` para inspeccionar las variables intermedias.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Valida que el array no esté vacío antes de operar; si está vacío, lanza un Error. Usa Math.max y Math.min con el operador spread (...numeros) para obtener los extremos.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La documentación con JSDoc y las aserciones en consola constituyen la primera línea de defensa para garantizar el mantenimiento y la robustez del código en proyectos cliente de envergadura.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">/**
+ * @typedef {Object} Estadisticas
+ * @property {number} media - Media aritmética de los valores.
+ * @property {number} maximo - Valor más alto de la serie.
+ * @property {number} minimo - Valor más bajo de la serie.
+ */
+
+/**
+ * Calcula métricas estadísticas descriptivas sobre una colección numérica.
+ * @param {number[]} numeros - Array con valores numéricos.
+ * @returns {Estadisticas} Objeto con las métricas calculadas.
+ * @throws {Error} Si el array está vacío o contiene elementos no numéricos.
+ * @example
+ * const stats = calcularEstadisticas([10, 20, 30]); // { media: 20, maximo: 30, minimo: 10 }
+ */
+function calcularEstadisticas(numeros) {
+    if (!Array.isArray(numeros) || numeros.length === 0) {
+        throw new Error(&quot;El argumento debe ser un array con al menos un elemento numérico.&quot;);
+    }
+
+    console.time(&quot;Cálculo Estadístico&quot;);
+
+    let suma = 0;
+    for (const num of numeros) {
+        if (typeof num !== &quot;number&quot; || Number.isNaN(num)) {
+            throw new TypeError(&quot;Todos los elementos del array deben ser números válidos.&quot;);
+        }
+        suma += num;
+    }
+
+    const media = Number((suma / numeros.length).toFixed(2));
+    const maximo = Math.max(...numeros);
+    const minimo = Math.min(...numeros);
+
+    // Punto de interrupción para inspección en navegador
+    debugger;
+
+    console.timeEnd(&quot;Cálculo Estadístico&quot;);
+
+    return { media, maximo, minimo };
+}
+
+// Pruebas y Aserciones
+const muestra = [15, 22, 8, 45, 31, 19];
+const resultado = calcularEstadisticas(muestra);
+
+console.assert(resultado.maximo === 45, &quot;Error en cálculo de máximo&quot;);
+console.assert(resultado.minimo === 8, &quot;Error en cálculo de mínimo&quot;);
+console.table(resultado);</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 5 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Resumen Curricular</span>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (5)</h2>
         </div>
         <div class="final-workshop-card">
-          <ul class="final-ex-list">
+          <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
+            Cada uno de los siguientes retos ha sido propuesto tras la explicación de su bloque conceptual para afianzar los conocimientos adquiridos:
+          </p>
+          <ul class="final-ex-list" style="max-height: 380px; overflow-y: auto;">
             
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 1</span>
-        <div class="final-ex-text">
-          <strong>Calculadora de Facturas con Principios SOLID</strong>
-          <p>Módulo interactivo que calcula impuestos, aplica descuentos por tipo de cliente y exporta datos desacoplando la lógica de negocio, la validación y el renderizado en pantalla.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 1</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Laboratorio de Scope, Hoisting, Temporal Dead Zone y Detección de Tipos</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 1: Variables: Declaración, Tipos de Datos y Ámbito (Scope)</p>
         </div>
+        <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 2</span>
-        <div class="final-ex-text">
-          <strong>Laboratorio de Scope, Hoisting y Modo Estricto</strong>
-          <p>Simulador de consola interactivo donde los alumnos experimentan con variables var, let, const en bloques anidados y comprueban las excepciones del modo estricto en tiempo real.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 2</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Normalizador de Entradas de Usuario con Coerción Segura y Desestructuración</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 2: Conversiones de Tipos y Operaciones de Asignación</p>
         </div>
+        <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 3</span>
-        <div class="final-ex-text">
-          <strong>Dashboard de Métricas con Funciones Flecha y Spread</strong>
-          <p>Panel dinámico para calcular estadísticas de estudiantes (máximos, mínimos, medias y dispersión) manipulando arrays inmutables con sintaxis moderna ES6+.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 3</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Evaluador de Expresiones y Fallbacks con Operadores Modernos</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 3: Operadores Básicos, Expresiones y Sentencias Simples</p>
         </div>
+        <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 4</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Motor de Reglas de Descuento y Filtrado de Stock con Bucles e Interrupciones</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 4: Estructuras de Control: Decisiones y Bucles</p>
+        </div>
+        <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 5</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Documentación JSDoc Completa y Suite de Depuración en Consola</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Comentarios, Documentación con JSDoc y Pruebas en el Navegador</p>
+        </div>
+        <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
           </ul>
-          <div class="final-action-bar">
+          <div class="final-action-bar" style="margin-top: 10px;">
             <a href="ejercicios.html" class="btn-primary">
-              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+              💻 Abrir Taller Completo de Retos y Soluciones
             </a>
             <a href="../index.html" class="btn-secondary">
               🏠 Volver al Panel General

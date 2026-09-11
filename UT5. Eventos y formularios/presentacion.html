@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UT5: Gestión de Eventos y Formularios Web</title>
+  <title>UT5: Gestión del Modelo de Eventos, Formularios y Validación Web</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --accent: #0284c7;
+      --accent: #8b5cf6;
       --text-main: #0f172a;
       --text-muted: #475569;
     }
@@ -135,7 +135,7 @@
     .index-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       flex-grow: 1;
       align-content: start;
       overflow-y: auto;
@@ -144,10 +144,10 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
       box-sizing: border-box;
     }
@@ -302,6 +302,28 @@
       color: #334155;
     }
 
+    /* Componente de Solución Embebida Desplegable */
+    .reto-solution-details {
+      transition: all 0.25s ease-in-out;
+      border: 1.5px solid #6366f1 !important;
+      background: #ffffff !important;
+      border-radius: 10px !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+    }
+    .reto-solution-details[open] {
+      background: #fdfcff !important;
+      border-color: #4f46e5 !important;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.12) !important;
+    }
+    .reto-solution-details summary {
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+    }
+    .reto-solution-details summary::-webkit-details-marker {
+      display: none;
+    }
+
     .reto-action-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -400,9 +422,9 @@
       
       <section class="cover-slide">
         <div class="badge">05</div>
-        <h1>UT5: Gestión de Eventos y Formularios Web</h1>
+        <h1>UT5: Gestión del Modelo de Eventos, Formularios y Validación Web</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Modelo de eventos W3C, fases de captura y burbujeo, delegación de eventos, interacción de teclado/ratón y validación avanzada de formularios con la Constraint Validation API.</div>
+        <div class="tagline">Modelo de eventos W3C, tipos de eventos (ratón, teclado, formulario, ventana, personalizados), fases de propagación y delegación, interacción con formularios, validación con expresiones regulares y dinamismo de apariencia.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -416,29 +438,43 @@
           <div class="index-card">
             <div class="index-badge">1</div>
             <div class="index-info">
-              <div class="index-title">Modelo de Eventos W3C y addEventListener</div>
-              <p class="index-desc">El modelo de eventos estandarizado por el W3C permite gestionar las interacciones del usuario de forma desacoplada.</p>
+              <div class="index-title">Introducción al Modelo de Eventos y Manejadores (addEventListener)</div>
+              <p class="index-desc">El desarrollo frontend se rige por el paradigma de Programación Dirigida por Eventos (Event-Driven Programming) , donde el código reacciona a interacciones del usuario o cambios del sistema.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">2</div>
             <div class="index-info">
-              <div class="index-title">Fases de Propagación: Captura, Burbujeo y Delegación</div>
-              <p class="index-desc">Cuando ocurre un evento en un elemento anidado, este se propaga a través del árbol DOM en tres fases consecutivas.</p>
+              <div class="index-title">Fases de Propagación de Eventos: Captura, Destino, Burbujeo y Delegación</div>
+              <p class="index-desc">Cuando ocurre un evento en un elemento del DOM, viaja a través de la jerarquía de nodos en un ciclo formal de propagación en tres fases.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">3</div>
             <div class="index-info">
-              <div class="index-title">Eventos de Ratón, Teclado e Interacción</div>
-              <p class="index-desc">JavaScript expone eventos específicos para gestionar interacciones ricas de usuario.</p>
+              <div class="index-title">Catálogo de Tipos de Eventos: Ratón, Teclado, Formulario, Ventana y Personalizados</div>
+              <p class="index-desc">El navegador emite una amplia variedad de eventos clasificados según la naturaleza del dispositivo de entrada o la fuente generadora.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">4</div>
             <div class="index-info">
-              <div class="index-title">Validación de Formularios y Constraint Validation API</div>
-              <p class="index-desc">La validación de formularios en el cliente es la primera línea de defensa para mejorar la experiencia de usuario.</p>
+              <div class="index-title">Interacción con Formularios y Controles desde Código</div>
+              <p class="index-desc">Los formularios HTML constituyen el principal medio de entrada de datos en la web. JavaScript permite interceptar, manipular y controlar el ciclo de vida de sus campos.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">5</div>
+            <div class="index-info">
+              <div class="index-title">Validación de Campos Mediante Expresiones Regulares y Constraint Validation API</div>
+              <p class="index-desc">La validación de datos en cliente proporciona retroalimentación instantánea al usuario y previene el envío de información defectuosa mediante dos mecanismos complementarios.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">6</div>
+            <div class="index-info">
+              <div class="index-title">Modificación Dinámica de Apariencia, Comportamiento y Pruebas del Código</div>
+              <p class="index-desc">La interacción con el usuario se complementa con la modificación dinámica de estilos y clases y el testeo automatizado de eventos.</p>
             </div>
           </div>
         </div>
@@ -446,17 +482,52 @@
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
-          <h2>1. Modelo de Eventos W3C y addEventListener</h2>
+          <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
+          <h2>1. Introducción al Modelo de Eventos y Manejadores (addEventListener)</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>El modelo de eventos estandarizado por el W3C permite gestionar las interacciones del usuario de forma desacoplada:</p><ul class="concept-list"><li><strong>Método <code>addEventListener(event, listener, options)</code>:</strong> Vincula un manejador de eventos a un elemento DOM sin sobrescribir otros listeners existentes.</li><li><strong>Desvinculación con <code>removeEventListener()</code>:</strong> Elimina un evento previamente adjuntado. Requiere pasar exactamente la misma referencia de función.</li><li><strong>Objeto <code>Event</code>:</strong> Contiene información sobre el evento desencadenado (<code>e.target</code> elemento origen, <code>e.type</code> tipo de evento, <code>e.timeStamp</code> marca de tiempo).</li></ul></div>
+            <div class="card-text"><p>El desarrollo frontend se rige por el paradigma de <strong>Programación Dirigida por Eventos (Event-Driven Programming)</strong>, donde el código reacciona a interacciones del usuario o cambios del sistema:</p>
+<ul class="concept-list">
+  <li><strong>Evolución de los Manejadores de Eventos:</strong>
+    <ul>
+      <li><em>Atributos HTML en Línea (<code>onclick="..."</code>):</em> Obsoletos y desaconsejados por acoplar estructura y comportamiento, además de exponer a vulnerabilidades XSS.</li>
+      <li><em>Propiedades DOM Tradicionales (<code>elemento.onclick = fn</code>):</em> Permiten un único manejador por evento; cualquier asignación posterior sobreescribe la anterior.</li>
+      <li><em>Estándar W3C Moderno (<code>addEventListener</code>):</em> Permite adjuntar múltiples escuchadores independientes al mismo evento y elemento, soportando parámetros de configuración avanzados y separación total de capas.</li>
+    </ul>
+  </li>
+  <li><strong>Sintaxis de <code>addEventListener(tipo, listener, opciones)</code>:</strong>
+    <ul>
+      <li><code>tipo</code>: Nombre del evento en minúsculas (ej. <code>"click"</code>, <code>"input"</code>).</li>
+      <li><code>listener</code>: Función que se ejecuta al dispararse el evento (función nombrada, anónima o función flecha).</li>
+      <li><code>opciones</code>: Objeto de configuración:
+        <ul>
+          <li><code>once: true</code>: El escuchador se ejecuta una sola vez y se desvincula automáticamente.</li>
+          <li><code>passive: true</code>: Garantiza al navegador que el manejador nunca llamará a <code>preventDefault()</code>, permitiendo un scroll ultrasuave en dispositivos táctiles.</li>
+          <li><code>capture: true</code>: Ejecuta el manejador en la fase de captura en lugar de en la fase de burbujeo.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Desvinculación con <code>removeEventListener()</code>:</strong> Exige proporcionar exactamente la misma referencia de función nombrada que se usó al registrar el evento. Las funciones anónimas o flecha no pueden desvincularse.</li>
+  <li><strong>El Objeto <code>Event</code>:</strong> Se inyecta automáticamente como primer parámetro en el callback:
+    <ul>
+      <li><code>e.target</code>: Elemento exacto del DOM donde se originó el evento.</li>
+      <li><code>e.currentTarget</code>: Elemento al que está vinculado el escuchador activo (equivalente a <code>this</code> en funciones clásicas).</li>
+      <li><code>e.type</code>: Nombre textual del evento.</li>
+      <li><code>e.timeStamp</code>: Marca de tiempo en milisegundos de cuándo ocurrió el evento.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Opciones de registro avanzadas e interrupción del comportamiento por defecto:</p><ul class="concept-list"><li><strong><code>event.preventDefault()</code>:</strong> Cancela la acción predeterminada que el navegador ejecutaría para ese evento (ej. evitar el envío de un formulario o la navegación de un enlace).</li><li><strong>Opción <code>{ once: true }</code>:</strong> Garantiza que el manejador se ejecute una sola vez y se desvincule automáticamente del DOM.</li><li><strong>Opción <code>{ passive: true }</code>:</strong> Indica al navegador que el listener nunca llamará a <code>preventDefault()</code>, optimizando drásticamente el rendimiento de desplazamientos (scroll).</li></ul></div>
+            <div class="card-text"><p><strong>Gestión de Memoria y Fugas en Event Listeners:</strong></p>
+<ul class="concept-list">
+  <li><strong>Prevención de Memory Leaks con <code>AbortController</code>:</strong> El estándar moderno permite cancelar grupos enteros de eventos pasando una señal: <code>elemento.addEventListener('click', fn, { signal: controller.signal })</code>. Al invocar <code>controller.abort()</code>, todos los eventos vinculados a esa señal se destruyen de golpe limpiamente.</li>
+  <li><strong>Comportamiento de <code>this</code> vs <code>e.currentTarget</code>:</strong> En funciones flecha, <code>this</code> no apunta al elemento DOM (hereda el ámbito superior). Para acceder al elemento que escucha el evento de forma 100% segura e independiente del tipo de función, se debe emplear siempre <code>e.currentTarget</code>.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -475,25 +546,64 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
-          <h2>🎯 Reto: Prevención de Envío y Captura de Coordenadas</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 1</span>
+          <h2>🎯 Reto 1: Registro Dinámico y Desvinculación de Eventos con AbortController</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Asocia un evento &#x27;submit&#x27; a un formulario para prevenir su recarga por defecto con &#x27;e.preventDefault()&#x27; e imprime las coordenadas exactas del puntero en el momento del envío mediante &#x27;e.clientX&#x27; y &#x27;e.clientY&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un sistema de interacción para un botón de compra que permita un máximo de 3 clics antes de auto-desactivarse. Implementa la lógica utilizando una función manejadora nombrada, actualiza un contador visual en el DOM y cancela los eventos vinculados utilizando la API moderna `AbortController` al alcanzar el límite, mostrando un mensaje de bloqueo temporal.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Crea const controller = new AbortController(); y pásalo en { signal: controller.signal }. Incrementa un contador y cuando llegue a 3, llama a controller.abort().</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El uso de AbortController representa el estándar más elegante para desvincular escuchadores de eventos masivos sin mantener complejas referencias manuales de funciones.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function configurarBotonConLimite(botonElemento, maxIntentos = 3) {
+    let clicsRealizados = 0;
+    const controller = new AbortController();
+
+    function manejarClic(evento) {
+        clicsRealizados++;
+        console.log(\`Clic \${clicsRealizados}/\${maxIntentos} registrado en \${evento.currentTarget.id}\`);
+
+        if (clicsRealizados &gt;= maxIntentos) {
+            console.warn(&quot;Límite de interacciones alcanzado. Desvinculando escuchador...&quot;);
+            controller.abort(); // Destruye el listener automáticamente
+            botonElemento.disabled = true;
+            botonElemento.textContent = &quot;Límite Alcanzado 🔒&quot;;
+        }
+    }
+
+    botonElemento.addEventListener(&quot;click&quot;, manejarClic, { signal: controller.signal });
+    console.log(&quot;Escuchador con señal de cancelación registrado con éxito.&quot;);
+}
+
+// Simulación de uso con un botón
+// const btn = document.getElementById(&#x27;mi-boton&#x27;);
+// configurarBotonConLimite(btn, 3);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 1 en Taller
             </a>
           </div>
         </div>
@@ -501,17 +611,34 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
-          <h2>2. Fases de Propagación: Captura, Burbujeo y Delegación</h2>
+          <span class="badge-sub">Bloque 2 de 6 · Teoría y Demostración</span>
+          <h2>2. Fases de Propagación de Eventos: Captura, Destino, Burbujeo y Delegación</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Cuando ocurre un evento en un elemento anidado, este se propaga a través del árbol DOM en tres fases consecutivas:</p><ul class="concept-list"><li><strong>1. Fase de Captura (Capturing Phase):</strong> El evento desciende desde el objeto <code>window</code> y la raíz del DOM hasta llegar al elemento objetivo.</li><li><strong>2. Fase del Objetivo (Target Phase):</strong> El evento alcanza directamente al nodo desencadenante (<code>e.target</code>).</li><li><strong>3. Fase de Burbujeo (Bubbling Phase):</strong> El evento asciende consecutivamente desde el objetivo de vuelta hasta la raíz del documento HTML.</li></ul></div>
+            <div class="card-text"><p>Cuando ocurre un evento en un elemento del DOM, viaja a través de la jerarquía de nodos en un <strong>ciclo formal de propagación en tres fases</strong>:</p>
+<ul class="concept-list">
+  <li><strong>1. Fase de Captura (Capturing Phase):</strong> El evento desciende por el árbol DOM desde el objeto <code>window</code>, pasando por <code>document</code>, <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code> y ancestros hasta llegar al elemento objetivo. Por defecto, los escuchadores no se disparan en esta fase a menos que se configure explícitamente <code>{ capture: true }</code>.</li>
+  <li><strong>2. Fase de Destino (Target Phase):</strong> El evento alcanza el elemento exacto donde se originó la interacción (<code>e.target</code>).</li>
+  <li><strong>3. Fase de Burbujeo (Bubbling Phase):</strong> El evento asciende de vuelta desde el elemento objetivo hacia arriba a través de todos sus padres hasta <code>window</code>. La inmensa mayoría de escuchadores operan en esta fase por defecto.</li>
+  <li><strong>Control de la Propagación:</strong>
+    <ul>
+      <li><code>e.stopPropagation()</code>: Detiene la propagación del evento, impidiendo que siga ascendiendo o descendiendo por el árbol DOM hacia los demás elementos ancestros.</li>
+      <li><code>e.stopImmediatePropagation()</code>: Además de detener la propagación por el árbol, impide la ejecución de cualquier otro escuchador registrado en ese mismo elemento.</li>
+      <li><code>e.preventDefault()</code>: Cancela la acción predeterminada que el navegador realiza por defecto (ej. navegar al enlace en un <code>&lt;a&gt;</code>, enviar formulario en <code>submit</code> o escribir texto en <code>keydown</code>). <em>No detiene la propagación</em>.</li>
+    </ul>
+  </li>
+  <li><strong>Técnica de Delegación de Eventos (Event Delegation):</strong> En lugar de vincular un escuchador a cientos de elementos hijos individuales (lo que consume excesiva memoria), se vincula un <strong>único escuchador en el contenedor padre</strong>. Gracias al burbujeo, el padre intercepta los clics de cualquier hijo presente o futuro mediante <code>e.target.closest(selector)</code>.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Técnicas avanzadas de optimización mediante delegación de eventos:</p><ul class="concept-list"><li><strong>Delegación de Eventos (Event Delegation):</strong> Patrón que consiste en registrar un único manejador de eventos en un contenedor padre en lugar de adjuntar cientos de listeners a elementos hijos. Aprovecha la fase de burbujeo y gestiona elementos dinámicos mediante <code>e.target.closest(selector)</code>.</li><li><strong><code>event.stopPropagation()</code>:</strong> Detiene inmediatamente la propagación del evento hacia los elementos superiores en la fase de burbujeo.</li><li><strong><code>event.stopImmediatePropagation()</code>:</strong> Cancela la propagación y evita que otros listeners registrados en el mismo elemento se ejecuten.</li></ul></div>
+            <div class="card-text"><p><strong>Eficiencia y Escalabilidad con Delegación de Eventos:</strong></p>
+<ul class="concept-list">
+  <li><strong>Elementos Creados Dinámicamente:</strong> La delegación es la solución por excelencia para listas dinámicas o tablas donde se añaden o eliminan filas continuamente: no es necesario adjuntar nuevos listeners a cada fila creada porque el contenedor padre ya los gestiona todos.</li>
+  <li><strong>Eventos que no Burbujean:</strong> Eventos como <code>focus</code>, <code>blur</code>, <code>mouseenter</code> y <code>mouseleave</code> no burbujean. Para delegarlos se debe usar la fase de captura (<code>{ capture: true }</code>) o sus variantes que sí burbujean: <code>focusin</code>, <code>focusout</code>, <code>mouseover</code> y <code>mouseout</code>.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -532,25 +659,72 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
-          <h2>🎯 Reto: Implementación de Delegación de Eventos</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 2</span>
+          <h2>🎯 Reto 2: Galería Interactiva con Delegación de Eventos y Prevención de Propagación</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Crea una lista dinámica &#x27;&lt;ul&gt;&#x27; donde los nuevos elementos &#x27;&lt;li&gt;&#x27; puedan eliminarse al hacer clic sobre ellos, utilizando un solo &#x27;addEventListener&#x27; colocado en la etiqueta &#x27;&lt;ul&gt;&#x27; mediante delegación de eventos con &#x27;e.target.closest()&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña una tabla de pedidos interactiva que contenga múltiples filas y columnas con botones de acción (&quot;Detalles&quot;, &quot;Marcar Enviado&quot;, &quot;Eliminar&quot;). Utiliza un único escuchador de eventos en el elemento `&lt;tbody&gt;` mediante delegación. Identifica el botón pulsado con `e.target.closest()`, extrae el identificador del pedido desde el atributo `data-id` de la fila, y anula la acción predeterminada de navegación mediante `e.preventDefault()`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa e.target.closest(&quot;button&quot;) para saber qué botón se pulsó y lee el atributo data-id en la fila tr con e.target.closest(&quot;tr&quot;).dataset.id.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La delegación de eventos optimiza drásticamente el consumo de memoria del navegador y elimina la necesidad de re-vincular eventos al insertar nuevas filas dinámicas.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function inicializarTablaPedidos(tbodyElemento) {
+    // Delegación centralizada en el contenedor &lt;tbody&gt;
+    tbodyElemento.addEventListener(&quot;click&quot;, (e) =&gt; {
+        // Buscar el botón interactivo pulsado más cercano
+        const boton = e.target.closest(&quot;button&quot;);
+        if (!boton) return; // Se pulsó en texto plano de la tabla
+
+        // Obtener la fila contenedora y su metadato
+        const fila = boton.closest(&quot;tr&quot;);
+        const pedidoId = fila?.dataset.id ?? &quot;Desconocido&quot;;
+
+        // Determinar acción según las clases o atributos del botón
+        if (boton.classList.contains(&quot;btn-eliminar&quot;)) {
+            e.preventDefault();
+            console.warn(\`Eliminando pedido #\${pedidoId} de la tabla.\`);
+            fila.remove();
+        } else if (boton.classList.contains(&quot;btn-enviar&quot;)) {
+            e.preventDefault();
+            console.log(\`Marcando pedido #\${pedidoId} como enviado.\`);
+            fila.style.background = &quot;#dcfce7&quot;;
+            boton.disabled = true;
+        } else if (boton.classList.contains(&quot;btn-detalles&quot;)) {
+            e.preventDefault();
+            console.log(\`Abriendo panel de detalles para pedido #\${pedidoId}\`);
+        }
+    });
+}
+
+// Simulación:
+// const tbody = document.getElementById(&#x27;pedidos-body&#x27;);
+// inicializarTablaPedidos(tbody);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 2 en Taller
             </a>
           </div>
         </div>
@@ -558,17 +732,44 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
-          <h2>3. Eventos de Ratón, Teclado e Interacción</h2>
+          <span class="badge-sub">Bloque 3 de 6 · Teoría y Demostración</span>
+          <h2>3. Catálogo de Tipos de Eventos: Ratón, Teclado, Formulario, Ventana y Personalizados</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>JavaScript expone eventos específicos para gestionar interacciones ricas de usuario:</p><ul class="concept-list"><li><strong>Eventos de Ratón y Puntero:</strong> <code>click</code>, <code>dblclick</code>, <code>pointerdown</code>, <code>pointermove</code>, <code>pointerup</code>. La Pointer Events API unifica ratón, pantallas táctiles y lápices ópticos.</li><li><strong>Eventos de Teclado:</strong> <code>keydown</code> y <code>keyup</code>. La propiedad <code>e.key</code> devuelve el valor del carácter presionado y <code>e.code</code> el código físico de la tecla.</li><li><strong>Eventos de Foco y Formulario:</strong> <code>focus</code>, <code>blur</code>, <code>change</code> (al perder el foco habiendo cambiado el valor) e <code>input</code> (disparado inmediatamente en cada pulsación).</li></ul></div>
+            <div class="card-text"><p>El navegador emite una amplia variedad de eventos clasificados según la naturaleza del dispositivo de entrada o la fuente generadora:</p>
+<ul class="concept-list">
+  <li><strong>Eventos de Ratón (MouseEvent):</strong>
+    <ul>
+      <li>Pulsaciones: <code>click</code>, <code>dblclick</code>, <code>mousedown</code>, <code>mouseup</code>, <code>contextmenu</code> (menú contextual del botón derecho).</li>
+      <li>Movimiento: <code>mousemove</code> (alta frecuencia), <code>mouseenter</code> / <code>mouseleave</code> (no burbujean, se activan al entrar/salir del contenedor), frente a <code>mouseover</code> / <code>mouseout</code> (burbujean y se reactivan al pasar sobre elementos hijos).</li>
+      <li>Coordenadas: <code>clientX/Y</code> (relativas al viewport visible), <code>pageX/Y</code> (relativas a la página completa con scroll), <code>screenX/Y</code> (relativas al monitor del usuario).</li>
+    </ul>
+  </li>
+  <li><strong>Eventos de Teclado (KeyboardEvent):</strong>
+    <ul>
+      <li><code>keydown</code> (al presionar la tecla, se repite si se mantiene pulsada) y <code>keyup</code> (al soltarla).</li>
+      <li>Propiedades modernas: <code>e.key</code> (carácter textual producido, ej. <code>"Enter"</code>, <code>"a"</code>, <code>"Escape"</code>) y <code>e.code</code> (código físico del botón del teclado, ej. <code>"KeyA"</code>, <code>"Digit1"</code>). Teclas modificadoras booleanas: <code>e.ctrlKey</code>, <code>e.shiftKey</code>, <code>e.altKey</code>, <code>e.metaKey</code> (Cmd en Mac).</li>
+    </ul>
+  </li>
+  <li><strong>Eventos de Ventana y Documento:</strong>
+    <ul>
+      <li><code>DOMContentLoaded</code>: Se dispara en <code>document</code> cuando el árbol HTML está completamente parseado sin esperar a imágenes ni hojas de estilo.</li>
+      <li><code>load</code>: Se dispara en <code>window</code> cuando la página completa y todos sus recursos externos asociados han terminado de cargarse.</li>
+      <li><code>resize</code>, <code>scroll</code> (conviene modularlos con debouncing/throttling) y <code>beforeunload</code> (advertencia antes de abandonar la página).</li>
+    </ul>
+  </li>
+  <li><strong>Eventos Personalizados (CustomEvent):</strong> Permiten desacoplar componentes y crear arquitecturas orientadas a eventos. Se instancian con <code>new CustomEvent(nombre, { detail: {...}, bubbles: true })</code> y se emiten con <code>elemento.dispatchEvent(evento)</code>.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Técnicas de control de tasa de ejecución (Throttling y Debouncing):</p><ul class="concept-list"><li><strong>Debouncing (Antirrebote):</strong> Pospone la ejecución de una función hasta que haya transcurrido un tiempo determinado de inactividad tras la última llamada (ideal para campos de búsqueda de texto).</li><li><strong>Throttling (Limitación de Tasa):</strong> Limita la frecuencia máxima con la que una función puede ejecutarse a intervalos regulares fijados (ideal para eventos de <code>scroll</code> o <code>resize</code>).</li><li><strong>Accesibilidad (A11y):</strong> Asegurar que todas las interacciones de ratón tengan su equivalente funcional navegable mediante teclado.</li></ul></div>
+            <div class="card-text"><p><strong>Optimización de Eventos de Alta Frecuencia con Debounce y Throttle:</strong></p>
+<ul class="concept-list">
+  <li><strong>Debounce:</strong> Pospone la ejecución del manejador hasta que transcurra un periodo de inactividad (ideal para barras de búsqueda predictiva en el evento <code>input</code>).</li>
+  <li><strong>Throttle:</strong> Limita la frecuencia de ejecución a un intervalo fijo regular (ej. ejecutar como máximo una vez cada 100 ms durante el evento <code>scroll</code> o <code>resize</code> para evitar caídas de fotogramas).</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -588,25 +789,71 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
-          <h2>🎯 Reto: Manejador de Atajos de Teclado Accesible</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 3</span>
+          <h2>🎯 Reto 3: Sistema de Atajos de Teclado Globales y Notificaciones Desacopladas con CustomEvent</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Crea un listener global que detecte cuando el usuario pulsa &#x27;Ctrl + Enter&#x27; (e.ctrlKey &amp;&amp; e.key === &#x27;Enter&#x27;) para enviar un mensaje o la tecla &#x27;Escape&#x27; (e.key === &#x27;Escape&#x27;) para cerrar un modal.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Implementa un controlador de atajos de teclado global para una aplicación web. Debe detectar cuando el usuario presione `Escape` para cerrar modales abiertos y `Ctrl + Enter` (o `Cmd + Enter`) para enviar un formulario. Cuando se detecte el atajo de envío, crea y emite un `CustomEvent` llamado `&quot;formulario:enviar&quot;` que viaje con datos adicionales (`detail: { origen: &quot;atajo_teclado&quot; }`) y sea capturado por un listener central.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Comprueba e.key === &quot;Escape&quot; y (e.ctrlKey || e.metaKey) &amp;&amp; e.key === &quot;Enter&quot;. Usa document.dispatchEvent(new CustomEvent(...)).</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El uso de CustomEvent permite que componentes independientes de la interfaz se comuniquen sin acoplamiento directo, respondiendo a eventos de teclado de forma modular.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function inicializarAtajosGlobales() {
+    window.addEventListener(&quot;keydown&quot;, (e) =&gt; {
+        // 1. Atajo: Cerrar modales con Escape
+        if (e.key === &quot;Escape&quot;) {
+            console.log(&quot;Atajo presionado: Escape -&gt; Cerrando elementos flotantes.&quot;);
+            const eventoCierre = new CustomEvent(&quot;ui:cerrar-modales&quot;, { bubbles: true });
+            document.dispatchEvent(eventoCierre);
+            return;
+        }
+
+        // 2. Atajo: Envío rápido con Ctrl + Enter
+        if ((e.ctrlKey || e.metaKey) &amp;&amp; e.key === &quot;Enter&quot;) {
+            e.preventDefault();
+            console.log(&quot;Atajo presionado: Ctrl + Enter -&gt; Emitiendo evento de envío rápido.&quot;);
+
+            const eventoEnvio = new CustomEvent(&quot;formulario:enviar-rapido&quot;, {
+                detail: { origen: &quot;atajo_teclado&quot;, timestamp: Date.now() },
+                bubbles: true
+            });
+            document.dispatchEvent(eventoEnvio);
+        }
+    });
+
+    // Escuchador de prueba del evento desacoplado
+    document.addEventListener(&quot;formulario:enviar-rapido&quot;, (e) =&gt; {
+        console.log(&quot;Evento personalizado capturado con éxito:&quot;, e.detail);
+    });
+}
+
+inicializarAtajosGlobales();</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 3 en Taller
             </a>
           </div>
         </div>
@@ -614,17 +861,47 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
-          <h2>4. Validación de Formularios y Constraint Validation API</h2>
+          <span class="badge-sub">Bloque 4 de 6 · Teoría y Demostración</span>
+          <h2>4. Interacción con Formularios y Controles desde Código</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>La validación de formularios en el cliente es la primera línea de defensa para mejorar la experiencia de usuario:</p><ul class="concept-list"><li><strong>Atributos de Validación HTML5:</strong> <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code> (expresiones regulares) y tipos específicos (<code>type="email"</code>, <code>type="number"</code>).</li><li><strong>Evento <code>submit</code>:</strong> Captura el intento de envío del formulario en el contenedor <code>&lt;form&gt;</code> para validar datos antes de llamar a <code>e.preventDefault()</code> si existen errores.</li></ul></div>
+            <div class="card-text"><p>Los formularios HTML constituyen el principal medio de entrada de datos en la web. JavaScript permite interceptar, manipular y controlar el ciclo de vida de sus campos:</p>
+<ul class="concept-list">
+  <li><strong>Acceso a Formularios y Elementos:</strong>
+    <ul>
+      <li>Colección histórica: <code>document.forms["miFormulario"]</code>.</li>
+      <li>Selector moderno: <code>const form = document.querySelector("#registro-form");</code></li>
+      <li>Colección interna de controles: <code>form.elements["email"]</code> o <code>form.elements[0]</code>. Agrupa todos los inputs, selects, textareas y buttons del formulario.</li>
+    </ul>
+  </li>
+  <li><strong>Eventos de Formulario Clave:</strong>
+    <ul>
+      <li><code>input</code>: Se dispara de forma inmediata en tiempo real cada vez que el valor del campo cambia (al escribir cada letra). Indispensable para validación instantánea y feedback visual.</li>
+      <li><code>change</code>: Se dispara cuando el valor cambia y el campo <strong>pierde el foco</strong> (en inputs de texto) o de inmediato al seleccionar una opción (en <code>&lt;select&gt;</code>, checkboxes y radios).</li>
+      <li><code>focus</code> y <code>blur</code>: Se activan al recibir o perder el foco de interacción (no burbujean; usar <code>focusin</code>/<code>focusout</code> si se requiere delegación).</li>
+      <li><code>submit</code>: Se activa en el formulario al pulsar un botón <code>type="submit"</code> o presionar Enter. La llamada a <code>e.preventDefault()</code> detiene el envío HTTP tradicional para procesarlo de forma asíncrona (AJAX/Fetch).</li>
+      <li><code>reset</code>: Se activa al restablecer el formulario con un botón <code>type="reset"</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Lectura y Manipulación de Tipos de Controles:</strong>
+    <ul>
+      <li>Campos de texto y textareas: Propiedad <code>input.value</code> (siempre devuelve un string).</li>
+      <li>Casillas de verificación (Checkbox): Propiedad booleana <code>checkbox.checked</code>.</li>
+      <li>Botones de opción (Radio): Mismo atributo <code>name</code>; se localiza el seleccionado mediante <code>form.querySelector('input[name="genero"]:checked')?.value</code>.</li>
+      <li>Desplegables (Select): <code>select.value</code> (valor de la opción seleccionada) y <code>select.selectedIndex</code> (índice numérico).</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Validación programática avanzada con la <strong>Constraint Validation API</strong>:</p><ul class="concept-list"><li><strong><code>element.checkValidity()</code>:</strong> Evalúa si el campo cumple todas las restricciones devolviendo un booleano.</li><li><strong>Objeto <code>element.validity</code>:</strong> Expone propiedades booleanas detalladas de error (<code>valueMissing</code>, <code>typeMismatch</code>, <code>patternMismatch</code>, <code>tooShort</code>, <code>rangeUnderflow</code>).</li><li><strong><code>element.setCustomValidity(mensaje)</code>:</strong> Asigna un mensaje de error personalizado. Pasar una cadena vacía (<code></code>) marca el campo como válido.</li></ul></div>
+            <div class="card-text"><p><strong>El Objeto <code>FormData</code> para Formularios Complejos:</strong></p>
+<ul class="concept-list">
+  <li><strong>Extracción Instantánea de Datos:</strong> Al invocar <code>const datos = new FormData(formulario);</code>, se empaquetan automáticamente todos los campos con atributo <code>name</code>, incluyendo ficheros subidos (<code>&lt;input type="file"&gt;</code>).</li>
+  <li><strong>Conversión a Objeto Plano:</strong> La instrucción moderna <code>const json = Object.fromEntries(datos.entries());</code> transforma el formulario entero en un objeto JavaScript listo para serializar a JSON y enviar vía API Fetch.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -645,25 +922,73 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
-          <h2>🎯 Reto: Validación con Mensajes Personalizados y FormData</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 4</span>
+          <h2>🎯 Reto 4: Formulario de Registro Dinámico con Campos Condicionales y Bloqueo de Envío</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Valida un campo de contraseña verificando que tenga al menos 8 caracteres y contenga un número. Si no cumple, asígnale un mensaje de error personalizado con &#x27;setCustomValidity()&#x27; y extrae los datos del formulario con &#x27;FormData&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña la lógica de un formulario de registro donde el usuario seleccione si es &quot;Particular&quot; o &quot;Empresa&quot; mediante un select. Si selecciona &quot;Empresa&quot;, muestra dinámicamente un campo de texto adicional para el &quot;CIF&quot; y hazlo obligatorio. Intercepta el evento `submit` con `e.preventDefault()`, extrae todos los datos usando `FormData`, valida que los campos requeridos estén completos y muestra el resultado en formato JSON en consola.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Escucha el evento change en el select. Modifica la visibilidad del campo CIF cambiando su estilo display o clase hidden. Usa new FormData(form) en el submit.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La gestión de campos condicionales en formularios mejora la conversión del usuario mostrando únicamente los campos pertinentes según sus respuestas previas.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function configurarFormularioRegistro(formulario, selectTipo, campoCifContenedor, inputCif) {
+    // 1. Mostrar/ocultar campo CIF dinámicamente
+    selectTipo.addEventListener(&quot;change&quot;, () =&gt; {
+        if (selectTipo.value === &quot;empresa&quot;) {
+            campoCifContenedor.style.display = &quot;block&quot;;
+            inputCif.required = true;
+            inputCif.focus();
+        } else {
+            campoCifContenedor.style.display = &quot;none&quot;;
+            inputCif.required = false;
+            inputCif.value = &quot;&quot;;
+        }
+    });
+
+    // 2. Control del envío del formulario
+    formulario.addEventListener(&quot;submit&quot;, (e) =&gt; {
+        e.preventDefault(); // Impide recarga de página
+
+        const formData = new FormData(formulario);
+        const payload = Object.fromEntries(formData.entries());
+
+        console.log(&quot;Formulario validado y procesado localmente:&quot;);
+        console.table(payload);
+    });
+}
+
+// Inicialización de simulación:
+// const f = document.getElementById(&#x27;form-reg&#x27;);
+// const sel = document.getElementById(&#x27;tipo-cliente&#x27;);
+// const cont = document.getElementById(&#x27;contenedor-cif&#x27;);
+// const cif = document.getElementById(&#x27;input-cif&#x27;);
+// configurarFormularioRegistro(f, sel, cont, cif);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 4 en Taller
             </a>
           </div>
         </div>
@@ -671,37 +996,418 @@ if (typeof document !== &#x27;undefined&#x27;) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Taller Práctico</span>
-          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+          <span class="badge-sub">Bloque 5 de 6 · Teoría y Demostración</span>
+          <h2>5. Validación de Campos Mediante Expresiones Regulares y Constraint Validation API</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La validación de datos en cliente proporciona retroalimentación instantánea al usuario y previene el envío de información defectuosa mediante dos mecanismos complementarios:</p>
+<ul class="concept-list">
+  <li><strong>Expresiones Regulares en JavaScript (Objeto <code>RegExp</code>):</strong>
+    <ul>
+      <li>Definición: Sintaxis literal (<code>const regex = /^[\w.-]+@[\w.-]+\.[a-z]{2,}$/i;</code>) o mediante constructor <code>new RegExp("patron", "flags")</code>.</li>
+      <li>Metacaracteres clave: <code>^</code> (inicio), <code>$</code> (fin), <code>\d</code> (dígito), <code>\w</code> (alfanumérico y guion bajo), <code>\s</code> (espacio en blanco), <code>+</code> (uno o más), <code>*</code> (cero o más), <code>?</code> (opcional), <code>{min, max}</code> (cuantificador exacto), <code>[...]</code> (clase de caracteres).</li>
+      <li>Banderas (Flags): <code>i</code> (insensible a mayúsculas), <code>g</code> (búsqueda global), <code>u</code> (soporte Unicode completo).</li>
+      <li>Método principal de validación: <code>regex.test(cadena)</code> (devuelve booleano estricto).</li>
+    </ul>
+  </li>
+  <li><strong>Patrones Clásicos de Validación Web:</strong>
+    <ul>
+      <li>DNI Español: 8 números seguidos de letra mayúscula (<code>/^[0-9]{8}[A-Z]$/</code>) validada con el algoritmo de control <code>"TRWAGMYFPDXBNJZSQVHLCKE"[dni % 23]</code>.</li>
+      <li>Contraseña Fuerte: Mínimo 8 caracteres, al menos una mayúscula, una minúscula, un dígito y un carácter especial (<code>/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/</code>).</li>
+    </ul>
+  </li>
+  <li><strong>Constraint Validation API (Validación Nativa HTML5):</strong>
+    <p>Conjunto de propiedades y métodos expuestos en los elementos de formulario:</p>
+    <ul>
+      <li>Atributos estándar: <code>required</code>, <code>pattern="regex"</code>, <code>minlength</code>, <code>maxlength</code>, <code>min</code>, <code>max</code>, <code>type="email"</code>.</li>
+      <li>Método <code>input.checkValidity()</code>: Comprueba si el campo cumple sus restricciones (devuelve booleano).</li>
+      <li>Método <code>input.reportValidity()</code>: Comprueba y, si es inválido, muestra la burbuja de error nativa del navegador.</li>
+      <li>Método <code>input.setCustomValidity("Mensaje de error")</code>: Asigna un mensaje de error personalizado. Si se pasa una cadena vacía (<code>""</code>), el campo vuelve a considerarse válido.</li>
+      <li>Objeto <code>input.validity</code>: Expone el motivo exacto de la invalidez (<code>valueMissing</code>, <code>patternMismatch</code>, <code>typeMismatch</code>, <code>tooShort</code>, <code>valid</code>).</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>La Regla Inviolable de la Validación en Cliente:</strong></p>
+<ul class="concept-list">
+  <li><strong>La Validación Cliente es UX, no Seguridad:</strong> La validación en JavaScript existe para mejorar la experiencia del usuario (inmediatez sin esperar al servidor). <em>Nunca sustituye a la validación en el Backend</em>, ya que un atacante puede deshabilitar JavaScript o enviar peticiones HTTP directamente mediante herramientas como Postman o cURL.</li>
+  <li><strong>Atributo <code>novalidate</code> en <code>&lt;form&gt;</code>:</strong> Desactiva los globos de error nativos del navegador, permitiendo al desarrollador diseñar sistemas propios de mensajería y estilos de error visuales.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Validación con Expresiones Regulares y Constraint Validation API
+function validarDNIEspanol(inputElemento) {
+    const valor = inputElemento.value.trim().toUpperCase();
+    const regexDNI = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/;
+
+    // 1. Validación de formato formal con RegExp
+    if (!regexDNI.test(valor)) {
+        inputElemento.setCustomValidity(&quot;El DNI debe tener 8 dígitos y una letra mayúscula.&quot;);
+        inputElemento.reportValidity();
+        return false;
+    }
+
+    // 2. Validación algorítmica de la letra de control
+    const numero = parseInt(valor.substring(0, 8), 10);
+    const letraIngresada = valor.charAt(8);
+    const letrasControl = &quot;TRWAGMYFPDXBNJZSQVHLCKE&quot;;
+    const letraCalculada = letrasControl[numero % 23];
+
+    if (letraIngresada !== letraCalculada) {
+        inputElemento.setCustomValidity(`Letra incorrecta. Para el número ${numero} corresponde la &#x27;${letraCalculada}&#x27;.`);
+        inputElemento.reportValidity();
+        return false;
+    }
+
+    // Campo 100% válido: limpiar error personalizado
+    inputElemento.setCustomValidity(&quot;&quot;);
+    console.log(&quot;DNI validado con éxito:&quot;, valor);
+    return true;
+}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 5</span>
+          <h2>🎯 Reto 5: Validador de DNI y Contraseñas Seguras con RegExp y Constraint Validation API</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un módulo de validación para formularios con dos funciones reactivas: 1) `validarDNI(inputDNI)` que valide el formato del DNI con RegExp (`/^[0-9]{8}[A-Z]$/`) y aplique el algoritmo oficial de letra de control (`numero % 23` sobre `&quot;TRWAGMYFPDXBNJZSQVHLCKE&quot;`), asignando mensajes personalizados con `input.setCustomValidity()`, y 2) `auditarSeguridadContrasena(inputPassword)` que valide en tiempo real en el evento `input` la longitud (mínimo 8), mayúsculas, minúsculas, números y caracteres especiales, actualizando `setCustomValidity()` con los requisitos pendientes.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Para el DNI: const letraCorrecta = &quot;TRWAGMYFPDXBNJZSQVHLCKE&quot;[parseInt(dni.slice(0, 8), 10) % 23]. Usa setCustomValidity(&quot;&quot;) cuando sea válido.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La Constraint Validation API en combinación con expresiones regulares y algoritmos de control matemático previene el envío de datos corruptos al backend sin romper la experiencia fluida del usuario.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// 1. Validador Algorítmico de DNI Español
+function validarDNI(inputDNI) {
+    const valor = inputDNI.value.trim().toUpperCase();
+    const regexFormato = /^[0-9]{8}[A-Z]$/;
+
+    if (!regexFormato.test(valor)) {
+        inputDNI.setCustomValidity(&quot;El DNI debe componerse de 8 dígitos y una letra mayúscula final.&quot;);
+        return false;
+    }
+
+    const numero = parseInt(valor.slice(0, 8), 10);
+    const letraIngresada = valor.charAt(8);
+    const tablaLetras = &quot;TRWAGMYFPDXBNJZSQVHLCKE&quot;;
+    const letraCalculada = tablaLetras[numero % 23];
+
+    if (letraIngresada !== letraCalculada) {
+        inputDNI.setCustomValidity(`Letra de control inválida. Para ${numero} corresponde la letra &#x27;${letraCalculada}&#x27;.`);
+        return false;
+    }
+
+    inputDNI.setCustomValidity(&quot;&quot;); // Campo 100% válido
+    console.log(&quot;✅ DNI validado con éxito:&quot;, valor);
+    return true;
+}
+
+// 2. Auditor Reactivo de Complejidad de Contraseña
+function auditarSeguridadContrasena(inputPassword) {
+    inputPassword.addEventListener(&quot;input&quot;, () =&gt; {
+        const pass = inputPassword.value;
+        const faltantes = [];
+
+        if (pass.length &lt; 8) faltantes.push(&quot;mínimo 8 caracteres&quot;);
+        if (!/[A-Z]/.test(pass)) faltantes.push(&quot;al menos una mayúscula&quot;);
+        if (!/[a-z]/.test(pass)) faltantes.push(&quot;al menos una minúscula&quot;);
+        if (!/[0-9]/.test(pass)) faltantes.push(&quot;al menos un dígito numérico&quot;);
+        if (!/[@$!%*?&amp;._-]/.test(pass)) faltantes.push(&quot;un carácter especial (@$!%*?&amp;._-)&quot;);
+
+        if (faltantes.length &gt; 0) {
+            inputPassword.setCustomValidity(&quot;Requisitos pendientes: &quot; + faltantes.join(&quot;, &quot;));
+            inputPassword.style.borderColor = &quot;#ef4444&quot;;
+        } else {
+            inputPassword.setCustomValidity(&quot;&quot;); // Conforme
+            inputPassword.style.borderColor = &quot;#10b981&quot;;
+            console.log(&quot;✅ Contraseña robusta verificada.&quot;);
+        }
+    });
+}
+
+// Inicialización de prueba
+// const inputDni = document.getElementById(&#x27;dni&#x27;);
+// const inputPass = document.getElementById(&#x27;password&#x27;);
+// inputDni.onblur = () =&gt; validarDNI(inputDni);
+// auditarSeguridadContrasena(inputPass);</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 5 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 6 de 6 · Teoría y Demostración</span>
+          <h2>6. Modificación Dinámica de Apariencia, Comportamiento y Pruebas del Código</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La interacción con el usuario se complementa con la <strong>modificación dinámica de estilos y clases</strong> y el testeo automatizado de eventos:</p>
+<ul class="concept-list">
+  <li><strong>Gestión Dinámica de Clases CSS con <code>classList</code>:</strong>
+    <p>Forma estándar y óptima para alterar la apariencia de los elementos sin manipular cadenas directas:</p>
+    <ul>
+      <li><code>elemento.classList.add("clase1", "clase2")</code>: Añade clases.</li>
+      <li><code>elemento.classList.remove("clase")</code>: Elimina clases.</li>
+      <li><code>elemento.classList.toggle("clase", condicionBooleana)</code>: Conmuta la presencia de la clase (la añade si no está, la elimina si ya está presente).</li>
+      <li><code>elemento.classList.contains("clase")</code>: Comprueba la existencia devolviendo un booleano.</li>
+      <li><code>elemento.classList.replace("vieja", "nueva")</code>: Sustituye una clase por otra atómicamente.</li>
+    </ul>
+  </li>
+  <li><strong>Estilos en Línea vs Estilos Calculados:</strong>
+    <ul>
+      <li><code>elemento.style.propiedadCSS</code>: Permite leer y escribir estilos en línea (en formato camelCase, ej. <code>elemento.style.backgroundColor = "red"</code>). <em>Solo lee estilos definidos en línea en el atributo style</em>.</li>
+      <li><code>window.getComputedStyle(elemento)</code>: Devuelve un objeto de solo lectura con los valores calculados finales reales de todas las propiedades CSS del elemento tras aplicar la cascada y la herencia del navegador.</li>
+    </ul>
+  </li>
+  <li><strong>Pruebas y Simulación Programática de Eventos:</strong>
+    <p>Para testing unitario o automatización de interfaces, JavaScript permite despachar eventos sintéticos de forma programática:</p>
+    <ul>
+      <li>Disparo simplificado: <code>elemento.click()</code>, <code>elemento.focus()</code>.</li>
+      <li>Disparo estándar: <code>elemento.dispatchEvent(new Event("change", { bubbles: true }))</code>.</li>
+      <li>Herramienta de depuración en consola: <code>monitorEvents(elemento)</code> en DevTools para ver en directo cualquier evento emitido.</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Separación de Responsabilidades en Estilos:</strong></p>
+<ul class="concept-list">
+  <li><strong>Preferir Clases sobre <code>style.property</code>:</strong> El código JavaScript nunca debe definir valores específicos de diseño (colores hex, márgenes o fuentes) mediante <code>elemento.style</code>. La buena práctica consiste en definir las clases de diseño en CSS y hacer que JavaScript se limite a añadir o quitar dichas clases (<code>classList.add('error')</code>) o modificar Variables CSS (<code>elemento.style.setProperty('--color-tema', '#2563eb')</code>).</li>
+  <li><strong>Coordinación con Transiciones CSS:</strong> Al añadir una clase con animación, el evento <code>transitionend</code> permite ejecutar lógica JavaScript justo en el instante en que la animación visual ha finalizado.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Conmutador de Temas (Dark/Light Mode) con classList y Variables CSS
+function conmutarTemaOscuro() {
+    const body = document.body;
+    
+    // Conmutar clase de tema oscuro
+    const esOscuro = body.classList.toggle(&quot;dark-mode&quot;);
+
+    // Guardar preferencia persistente en localStorage
+    localStorage.setItem(&quot;tema_usuario&quot;, esOscuro ? &quot;oscuro&quot; : &quot;claro&quot;);
+    console.log(&quot;Tema conmutado dinámicamente:&quot;, esOscuro ? &quot;Modo Oscuro 🌙&quot; : &quot;Modo Claro ☀️&quot;);
+
+    // Modificación de variable CSS global reactiva
+    document.documentElement.style.setProperty(
+        &quot;--fondo-principal&quot;,
+        esOscuro ? &quot;#0f172a&quot; : &quot;#f8fafc&quot;
+    );
+}
+
+// Lectura de estilos calculados reales del navegador
+const estiloReal = window.getComputedStyle(document.body);
+console.log(&quot;Color de fondo calculado actualmente:&quot;, estiloReal.backgroundColor);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
+          <h2>🎯 Reto 6: Conmutador de Temas Visuales (Dark/Light Mode) con Persistencia y Eventos Sintéticos</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un módulo que gestione el tema visual de una página web. Debe: 1) Detectar la preferencia del sistema operativo mediante `window.matchMedia(&quot;(prefers-color-scheme: dark)&quot;)`, 2) Permitir conmutar manualmente entre modo claro y oscuro con `classList.toggle(&quot;dark&quot;)`, 3) Persistir la elección en `localStorage`, y 4) Disparar un evento sintético `&quot;tema:cambiado&quot;` para notificar a los componentes de la interfaz.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa window.matchMedia.matches para la preferencia inicial del SO. Emite document.dispatchEvent(new CustomEvent(&quot;tema:cambiado&quot;, { detail: { tema } })).</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La sincronización entre matchMedia, variables CSS y eventos personalizados produce interfaces adaptables que respetan la configuración de accesibilidad del usuario.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">class GestorTemas {
+    constructor() {
+        this.temaActual = this.determinarTemaInicial();
+        this.aplicarTema(this.temaActual);
+        this.escucharPreferenciaSO();
+    }
+
+    determinarTemaInicial() {
+        const guardado = localStorage.getItem(&quot;app_tema&quot;);
+        if (guardado) return guardado;
+
+        // Detección automática de preferencia del sistema operativo
+        return window.matchMedia(&quot;(prefers-color-scheme: dark)&quot;).matches ? &quot;oscuro&quot; : &quot;claro&quot;;
+    }
+
+    aplicarTema(tema) {
+        this.temaActual = tema;
+        const esOscuro = tema === &quot;oscuro&quot;;
+        document.body.classList.toggle(&quot;dark-theme&quot;, esOscuro);
+        localStorage.setItem(&quot;app_tema&quot;, tema);
+
+        // Disparo de evento sintético para notificar a la aplicación
+        const evento = new CustomEvent(&quot;tema:cambiado&quot;, {
+            detail: { tema, esOscuro },
+            bubbles: true
+        });
+        document.dispatchEvent(evento);
+        console.log(\`Tema aplicado: \${tema.toUpperCase()}\`);
+    }
+
+    conmutar() {
+        const nuevoTema = this.temaActual === &quot;oscuro&quot; ? &quot;claro&quot; : &quot;oscuro&quot;;
+        this.aplicarTema(nuevoTema);
+    }
+
+    escucharPreferenciaSO() {
+        window.matchMedia(&quot;(prefers-color-scheme: dark)&quot;).addEventListener(&quot;change&quot;, (e) =&gt; {
+            if (!localStorage.getItem(&quot;app_tema&quot;)) {
+                this.aplicarTema(e.matches ? &quot;oscuro&quot; : &quot;claro&quot;);
+            }
+        });
+    }
+}
+
+const temas = new GestorTemas();
+// Para cambiar: temas.conmutar();</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 6 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Resumen Curricular</span>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (6)</h2>
         </div>
         <div class="final-workshop-card">
-          <ul class="final-ex-list">
+          <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
+            Cada uno de los siguientes retos ha sido propuesto tras la explicación de su bloque conceptual para afianzar los conocimientos adquiridos:
+          </p>
+          <ul class="final-ex-list" style="max-height: 380px; overflow-y: auto;">
             
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 1</span>
-        <div class="final-ex-text">
-          <strong>Formulario de Alta con Constraint Validation API</strong>
-          <p>Formulario completo de registro con feedback visual en tiempo real de validez, mensajes de error personalizados y extracción automática de datos con FormData.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 1</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Registro Dinámico y Desvinculación de Eventos con AbortController</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 1: Introducción al Modelo de Eventos y Manejadores (addEventListener)</p>
         </div>
+        <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 2</span>
-        <div class="final-ex-text">
-          <strong>Visualizador Interactivo de Fases de Eventos</strong>
-          <p>Herramienta didáctica con elementos anidados de colores (Abuelo, Padre, Hijo) que ilustra paso a paso la fase de captura, diana y burbujeo con paradas opcionales de stopPropagation.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 2</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Galería Interactiva con Delegación de Eventos y Prevención de Propagación</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 2: Fases de Propagación de Eventos: Captura, Destino, Burbujeo y Delegación</p>
         </div>
+        <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 3</span>
-        <div class="final-ex-text">
-          <strong>Tablero Kanban con Delegación y Atajos de Teclado</strong>
-          <p>Aplicación de tareas interactivas donde las tarjetas se crean, editan y eliminan utilizando delegación de eventos optimizada y navegación por teclado (Enter, Escape, Delete).</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 3</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Sistema de Atajos de Teclado Globales y Notificaciones Desacopladas con CustomEvent</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 3: Catálogo de Tipos de Eventos: Ratón, Teclado, Formulario, Ventana y Personalizados</p>
         </div>
+        <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 4</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Formulario de Registro Dinámico con Campos Condicionales y Bloqueo de Envío</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 4: Interacción con Formularios y Controles desde Código</p>
+        </div>
+        <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 5</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Validador de DNI y Contraseñas Seguras con RegExp y Constraint Validation API</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Validación de Campos Mediante Expresiones Regulares y Constraint Validation API</p>
+        </div>
+        <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 6</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Conmutador de Temas Visuales (Dark/Light Mode) con Persistencia y Eventos Sintéticos</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: Modificación Dinámica de Apariencia, Comportamiento y Pruebas del Código</p>
+        </div>
+        <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
           </ul>
-          <div class="final-action-bar">
+          <div class="final-action-bar" style="margin-top: 10px;">
             <a href="ejercicios.html" class="btn-primary">
-              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+              💻 Abrir Taller Completo de Retos y Soluciones
             </a>
             <a href="../index.html" class="btn-secondary">
               🏠 Volver al Panel General

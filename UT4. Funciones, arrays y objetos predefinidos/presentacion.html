@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UT4: Funciones Avanzadas, Arrays, POO y Patrones de Diseño</title>
+  <title>UT4: Funciones, Arrays, Programación Orientada a Objetos y Patrones</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --accent: #9333ea;
+      --accent: #d97706;
       --text-main: #0f172a;
       --text-muted: #475569;
     }
@@ -135,7 +135,7 @@
     .index-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       flex-grow: 1;
       align-content: start;
       overflow-y: auto;
@@ -144,10 +144,10 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
       box-sizing: border-box;
     }
@@ -302,6 +302,28 @@
       color: #334155;
     }
 
+    /* Componente de Solución Embebida Desplegable */
+    .reto-solution-details {
+      transition: all 0.25s ease-in-out;
+      border: 1.5px solid #6366f1 !important;
+      background: #ffffff !important;
+      border-radius: 10px !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08) !important;
+    }
+    .reto-solution-details[open] {
+      background: #fdfcff !important;
+      border-color: #4f46e5 !important;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.12) !important;
+    }
+    .reto-solution-details summary {
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+    }
+    .reto-solution-details summary::-webkit-details-marker {
+      display: none;
+    }
+
     .reto-action-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -400,9 +422,9 @@
       
       <section class="cover-slide">
         <div class="badge">04</div>
-        <h1>UT4: Funciones Avanzadas, Arrays, POO y Patrones de Diseño</h1>
+        <h1>UT4: Funciones, Arrays, Programación Orientada a Objetos y Patrones</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Closures, métodos de orden superior de arrays (map, filter, reduce), programación orientada a objetos con clases ES6, serialización JSON y catálogo de patrones de diseño de software.</div>
+        <div class="tagline">Funciones predefinidas y personalizadas, arrays y manipulación, operaciones agregadas (map, filter, reduce, sort), orientación a objetos (literales, constructores, clases ES6), patrones de diseño y depuración/documentación.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -416,29 +438,43 @@
           <div class="index-card">
             <div class="index-badge">1</div>
             <div class="index-info">
-              <div class="index-title">Funciones de Orden Superior, Closures y Callbacks</div>
-              <p class="index-desc">Las Funciones de Orden Superior (Higher-Order Functions) son funciones que reciben otras funciones como argumentos o devuelven funciones como resultado.</p>
+              <div class="index-title">Funciones Predefinidas del Lenguaje y Funciones Personalizadas</div>
+              <p class="index-desc">En JavaScript, las funciones son ciudadanos de primera clase (First-Class Citizens) : pueden asignarse a variables, pasarse como argumentos y devolverse desde otras funciones.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">2</div>
             <div class="index-info">
-              <div class="index-title">Arrays y Métodos Funcionales Modernos</div>
-              <p class="index-desc">Los Arrays en JavaScript disponen de un catálogo de métodos funcionales declarativos que evitan la mutación directa.</p>
+              <div class="index-title">Arrays: Creación, Manipulación y Métodos de Recorrido</div>
+              <p class="index-desc">Los arrays en JavaScript son objetos dinámicos de longitud variable indexados numéricamente con capacidad de almacenar tipos heterogéneos.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">3</div>
             <div class="index-info">
-              <div class="index-title">Programación Orientada a Objetos: Clases ES6 y Herencia</div>
-              <p class="index-desc">La especificación ES6 introdujo la sintaxis de clases como una capa de azúcar sintáctico sobre la herencia prototípica nativa.</p>
+              <div class="index-title">Operaciones Agregadas en Arrays: Mapeo, Filtrado, Reducción y Ordenación</div>
+              <p class="index-desc">La programación funcional en JavaScript se fundamenta en métodos iteradores inmutables que procesan colecciones de datos sin alterar el array de origen.</p>
             </div>
           </div>
           <div class="index-card">
             <div class="index-badge">4</div>
             <div class="index-info">
-              <div class="index-title">Catálogo de Patrones de Diseño en JavaScript</div>
-              <p class="index-desc">Los Patrones de Diseño son soluciones reutilizables a problemas comunes en la arquitectura de software.</p>
+              <div class="index-title">Introducción a la Orientación a Objetos: Literales, Constructores y Clases ES6</div>
+              <p class="index-desc">JavaScript implementa un modelo de Programación Orientada a Objetos basada en Prototipos que con la llegada de ES6 incorporó la sintaxis formal de clases.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">5</div>
+            <div class="index-info">
+              <div class="index-title">Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño Básicos</div>
+              <p class="index-desc">En el desarrollo de software frontend, los patrones de diseño proporcionan soluciones probadas y estandarizadas a problemas arquitectónicos comunes.</p>
+            </div>
+          </div>
+          <div class="index-card">
+            <div class="index-badge">6</div>
+            <div class="index-info">
+              <div class="index-title">Depuración de Funciones y Clases, y Documentación con JSDoc</div>
+              <p class="index-desc">La depuración estructurada en aplicaciones modulares basadas en POO requiere técnicas de trazabilidad y formalización del código mediante JSDoc.</p>
             </div>
           </div>
         </div>
@@ -446,17 +482,38 @@
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 4 · Teoría y Demostración</span>
-          <h2>1. Funciones de Orden Superior, Closures y Callbacks</h2>
+          <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
+          <h2>1. Funciones Predefinidas del Lenguaje y Funciones Personalizadas</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Las <strong>Funciones de Orden Superior (Higher-Order Functions)</strong> son funciones que reciben otras funciones como argumentos o devuelven funciones como resultado:</p><ul class="concept-list"><li><strong>Callbacks:</strong> Funciones pasadas como parámetros a otras funciones para ser ejecutadas en un momento posterior o tras completar una tarea.</li><li><strong>Closures (Clausuras):</strong> Capacidad de una función interna de 'recordar' y mantener acceso al ámbito léxico (variables locales) de su función contenedora padre, incluso después de que la función padre haya finalizado su ejecución.</li><li><strong>Encapsulación de Estado:</strong> Los closures permiten crear variables privadas y emular el patrón de módulo sin exponer datos al ámbito global.</li></ul></div>
+            <div class="card-text"><p>En JavaScript, las funciones son <strong>ciudadanos de primera clase (First-Class Citizens)</strong>: pueden asignarse a variables, pasarse como argumentos y devolverse desde otras funciones:</p>
+<ul class="concept-list">
+  <li><strong>Funciones Predefinidas Globales:</strong>
+    <ul>
+      <li>Conversión y comprobación numérica: <code>parseInt(cadena, base)</code>, <code>parseFloat(cadena)</code>, <code>isNaN()</code>, <code>isFinite()</code>.</li>
+      <li>Codificación de URLs: <code>encodeURI()</code> (codifica URLs completas conservando delimitadores de protocolo/path) y <code>encodeURIComponent()</code> (codifica todos los caracteres especiales para parámetros de consulta <code>?query=...</code>). Funciones inversas: <code>decodeURI()</code> y <code>decodeURIComponent()</code>.</li>
+      <li>Evaluación dinámica: <code>eval()</code>. ⚠️ <em>Desaconsejada y prohibida en Modo Estricto</em> por representar un grave vector de inyección de código y degradar la optimización del compilador JIT.</li>
+    </ul>
+  </li>
+  <li><strong>Definición de Funciones Personalizadas:</strong>
+    <ul>
+      <li><strong>Declaración de Función (Function Declaration):</strong> <code>function calcular() {}</code>. Posee elevación completa (hoisting), pudiendo invocarse antes de su línea de definición.</li>
+      <li><strong>Expresión de Función (Function Expression):</strong> <code>const sumar = function(a, b) { return a + b; };</code>. No sufre hoisting de inicialización.</li>
+      <li><strong>Funciones Flecha (Arrow Functions):</strong> Sintaxis concisa (<code>(a, b) =&gt; a + b</code>). Tienen retorno implícito para expresiones directas y <strong>enlace léxico de <code>this</code></strong> (no poseen su propio <code>this</code>, sino que heredan el contexto envolvente donde fueron creadas). No pueden utilizarse como constructoras con <code>new</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Parámetros Avanzados:</strong> Parámetros por defecto (<code>(x = 10)</code>), parámetros Rest para aridad indefinida (<code>(...valores)</code>) y desestructuración directa de argumentos.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Optimización y conceptos avanzados de evaluación funcional:</p><ul class="concept-list"><li><strong>Currying (Curryficación):</strong> Técnica que transforma una función de múltiples argumentos en una secuencia de funciones uniparamétricas consecutivas (<code>f(a,b,c) =&gt; f(a)(b)(c)</code>).</li><li><strong>Memoización (Memoization):</strong> Patrón de optimización que almacena en caché los resultados de funciones puras pesadas basados en sus argumentos para evitar cálculos repetidos.</li><li><strong>Funciones Puras:</strong> Funciones que siempre devuelven el mismo resultado para los mismos argumentos y no producen efectos secundarios (no mutan variables externas).</li></ul></div>
+            <div class="card-text"><p><strong>El Contexto de Ejecución y Enlace de <code>this</code>:</strong></p>
+<ul class="concept-list">
+  <li><strong>Diferencia Crítica de <code>this</code>:</strong> En funciones clásicas, <code>this</code> se determina dinámicamente en el momento de la llamada (el objeto que invoca la función). En funciones flecha, <code>this</code> queda fijado estáticamente en tiempo de compilación según el ámbito léxico donde se escribió la función.</li>
+  <li><strong>Métodos de Enlace Explícito:</strong> <code>fn.call(contexto, arg1, arg2)</code>, <code>fn.apply(contexto, [args])</code> y <code>fn.bind(contexto)</code> (devuelve una nueva función permanentemente vinculada).</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -477,25 +534,115 @@ console.log(&quot;Contador:&quot;, incrementar(), incrementar());
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 1</span>
-          <h2>🎯 Reto: Generador de Contadores Privados con Closures</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 1</span>
+          <h2>🎯 Reto 1: Auditoría de Funciones Predefinidas, Ámbito Léxico de this y Procesador de URLs</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Crea una función &#x27;crearContador(inicial)&#x27; que retorne un objeto con métodos &#x27;incrementar()&#x27;, &#x27;decrementar()&#x27; y &#x27;obtenerValor()&#x27;, garantizando que la variable interna no sea accesible ni modificable directamente desde el exterior mediante Closure.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un script que: 1) Audite y demuestre el comportamiento de las funciones predefinidas globales (`parseInt` con base explícita, `parseFloat`, la diferencia entre `isNaN` y `Number.isNaN`, `isFinite`, y la codificación/decodificación segura con `encodeURIComponent` y `decodeURIComponent`), 2) Contraste empíricamente el enlace léxico de `this` en una Función Flecha (Arrow Function) frente al enlace dinámico en una Declaración de Función tradicional, y 3) Construya una función `construirURLConsulta(baseURL, endpoint, ...parametros)` que reciba parámetros rest, sanitice y codifique los pares clave-valor y ensamble la URL final.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa Number.isNaN(&quot;abc&quot;) (false) vs isNaN(&quot;abc&quot;) (true) para contrastar la coerción previa. Diseña un objeto con un método clásico y una función flecha interna para demostrar cómo la flecha retiene el this léxico.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Las funciones globales predefinidas gestionan transformaciones elementales seguras, mientras que las funciones flecha resuelven el problema histórico de la pérdida de contexto de this en callbacks asíncronos.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function laboratorioFunciones() {
+    console.group(&quot;🔍 1. Auditoría de Funciones Predefinidas Globales&quot;);
+    
+    // parseInt con base explícita vs parseFloat
+    const enteroParseado = parseInt(&quot;100px&quot;, 10);
+    const floatParseado = parseFloat(&quot;3.14159265rad&quot;);
+    console.log(&quot;parseInt(&#x27;100px&#x27;, 10):&quot;, enteroParseado);
+    console.log(&quot;parseFloat(&#x27;3.14159265rad&#x27;):&quot;, floatParseado);
+
+    // Comparativa crítica: isNaN vs Number.isNaN
+    console.log(&quot;isNaN(&#x27;texto&#x27;):&quot;, isNaN(&quot;texto&quot;), &quot;(coacciona a NaN primero)&quot;);
+    console.log(&quot;Number.isNaN(&#x27;texto&#x27;):&quot;, Number.isNaN(&quot;texto&quot;), &quot;(estricto: no coacciona)&quot;);
+    console.log(&quot;Number.isFinite(100 / 0):&quot;, Number.isFinite(100 / 0), &quot;(Infinity no es finito)&quot;);
+
+    // Codificación y decodificación de URLs
+    const querySensible = &quot;categoría=desarrollo web &amp; cliente=100%&quot;;
+    const codificado = encodeURIComponent(querySensible);
+    const decodificado = decodeURIComponent(codificado);
+    console.log(&quot;encodeURIComponent:&quot;, codificado);
+    console.log(&quot;decodeURIComponent:&quot;, decodificado);
+    console.groupEnd();
+
+    console.group(&quot;🎯 2. Enlace Léxico de &#x27;this&#x27;: Función Clásica vs Función Flecha&quot;);
+    const componenteUsuario = {
+        nombre: &quot;Docente DWEC&quot;,
+        rol: &quot;Profesor&quot;,
+        
+        // Método con Function Declaration clásica: su propio &#x27;this&#x27; depende de quién lo llame
+        metodoClasico: function() {
+            return `Usuario clásico: ${this.nombre} (${this.rol})`;
+        },
+
+        // Demostración de flecha reteniendo el &#x27;this&#x27; léxico envolvente
+        ejecutarConCallback: function() {
+            // En una función clásica interna, &#x27;this&#x27; se perdería a undefined o window en modo estricto.
+            // La función flecha captura estáticamente el &#x27;this&#x27; del método envolvente:
+            const callbackFlecha = () =&gt; {
+                return `Captura léxica exitosa: ${this.nombre} - ${this.rol}`;
+            };
+            return callbackFlecha();
+        }
+    };
+
+    console.log(componenteUsuario.metodoClasico());
+    console.log(componenteUsuario.ejecutarConCallback());
+    console.groupEnd();
+
+    console.group(&quot;🔗 3. Procesador de URLs con Parámetros Rest y Sanitización&quot;);
+    const construirURLConsulta = (baseURL, endpoint, ...parametros) =&gt; {
+        const urlLimpia = baseURL.replace(/\/$/, &quot;&quot;) + &quot;/&quot; + endpoint.replace(/^\//, &quot;&quot;);
+        if (parametros.length === 0) return urlLimpia;
+
+        const pares = parametros.map(([clave, valor]) =&gt; {
+            const k = encodeURIComponent(String(clave).trim());
+            const v = encodeURIComponent(String(valor).trim());
+            return `${k}=${v}`;
+        });
+
+        return `${urlLimpia}?${pares.join(&quot;&amp;&quot;)}`;
+    };
+
+    const urlGenerada = construirURLConsulta(
+        &quot;https://api.formacion.es/v1&quot;,
+        &quot;cursos/buscar&quot;,
+        [&quot;modulo&quot;, &quot;Desarrollo Web en Entorno Cliente&quot;],
+        [&quot;notaMinima&quot;, 7],
+        [&quot;orden&quot;, &quot;prioritario &amp; seguro&quot;]
+    );
+    console.log(&quot;URL Final Generada y Sanitizada:&quot;);
+    console.log(urlGenerada);
+    console.groupEnd();
+}
+
+laboratorioFunciones();</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 1 en Taller
             </a>
           </div>
         </div>
@@ -503,17 +650,44 @@ console.log(&quot;Contador:&quot;, incrementar(), incrementar());
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 4 · Teoría y Demostración</span>
-          <h2>2. Arrays y Métodos Funcionales Modernos</h2>
+          <span class="badge-sub">Bloque 2 de 6 · Teoría y Demostración</span>
+          <h2>2. Arrays: Creación, Manipulación y Métodos de Recorrido</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Los Arrays en JavaScript disponen de un catálogo de métodos funcionales declarativos que evitan la mutación directa:</p><ul class="concept-list"><li><strong><code>Array.prototype.map(cb)</code>:</strong> Transforma cada elemento del array devolviendo un nuevo array de la misma longitud.</li><li><strong><code>Array.prototype.filter(cb)</code>:</strong> Evalúa una condición booleana en cada elemento devolviendo un nuevo array con los elementos que la cumplen.</li><li><strong><code>Array.prototype.reduce(cb, init)</code>:</strong> Acumula y reduce todos los elementos del array a un único valor final (objeto, número o array).</li></ul></div>
+            <div class="card-text"><p>Los arrays en JavaScript son objetos dinámicos de longitud variable indexados numéricamente con capacidad de almacenar tipos heterogéneos:</p>
+<ul class="concept-list">
+  <li><strong>Creación de Arrays:</strong> Notación literal corchetes (<code>[]</code>), constructor <code>new Array(longitud)</code>, método estático <code>Array.of(elem1, elem2)</code> y conversión de iterables con <code>Array.from(iterable, mapFn)</code> (ideal para convertir NodeLists del DOM a arrays reales).</li>
+  <li><strong>Mutación de Estructura (Pila y Cola):</strong>
+    <ul>
+      <li>Operaciones al final: <code>push(...elementos)</code> (añade al final y devuelve nueva longitud) y <code>pop()</code> (extrae y devuelve el último elemento).</li>
+      <li>Operaciones al inicio: <code>unshift(...elementos)</code> (inserta al principio) y <code>shift()</code> (extrae el primer elemento).</li>
+    </ul>
+  </li>
+  <li><strong>Transformación y Extracción:</strong>
+    <ul>
+      <li><code>splice(inicio, borrarConteo, ...insertar)</code>: <em>Método mutador versátil</em>. Elimina elementos, inserta nuevos o sustituye en cualquier posición del array.</li>
+      <li><code>slice(inicio, fin)</code>: <em>Método inmutable</em>. Extrae una porción superficial (shallow copy) del array sin modificar el original.</li>
+      <li><code>concat(...arrays)</code> y <code>join(separador)</code>: Combinación de arrays y serialización a cadena de texto.</li>
+    </ul>
+  </li>
+  <li><strong>Métodos de Recorrido:</strong>
+    <ul>
+      <li>Bucle <code>for</code> tradicional con índice numérico.</li>
+      <li>Bucle <code>for ... of</code> para iteración secuencial directa sobre elementos.</li>
+      <li>Método funcional <code>forEach((elemento, indice, array) =&gt; { ... })</code>. Nota: <code>forEach</code> no admite <code>break</code> ni <code>continue</code>.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Nuevos métodos inmutables introducidos en las especificaciones recientes de ECMAScript (ES2023+):</p><ul class="concept-list"><li><strong><code>toSorted()</code>, <code>toReversed()</code>, <code>toSpliced()</code>:</strong> Versiones inmutables de <code>sort()</code>, <code>reverse()</code> y <code>splice()</code> que devuelven una copia modificada sin alterar el array original.</li><li><strong><code>with(index, value)</code>:</strong> Devuelve una copia del array reemplazando el elemento de un índice específico de forma inmutable.</li><li><strong><code>findLast()</code> y <code>findLastIndex()</code>:</strong> Buscan elementos iterando desde el final del array hacia el principio.</li></ul></div>
+            <div class="card-text"><p><strong>Copia Superficial vs Copia Profunda en Arrays:</strong></p>
+<ul class="concept-list">
+  <li><strong>El operador Spread (<code>[...original]</code>) y <code>slice()</code>:</strong> Realizan copias superficiales (Shallow Copy). Si el array contiene objetos internos, las referencias a dichos objetos se comparten entre ambas copias.</li>
+  <li><strong>Copia Profunda Moderna con <code>structuredClone()</code>:</strong> API estándar nativa para clonar arrays u objetos anidados sin compartir referencias internas, superando las limitaciones de <code>JSON.parse(JSON.stringify())</code>.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -531,25 +705,87 @@ console.log(&quot;Precios dobles:&quot;, dobles);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 2</span>
-          <h2>🎯 Reto: Pipeline de Procesamiento de Pedidos</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 2</span>
+          <h2>🎯 Reto 2: Gestor de Pila y Cola de Procesos con Inserción y Rotación en Arrays</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Dado un array de objetos con pedidos (id, cliente, productos, pagado, importe), filtra los pedidos pagados con &#x27;filter&#x27;, calcula el total facturado con &#x27;reduce&#x27; y genera un nuevo array ordenado por importe descendente con &#x27;toSorted&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una clase o conjunto de funciones para gestionar una lista de tareas (`TaskManager`). Debe permitir añadir tareas prioritarias al frente (shift/unshift), añadir tareas regulares a la cola (push/pop), eliminar una tarea por su identificador usando `splice()`, y rotar la cola (extraer el primer elemento y colocarlo al final). Muestra el estado del array en cada paso.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa unshift para tareas urgentes y push para normales. Para rotar la cola: const primero = array.shift(); array.push(primero).</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El dominio de los métodos mutadores de arrays es esencial para implementar estructuras de datos clásicas (pilas LIFO y colas FIFO) de forma eficiente en JavaScript.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">class GestorTareas {
+    constructor() {
+        this.tareas = [];
+    }
+
+    agregarTareaRegular(tarea) {
+        this.tareas.push({ id: Date.now() + Math.random(), titulo: tarea, prioridad: &quot;Normal&quot; });
+    }
+
+    agregarTareaUrgente(tarea) {
+        this.tareas.unshift({ id: Date.now() + Math.random(), titulo: tarea, prioridad: &quot;URGENTE&quot; });
+    }
+
+    procesarSiguiente() {
+        const atendida = this.tareas.shift();
+        console.log(&quot;Procesando tarea:&quot;, atendida?.titulo ?? &quot;Cola vacía&quot;);
+        return atendida;
+    }
+
+    rotarCola() {
+        if (this.tareas.length &gt; 1) {
+            const cabeza = this.tareas.shift();
+            this.tareas.push(cabeza);
+            console.log(&quot;Cola rotada: el primer elemento pasa al final.&quot;);
+        }
+    }
+
+    eliminarPorIndice(indice) {
+        if (indice &gt;= 0 &amp;&amp; indice &lt; this.tareas.length) {
+            const [eliminada] = this.tareas.splice(indice, 1);
+            console.log(&quot;Tarea eliminada:&quot;, eliminada.titulo);
+        }
+    }
+
+    mostrar() {
+        console.table(this.tareas);
+    }
+}
+
+const gestor = new GestorTareas();
+gestor.agregarTareaRegular(&quot;Generar informe mensual&quot;);
+gestor.agregarTareaRegular(&quot;Limpiar logs de acceso&quot;);
+gestor.agregarTareaUrgente(&quot;Parchear vulnerabilidad crítica&quot;);
+gestor.mostrar();
+gestor.rotarCola();
+gestor.mostrar();</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 2 en Taller
             </a>
           </div>
         </div>
@@ -557,17 +793,42 @@ console.log(&quot;Precios dobles:&quot;, dobles);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 4 · Teoría y Demostración</span>
-          <h2>3. Programación Orientada a Objetos: Clases ES6 y Herencia</h2>
+          <span class="badge-sub">Bloque 3 de 6 · Teoría y Demostración</span>
+          <h2>3. Operaciones Agregadas en Arrays: Mapeo, Filtrado, Reducción y Ordenación</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>La especificación ES6 introdujo la sintaxis de clases como una capa de azúcar sintáctico sobre la herencia prototípica nativa:</p><ul class="concept-list"><li><strong>Constructor y Métodos:</strong> El método <code>constructor()</code> inicializa las propiedades de la instancia. Los métodos definidos dentro de la clase se asignan al prototipo de la clase (<code>Class.prototype</code>).</li><li><strong>Herencia con <code>extends</code> y <code>super</code>:</strong> La palabra clave <code>extends</code> establece la cadena de prototipos y <code>super()</code> invoca el constructor de la clase padre.</li><li><strong>Campos Privados (<code>#propiedad</code>):</strong> Sintaxis nativa que garantiza el encapsulamiento estricto a nivel de lenguaje, impidiendo el acceso a la propiedad desde fuera de la clase.</li></ul></div>
+            <div class="card-text"><p>La programación funcional en JavaScript se fundamenta en <strong>métodos iteradores inmutables</strong> que procesan colecciones de datos sin alterar el array de origen:</p>
+<ul class="concept-list">
+  <li><strong>Transformación con <code>map(callback)</code>:</strong> Aplica una función a cada elemento y genera un nuevo array de la misma longitud con los resultados transformados.</li>
+  <li><strong>Filtrado con <code>filter(callback)</code>:</strong> Evalúa un predicado booleano y devuelve un nuevo array conteniendo únicamente aquellos elementos que cumplan la condición.</li>
+  <li><strong>Reducción Acumulativa con <code>reduce(callback, valorInicial)</code>:</strong> Reduce todo el array a un único valor (un número, un objeto, un mapa o una estructura agrupada) mediante un acumulador.</li>
+  <li><strong>Búsqueda y Verificación:</strong>
+    <ul>
+      <li><code>find(callback)</code>: Devuelve el primer elemento que cumple el predicado (o <code>undefined</code>).</li>
+      <li><code>findIndex(callback)</code>: Devuelve el índice del primer elemento coincidente (o <code>-1</code>).</li>
+      <li><code>some(callback)</code>: Booleano <code>true</code> si al menos un elemento cumple la condición.</li>
+      <li><code>every(callback)</code>: Booleano <code>true</code> si todos los elementos cumplen la condición.</li>
+      <li><code>includes(valor)</code>: Comprueba si un valor simple existe dentro del array.</li>
+    </ul>
+  </li>
+  <li><strong>Ordenación con <code>sort()</code> y Métodos Inmutables ES2023:</strong>
+    <ul>
+      <li><code>sort(funcionComparacion)</code>: ⚠️ <em>Mutador</em>. Por defecto ordena alfabéticamente convirtiendo a string (lo que provoca que <code>[10, 2].sort()</code> sea <code>[10, 2]</code>). Para números se exige la función de comparación <code>(a, b) =&gt; a - b</code>.</li>
+      <li><code>toSorted()</code> y <code>toReversed()</code>: Estándar moderno inmutable. Devuelven un nuevo array ordenado o invertido sin mutar el original.</li>
+    </ul>
+  </li>
+  <li><strong>Encadenamiento Funcional (Method Chaining):</strong> Capacidad de concatenar múltiples operaciones (<code>datos.filter(...).map(...).reduce(...)</code>) en un pipeline de datos limpio y declarativo.</li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Mecanismos internos del sistema de herencia basado en prototipos (Prototypal Inheritance):</p><ul class="concept-list"><li><strong>Prototype Chain (Cadena de Prototipos):</strong> Todos los objetos poseen una referencia interna (<code>[[Prototype]]</code>) a su prototipo. Si una propiedad no existe en el objeto, la búsqueda asciende por la cadena hasta llegar a <code>Object.prototype</code> o <code>null</code>.</li><li><strong>Métodos Estáticos (<code>static</code>):</strong> Métodos asociados directamente a la clase contenedora y no a las instancias individuales.</li><li><strong>Getters y Setters:</strong> Métodos de acceso (<code>get</code> / <code>set</code>) para controlar y validar la lectura y escritura de propiedades de forma encapsulada.</li></ul></div>
+            <div class="card-text"><p><strong>Aplanamiento y Reducciones Complejas:</strong></p>
+<ul class="concept-list">
+  <li><strong>Métodos <code>flat()</code> y <code>flatMap()</code>:</strong> <code>array.flat(profundidad)</code> aplana sub-arrays anidados. <code>flatMap()</code> combina un mapeo y un aplanamiento de un solo nivel de profundidad de manera óptima en una sola iteración.</li>
+  <li><strong>Reducción a Objetos Agrupados (GroupBy):</strong> Usar <code>reduce</code> para agrupar colecciones por categoría: <code>datos.reduce((acc, el) => { (acc[el.cat] ??= []).push(el); return acc; }, {})</code>.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -589,25 +850,75 @@ console.log(`Persona: ${p.nombre} (ID: ${p.getId()})`);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 3</span>
-          <h2>🎯 Reto: Jerarquía de Clases con Encapsulamiento Privado</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 3</span>
+          <h2>🎯 Reto 3: Pipeline de Análisis Financiero y Estadístico con Method Chaining</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Diseña una clase &#x27;Empleado&#x27; con salario privado (&#x27;#salario&#x27;) y una subclase &#x27;Desarrollador&#x27; que añada el lenguaje principal y un método para calcular la nómina anual con bonificación usando &#x27;extends&#x27; y &#x27;super&#x27;.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Dada una lista de transacciones bancarias (con campos `id`, `concepto`, `tipo` (&quot;ingreso&quot; o &quot;gasto&quot;), `cantidad` y `categoria`), escribe un pipeline funcional que: 1) Filtre sólo los gastos, 2) Calcule el total gastado agrupado por categoría mediante `reduce()`, 3) Obtenga una lista inmutable ordenada de mayor a menor gasto con `toSorted()`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Usa filter(t =&gt; t.tipo === &quot;gasto&quot;), luego reduce para sumar por categorias: acc[t.categoria] = (acc[t.categoria] || 0) + t.cantidad.</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El encadenamiento de métodos funcionales permite transformar colecciones complejas sin efectos secundarios (side-effects) ni mutación de los datos originales.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function analizarGastos(transacciones) {
+    // 1. Filtrar gastos válidos
+    const gastos = transacciones.filter(t =&gt; t.tipo === &quot;gasto&quot;);
+
+    // 2. Agrupar y sumar por categoría usando reduce
+    const gastosPorCategoria = gastos.reduce((acc, t) =&gt; {
+        acc[t.categoria] = Number(((acc[t.categoria] || 0) + t.cantidad).toFixed(2));
+        return acc;
+    }, {});
+
+    // 3. Convertir a array de objetos y ordenar de forma inmutable con toSorted
+    const rankingCategorias = Object.entries(gastosPorCategoria)
+        .map(([categoria, total]) =&gt; ({ categoria, total }))
+        .toSorted((a, b) =&gt; b.total - a.total);
+
+    const gastoGlobal = gastos.reduce((total, t) =&gt; total + t.cantidad, 0);
+
+    return {
+        gastoGlobal: Number(gastoGlobal.toFixed(2)),
+        rankingCategorias
+    };
+}
+
+const movimientos = [
+    { id: 1, concepto: &quot;Nómina&quot;, tipo: &quot;ingreso&quot;, cantidad: 2100, categoria: &quot;Sueldo&quot; },
+    { id: 2, concepto: &quot;Alquiler&quot;, tipo: &quot;gasto&quot;, cantidad: 750, categoria: &quot;Vivienda&quot; },
+    { id: 3, concepto: &quot;Supermercado&quot;, tipo: &quot;gasto&quot;, cantidad: 125.40, categoria: &quot;Alimentación&quot; },
+    { id: 4, concepto: &quot;Internet&quot;, tipo: &quot;gasto&quot;, cantidad: 45, categoria: &quot;Suministros&quot; },
+    { id: 5, concepto: &quot;Restaurante&quot;, tipo: &quot;gasto&quot;, cantidad: 68.20, categoria: &quot;Alimentación&quot; }
+];
+
+const analisis = analizarGastos(movimientos);
+console.log(&quot;Gasto Total Acumulado:&quot;, analisis.gastoGlobal, &quot;€&quot;);
+console.table(analisis.rankingCategorias);</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 3 en Taller
             </a>
           </div>
         </div>
@@ -615,17 +926,37 @@ console.log(`Persona: ${p.nombre} (ID: ${p.getId()})`);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 4 · Teoría y Demostración</span>
-          <h2>4. Catálogo de Patrones de Diseño en JavaScript</h2>
+          <span class="badge-sub">Bloque 4 de 6 · Teoría y Demostración</span>
+          <h2>4. Introducción a la Orientación a Objetos: Literales, Constructores y Clases ES6</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Los <strong>Patrones de Diseño</strong> son soluciones reutilizables a problemas comunes en la arquitectura de software:</p><ul class="concept-list"><li><strong>Patrón Singleton (Creacional):</strong> Garantiza que una clase tenga una única instancia global en toda la aplicación y proporciona un punto de acceso único a ella.</li><li><strong>Patrón Factory (Creacional):</strong> Proporciona una interfaz para crear objetos delegando en subclases o funciones la decisión de qué clase concreta instanciar.</li><li><strong>Patrón Observer / PubSub (Comportamiento):</strong> Define una relación uno-a-muchos entre objetos para que cuando un sujeto cambie de estado, todos sus observadores sean notificados automáticamente.</li></ul></div>
+            <div class="card-text"><p>JavaScript implementa un modelo de <strong>Programación Orientada a Objetos basada en Prototipos</strong> que con la llegada de ES6 incorporó la sintaxis formal de clases:</p>
+<ul class="concept-list">
+  <li><strong>1. Objetos Literales:</strong> Notación <code>{ clave: valor }</code>. Soporta propiedades abreviadas, propiedades computadas <code>[expresion]: valor</code> y métodos abreviados. Métodos estáticos de <code>Object</code>: <code>Object.keys()</code>, <code>Object.values()</code>, <code>Object.entries()</code> y <code>Object.assign()</code>.</li>
+  <li><strong>2. Funciones Constructoras y Cadena Prototípica (Heredado):</strong>
+    <p>Funciones invocadas con el operador <code>new</code> (ej. <code>function Usuario(n) { this.nombre = n; }</code>). Los métodos se vinculan al prototipo: <code>Usuario.prototype.saludar = function() { ... };</code> para que todas las instancias compartan la misma función en memoria a través de la propiedad oculta <code>__proto__</code>.</p>
+  </li>
+  <li><strong>3. Clases Modernas ES6+ (<code>class</code>):</strong> Azúcar sintáctico elegante sobre el modelo de prototipos:
+    <ul>
+      <li>Constructor con <code>constructor(...args)</code>.</li>
+      <li>Métodos y propiedades de instancia tradicionales.</li>
+      <li>Getters y Setters: <code>get propiedad()</code> y <code>set propiedad(valor)</code> para encapsulación y validación de acceso.</li>
+      <li>Miembros Estáticos con <code>static</code>: Propiedades y métodos vinculados a la clase, no a las instancias (ej. métodos factoría).</li>
+      <li><strong>Campos y Métodos Privados (#):</strong> Estándar nativo moderno. Los campos que inician con almohadilla (ej. <code>#clavePrivada</code>) son totalmente inaccesibles desde el exterior de la clase, garantizando encapsulamiento estricto.</li>
+      <li><strong>Herencia y Polimorfismo:</strong> Palabra clave <code>extends</code> para heredar de una clase padre e invocación obligatoria a <code>super(...args)</code> en el constructor hijo.</li>
+    </ul>
+  </li>
+</ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p>Patrones estructurales y de diseño moderno orientados a JavaScript web:</p><ul class="concept-list"><li><strong>Patrón Module (Estructural):</strong> Encapsula código privado expuesto a través de un objeto público mediante closures o ES Modules.</li><li><strong>Patrón Decorator (Estructural):</strong> Añade responsabilidades adicionales a un objeto dinámicamente sin modificar la clase original.</li><li><strong>Principios de Refactorización:</strong> Aplicación del patrón desacoplado para mantener una arquitectura mantenible y testeable mediante inyección de dependencias.</li></ul></div>
+            <div class="card-text"><p><strong>Encapsulamiento Real frente a Convenciones Antiguas:</strong></p>
+<ul class="concept-list">
+  <li><strong>De <code>_propiedad</code> a <code>#propiedad</code>:</strong> Antiguamente, la privacidad se simulaba por convención anteponiendo un guion bajo (<code>_saldo</code>), pero la propiedad seguía siendo pública y modificable. Los campos privados <code>#saldo</code> ofrecen verdadero encapsulamiento a nivel de motor (Hard Private), arrojando SyntaxError si se intentan leer desde fuera.</li>
+  <li><strong>Polimorfismo:</strong> Las subclases pueden sobreescribir métodos del padre adaptando el comportamiento a su especialización, conservando la llamada al método base mediante <code>super.metodo()</code>.</li>
+</ul></div>
           </div>
         </div>
         <div class="code-demo-card">
@@ -650,25 +981,137 @@ console.log(&quot;¿Misma instancia Singleton?:&quot;, bd1 === bd2);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Práctica Inmediata · Concepto 4</span>
-          <h2>🎯 Reto: Implementación del Patrón Observer (Pub/Sub)</h2>
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 4</span>
+          <h2>🎯 Reto 4: Comparativa de Creación de Objetos: Literal, Prototipos y Clases ES6 con Privacidad (#)</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
-            <div class="callout-title">📝 Enunciado del Reto</div>
-            <div class="callout-body">Crea una clase &#x27;GestorEventos&#x27; (PubSub / Observer) con métodos &#x27;suscribir(evento, callback)&#x27; y &#x27;emitir(evento, datos)&#x27; para comunicar dos componentes desacoplados.</div>
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña y compara empíricamente los tres paradigmas de creación y modelado de objetos requeridos por el currículo DWEC: 1) Definición de Objeto Literal (`productoLiteral`) con métodos propios, 2) Función Constructora tradicional (`function ProductoConstructor`) vinculando métodos a su cadena prototípica (`ProductoConstructor.prototype`), y 3) Clases modernas ES6 (`class ProductoES6`) con encapsulamiento privado mediante campos `#precio` y `#descuento`, getters/setters validados, y una subclase `ProductoDigital` que extienda la clase base con polimorfismo mediante `super`. Comprueba además la identidad de prototipos mediante `instanceof` y `Object.getPrototypeOf()`.</div>
           </div>
           <div class="callout info">
-            <div class="callout-title">⚡ Entorno de Práctica e Instrucciones</div>
-            <div class="callout-body">Escribe y prueba la solución en tu editor de código o en la consola de desarrollador del navegador (<strong>F12 → Console</strong>). Intenta resolver la actividad antes de consultar la respuesta documentada.</div>
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">En la función constructora añade calcularPrecioFinal al prototype. En la clase ES6 usa #precio y #descuento. Comprueba objeto instanceof ProductoConstructor y Object.getPrototypeOf(ebook).</div>
           </div>
-          <div class="reto-action-card">
-            <div class="reto-action-text">
-              <strong>¿Has completado el reto o necesitas orientación?</strong>
-              <p>La solución oficial con código fuente interactivo y explicación paso a paso está disponible en el Taller de Ejercicios.</p>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> Las clases ES6 proporcionan una sintaxis clara y elegante con verdadero encapsulamiento (#), pero por debajo el motor sigue ejecutando el modelo clásico de delegación prototípica de JavaScript.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">function comparativaOrientacionObjetos() {
+    console.group(&quot;🏷️ 1. Creación Mediante Objeto Literal&quot;);
+    const productoLiteral = {
+        id: 1,
+        nombre: &quot;Monitor Ultrawide&quot;,
+        precio: 450,
+        descuento: 10,
+        calcularPrecioFinal() {
+            return Number((this.precio * (1 - this.descuento / 100)).toFixed(2));
+        }
+    };
+    console.log(&quot;Objeto Literal creado:&quot;, productoLiteral.nombre, &quot;- Precio final:&quot;, productoLiteral.calcularPrecioFinal(), &quot;€&quot;);
+    console.groupEnd();
+
+    console.group(&quot;⚙️ 2. Creación Mediante Función Constructora y Prototipo (ES5)&quot;);
+    function ProductoConstructor(id, nombre, precio, descuento = 0) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descuento = descuento;
+    }
+
+    // Vinculación de métodos al Prototype para compartir una sola referencia en memoria
+    ProductoConstructor.prototype.calcularPrecioFinal = function() {
+        return Number((this.precio * (1 - this.descuento / 100)).toFixed(2));
+    };
+
+    const productoProto = new ProductoConstructor(2, &quot;Teclado Mecánico&quot;, 120, 15);
+    console.log(&quot;Instancia desde Constructor:&quot;, productoProto.nombre, &quot;- Precio final:&quot;, productoProto.calcularPrecioFinal(), &quot;€&quot;);
+    console.log(&quot;¿productoProto instanceof ProductoConstructor?:&quot;, productoProto instanceof ProductoConstructor); // true
+    console.log(&quot;Prototipo directo:&quot;, Object.getPrototypeOf(productoProto) === ProductoConstructor.prototype); // true
+    console.groupEnd();
+
+    console.group(&quot;🚀 3. Clases Modernas ES6+ con Encapsulamiento Privado (#) y Polimorfismo&quot;);
+    class ProductoES6 {
+        #precio;
+        #descuento;
+
+        constructor(id, nombre, precio, descuento = 0) {
+            this.id = id;
+            this.nombre = nombre;
+            this.precio = precio;       // Setter con validación
+            this.descuento = descuento; // Setter
+        }
+
+        get precio() {
+            return this.#precio;
+        }
+
+        set precio(nuevoPrecio) {
+            if (typeof nuevoPrecio !== &quot;number&quot; || nuevoPrecio &lt; 0) {
+                throw new TypeError(&quot;El precio debe ser un número positivo.&quot;);
+            }
+            this.#precio = nuevoPrecio;
+        }
+
+        get descuento() {
+            return this.#descuento;
+        }
+
+        set descuento(nuevoDescuento) {
+            if (nuevoDescuento &lt; 0 || nuevoDescuento &gt; 100) {
+                throw new RangeError(&quot;El descuento debe estar entre 0% y 100%.&quot;);
+            }
+            this.#descuento = nuevoDescuento;
+        }
+
+        calcularPrecioFinal() {
+            return Number((this.#precio * (1 - this.#descuento / 100)).toFixed(2));
+        }
+    }
+
+    class ProductoDigital extends ProductoES6 {
+        constructor(id, nombre, precio, descuento, enlaceDescarga, tamanioMB) {
+            super(id, nombre, precio, descuento);
+            this.enlaceDescarga = enlaceDescarga;
+            this.tamanioMB = tamanioMB;
+        }
+
+        // Sobreescritura polimórfica: aplica canon digital del 2%
+        calcularPrecioFinal() {
+            const baseConDescuento = super.calcularPrecioFinal();
+            const canonDigital = baseConDescuento * 0.02;
+            return Number((baseConDescuento + canonDigital).toFixed(2));
+        }
+    }
+
+    const ebook = new ProductoDigital(101, &quot;Guía Avanzada DWEC 2024&quot;, 30, 20, &quot;https://descargas.es/dwec.pdf&quot;, 25);
+    console.log(`Producto Digital: ${ebook.nombre}`);
+    console.log(`Precio Base: ${ebook.precio}€`);
+    console.log(`Precio Final con Descuento y Canon: ${ebook.calcularPrecioFinal()}€`);
+    console.log(&quot;¿ebook instanceof ProductoES6?:&quot;, ebook instanceof ProductoES6); // true
+    console.groupEnd();
+}
+
+comparativaOrientacionObjetos();</code></pre>
+              </div>
             </div>
-            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary">
-              🔓 Ver Solución en Taller de Ejercicios
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 4 en Taller
             </a>
           </div>
         </div>
@@ -676,37 +1119,435 @@ console.log(&quot;¿Misma instancia Singleton?:&quot;, bd1 === bd2);
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub badge-exercise">Taller Práctico</span>
-          <h2>🚀 Ejercicios y Proyectos Guiados</h2>
+          <span class="badge-sub">Bloque 5 de 6 · Teoría y Demostración</span>
+          <h2>5. Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño Básicos</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>En el desarrollo de software frontend, los <strong>patrones de diseño</strong> proporcionan soluciones probadas y estandarizadas a problemas arquitectónicos comunes:</p>
+<ul class="concept-list">
+  <li><strong>Modelado de Entidades del Dominio:</strong> Organización de los datos del negocio mediante colecciones de objetos interactivos que encapsulan estado y operaciones lógicas (ej. Clases <code>Usuario</code>, <code>ItemCarrito</code>, <code>Catalogo</code>).</li>
+  <li><strong>Patrón Módulo (Module Pattern):</strong>
+    <p>Aísla la lógica privada exponiendo únicamente una API pública. Históricamente implementado mediante IIFEs (Immediately Invoked Function Expressions); hoy estandarizado de forma nativa con los <strong>ES Modules</strong> (ficheros <code>.js</code> con declaraciones <code>export</code> e <code>import</code>).</p>
+  </li>
+  <li><strong>Patrón Factoría (Factory Pattern):</strong>
+    <p>Función o método que encapsula y abstrae la instanciación de objetos complejos. En lugar de invocar directamente <code>new Clase()</code> en múltiples sitios, la factoría decide qué subclase o estructura crear según los parámetros facilitados.</p>
+  </li>
+  <li><strong>Patrón Singleton Simple (Instancia Única):</strong>
+    <p>Garantiza que una clase posea una <strong>única instancia compartida</strong> a lo largo de todo el ciclo de vida de la aplicación web, proporcionando un punto de acceso global unificado. Fundamental para gestores de estado, servicios de configuración o buses de eventos.</p>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>El Patrón Módulo Nativo y el Singleton en ES Modules:</strong></p>
+<ul class="concept-list">
+  <li><strong>Los Módulos ES son Singletons por Especificación:</strong> Cuando un fichero módulo exporta una instancia de objeto (ej. <code>export const servicioAuth = new AuthService();</code>), el motor del navegador evalúa y ejecuta el módulo una sola vez. Cualquier otro fichero que lo importe compartirá exactamente la misma instancia en memoria.</li>
+  <li><strong>Desacoplamiento con Factorías:</strong> El patrón factoría facilita el testing unitario, permitiendo inyectar objetos falsos (mocks) o cambiar de implementación sin alterar el código cliente.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Patrón Singleton y Patrón Factoría en JavaScript
+
+// 1. Patrón Singleton Simple: Gestor de Configuración Global
+class ConfiguracionApp {
+    static #instancia = null;
+
+    constructor() {
+        if (ConfiguracionApp.#instancia) {
+            return ConfiguracionApp.#instancia; // Devuelve la instancia ya existente
+        }
+        this.idioma = &quot;es&quot;;
+        this.modoOscuro = true;
+        this.apiEndpoint = &quot;https://api.empresa.com/v1&quot;;
+        ConfiguracionApp.#instancia = this;
+    }
+
+    static getInstancia() {
+        if (!this.#instancia) {
+            this.#instancia = new ConfiguracionApp();
+        }
+        return this.#instancia;
+    }
+}
+
+// 2. Patrón Factoría: Creador de Notificaciones de UI
+class FactoriaNotificaciones {
+    static crear(tipo, mensaje) {
+        switch (tipo) {
+            case &quot;error&quot;:
+                return { tipo, mensaje, icono: &quot;❌&quot;, color: &quot;#ef4444&quot; };
+            case &quot;exito&quot;:
+                return { tipo, mensaje, icono: &quot;✅&quot;, color: &quot;#10b981&quot; };
+            case &quot;info&quot;:
+            default:
+                return { tipo, mensaje, icono: &quot;ℹ️&quot;, color: &quot;#3b82f6&quot; };
+        }
+    }
+}
+
+const config1 = new ConfiguracionApp();
+const config2 = new ConfiguracionApp();
+console.log(&quot;¿Son la misma instancia Singleton?:&quot;, config1 === config2); // true
+
+const aviso = FactoriaNotificaciones.crear(&quot;exito&quot;, &quot;Operación completada con éxito.&quot;);
+console.log(&quot;Notificación generada:&quot;, aviso);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 5</span>
+          <h2>🎯 Reto 5: Implementación de Patrón Factoría y Singleton para un Gestor de Notificaciones</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña un sistema de alertas para una aplicación web que combine el patrón Singleton y el patrón Factoría. Implementa una clase `NotificationManager` (Singleton) que almacene un registro histórico de notificaciones en un array privado. La clase debe poseer un método `publicar(tipo, texto)` que utilice internamente una factoría para construir el objeto de notificación según su severidad (&quot;alerta&quot;, &quot;info&quot;, &quot;urgente&quot;) y lo registre en el historial.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">En el constructor del Singleton, si ya existe la instancia, devuelve this.constructor.instancia. Define una clase o método estático para la factoría que configure iconos y prioridades según el tipo.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La combinación de Singleton y Factoría garantiza la centralización del estado de notificaciones en un único punto accesible de la aplicación, desacoplando la lógica de creación de mensajes.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Factoría de Objetos Notificación
+class NotificacionFactory {
+    static fabricar(tipo, texto) {
+        const id = &quot;NOTIF_&quot; + Math.random().toString(36).substring(2, 7);
+        const timestamp = new Date().toLocaleTimeString();
+
+        switch (tipo.toLowerCase()) {
+            case &quot;urgente&quot;:
+                return { id, tipo, texto, prioridad: 1, icono: &quot;🚨&quot;, timestamp };
+            case &quot;alerta&quot;:
+                return { id, tipo, texto, prioridad: 2, icono: &quot;⚠️&quot;, timestamp };
+            case &quot;info&quot;:
+            default:
+                return { id, tipo: &quot;info&quot;, texto, prioridad: 3, icono: &quot;ℹ️&quot;, timestamp };
+        }
+    }
+}
+
+// Singleton: Gestor Central de Notificaciones
+class GestorNotificaciones {
+    static #instanciaUnica = null;
+    #historial = [];
+
+    constructor() {
+        if (GestorNotificaciones.#instanciaUnica) {
+            return GestorNotificaciones.#instanciaUnica;
+        }
+        GestorNotificaciones.#instanciaUnica = this;
+    }
+
+    publicar(tipo, mensaje) {
+        const notificacion = NotificacionFactory.fabricar(tipo, mensaje);
+        this.#historial.push(notificacion);
+        console.log(\`[\${notificacion.icono} \${notificacion.tipo.toUpperCase()}] \${notificacion.texto}\`);
+        return notificacion;
+    }
+
+    obtenerHistorial() {
+        return [...this.#historial]; // Retorna copia inmutable
+    }
+}
+
+// Comprobación de funcionamiento
+const gestorA = new GestorNotificaciones();
+const gestorB = new GestorNotificaciones();
+
+gestorA.publicar(&quot;urgente&quot;, &quot;Fallo de conexión en base de datos.&quot;);
+gestorB.publicar(&quot;info&quot;, &quot;Usuario Pedro ha iniciado sesión.&quot;);
+
+console.log(&quot;¿Misma instancia Singleton?:&quot;, gestorA === gestorB); // true
+console.table(gestorA.obtenerHistorial());</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 5 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 6 de 6 · Teoría y Demostración</span>
+          <h2>6. Depuración de Funciones y Clases, y Documentación con JSDoc</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p>La depuración estructurada en aplicaciones modulares basadas en POO requiere técnicas de trazabilidad y formalización del código mediante JSDoc:</p>
+<ul class="concept-list">
+  <li><strong>Inspección del Call Stack (Pila de Llamadas) en DevTools:</strong>
+    <p>Cuando se alcanza un punto de interrupción (breakpoint o <code>debugger;</code>), el panel <em>Sources</em> de DevTools despliega la secuencia completa de llamadas activas. Permite retroceder en la pila de llamadas para examinar el valor de variables en funciones previas que continúan en espera de resolución.</p>
+  </li>
+  <li><strong>Inspección de Ámbitos (Scopes):</strong>
+    <ul>
+      <li><strong>Local:</strong> Variables declaradas dentro del cuerpo de la función actual.</li>
+      <li><strong>Closure (Clausura):</strong> Variables del entorno léxico superior capturadas por la función interna.</li>
+      <li><strong>Script / Module:</strong> Variables accesibles en el módulo activo.</li>
+      <li><strong>Global:</strong> Propiedades del objeto <code>window</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Documentación JSDoc para Arquitectura POO:</strong>
+    <ul>
+      <li><code>@class</code>: Especifica que la función o constructo representa una clase.</li>
+      <li><code>@extends {ClasePadre}</code>: Documenta la herencia.</li>
+      <li><code>@property {tipo} nombre</code>: Documenta propiedades de objetos y clases.</li>
+      <li><code>@typedef {Object} NombreTipo</code>: Crea tipos de datos personalizados para reutilizar en múltiples funciones.</li>
+    </ul>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Depuración de Pérdidas de Memoria por Closures Huérfanos:</strong></p>
+<ul class="concept-list">
+  <li><strong>El Peligro de Clausuras Accidentales:</strong> Si una función interna mantiene una referencia léxica a un objeto pesado (como un nodo DOM grande o un array de miles de elementos) y dicha función se almacena en un escuchador global o temporizador, el recolector de basura no podrá liberar la memoria, provocando una fuga de memoria (Memory Leak).</li>
+  <li><strong>Trazas Limpias con <code>console.trace()</code>:</strong> Imprime la cadena de llamadas directamente en la consola sin necesidad de pausar la ejecución del navegador.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">/**
+ * @typedef {Object} Tarea
+ * @property {number} id - Identificador único de la tarea.
+ * @property {string} descripcion - Descripción textual.
+ * @property {boolean} completada - Estado de finalización.
+ */
+
+/**
+ * Clase que gestiona el ciclo de vida de tareas en un proyecto.
+ * @class
+ */
+class RepositorioTareas {
+    #tareas = [];
+
+    /**
+     * Añade una nueva tarea al repositorio.
+     * @param {string} descripcion - Texto explicativo.
+     * @returns {Tarea} La tarea recién creada.
+     */
+    crearTarea(descripcion) {
+        // Trazabilidad de pila de ejecución
+        console.trace(&quot;Rastreo de llamada a crearTarea()&quot;);
+        
+        const nueva = { id: this.#tareas.length + 1, descripcion, completada: false };
+        this.#tareas.push(nueva);
+        return nueva;
+    }
+}
+
+const repo = new RepositorioTareas();
+repo.crearTarea(&quot;Diseñar maqueta UI&quot;);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
+          <h2>🎯 Reto 6: Documentación JSDoc Exhaustiva y Trazabilidad de Call Stack con Errores</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Escribe una clase `CalculadoraEstadistica` documentada al 100% con JSDoc (incluyendo `@typedef`, `@class`, `@param`, `@returns`, `@throws`). Debe contener un método privado de validación que inspeccione que los datos sean números finitos y lance un `TypeError` descriptivo si detecta valores incorrectos. Usa `console.trace()` en el manejador de errores para mostrar la pila de llamadas completa que provocó el fallo.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Define @typedef {Object} ResultadoCalculo. En el método privado de validación, comprueba Number.isFinite(). Si falla, lanza el error y captúralo en el método principal mostrando console.trace().</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La combinación de validaciones estrictas de tipos con JSDoc y trazas de pila (console.trace) reduce drásticamente el tiempo necesario para diagnosticar errores en producción.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">/**
+ * @typedef {Object} ResumenEstadistico
+ * @property {number} total - Suma acumulada de los valores.
+ * @property {number} promedio - Media aritmética.
+ * @property {number} desviacionMaxima - Diferencia entre el valor máximo y mínimo.
+ */
+
+/**
+ * Motor de cálculos estadísticos avanzados con validación estricta de tipos.
+ * @class
+ */
+class CalculadoraEstadistica {
+    /**
+     * Valida que un array contenga exclusivamente números finitos válidos.
+     * @param {number[]} datos - Colección a validar.
+     * @throws {TypeError} Si algún elemento no es un número finito.
+     */
+    #validarColeccion(datos) {
+        if (!Array.isArray(datos) || datos.length === 0) {
+            throw new TypeError(&quot;Se requiere un array no vacío de números.&quot;);
+        }
+        for (let i = 0; i &lt; datos.length; i++) {
+            if (typeof datos[i] !== &quot;number&quot; || !Number.isFinite(datos[i])) {
+                console.trace(&quot;Origen del valor no numérico en posición &quot; + i);
+                throw new TypeError(\`El elemento en índice \${i} (&#x27;\${datos[i]}&#x27;) no es un número válido.\`);
+            }
+        }
+    }
+
+    /**
+     * Ejecuta el análisis estadístico sobre el conjunto de datos numéricos.
+     * @param {number[]} serie - Array de valores numéricos.
+     * @returns {ResumenEstadistico} Objeto estructurado con las métricas calculadas.
+     */
+    analizar(serie) {
+        try {
+            this.#validarColeccion(serie);
+            const total = serie.reduce((acc, val) =&gt; acc + val, 0);
+            const promedio = Number((total / serie.length).toFixed(2));
+            const max = Math.max(...serie);
+            const min = Math.min(...serie);
+
+            return {
+                total: Number(total.toFixed(2)),
+                promedio,
+                desviacionMaxima: Number((max - min).toFixed(2))
+            };
+        } catch (error) {
+            console.error(&quot;❌ Error en análisis estadístico:&quot;, error.message);
+            return null;
+        }
+    }
+}
+
+const calc = new CalculadoraEstadistica();
+console.table(calc.analizar([10.5, 20.2, 35.8, 14.1]));
+// Prueba de fallo controlado con traza
+calc.analizar([10, &quot;veinte&quot;, 30]);</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 6 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">Resumen Curricular</span>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (6)</h2>
         </div>
         <div class="final-workshop-card">
-          <ul class="final-ex-list">
+          <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
+            Cada uno de los siguientes retos ha sido propuesto tras la explicación de su bloque conceptual para afianzar los conocimientos adquiridos:
+          </p>
+          <ul class="final-ex-list" style="max-height: 380px; overflow-y: auto;">
             
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 1</span>
-        <div class="final-ex-text">
-          <strong>Visualizador del Patrón Observer (Pub/Sub)</strong>
-          <p>Panel interactivo donde múltiples componentes visuales (gráfica, panel de logs, alertas) reaccionan en tiempo real a emisiones de datos desacopladas.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 1</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Auditoría de Funciones Predefinidas, Ámbito Léxico de this y Procesador de URLs</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 1: Funciones Predefinidas del Lenguaje y Funciones Personalizadas</p>
         </div>
+        <a href="ejercicios.html?item=reto-1" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 2</span>
-        <div class="final-ex-text">
-          <strong>Catálogo POO con Clases, Herencia y Campos Privados</strong>
-          <p>Sistema de gestión de inventario para una tienda electrónica con jerarquía de clases Empleado, Gerente y Productos con campos privados # y métodos polimórficos.</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 2</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Gestor de Pila y Cola de Procesos con Inserción y Rotación en Arrays</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 2: Arrays: Creación, Manipulación y Métodos de Recorrido</p>
         </div>
+        <a href="ejercicios.html?item=reto-2" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
-      <li class="final-ex-item">
-        <span class="final-ex-badge">Ej 3</span>
-        <div class="final-ex-text">
-          <strong>Pipeline de Filtrado y Agregación de Datos JSON</strong>
-          <p>Aplicación de análisis de ventas que carga un dataset JSON y permite transformar, agrupar y ordenar datos utilizando métodos inmutables modernos (.toSorted, reduce, filter).</p>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 3</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Pipeline de Análisis Financiero y Estadístico con Method Chaining</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 3: Operaciones Agregadas en Arrays: Mapeo, Filtrado, Reducción y Ordenación</p>
         </div>
+        <a href="ejercicios.html?item=reto-3" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 4</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Comparativa de Creación de Objetos: Literal, Prototipos y Clases ES6 con Privacidad (#)</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 4: Introducción a la Orientación a Objetos: Literales, Constructores y Clases ES6</p>
+        </div>
+        <a href="ejercicios.html?item=reto-4" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 5</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Implementación de Patrón Factoría y Singleton para un Gestor de Notificaciones</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño Básicos</p>
+        </div>
+        <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 6</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Documentación JSDoc Exhaustiva y Trazabilidad de Call Stack con Errores</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: Depuración de Funciones y Clases, y Documentación con JSDoc</p>
+        </div>
+        <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
       </li>
           </ul>
-          <div class="final-action-bar">
+          <div class="final-action-bar" style="margin-top: 10px;">
             <a href="ejercicios.html" class="btn-primary">
-              💻 Abrir Taller de Ejercicios y Soluciones en Vivo
+              💻 Abrir Taller Completo de Retos y Soluciones
             </a>
             <a href="../index.html" class="btn-secondary">
               🏠 Volver al Panel General
