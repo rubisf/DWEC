@@ -1,0 +1,16 @@
+<!doctype html>
+<!-- Cargamos el script debajo del body y si que podemos acceder a los elemntos del DOM puesto que ya están cargados -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="mitexto">Hola</p>
+  </body>
+  <script>
+    var mielem = document.getElementById("mitexto");
+    mielem.innerHTML = "Texto cambiado";
+  </script>
+</html>

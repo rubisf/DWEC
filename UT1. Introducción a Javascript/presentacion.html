@@ -626,6 +626,74 @@
 
       <section>
         <div class="slide-header">
+          <span class="badge-sub">Epígrafe 4 · Práctica Real LlamadasJS</span>
+          <h2>💻 Métodos de Inclusión de JavaScript desde HTML (Laboratorio LlamadasJS)</h2>
+        </div>
+        <div class="index-grid" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px;">
+          
+          <!-- web1.html -->
+          <div class="index-card" style="border-left: 4px solid #ef4444; flex-direction: column; gap: 4px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #b91c1c; display: flex; align-items: center; justify-content: space-between;">
+              <span>1. &lt;script&gt; en &lt;head&gt; (Sync alert)</span>
+              <a href="LlamadasJS/web1.html" target="_blank" style="font-size: 0.7em; background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-decoration: underline;">📄 Abrir web1.html 🔗</a>
+            </div>
+            <p style="font-size: 0.63em; color: #334155; margin: 0; line-height: 1.35;">
+              <code>&lt;script&gt;alert("Hola");&lt;/script&gt;</code> en <code>&lt;head&gt;</code>. Bloquea el parseo del navegador hasta que el usuario acepta la alerta antes de dibujar el <code>&lt;body&gt;</code>.
+            </p>
+          </div>
+
+          <!-- web2.html -->
+          <div class="index-card" style="border-left: 4px solid #f59e0b; flex-direction: column; gap: 4px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #b45309; display: flex; align-items: center; justify-content: space-between;">
+              <span>2. Acceso al DOM en &lt;head&gt; (Error null)</span>
+              <a href="LlamadasJS/web2.html" target="_blank" style="font-size: 0.7em; background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-decoration: underline;">📄 Abrir web2.html 🔗</a>
+            </div>
+            <p style="font-size: 0.63em; color: #334155; margin: 0; line-height: 1.35;">
+              ❌ <strong>Falla (`null`):</strong> <code>document.getElementById("mitexto")</code> devuelve <code>null</code> porque el script en <code>&lt;head&gt;</code> se ejecuta antes de que el <code>&lt;body&gt;</code> exista en el DOM.
+            </p>
+          </div>
+
+          <!-- web3.html -->
+          <div class="index-card" style="border-left: 4px solid #10b981; flex-direction: column; gap: 4px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #047857; display: flex; align-items: center; justify-content: space-between;">
+              <span>3. &lt;script&gt; al pie del &lt;/body&gt;</span>
+              <a href="LlamadasJS/web3.html" target="_blank" style="font-size: 0.7em; background: #d1fae5; color: #065f46; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-decoration: underline;">📄 Abrir web3.html 🔗</a>
+            </div>
+            <p style="font-size: 0.63em; color: #334155; margin: 0; line-height: 1.35;">
+              ✅ <strong>Funciona:</strong> Al situar el script justo antes del cierre de <code>&lt;/body&gt;</code>, los elementos DOM previos (<code>&lt;p id="mitexto"&gt;</code>) ya están en memoria y se modifican sin fallo.
+            </p>
+          </div>
+
+          <!-- web4.html -->
+          <div class="index-card" style="border-left: 4px solid #3b82f6; flex-direction: column; gap: 4px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #1d4ed8; display: flex; align-items: center; justify-content: space-between;">
+              <span>4. Atributo &lt;script defer&gt; en &lt;head&gt;</span>
+              <a href="LlamadasJS/web4.html" target="_blank" style="font-size: 0.7em; background: #dbeafe; color: #1e40af; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-decoration: underline;">📄 Abrir web4.html 🔗</a>
+            </div>
+            <p style="font-size: 0.63em; color: #334155; margin: 0; line-height: 1.35;">
+              ✅ <strong>Recomendado:</strong> <code>&lt;script defer&gt;</code> en <code>&lt;head&gt;</code> descarga en segundo plano y pospone la ejecución hasta que el parseo del DOM HTML está 100% completo.
+            </p>
+          </div>
+
+          <!-- web5.html + web5.js -->
+          <div class="index-card" style="border-left: 4px solid #8b5cf6; flex-direction: column; gap: 4px; padding: 10px; background: #ffffff; grid-column: span 2;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #6d28d9; display: flex; align-items: center; justify-content: space-between;">
+              <span>5. Script Externo (web5.js) y Scripts de Terceros</span>
+              <div style="display: flex; gap: 6px;">
+                <a href="LlamadasJS/web5.html" target="_blank" style="font-size: 0.7em; background: #ede9fe; color: #5b21b6; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-decoration: underline;">📄 web5.html 🔗</a>
+                <a href="LlamadasJS/web5.js" target="_blank" style="font-size: 0.7em; background: #f3e8ff; color: #6b21a8; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-decoration: underline;">📜 web5.js 🔗</a>
+              </div>
+            </div>
+            <p style="font-size: 0.63em; color: #334155; margin: 0; line-height: 1.35;">
+              Demuestra el uso de archivos <code>.js</code> externos mediante <code>&lt;script defer src="web5.js"&gt;&lt;/script&gt;</code> y previene sobre los riesgos de incluir scripts no verificados de dominios externos de terceros.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
           <span class="badge-sub">Bloque 1 de 6 · Teoría y Demostración</span>
           <h2>1. Mecanismos de Ejecución de Código en el Navegador Web</h2>
         </div>
