@@ -92,9 +92,9 @@
                         const hora = new Date().toLocaleTimeString();
 
                         if (esUrgente) {
-                            console.warn(\`🚨 [\${hora}] ALERTA URGENTE DETECTADA EN DOM: &quot;\${mensaje}&quot;\`);
+                            console.warn(`🚨 [${hora}] ALERTA URGENTE DETECTADA EN DOM: &quot;${mensaje}&quot;`);
                         } else {
-                            console.log(\`ℹ️ [\${hora}] Notificación estándar añadida: &quot;\${mensaje}&quot;\`);
+                            console.log(`ℹ️ [${hora}] Notificación estándar añadida: &quot;${mensaje}&quot;`);
                         }
                     }
                 });
@@ -218,7 +218,7 @@
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "function auditarNotificaciones(contenedor) {\n    const observer = new MutationObserver((mutaciones) => {\n        for (const mutacion of mutaciones) {\n            if (mutacion.type === \"childList\") {\n                mutacion.addedNodes.forEach(nodo => {\n                    // Filtrar sólo nodos de elemento\n                    if (nodo.nodeType === Node.ELEMENT_NODE) {\n                        const esUrgente = nodo.classList.contains(\"notificacion-urgente\");\n                        const mensaje = nodo.textContent.trim();\n                        const hora = new Date().toLocaleTimeString();\n\n                        if (esUrgente) {\n                            console.warn(\\`🚨 [\\${hora}] ALERTA URGENTE DETECTADA EN DOM: \"\\${mensaje}\"\\`);\n                        } else {\n                            console.log(\\`ℹ️ [\\${hora}] Notificación estándar añadida: \"\\${mensaje}\"\\`);\n                        }\n                    }\n                });\n            }\n        }\n    });\n\n    observer.observe(contenedor, { childList: true, subtree: false });\n    console.log(\"Vigilante MutationObserver activo en:\", contenedor.id);\n\n    return observer;\n}\n\n// Simulación:\n// const panel = document.getElementById('panel-notificaciones');\n// const vigilante = auditarNotificaciones(panel);";
+    const RAW_SOLUTION = "function auditarNotificaciones(contenedor) {\n    const observer = new MutationObserver((mutaciones) => {\n        for (const mutacion of mutaciones) {\n            if (mutacion.type === \"childList\") {\n                mutacion.addedNodes.forEach(nodo => {\n                    // Filtrar sólo nodos de elemento\n                    if (nodo.nodeType === Node.ELEMENT_NODE) {\n                        const esUrgente = nodo.classList.contains(\"notificacion-urgente\");\n                        const mensaje = nodo.textContent.trim();\n                        const hora = new Date().toLocaleTimeString();\n\n                        if (esUrgente) {\n                            console.warn(`🚨 [${hora}] ALERTA URGENTE DETECTADA EN DOM: \"${mensaje}\"`);\n                        } else {\n                            console.log(`ℹ️ [${hora}] Notificación estándar añadida: \"${mensaje}\"`);\n                        }\n                    }\n                });\n            }\n        }\n    });\n\n    observer.observe(contenedor, { childList: true, subtree: false });\n    console.log(\"Vigilante MutationObserver activo en:\", contenedor.id);\n\n    return observer;\n}\n\n// Simulación:\n// const panel = document.getElementById('panel-notificaciones');\n// const vigilante = auditarNotificaciones(panel);";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

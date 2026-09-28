@@ -90,13 +90,13 @@
     if (nodo.nodeType === Node.TEXT_NODE) {
         const textoLimpio = nodo.nodeValue.trim();
         if (textoLimpio) {
-            console.log(\`\${indentacion}📄 [Texto]: &quot;\${textoLimpio}&quot;\`);
+            console.log(`${indentacion}📄 [Texto]: &quot;${textoLimpio}&quot;`);
         }
         return;
     }
 
     if (nodo.nodeType === Node.ELEMENT_NODE) {
-        console.log(\`\${indentacion}📁 &lt;\${nodo.tagName.toLowerCase()}&gt; [ID: \${nodo.id || &quot;sin id&quot;}, Hijos: \${nodo.children.length}]\`);
+        console.log(`${indentacion}📁 &lt;${nodo.tagName.toLowerCase()}&gt; [ID: ${nodo.id || &quot;sin id&quot;}, Hijos: ${nodo.children.length}]`);
         
         // Recorrido recursivo de los hijos de elemento
         for (const hijo of nodo.childNodes) {
@@ -214,7 +214,7 @@
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "function inspeccionarJerarquiaDOM(nodo, nivel = 0) {\n    const indentacion = \"  \".repeat(nivel);\n    const tipoTexto = nodo.nodeType === Node.ELEMENT_NODE ? \"Etiqueta\" :\n                      nodo.nodeType === Node.TEXT_NODE ? \"Texto\" :\n                      nodo.nodeType === Node.COMMENT_NODE ? \"Comentario\" : \"Otro\";\n\n    // Si es un nodo de texto con sólo espacios en blanco, omitir o resumir\n    if (nodo.nodeType === Node.TEXT_NODE) {\n        const textoLimpio = nodo.nodeValue.trim();\n        if (textoLimpio) {\n            console.log(\\`\\${indentacion}📄 [Texto]: \"\\${textoLimpio}\"\\`);\n        }\n        return;\n    }\n\n    if (nodo.nodeType === Node.ELEMENT_NODE) {\n        console.log(\\`\\${indentacion}📁 <\\${nodo.tagName.toLowerCase()}> [ID: \\${nodo.id || \"sin id\"}, Hijos: \\${nodo.children.length}]\\`);\n        \n        // Recorrido recursivo de los hijos de elemento\n        for (const hijo of nodo.childNodes) {\n            inspeccionarJerarquiaDOM(hijo, nivel + 1);\n        }\n    }\n}\n\n// Simulación de inspección:\n// inspeccionarJerarquiaDOM(document.body);";
+    const RAW_SOLUTION = "function inspeccionarJerarquiaDOM(nodo, nivel = 0) {\n    const indentacion = \"  \".repeat(nivel);\n    const tipoTexto = nodo.nodeType === Node.ELEMENT_NODE ? \"Etiqueta\" :\n                      nodo.nodeType === Node.TEXT_NODE ? \"Texto\" :\n                      nodo.nodeType === Node.COMMENT_NODE ? \"Comentario\" : \"Otro\";\n\n    // Si es un nodo de texto con sólo espacios en blanco, omitir o resumir\n    if (nodo.nodeType === Node.TEXT_NODE) {\n        const textoLimpio = nodo.nodeValue.trim();\n        if (textoLimpio) {\n            console.log(`${indentacion}📄 [Texto]: \"${textoLimpio}\"`);\n        }\n        return;\n    }\n\n    if (nodo.nodeType === Node.ELEMENT_NODE) {\n        console.log(`${indentacion}📁 <${nodo.tagName.toLowerCase()}> [ID: ${nodo.id || \"sin id\"}, Hijos: ${nodo.children.length}]`);\n        \n        // Recorrido recursivo de los hijos de elemento\n        for (const hijo of nodo.childNodes) {\n            inspeccionarJerarquiaDOM(hijo, nivel + 1);\n        }\n    }\n}\n\n// Simulación de inspección:\n// inspeccionarJerarquiaDOM(document.body);";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

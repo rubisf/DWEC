@@ -94,16 +94,16 @@
         // Determinar acción según las clases o atributos del botón
         if (boton.classList.contains(&quot;btn-eliminar&quot;)) {
             e.preventDefault();
-            console.warn(\`Eliminando pedido #\${pedidoId} de la tabla.\`);
+            console.warn(`Eliminando pedido #${pedidoId} de la tabla.`);
             fila.remove();
         } else if (boton.classList.contains(&quot;btn-enviar&quot;)) {
             e.preventDefault();
-            console.log(\`Marcando pedido #\${pedidoId} como enviado.\`);
+            console.log(`Marcando pedido #${pedidoId} como enviado.`);
             fila.style.background = &quot;#dcfce7&quot;;
             boton.disabled = true;
         } else if (boton.classList.contains(&quot;btn-detalles&quot;)) {
             e.preventDefault();
-            console.log(\`Abriendo panel de detalles para pedido #\${pedidoId}\`);
+            console.log(`Abriendo panel de detalles para pedido #${pedidoId}`);
         }
     });
 }
@@ -218,7 +218,7 @@
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "function inicializarTablaPedidos(tbodyElemento) {\n    // Delegación centralizada en el contenedor <tbody>\n    tbodyElemento.addEventListener(\"click\", (e) => {\n        // Buscar el botón interactivo pulsado más cercano\n        const boton = e.target.closest(\"button\");\n        if (!boton) return; // Se pulsó en texto plano de la tabla\n\n        // Obtener la fila contenedora y su metadato\n        const fila = boton.closest(\"tr\");\n        const pedidoId = fila?.dataset.id ?? \"Desconocido\";\n\n        // Determinar acción según las clases o atributos del botón\n        if (boton.classList.contains(\"btn-eliminar\")) {\n            e.preventDefault();\n            console.warn(\\`Eliminando pedido #\\${pedidoId} de la tabla.\\`);\n            fila.remove();\n        } else if (boton.classList.contains(\"btn-enviar\")) {\n            e.preventDefault();\n            console.log(\\`Marcando pedido #\\${pedidoId} como enviado.\\`);\n            fila.style.background = \"#dcfce7\";\n            boton.disabled = true;\n        } else if (boton.classList.contains(\"btn-detalles\")) {\n            e.preventDefault();\n            console.log(\\`Abriendo panel de detalles para pedido #\\${pedidoId}\\`);\n        }\n    });\n}\n\n// Simulación:\n// const tbody = document.getElementById('pedidos-body');\n// inicializarTablaPedidos(tbody);";
+    const RAW_SOLUTION = "function inicializarTablaPedidos(tbodyElemento) {\n    // Delegación centralizada en el contenedor <tbody>\n    tbodyElemento.addEventListener(\"click\", (e) => {\n        // Buscar el botón interactivo pulsado más cercano\n        const boton = e.target.closest(\"button\");\n        if (!boton) return; // Se pulsó en texto plano de la tabla\n\n        // Obtener la fila contenedora y su metadato\n        const fila = boton.closest(\"tr\");\n        const pedidoId = fila?.dataset.id ?? \"Desconocido\";\n\n        // Determinar acción según las clases o atributos del botón\n        if (boton.classList.contains(\"btn-eliminar\")) {\n            e.preventDefault();\n            console.warn(`Eliminando pedido #${pedidoId} de la tabla.`);\n            fila.remove();\n        } else if (boton.classList.contains(\"btn-enviar\")) {\n            e.preventDefault();\n            console.log(`Marcando pedido #${pedidoId} como enviado.`);\n            fila.style.background = \"#dcfce7\";\n            boton.disabled = true;\n        } else if (boton.classList.contains(\"btn-detalles\")) {\n            e.preventDefault();\n            console.log(`Abriendo panel de detalles para pedido #${pedidoId}`);\n        }\n    });\n}\n\n// Simulación:\n// const tbody = document.getElementById('pedidos-body');\n// inicializarTablaPedidos(tbody);";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

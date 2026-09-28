@@ -1326,7 +1326,7 @@ class GestorNotificaciones {
     publicar(tipo, mensaje) {
         const notificacion = NotificacionFactory.fabricar(tipo, mensaje);
         this.#historial.push(notificacion);
-        console.log(\`[\${notificacion.icono} \${notificacion.tipo.toUpperCase()}] \${notificacion.texto}\`);
+        console.log(`[${notificacion.icono} ${notificacion.tipo.toUpperCase()}] ${notificacion.texto}`);
         return notificacion;
     }
 
@@ -1489,7 +1489,7 @@ class CalculadoraEstadistica {
         for (let i = 0; i &lt; datos.length; i++) {
             if (typeof datos[i] !== &quot;number&quot; || !Number.isFinite(datos[i])) {
                 console.trace(&quot;Origen del valor no numérico en posición &quot; + i);
-                throw new TypeError(\`El elemento en índice \${i} (&#x27;\${datos[i]}&#x27;) no es un número válido.\`);
+                throw new TypeError(`El elemento en índice ${i} (&#x27;${datos[i]}&#x27;) no es un número válido.`);
             }
         }
     }

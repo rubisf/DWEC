@@ -579,13 +579,13 @@ for (const hijo of contenedor.children) {
     if (nodo.nodeType === Node.TEXT_NODE) {
         const textoLimpio = nodo.nodeValue.trim();
         if (textoLimpio) {
-            console.log(\`\${indentacion}📄 [Texto]: &quot;\${textoLimpio}&quot;\`);
+            console.log(`${indentacion}📄 [Texto]: &quot;${textoLimpio}&quot;`);
         }
         return;
     }
 
     if (nodo.nodeType === Node.ELEMENT_NODE) {
-        console.log(\`\${indentacion}📁 &lt;\${nodo.tagName.toLowerCase()}&gt; [ID: \${nodo.id || &quot;sin id&quot;}, Hijos: \${nodo.children.length}]\`);
+        console.log(`${indentacion}📁 &lt;${nodo.tagName.toLowerCase()}&gt; [ID: ${nodo.id || &quot;sin id&quot;}, Hijos: ${nodo.children.length}]`);
         
         // Recorrido recursivo de los hijos de elemento
         for (const hijo of nodo.childNodes) {
@@ -724,11 +724,11 @@ botonesPeligrosos.forEach(boton =&gt; {
     if (yaSeleccionada) {
         fila.classList.remove(&quot;fila-activa&quot;);
         fila.style.backgroundColor = &quot;&quot;;
-        console.log(\`Fila deseleccionada: ID \${fila.dataset.id || &#x27;S/N&#x27;}\`);
+        console.log(`Fila deseleccionada: ID ${fila.dataset.id || &#x27;S/N&#x27;}`);
     } else {
         fila.classList.add(&quot;fila-activa&quot;);
         fila.style.backgroundColor = &quot;#e0e7ff&quot;;
-        console.log(\`Fila seleccionada: ID \${fila.dataset.id || &#x27;S/N&#x27;}\`);
+        console.log(`Fila seleccionada: ID ${fila.dataset.id || &#x27;S/N&#x27;}`);
     }
 
     return fila;
@@ -867,7 +867,7 @@ function renderizarListadoProductos(productos, contenedorPadre) {
         li.style.cssText = &quot;display: flex; justify-content: space-between; padding: 8px; margin-bottom: 6px; background: #f8fafc; border-radius: 6px; transition: opacity 0.3s, transform 0.3s;&quot;;
 
         const spanTexto = document.createElement(&quot;span&quot;);
-        spanTexto.textContent = \`\${indice + 1}. \${textoTarea}\`; // Seguro contra XSS
+        spanTexto.textContent = `${indice + 1}. ${textoTarea}`; // Seguro contra XSS
 
         const btnBorrar = document.createElement(&quot;button&quot;);
         btnBorrar.textContent = &quot;🗑️ Borrar&quot;;
@@ -1025,7 +1025,7 @@ console.log(&quot;Elementos verificados en el documento:&quot;, elementosVerific
         }
     });
 
-    console.log(\`Filtrado completado: \${visibles}/\${articulos.length} cursos visibles.\`);
+    console.log(`Filtrado completado: ${visibles}/${articulos.length} cursos visibles.`);
     return visibles;
 }
 
@@ -1161,9 +1161,9 @@ vigilanteDOM.observe(contenedorMonitorizado, {
                         const hora = new Date().toLocaleTimeString();
 
                         if (esUrgente) {
-                            console.warn(\`🚨 [\${hora}] ALERTA URGENTE DETECTADA EN DOM: &quot;\${mensaje}&quot;\`);
+                            console.warn(`🚨 [${hora}] ALERTA URGENTE DETECTADA EN DOM: &quot;${mensaje}&quot;`);
                         } else {
-                            console.log(\`ℹ️ [\${hora}] Notificación estándar añadida: &quot;\${mensaje}&quot;\`);
+                            console.log(`ℹ️ [${hora}] Notificación estándar añadida: &quot;${mensaje}&quot;`);
                         }
                     }
                 });

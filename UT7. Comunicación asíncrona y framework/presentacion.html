@@ -951,7 +951,7 @@ function consultarConXHR(url) {
                     reject(new Error(&quot;Error al parsear JSON en XHR: &quot; + e.message));
                 }
             } else {
-                reject(new Error(\`Error XHR [\${xhr.status}]: \${xhr.statusText}\`));
+                reject(new Error(`Error XHR [${xhr.status}]: ${xhr.statusText}`));
             }
         };
 
@@ -966,7 +966,7 @@ async function consultarConFetch(url) {
         const respuesta = await fetch(url, { headers: { &quot;Accept&quot;: &quot;application/json&quot; } });
         
         if (!respuesta.ok) {
-            throw new Error(\`Error Fetch [\${respuesta.status}]: \${respuesta.statusText}\`);
+            throw new Error(`Error Fetch [${respuesta.status}]: ${respuesta.statusText}`);
         }
 
         const datos = await respuesta.json();
@@ -1122,10 +1122,10 @@ function jsonAXml(estudiantes) {
     let xml = &#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\\n&lt;estudiantes&gt;\\n&#x27;;
     
     for (const est of estudiantes) {
-        xml += \`  &lt;estudiante id=&quot;\${est.id}&quot;&gt;\\n\`;
-        xml += \`    &lt;nombre&gt;\${est.nombre}&lt;/nombre&gt;\\n\`;
-        xml += \`    &lt;nota&gt;\${est.nota}&lt;/nota&gt;\\n\`;
-        xml += \`  &lt;/estudiante&gt;\\n\`;
+        xml += `  &lt;estudiante id=&quot;${est.id}&quot;&gt;\\n`;
+        xml += `    &lt;nombre&gt;${est.nombre}&lt;/nombre&gt;\\n`;
+        xml += `    &lt;nota&gt;${est.nota}&lt;/nota&gt;\\n`;
+        xml += `  &lt;/estudiante&gt;\\n`;
     }
     
     xml += &#x27;&lt;/estudiantes&gt;&#x27;;
@@ -1133,10 +1133,10 @@ function jsonAXml(estudiantes) {
 }
 
 // Prueba con datos
-const xmlEntrada = \`&lt;estudiantes&gt;
+const xmlEntrada = `&lt;estudiantes&gt;
   &lt;estudiante id=&quot;1&quot;&gt;&lt;nombre&gt;Ana&lt;/nombre&gt;&lt;nota&gt;9.5&lt;/nota&gt;&lt;/estudiante&gt;
   &lt;estudiante id=&quot;2&quot;&gt;&lt;nombre&gt;Luis&lt;/nombre&gt;&lt;nota&gt;7.2&lt;/nota&gt;&lt;/estudiante&gt;
-&lt;/estudiantes&gt;\`;
+&lt;/estudiantes&gt;`;
 
 const alumnos = xmlAJson(xmlEntrada);
 console.log(&quot;Objetos extraídos del XML:&quot;, alumnos);
@@ -1266,26 +1266,26 @@ async function cargarCatalogoEnDOM(contenedor) {
     }
 
     mostrarCargando() {
-        this.contenedor.innerHTML = \`
+        this.contenedor.innerHTML = `
             &lt;div style=&quot;display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: sans-serif;&quot;&gt;
                 &lt;div style=&quot;height: 80px; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite;&quot;&gt;&lt;/div&gt;
                 &lt;div style=&quot;height: 80px; background: #e2e8f0; border-radius: 8px; animation: pulse 1.5s infinite;&quot;&gt;&lt;/div&gt;
             &lt;/div&gt;
             &lt;p style=&quot;text-align: center; color: #64748b; font-size: 0.8em; margin-top: 6px;&quot;&gt;Cargando datos remotos...&lt;/p&gt;
-        \`;
+        `;
     }
 
     mostrarError(mensaje) {
-        this.contenedor.innerHTML = \`
+        this.contenedor.innerHTML = `
             &lt;div style=&quot;padding: 16px; background: #fef2f2; border: 1px solid #f87171; border-radius: 8px; color: #b91c1c; font-family: sans-serif;&quot;&gt;
-                &lt;strong&gt;⚠️ Fallo de Conexión:&lt;/strong&gt; \${mensaje}
+                &lt;strong&gt;⚠️ Fallo de Conexión:&lt;/strong&gt; ${mensaje}
                 &lt;div style=&quot;margin-top: 10px;&quot;&gt;
                     &lt;button id=&quot;btn-reintentar&quot; style=&quot;background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;&quot;&gt;
                         🔄 Reintentar Ahora
                     &lt;/button&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-        \`;
+        `;
         this.contenedor.querySelector(&quot;#btn-reintentar&quot;).onclick = () =&gt; this.cargar();
     }
 
@@ -1321,7 +1321,7 @@ async function cargarCatalogoEnDOM(contenedor) {
             await new Promise(r =&gt; setTimeout(r, 600));
 
             const res = await fetch(this.apiUrl);
-            if (!res.ok) throw new Error(\`HTTP \${res.status} (\${res.statusText})\`);
+            if (!res.ok) throw new Error(`HTTP ${res.status} (${res.statusText})`);
 
             const datos = await res.json();
             this.mostrarDatos(datos.slice(0, 4));
@@ -1472,7 +1472,7 @@ clienteAPI.get(&quot;/users/1&quot;)
         // Configuración de cabeceras (Interceptor)
         const headers = { &quot;Accept&quot;: &quot;application/json&quot; };
         if (this.tokenAuth) {
-            headers[&quot;Authorization&quot;] = \`Bearer \${this.tokenAuth}\`;
+            headers[&quot;Authorization&quot;] = `Bearer ${this.tokenAuth}`;
         }
 
         try {
@@ -1484,7 +1484,7 @@ clienteAPI.get(&quot;/users/1&quot;)
             });
 
             if (!respuesta.ok) {
-                const error = new Error(\`Error HTTP \${respuesta.status}: \${respuesta.statusText}\`);
+                const error = new Error(`Error HTTP ${respuesta.status}: ${respuesta.statusText}`);
                 error.status = respuesta.status;
                 throw error;
             }
@@ -1494,7 +1494,7 @@ clienteAPI.get(&quot;/users/1&quot;)
 
         } catch (error) {
             if (error.name === &quot;TimeoutError&quot;) {
-                console.error(\`⏱️ Petición cancelada: Superó el tiempo límite de \${this.timeoutMs}ms.\`);
+                console.error(`⏱️ Petición cancelada: Superó el tiempo límite de ${this.timeoutMs}ms.`);
             }
             throw error;
         }
@@ -2199,7 +2199,7 @@ async function probarConexionSegura(urlDestino) {
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
                 <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">async function auditarEndpointAPI(url, limiteMs = 3000) {
-    console.log(\`🔍 Auditando conectividad con: \${url} (Timeout: \${limiteMs}ms)\`);
+    console.log(`🔍 Auditando conectividad con: ${url} (Timeout: ${limiteMs}ms)`);
     const t0 = performance.now();
 
     try {
@@ -2236,7 +2236,7 @@ async function probarConexionSegura(urlDestino) {
                 url,
                 estado: &quot;Timeout&quot;,
                 latenciaMs: tiempoFalloMs,
-                diagnostico: \`La petición fue cancelada tras superar el límite de \${limiteMs}ms.\`
+                diagnostico: `La petición fue cancelada tras superar el límite de ${limiteMs}ms.`
             };
         }
 

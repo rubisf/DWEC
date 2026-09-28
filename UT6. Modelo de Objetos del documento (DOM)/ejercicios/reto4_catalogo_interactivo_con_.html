@@ -100,7 +100,7 @@
         }
     });
 
-    console.log(\`Filtrado completado: \${visibles}/\${articulos.length} cursos visibles.\`);
+    console.log(`Filtrado completado: ${visibles}/${articulos.length} cursos visibles.`);
     return visibles;
 }
 
@@ -213,7 +213,7 @@
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "function filtrarCatalogoCursos(categoriaFiltro, nivelFiltro) {\n    const articulos = document.querySelectorAll(\"article.tarjeta-curso\");\n    let visibles = 0;\n\n    articulos.forEach(art => {\n        // Extracción de metadatos desde dataset\n        const categoria = art.dataset.categoria;\n        const nivel = art.dataset.nivel;\n\n        const coincideCategoria = !categoriaFiltro || categoriaFiltro === \"todas\" || categoria === categoriaFiltro;\n        const coincideNivel = !nivelFiltro || nivelFiltro === \"todos\" || nivel === nivelFiltro;\n\n        if (coincideCategoria && coincideNivel) {\n            art.hidden = false;\n            visibles++;\n        } else {\n            art.hidden = true;\n        }\n    });\n\n    console.log(\\`Filtrado completado: \\${visibles}/\\${articulos.length} cursos visibles.\\`);\n    return visibles;\n}\n\n// Simulación:\n// filtrarCatalogoCursos(\"frontend\", \"avanzado\");";
+    const RAW_SOLUTION = "function filtrarCatalogoCursos(categoriaFiltro, nivelFiltro) {\n    const articulos = document.querySelectorAll(\"article.tarjeta-curso\");\n    let visibles = 0;\n\n    articulos.forEach(art => {\n        // Extracción de metadatos desde dataset\n        const categoria = art.dataset.categoria;\n        const nivel = art.dataset.nivel;\n\n        const coincideCategoria = !categoriaFiltro || categoriaFiltro === \"todas\" || categoria === categoriaFiltro;\n        const coincideNivel = !nivelFiltro || nivelFiltro === \"todos\" || nivel === nivelFiltro;\n\n        if (coincideCategoria && coincideNivel) {\n            art.hidden = false;\n            visibles++;\n        } else {\n            art.hidden = true;\n        }\n    });\n\n    console.log(`Filtrado completado: ${visibles}/${articulos.length} cursos visibles.`);\n    return visibles;\n}\n\n// Simulación:\n// filtrarCatalogoCursos(\"frontend\", \"avanzado\");";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

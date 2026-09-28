@@ -81,7 +81,7 @@
       <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
         <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">La capacidad de clasificar con precisión la causa de un fallo asíncrono permite proporcionar al usuario una solución adecuada (revisar la conexión, reintentar o reportar un error del servidor).</p>
         <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>async function auditarEndpointAPI(url, limiteMs = 3000) {
-    console.log(\`🔍 Auditando conectividad con: \${url} (Timeout: \${limiteMs}ms)\`);
+    console.log(`🔍 Auditando conectividad con: ${url} (Timeout: ${limiteMs}ms)`);
     const t0 = performance.now();
 
     try {
@@ -118,7 +118,7 @@
                 url,
                 estado: &quot;Timeout&quot;,
                 latenciaMs: tiempoFalloMs,
-                diagnostico: \`La petición fue cancelada tras superar el límite de \${limiteMs}ms.\`
+                diagnostico: `La petición fue cancelada tras superar el límite de ${limiteMs}ms.`
             };
         }
 
@@ -241,7 +241,7 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "async function auditarEndpointAPI(url, limiteMs = 3000) {\n    console.log(\\`🔍 Auditando conectividad con: \\${url} (Timeout: \\${limiteMs}ms)\\`);\n    const t0 = performance.now();\n\n    try {\n        const respuesta = await fetch(url, {\n            signal: AbortSignal.timeout(limiteMs)\n        });\n\n        const tiempoRespuestaMs = Number((performance.now() - t0).toFixed(2));\n\n        if (!respuesta.ok) {\n            return {\n                url,\n                estado: \"Error HTTP\",\n                codigo: respuesta.status,\n                statusText: respuesta.statusText,\n                latenciaMs: tiempoRespuestaMs,\n                diagnostico: \"El servidor respondió, pero rechazó la solicitud (código \" + respuesta.status + \").\"\n            };\n        }\n\n        return {\n            url,\n            estado: \"OK\",\n            codigo: respuesta.status,\n            latenciaMs: tiempoRespuestaMs,\n            diagnostico: \"Conexión óptima y datos recibidos sin restricciones CORS.\"\n        };\n\n    } catch (error) {\n        const tiempoFalloMs = Number((performance.now() - t0).toFixed(2));\n\n        if (error.name === \"TimeoutError\") {\n            return {\n                url,\n                estado: \"Timeout\",\n                latenciaMs: tiempoFalloMs,\n                diagnostico: \\`La petición fue cancelada tras superar el límite de \\${limiteMs}ms.\\`\n            };\n        }\n\n        return {\n            url,\n            estado: \"Fallo de Red / CORS\",\n            latenciaMs: tiempoFalloMs,\n            diagnostico: \"Bloqueo por directiva CORS del navegador o servidor inalcanzable (Failed to fetch).\"\n        };\n    }\n}\n\n// Prueba con endpoint válido\nauditarEndpointAPI(\"https://jsonplaceholder.typicode.com/posts/1\")\n    .then(informe => console.table([informe]));";
+    const RAW_SOLUTION = "async function auditarEndpointAPI(url, limiteMs = 3000) {\n    console.log(`🔍 Auditando conectividad con: ${url} (Timeout: ${limiteMs}ms)`);\n    const t0 = performance.now();\n\n    try {\n        const respuesta = await fetch(url, {\n            signal: AbortSignal.timeout(limiteMs)\n        });\n\n        const tiempoRespuestaMs = Number((performance.now() - t0).toFixed(2));\n\n        if (!respuesta.ok) {\n            return {\n                url,\n                estado: \"Error HTTP\",\n                codigo: respuesta.status,\n                statusText: respuesta.statusText,\n                latenciaMs: tiempoRespuestaMs,\n                diagnostico: \"El servidor respondió, pero rechazó la solicitud (código \" + respuesta.status + \").\"\n            };\n        }\n\n        return {\n            url,\n            estado: \"OK\",\n            codigo: respuesta.status,\n            latenciaMs: tiempoRespuestaMs,\n            diagnostico: \"Conexión óptima y datos recibidos sin restricciones CORS.\"\n        };\n\n    } catch (error) {\n        const tiempoFalloMs = Number((performance.now() - t0).toFixed(2));\n\n        if (error.name === \"TimeoutError\") {\n            return {\n                url,\n                estado: \"Timeout\",\n                latenciaMs: tiempoFalloMs,\n                diagnostico: `La petición fue cancelada tras superar el límite de ${limiteMs}ms.`\n            };\n        }\n\n        return {\n            url,\n            estado: \"Fallo de Red / CORS\",\n            latenciaMs: tiempoFalloMs,\n            diagnostico: \"Bloqueo por directiva CORS del navegador o servidor inalcanzable (Failed to fetch).\"\n        };\n    }\n}\n\n// Prueba con endpoint válido\nauditarEndpointAPI(\"https://jsonplaceholder.typicode.com/posts/1\")\n    .then(informe => console.table([informe]));";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

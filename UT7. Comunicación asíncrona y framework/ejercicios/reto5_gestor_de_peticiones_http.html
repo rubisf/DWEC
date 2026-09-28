@@ -97,7 +97,7 @@
         // Configuración de cabeceras (Interceptor)
         const headers = { &quot;Accept&quot;: &quot;application/json&quot; };
         if (this.tokenAuth) {
-            headers[&quot;Authorization&quot;] = \`Bearer \${this.tokenAuth}\`;
+            headers[&quot;Authorization&quot;] = `Bearer ${this.tokenAuth}`;
         }
 
         try {
@@ -109,7 +109,7 @@
             });
 
             if (!respuesta.ok) {
-                const error = new Error(\`Error HTTP \${respuesta.status}: \${respuesta.statusText}\`);
+                const error = new Error(`Error HTTP ${respuesta.status}: ${respuesta.statusText}`);
                 error.status = respuesta.status;
                 throw error;
             }
@@ -119,7 +119,7 @@
 
         } catch (error) {
             if (error.name === &quot;TimeoutError&quot;) {
-                console.error(\`⏱️ Petición cancelada: Superó el tiempo límite de \${this.timeoutMs}ms.\`);
+                console.error(`⏱️ Petición cancelada: Superó el tiempo límite de ${this.timeoutMs}ms.`);
             }
             throw error;
         }
@@ -237,7 +237,7 @@ api.get(&quot;/todos/1&quot;).then(res =&gt; console.log(&quot;Datos recibidos:&
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "class HttpClient {\n    constructor(baseURL = \"\", timeoutMs = 5000) {\n        this.baseURL = baseURL.replace(/\\\\/$/, \"\");\n        this.timeoutMs = timeoutMs;\n        this.tokenAuth = null;\n    }\n\n    setToken(token) {\n        this.tokenAuth = token;\n    }\n\n    async get(endpoint) {\n        const urlCompleta = this.baseURL + \"/\" + endpoint.replace(/^\\\\//, \"\");\n        \n        // Configuración de cabeceras (Interceptor)\n        const headers = { \"Accept\": \"application/json\" };\n        if (this.tokenAuth) {\n            headers[\"Authorization\"] = \\`Bearer \\${this.tokenAuth}\\`;\n        }\n\n        try {\n            // Cancelación nativa con AbortSignal por timeout\n            const respuesta = await fetch(urlCompleta, {\n                method: \"GET\",\n                headers,\n                signal: AbortSignal.timeout(this.timeoutMs)\n            });\n\n            if (!respuesta.ok) {\n                const error = new Error(\\`Error HTTP \\${respuesta.status}: \\${respuesta.statusText}\\`);\n                error.status = respuesta.status;\n                throw error;\n            }\n\n            const data = await respuesta.json();\n            return { data, status: respuesta.status };\n\n        } catch (error) {\n            if (error.name === \"TimeoutError\") {\n                console.error(\\`⏱️ Petición cancelada: Superó el tiempo límite de \\${this.timeoutMs}ms.\\`);\n            }\n            throw error;\n        }\n    }\n}\n\n// Comprobación de uso\nconst api = new HttpClient(\"https://jsonplaceholder.typicode.com\", 3000);\napi.setToken(\"MI_JWT_DE_PRUEBA\");\napi.get(\"/todos/1\").then(res => console.log(\"Datos recibidos:\", res.data));";
+    const RAW_SOLUTION = "class HttpClient {\n    constructor(baseURL = \"\", timeoutMs = 5000) {\n        this.baseURL = baseURL.replace(/\\\\/$/, \"\");\n        this.timeoutMs = timeoutMs;\n        this.tokenAuth = null;\n    }\n\n    setToken(token) {\n        this.tokenAuth = token;\n    }\n\n    async get(endpoint) {\n        const urlCompleta = this.baseURL + \"/\" + endpoint.replace(/^\\\\//, \"\");\n        \n        // Configuración de cabeceras (Interceptor)\n        const headers = { \"Accept\": \"application/json\" };\n        if (this.tokenAuth) {\n            headers[\"Authorization\"] = `Bearer ${this.tokenAuth}`;\n        }\n\n        try {\n            // Cancelación nativa con AbortSignal por timeout\n            const respuesta = await fetch(urlCompleta, {\n                method: \"GET\",\n                headers,\n                signal: AbortSignal.timeout(this.timeoutMs)\n            });\n\n            if (!respuesta.ok) {\n                const error = new Error(`Error HTTP ${respuesta.status}: ${respuesta.statusText}`);\n                error.status = respuesta.status;\n                throw error;\n            }\n\n            const data = await respuesta.json();\n            return { data, status: respuesta.status };\n\n        } catch (error) {\n            if (error.name === \"TimeoutError\") {\n                console.error(`⏱️ Petición cancelada: Superó el tiempo límite de ${this.timeoutMs}ms.`);\n            }\n            throw error;\n        }\n    }\n}\n\n// Comprobación de uso\nconst api = new HttpClient(\"https://jsonplaceholder.typicode.com\", 3000);\napi.setToken(\"MI_JWT_DE_PRUEBA\");\napi.get(\"/todos/1\").then(res => console.log(\"Datos recibidos:\", res.data));";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

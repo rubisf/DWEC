@@ -92,16 +92,16 @@ function confirmarAccionModal(mensaje) {
             document.body.appendChild(dialog);
         }
 
-        dialog.innerHTML = \`
+        dialog.innerHTML = `
             &lt;div style=&quot;min-width: 300px;&quot;&gt;
                 &lt;h3 style=&quot;margin-top: 0; color: #0f172a;&quot;&gt;Confirmación Requerida&lt;/h3&gt;
-                &lt;p style=&quot;color: #475569; font-size: 0.9em;&quot;&gt;\${mensaje}&lt;/p&gt;
+                &lt;p style=&quot;color: #475569; font-size: 0.9em;&quot;&gt;${mensaje}&lt;/p&gt;
                 &lt;div style=&quot;display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;&quot;&gt;
                     &lt;button id=&quot;btn-cancelar&quot; style=&quot;padding: 8px 14px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 6px; cursor: pointer;&quot;&gt;Cancelar&lt;/button&gt;
                     &lt;button id=&quot;btn-aceptar&quot; style=&quot;padding: 8px 14px; border: none; background: #2563eb; color: white; border-radius: 6px; cursor: pointer;&quot;&gt;Aceptar&lt;/button&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-        \`;
+        `;
 
         dialog.querySelector(&#x27;#btn-cancelar&#x27;).onclick = () =&gt; {
             dialog.close();
@@ -229,7 +229,7 @@ async function ejecutarEliminacion() {
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "// Gestor asíncrono de confirmaciones basado en Promesas y <dialog>\nfunction confirmarAccionModal(mensaje) {\n    return new Promise((resolve) => {\n        // Crear elemento dialog dinámico si no existe\n        let dialog = document.getElementById('modal-confirmacion-dinamico');\n        if (!dialog) {\n            dialog = document.createElement('dialog');\n            dialog.id = 'modal-confirmacion-dinamico';\n            dialog.style.cssText = \"border: none; border-radius: 12px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-family: sans-serif;\";\n            document.body.appendChild(dialog);\n        }\n\n        dialog.innerHTML = \\`\n            <div style=\"min-width: 300px;\">\n                <h3 style=\"margin-top: 0; color: #0f172a;\">Confirmación Requerida</h3>\n                <p style=\"color: #475569; font-size: 0.9em;\">\\${mensaje}</p>\n                <div style=\"display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;\">\n                    <button id=\"btn-cancelar\" style=\"padding: 8px 14px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 6px; cursor: pointer;\">Cancelar</button>\n                    <button id=\"btn-aceptar\" style=\"padding: 8px 14px; border: none; background: #2563eb; color: white; border-radius: 6px; cursor: pointer;\">Aceptar</button>\n                </div>\n            </div>\n        \\`;\n\n        dialog.querySelector('#btn-cancelar').onclick = () => {\n            dialog.close();\n            resolve(false);\n        };\n\n        dialog.querySelector('#btn-aceptar').onclick = () => {\n            dialog.close();\n            resolve(true);\n        };\n\n        dialog.showModal();\n    });\n}\n\n// Ejemplo de consumo con async/await\nasync function ejecutarEliminacion() {\n    const respuesta = await confirmarAccionModal(\"¿Deseas purgar la base de datos temporal?\");\n    console.log(\"Resultado de confirmación asíncrona:\", respuesta);\n}";
+    const RAW_SOLUTION = "// Gestor asíncrono de confirmaciones basado en Promesas y <dialog>\nfunction confirmarAccionModal(mensaje) {\n    return new Promise((resolve) => {\n        // Crear elemento dialog dinámico si no existe\n        let dialog = document.getElementById('modal-confirmacion-dinamico');\n        if (!dialog) {\n            dialog = document.createElement('dialog');\n            dialog.id = 'modal-confirmacion-dinamico';\n            dialog.style.cssText = \"border: none; border-radius: 12px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-family: sans-serif;\";\n            document.body.appendChild(dialog);\n        }\n\n        dialog.innerHTML = `\n            <div style=\"min-width: 300px;\">\n                <h3 style=\"margin-top: 0; color: #0f172a;\">Confirmación Requerida</h3>\n                <p style=\"color: #475569; font-size: 0.9em;\">${mensaje}</p>\n                <div style=\"display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;\">\n                    <button id=\"btn-cancelar\" style=\"padding: 8px 14px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 6px; cursor: pointer;\">Cancelar</button>\n                    <button id=\"btn-aceptar\" style=\"padding: 8px 14px; border: none; background: #2563eb; color: white; border-radius: 6px; cursor: pointer;\">Aceptar</button>\n                </div>\n            </div>\n        `;\n\n        dialog.querySelector('#btn-cancelar').onclick = () => {\n            dialog.close();\n            resolve(false);\n        };\n\n        dialog.querySelector('#btn-aceptar').onclick = () => {\n            dialog.close();\n            resolve(true);\n        };\n\n        dialog.showModal();\n    });\n}\n\n// Ejemplo de consumo con async/await\nasync function ejecutarEliminacion() {\n    const respuesta = await confirmarAccionModal(\"¿Deseas purgar la base de datos temporal?\");\n    console.log(\"Resultado de confirmación asíncrona:\", respuesta);\n}";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

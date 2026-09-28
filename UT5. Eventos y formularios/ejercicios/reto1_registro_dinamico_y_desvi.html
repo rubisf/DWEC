@@ -86,7 +86,7 @@
 
     function manejarClic(evento) {
         clicsRealizados++;
-        console.log(\`Clic \${clicsRealizados}/\${maxIntentos} registrado en \${evento.currentTarget.id}\`);
+        console.log(`Clic ${clicsRealizados}/${maxIntentos} registrado en ${evento.currentTarget.id}`);
 
         if (clicsRealizados &gt;= maxIntentos) {
             console.warn(&quot;Límite de interacciones alcanzado. Desvinculando escuchador...&quot;);
@@ -210,7 +210,7 @@
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "function configurarBotonConLimite(botonElemento, maxIntentos = 3) {\n    let clicsRealizados = 0;\n    const controller = new AbortController();\n\n    function manejarClic(evento) {\n        clicsRealizados++;\n        console.log(\\`Clic \\${clicsRealizados}/\\${maxIntentos} registrado en \\${evento.currentTarget.id}\\`);\n\n        if (clicsRealizados >= maxIntentos) {\n            console.warn(\"Límite de interacciones alcanzado. Desvinculando escuchador...\");\n            controller.abort(); // Destruye el listener automáticamente\n            botonElemento.disabled = true;\n            botonElemento.textContent = \"Límite Alcanzado 🔒\";\n        }\n    }\n\n    botonElemento.addEventListener(\"click\", manejarClic, { signal: controller.signal });\n    console.log(\"Escuchador con señal de cancelación registrado con éxito.\");\n}\n\n// Simulación de uso con un botón\n// const btn = document.getElementById('mi-boton');\n// configurarBotonConLimite(btn, 3);";
+    const RAW_SOLUTION = "function configurarBotonConLimite(botonElemento, maxIntentos = 3) {\n    let clicsRealizados = 0;\n    const controller = new AbortController();\n\n    function manejarClic(evento) {\n        clicsRealizados++;\n        console.log(`Clic ${clicsRealizados}/${maxIntentos} registrado en ${evento.currentTarget.id}`);\n\n        if (clicsRealizados >= maxIntentos) {\n            console.warn(\"Límite de interacciones alcanzado. Desvinculando escuchador...\");\n            controller.abort(); // Destruye el listener automáticamente\n            botonElemento.disabled = true;\n            botonElemento.textContent = \"Límite Alcanzado 🔒\";\n        }\n    }\n\n    botonElemento.addEventListener(\"click\", manejarClic, { signal: controller.signal });\n    console.log(\"Escuchador con señal de cancelación registrado con éxito.\");\n}\n\n// Simulación de uso con un botón\n// const btn = document.getElementById('mi-boton');\n// configurarBotonConLimite(btn, 3);";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

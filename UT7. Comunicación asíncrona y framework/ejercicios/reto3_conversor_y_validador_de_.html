@@ -110,10 +110,10 @@ function jsonAXml(estudiantes) {
     let xml = &#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\\n&lt;estudiantes&gt;\\n&#x27;;
     
     for (const est of estudiantes) {
-        xml += \`  &lt;estudiante id=&quot;\${est.id}&quot;&gt;\\n\`;
-        xml += \`    &lt;nombre&gt;\${est.nombre}&lt;/nombre&gt;\\n\`;
-        xml += \`    &lt;nota&gt;\${est.nota}&lt;/nota&gt;\\n\`;
-        xml += \`  &lt;/estudiante&gt;\\n\`;
+        xml += `  &lt;estudiante id=&quot;${est.id}&quot;&gt;\\n`;
+        xml += `    &lt;nombre&gt;${est.nombre}&lt;/nombre&gt;\\n`;
+        xml += `    &lt;nota&gt;${est.nota}&lt;/nota&gt;\\n`;
+        xml += `  &lt;/estudiante&gt;\\n`;
     }
     
     xml += &#x27;&lt;/estudiantes&gt;&#x27;;
@@ -121,10 +121,10 @@ function jsonAXml(estudiantes) {
 }
 
 // Prueba con datos
-const xmlEntrada = \`&lt;estudiantes&gt;
+const xmlEntrada = `&lt;estudiantes&gt;
   &lt;estudiante id=&quot;1&quot;&gt;&lt;nombre&gt;Ana&lt;/nombre&gt;&lt;nota&gt;9.5&lt;/nota&gt;&lt;/estudiante&gt;
   &lt;estudiante id=&quot;2&quot;&gt;&lt;nombre&gt;Luis&lt;/nombre&gt;&lt;nota&gt;7.2&lt;/nota&gt;&lt;/estudiante&gt;
-&lt;/estudiantes&gt;\`;
+&lt;/estudiantes&gt;`;
 
 const alumnos = xmlAJson(xmlEntrada);
 console.log(&quot;Objetos extraídos del XML:&quot;, alumnos);
@@ -237,7 +237,7 @@ console.log(jsonAXml(alumnos));</code></pre>
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "// Conversor de XML a Objetos JSON\nfunction xmlAJson(cadenaXML) {\n    const parser = new DOMParser();\n    const doc = parser.parseFromString(cadenaXML, \"text/xml\");\n    \n    // Comprobación de errores de parseo XML\n    const parseError = doc.querySelector(\"parsererror\");\n    if (parseError) {\n        throw new Error(\"Sintaxis XML defectuosa: \" + parseError.textContent);\n    }\n\n    const estudiantesXML = doc.getElementsByTagName(\"estudiante\");\n    const resultado = [];\n\n    for (const est of estudiantesXML) {\n        resultado.push({\n            id: Number(est.getAttribute(\"id\")),\n            nombre: est.getElementsByTagName(\"nombre\")[0]?.textContent || \"\",\n            nota: Number(est.getElementsByTagName(\"nota\")[0]?.textContent || 0)\n        });\n    }\n\n    return resultado;\n}\n\n// Conversor de Objetos JSON a XML\nfunction jsonAXml(estudiantes) {\n    let xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\\\\n<estudiantes>\\\\n';\n    \n    for (const est of estudiantes) {\n        xml += \\`  <estudiante id=\"\\${est.id}\">\\\\n\\`;\n        xml += \\`    <nombre>\\${est.nombre}</nombre>\\\\n\\`;\n        xml += \\`    <nota>\\${est.nota}</nota>\\\\n\\`;\n        xml += \\`  </estudiante>\\\\n\\`;\n    }\n    \n    xml += '</estudiantes>';\n    return xml;\n}\n\n// Prueba con datos\nconst xmlEntrada = \\`<estudiantes>\n  <estudiante id=\"1\"><nombre>Ana</nombre><nota>9.5</nota></estudiante>\n  <estudiante id=\"2\"><nombre>Luis</nombre><nota>7.2</nota></estudiante>\n</estudiantes>\\`;\n\nconst alumnos = xmlAJson(xmlEntrada);\nconsole.log(\"Objetos extraídos del XML:\", alumnos);\nconsole.log(\"XML Regenerado:\");\nconsole.log(jsonAXml(alumnos));";
+    const RAW_SOLUTION = "// Conversor de XML a Objetos JSON\nfunction xmlAJson(cadenaXML) {\n    const parser = new DOMParser();\n    const doc = parser.parseFromString(cadenaXML, \"text/xml\");\n    \n    // Comprobación de errores de parseo XML\n    const parseError = doc.querySelector(\"parsererror\");\n    if (parseError) {\n        throw new Error(\"Sintaxis XML defectuosa: \" + parseError.textContent);\n    }\n\n    const estudiantesXML = doc.getElementsByTagName(\"estudiante\");\n    const resultado = [];\n\n    for (const est of estudiantesXML) {\n        resultado.push({\n            id: Number(est.getAttribute(\"id\")),\n            nombre: est.getElementsByTagName(\"nombre\")[0]?.textContent || \"\",\n            nota: Number(est.getElementsByTagName(\"nota\")[0]?.textContent || 0)\n        });\n    }\n\n    return resultado;\n}\n\n// Conversor de Objetos JSON a XML\nfunction jsonAXml(estudiantes) {\n    let xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\\\\n<estudiantes>\\\\n';\n    \n    for (const est of estudiantes) {\n        xml += `  <estudiante id=\"${est.id}\">\\\\n`;\n        xml += `    <nombre>${est.nombre}</nombre>\\\\n`;\n        xml += `    <nota>${est.nota}</nota>\\\\n`;\n        xml += `  </estudiante>\\\\n`;\n    }\n    \n    xml += '</estudiantes>';\n    return xml;\n}\n\n// Prueba con datos\nconst xmlEntrada = `<estudiantes>\n  <estudiante id=\"1\"><nombre>Ana</nombre><nota>9.5</nota></estudiante>\n  <estudiante id=\"2\"><nombre>Luis</nombre><nota>7.2</nota></estudiante>\n</estudiantes>`;\n\nconst alumnos = xmlAJson(xmlEntrada);\nconsole.log(\"Objetos extraídos del XML:\", alumnos);\nconsole.log(\"XML Regenerado:\");\nconsole.log(jsonAXml(alumnos));";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {

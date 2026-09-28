@@ -884,13 +884,13 @@ console.log(&quot;Código Postal:&quot;, codigoPostal);</code></pre>
         
         // Extracción segura de dirección profunda
         const direccionEntrega = pedido.cliente?.direccion?.calle 
-            ? \`\${pedido.cliente.direccion.calle}, \${pedido.cliente.direccion.ciudad ?? &#x27;S/C&#x27;}\` 
+            ? `${pedido.cliente.direccion.calle}, ${pedido.cliente.direccion.ciudad ?? &#x27;S/C&#x27;}` 
             : &quot;Recogida en Tienda Central&quot;;
 
         return {
             id: pedido.id,
             total,
-            envio: costeEnvio === 0 ? &quot;Gratis&quot; : \`\${costeEnvio}€\`,
+            envio: costeEnvio === 0 ? &quot;Gratis&quot; : `${costeEnvio}€`,
             direccion: direccionEntrega
         };
     });

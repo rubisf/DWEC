@@ -587,7 +587,7 @@ botonAccion.addEventListener(&quot;click&quot;, function(e) {
 
     function manejarClic(evento) {
         clicsRealizados++;
-        console.log(\`Clic \${clicsRealizados}/\${maxIntentos} registrado en \${evento.currentTarget.id}\`);
+        console.log(`Clic ${clicsRealizados}/${maxIntentos} registrado en ${evento.currentTarget.id}`);
 
         if (clicsRealizados &gt;= maxIntentos) {
             console.warn(&quot;Límite de interacciones alcanzado. Desvinculando escuchador...&quot;);
@@ -722,16 +722,16 @@ listaTareas.addEventListener(&quot;click&quot;, (e) =&gt; {
         // Determinar acción según las clases o atributos del botón
         if (boton.classList.contains(&quot;btn-eliminar&quot;)) {
             e.preventDefault();
-            console.warn(\`Eliminando pedido #\${pedidoId} de la tabla.\`);
+            console.warn(`Eliminando pedido #${pedidoId} de la tabla.`);
             fila.remove();
         } else if (boton.classList.contains(&quot;btn-enviar&quot;)) {
             e.preventDefault();
-            console.log(\`Marcando pedido #\${pedidoId} como enviado.\`);
+            console.log(`Marcando pedido #${pedidoId} como enviado.`);
             fila.style.background = &quot;#dcfce7&quot;;
             boton.disabled = true;
         } else if (boton.classList.contains(&quot;btn-detalles&quot;)) {
             e.preventDefault();
-            console.log(\`Abriendo panel de detalles para pedido #\${pedidoId}\`);
+            console.log(`Abriendo panel de detalles para pedido #${pedidoId}`);
         }
     });
 }
@@ -1352,7 +1352,7 @@ console.log(&quot;Color de fondo calculado actualmente:&quot;, estiloReal.backgr
             bubbles: true
         });
         document.dispatchEvent(evento);
-        console.log(\`Tema aplicado: \${tema.toUpperCase()}\`);
+        console.log(`Tema aplicado: ${tema.toUpperCase()}`);
     }
 
     conmutar() {

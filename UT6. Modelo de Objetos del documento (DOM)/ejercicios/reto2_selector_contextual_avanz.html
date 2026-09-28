@@ -95,11 +95,11 @@
     if (yaSeleccionada) {
         fila.classList.remove(&quot;fila-activa&quot;);
         fila.style.backgroundColor = &quot;&quot;;
-        console.log(\`Fila deseleccionada: ID \${fila.dataset.id || &#x27;S/N&#x27;}\`);
+        console.log(`Fila deseleccionada: ID ${fila.dataset.id || &#x27;S/N&#x27;}`);
     } else {
         fila.classList.add(&quot;fila-activa&quot;);
         fila.style.backgroundColor = &quot;#e0e7ff&quot;;
-        console.log(\`Fila seleccionada: ID \${fila.dataset.id || &#x27;S/N&#x27;}\`);
+        console.log(`Fila seleccionada: ID ${fila.dataset.id || &#x27;S/N&#x27;}`);
     }
 
     return fila;
@@ -214,7 +214,7 @@
       countEl.textContent = "0 entradas";
     };
 
-    const RAW_SOLUTION = "function resaltarFilaContextual(elementoClicado) {\n    // 1. Localizar la fila <tr> ascendiendo en el árbol DOM\n    const fila = elementoClicado.closest(\"tr\");\n    \n    if (!fila) {\n        console.warn(\"El clic no ocurrió dentro de ninguna fila de tabla.\");\n        return null;\n    }\n\n    // 2. Verificar el estado actual con matches()\n    const yaSeleccionada = fila.matches(\".fila-activa\");\n\n    if (yaSeleccionada) {\n        fila.classList.remove(\"fila-activa\");\n        fila.style.backgroundColor = \"\";\n        console.log(\\`Fila deseleccionada: ID \\${fila.dataset.id || 'S/N'}\\`);\n    } else {\n        fila.classList.add(\"fila-activa\");\n        fila.style.backgroundColor = \"#e0e7ff\";\n        console.log(\\`Fila seleccionada: ID \\${fila.dataset.id || 'S/N'}\\`);\n    }\n\n    return fila;\n}\n\n// Simulación de llamada:\n// document.querySelector('table').onclick = (e) => resaltarFilaContextual(e.target);";
+    const RAW_SOLUTION = "function resaltarFilaContextual(elementoClicado) {\n    // 1. Localizar la fila <tr> ascendiendo en el árbol DOM\n    const fila = elementoClicado.closest(\"tr\");\n    \n    if (!fila) {\n        console.warn(\"El clic no ocurrió dentro de ninguna fila de tabla.\");\n        return null;\n    }\n\n    // 2. Verificar el estado actual con matches()\n    const yaSeleccionada = fila.matches(\".fila-activa\");\n\n    if (yaSeleccionada) {\n        fila.classList.remove(\"fila-activa\");\n        fila.style.backgroundColor = \"\";\n        console.log(`Fila deseleccionada: ID ${fila.dataset.id || 'S/N'}`);\n    } else {\n        fila.classList.add(\"fila-activa\");\n        fila.style.backgroundColor = \"#e0e7ff\";\n        console.log(`Fila seleccionada: ID ${fila.dataset.id || 'S/N'}`);\n    }\n\n    return fila;\n}\n\n// Simulación de llamada:\n// document.querySelector('table').onclick = (e) => resaltarFilaContextual(e.target);";
 
     window.addEventListener('message', (e) => {
       if (e.data && e.data.type === 'reto-log') {
