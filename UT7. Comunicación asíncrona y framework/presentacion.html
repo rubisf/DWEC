@@ -491,6 +491,13 @@
               <p class="index-desc">La comunicación asíncrona está fuertemente condicionada por políticas de seguridad del navegador y requiere herramientas de auditoría en red.</p>
             </div>
           </div>
+          <div class="index-card" style="border-left: 4px solid #0284c7; background: #f0f9ff;">
+            <div class="index-badge" style="background: #0284c7; color: white;">9</div>
+            <div class="index-info">
+              <div class="index-title">Componentes, Estado y Ciclo de Vida en React: Hooks (useState, useEffect) y Arquitectura de Componentes <span style="font-size: 0.65em; background: #0284c7; color: white; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 800; vertical-align: middle;">⚛️ REACT</span></div>
+              <p class="index-desc">React es una librería declarativa y basada en componentes para la creación de interfaces de usuario interactivas en Single Page Applications (SPAs).</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -767,7 +774,7 @@ export class ProductoDetalleComponent implements OnInit {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 1 de 8 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 1 de 9 · Teoría y Demostración</span>
           <h2>1. Fundamentos de la Comunicación Asíncrona Cliente-Servidor (AJAX)</h2>
         </div>
         <div class="theory-grid">
@@ -948,7 +955,7 @@ procesarRespuestaServidor({
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 2 de 8 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 2 de 9 · Teoría y Demostración</span>
           <h2>2. Objetos y Métodos para la Comunicación Asíncrona: XMLHttpRequest vs Fetch API</h2>
         </div>
         <div class="theory-grid">
@@ -1120,7 +1127,7 @@ async function consultarConFetch(url) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 3 de 8 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 3 de 9 · Teoría y Demostración</span>
           <h2>3. Formatos de Envío y Recepción de Datos: JSON, XML y FormData</h2>
         </div>
         <div class="theory-grid">
@@ -1284,7 +1291,7 @@ console.log(jsonAXml(alumnos));</code></pre>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 4 de 8 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 4 de 9 · Teoría y Demostración</span>
           <h2>4. Modificación Dinámica del DOM con Datos Asíncronos y Estados de UI</h2>
         </div>
         <div class="theory-grid">
@@ -1476,7 +1483,7 @@ async function cargarCatalogoEnDOM(contenedor) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 5 de 8 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 5 de 9 · Teoría y Demostración</span>
           <h2>5. Introducción y Uso de Librerías y Frameworks: Fetch API, Axios, jQuery y SPAs</h2>
         </div>
         <div class="theory-grid">
@@ -1647,7 +1654,7 @@ api.get(&quot;/todos/1&quot;).then(res =&gt; console.log(&quot;Datos recibidos:&
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 6 de 8 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 6 de 9 · Teoría y Demostración</span>
           <h2>6. Angular como Framework Frontend SPA: Componentes Standalone, Servicios e Inyección de Dependencias</h2>
         </div>
         <div class="theory-grid">
@@ -1831,7 +1838,7 @@ if (appEl) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 7 de 8 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 7 de 9 · Teoría y Demostración</span>
           <h2>7. Enrutamiento y Proyecto Tienda en Angular: Menú, Catálogo con Tarjetas y Vista de Detalle</h2>
         </div>
         <div class="theory-grid">
@@ -2131,7 +2138,7 @@ if (mountNode) {
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 8 de 8 · Teoría y Demostración</span>
+          <span class="badge-sub">Bloque 8 de 9 · Teoría y Demostración</span>
           <h2>8. Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</h2>
         </div>
         <div class="theory-grid">
@@ -2305,8 +2312,245 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
 
       <section>
         <div class="slide-header">
+          <span class="badge-sub">Bloque 9 de 9 · Teoría y Demostración</span>
+          <h2>9. Componentes, Estado y Ciclo de Vida en React: Hooks (useState, useEffect) y Arquitectura de Componentes</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Fundamentos Conceptuales</div>
+            <div class="card-text"><p><strong>React</strong> es una librería declarativa y basada en componentes para la creación de interfaces de usuario interactivas en Single Page Applications (SPAs):</p>
+<ul class="concept-list">
+  <li><strong>Arquitectura Basada en Componentes y Sintaxis JSX:</strong>
+    <p>Las aplicaciones React se estructuran dividiendo la interfaz en componentes independientes y reutilizables. JSX (JavaScript XML) permite escribir sintaxis de marcado similar a HTML directamente dentro del código JavaScript.</p>
+  </li>
+  <li><strong>Gestión de Estado Reactivo con <code>useState</code>:</strong>
+    <p>El hook <code>useState</code> permite declarar variables de estado reactivo. Cuando el estado cambia mediante su función actualizadora, React vuelve a renderizar automáticamente la interfaz para reflejar los nuevos datos en el DOM Virtual (VDOM).</p>
+  </li>
+  <li><strong>Gestión de Efectos Secundarios y Peticiones Asíncronas con <code>useEffect</code>:</strong>
+    <p>El hook <code>useEffect</code> sincroniza el componente con sistemas externos (como peticiones HTTP con <code>fetch</code>, temporizadores o suscripciones):</p>
+    <ul>
+      <li><em>Array de Dependencias Vacío <code>[]</code>:</em> Se ejecuta una sola vez al montar el componente en el DOM (ideal para cargar datos iniciales).</li>
+      <li><em>Array con Variables <code>[filtro]</code>:</em> Se reejecuta cada vez que cambia el valor de alguna variable indicada.</li>
+      <li><em>Función de Limpieza (Cleanup):</em> Retornar una función desde el efecto para cancelar peticiones pendientes o limpiar subscripciones.</li>
+    </ul>
+  </li>
+  <li><strong>Flujo de Datos Unidireccional (Props):</strong>
+    <p>Los componentes padres comunican datos y callbacks hacia los componentes hijos exclusivamente mediante propiedades (<strong>props</strong>) de arriba a abajo.</p>
+  </li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
+            <div class="card-text"><p><strong>Estándares React 18, React DOM y Arquitectura con Hooks:</strong></p>
+<ul class="concept-list">
+  <li><strong>Virtual DOM y Reconciliación:</strong> React mantiene una representación ligera en memoria del DOM (Virtual DOM). Al cambiar el estado, realiza una comparación algorítmica diferida (diffing) y aplica únicamente las modificaciones mínimas necesarias al DOM real del navegador.</li>
+  <li><strong>Reglas de los Hooks:</strong> Los Hooks solo deben invocarse en el nivel superior de componentes funcionales de React, nunca dentro de bucles, condicionales o funciones anidadas.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Demostración Práctica e Implementación de Código</span>
+            
+          </div>
+          <pre><code class="language-javascript">// Ejemplo React 18: Componente Funcional con Estado (useState) y Efecto Secundario (useEffect)
+/*
+import React, { useState, useEffect } from &#x27;react&#x27;;
+
+export function CatalogoReactApp() {
+  const [productos, setProductos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [busqueda, setBusqueda] = useState(&#x27;&#x27;);
+
+  // Efecto secundario: Carga asíncrona de datos al montar el componente
+  useEffect(() =&gt; {
+    fetch(&#x27;https://jsonplaceholder.typicode.com/posts?_limit=4&#x27;)
+      .then(res =&gt; res.json())
+      .then(data =&gt; {
+        setProductos(data);
+        setCargando(false);
+      });
+  }, []);
+
+  const productosFiltrados = productos.filter(p =&gt; 
+    p.title.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
+  if (cargando) return &lt;p&gt;⌛ Cargando productos en React...&lt;/p&gt;;
+
+  return (
+    &lt;div className=&quot;catalogo-container&quot;&gt;
+      &lt;h2&gt;⚛️ Catálogo React 18 SPA&lt;/h2&gt;
+      &lt;input 
+        type=&quot;text&quot; 
+        value={busqueda} 
+        onChange={(e) =&gt; setBusqueda(e.target.value)} 
+        placeholder=&quot;Buscar...&quot; 
+      /&gt;
+      &lt;ul&gt;
+        {productosFiltrados.map(p =&gt; (
+          &lt;li key={p.id}&gt;{p.title}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+*/
+console.log(&quot;⚛️ React 18: Componentes Funcionales, useState y useEffect cargados correctamente.&quot;);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 9</span>
+          <h2>🎯 Reto 9: Componente React Interactivo de Catálogo con Filtro en Vivo y Estado de Carrito (useState y useEffect)</h2>
+        </div>
+        <div class="reto-slide-container">
+          <div class="callout tip">
+            <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
+            <div class="callout-body">Diseña una aplicación reactiva en JavaScript que simule el comportamiento de un componente funcional de React con `useState` y `useEffect`. Debe implementar: 1) Estado reactivo para la lista de productos y carrito de compras, 2) Efecto secundario que simule la carga asíncrona de datos desde una API remota al montar la vista, y 3) Filtro en tiempo real por nombre de producto con actualización reactiva en el DOM.</div>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
+            <div class="callout-body">Crea una clase o función contenedora `ReactStoreSimulator` que administre el estado y vuelva a renderizar la vista cuando `setState` cambie los valores. Utiliza `\x3C` para escapar cualquier etiqueta HTML en las cadenas de plantilla JS.</div>
+          </div>
+          
+          <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
+            <summary style="font-size: 0.74em; font-weight: 800; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
+              <span>🔍 Desplegar Solución Embebida y Explicación Técnica</span>
+              <span style="font-size: 0.8em; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px;">Clic para Ver/Ocultar</span>
+            </summary>
+            <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
+              <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La arquitectura basada en componentes declarativos y hooks de React simplifica la gestión del estado interactivo y el consumo asíncrono de datos en SPAs modernas.
+              </div>
+              <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
+                <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 9: Simulador Interactivo de Componentes y Hooks en React (useState y useEffect)
+class ReactStoreSimulator {
+    constructor(contenedorId) {
+        this.contenedor = document.getElementById(contenedorId);
+        // Estado reactivo (useState)
+        this.state = {
+            productos: [],
+            carrito: [],
+            cargando: true,
+            busqueda: &quot;&quot;
+        };
+
+        // Simulación de useEffect [] al montar
+        this.efectoInicialMontado();
+    }
+
+    // Custom setState para re-renderizar de forma reactiva
+    setState(nuevoEstadoParcial) {
+        this.state = { ...this.state, ...nuevoEstadoParcial };
+        this.render();
+    }
+
+    efectoInicialMontado() {
+        console.log(&quot;⚛️ [useEffect] Ejecutando efecto de carga inicial de productos...&quot;);
+        setTimeout(() =&gt; {
+            const datosApi = [
+                { id: 1, nombre: &quot;Laptop React Pro&quot;, precio: 1199, categoria: &quot;Equipos&quot;, imagen: &quot;💻&quot; },
+                { id: 2, nombre: &quot;Teclado JSX RGB&quot;, precio: 99, categoria: &quot;Periféricos&quot;, imagen: &quot;⌨️&quot; },
+                { id: 3, nombre: &quot;Monitor Hooks 4K&quot;, precio: 389, categoria: &quot;Pantallas&quot;, imagen: &quot;🖥️&quot; },
+                { id: 4, nombre: &quot;Cascos State HiFi&quot;, precio: 149, categoria: &quot;Audio&quot;, imagen: &quot;🎧&quot; }
+            ];
+            this.setState({ productos: datosApi, cargando: false });
+        }, 600);
+    }
+
+    render() {
+        if (!this.contenedor) return;
+
+        if (this.state.cargando) {
+            this.contenedor.innerHTML = `\x3Cdiv style=&quot;padding:20px; color:#38bdf8; font-weight:bold;&quot;\x3E⌛ [React useEffect] Cargando catálogo asíncrono desde API...\x3C/div\x3E`;
+            return;
+        }
+
+        const productosFiltrados = this.state.productos.filter(p =&gt;
+            p.nombre.toLowerCase().includes(this.state.busqueda.toLowerCase())
+        );
+
+        const html = `
+            \x3Cdiv style=&quot;background:#0f172a; color:#f8fafc; padding:18px; border-radius:10px; font-family:sans-serif;&quot;\x3E
+                \x3Cdiv style=&quot;display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid #334155; padding-bottom:10px;&quot;\x3E
+                    \x3Ch3 style=&quot;margin:0; color:#38bdf8;&quot;\x3E⚛️ Tienda React (useState + useEffect)\x3C/h3\x3E
+                    \x3Cspan style=&quot;background:#0284c7; padding:4px 10px; border-radius:6px; font-weight:bold; font-size:0.85em;&quot;\x3E🛒 Carrito: ${this.state.carrito.length} items\x3C/span\x3E
+                \x3C/div\x3E
+
+                \x3Cdiv style=&quot;margin-bottom:14px;&quot;\x3E
+                    \x3Cinput id=&quot;react-search&quot; type=&quot;text&quot; placeholder=&quot;🔍 Filtrar productos en vivo (useState)...&quot; value=&quot;${this.state.busqueda}&quot; style=&quot;width:100%; padding:8px 12px; border-radius:6px; border:1px solid #334155; background:#1e293b; color:white;&quot; /\x3E
+                \x3C/div\x3E
+
+                \x3Cdiv style=&quot;display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:10px;&quot;\x3E
+                    ${productosFiltrados.map(p =&gt; `
+                        \x3Cdiv style=&quot;background:#1e293b; padding:12px; border-radius:8px; border:1px solid #334155; display:flex; flex-direction:column; justify-content:space-between;&quot;\x3E
+                            \x3Cdiv\x3E
+                                \x3Cdiv style=&quot;font-size:2.5em; text-align:center;&quot;\x3E${p.imagen}\x3C/div\x3E
+                                \x3Ch4 style=&quot;margin:6px 0; color:#f8fafc;&quot;\x3E${p.nombre}\x3C/h4\x3E
+                                \x3Cp style=&quot;color:#38bdf8; font-weight:bold; margin:0 0 8px 0;&quot;\x3E${p.precio} €\x3C/p\x3E
+                            \x3C/div\x3E
+                            \x3Cbutton class=&quot;btn-add-cart&quot; data-id=&quot;${p.id}&quot; style=&quot;background:#10b981; color:white; border:none; padding:6px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:0.8em;&quot;\x3E
+                                ➕ Añadir al Carrito
+                            \x3C/button\x3E
+                        \x3C/div\x3E
+                    `).join(&#x27;&#x27;)}
+                \x3C/div\x3E
+            \x3C/div\x3E
+        `;
+
+        this.contenedor.innerHTML = html;
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        const searchInput = this.contenedor.querySelector(&quot;#react-search&quot;);
+        if (searchInput) {
+            searchInput.oninput = (e) =&gt; {
+                this.setState({ busqueda: e.target.value });
+            };
+        }
+
+        const btnsAdd = this.contenedor.querySelectorAll(&quot;.btn-add-cart&quot;);
+        btnsAdd.forEach(btn =&gt; {
+            btn.onclick = (e) =&gt; {
+                const id = Number(e.currentTarget.dataset.id);
+                const prod = this.state.productos.find(p =&gt; p.id === id);
+                if (prod) {
+                    this.setState({ carrito: [...this.state.carrito, prod] });
+                }
+            };
+        });
+    }
+}
+
+// Inicialización en Sandbox
+const mountNode = document.getElementById(&quot;app&quot;) || document.getElementById(&quot;sandbox-container&quot;);
+if (mountNode) {
+    const reactApp = new ReactStoreSimulator(mountNode.id);
+}</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <div class="reto-action-card" style="padding: 8px 14px; margin-top: 4px;">
+            <div class="reto-action-text">
+              <strong>¿Deseas probar la solución o ejecutar en vivo?</strong>
+              <p>Puedes probar el script en tu consola de navegador (<strong>F12</strong>) o abrir el visor de retos interactivo.</p>
+            </div>
+            <a href="ejercicios.html?item=reto-9" target="_blank" class="btn-primary" style="padding: 6px 12px; font-size: 0.70em;">
+              🚀 Abrir Reto 9 en Taller
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
           <span class="badge-sub badge-exercise">Resumen Curricular</span>
-          <h2>📋 Listado de Retos Propuestos en la Unidad (8)</h2>
+          <h2>📋 Listado de Retos Propuestos en la Unidad (9)</h2>
         </div>
         <div class="final-workshop-card">
           <p style="font-size: 0.70em; color: #475569; margin: 0 0 6px 0;">
@@ -2391,6 +2635,16 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
           <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 8: Compatibilidad entre Navegadores, Políticas de Seguridad CORS y Pruebas con DevTools</p>
         </div>
         <a href="ejercicios.html?item=reto-8" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
+          🚀 Ver Solución
+        </a>
+      </li>
+      <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 9</span>
+        <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
+          <strong style="font-size: 0.76em; color: #0f172a;">Componente React Interactivo de Catálogo con Filtro en Vivo y Estado de Carrito (useState y useEffect)</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 9: Componentes, Estado y Ciclo de Vida en React: Hooks (useState, useEffect) y Arquitectura de Componentes</p>
+        </div>
+        <a href="ejercicios.html?item=reto-9" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
           🚀 Ver Solución
         </a>
       </li>
