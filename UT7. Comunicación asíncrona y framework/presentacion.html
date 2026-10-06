@@ -470,18 +470,18 @@
               <p class="index-desc">El ecosistema de comunicaciones asíncronas abarca desde librerías especializadas en red hasta la arquitectura integrada de frameworks SPA.</p>
             </div>
           </div>
-          <div class="index-card" style="border-left: 4px solid #0284c7; background: #f0f9ff;">
-            <div class="index-badge" style="background: #0284c7; color: white;">6</div>
+          <div class="index-card" style="">
+            <div class="index-badge" style="">6</div>
             <div class="index-info">
-              <div class="index-title">React como Framework Frontend: Componentes Funcionales, Virtual DOM y Estado con useState <span style="font-size: 0.65em; background: #0284c7; color: white; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 800; vertical-align: middle;">⚛️ REACT</span></div>
-              <p class="index-desc">React es la librería y ecosistema de referencia mundial para la creación de interfaces de usuario interactivas y declarativas.</p>
+              <div class="index-title">Angular como Framework Frontend SPA: Componentes Standalone, Servicios e Inyección de Dependencias</div>
+              <p class="index-desc">Angular es una plataforma y framework robusto mantenido por Google para la construcción de aplicaciones web de una sola página ( SPA - Single Page Application ) escalables y de nivel empresarial.</p>
             </div>
           </div>
-          <div class="index-card" style="border-left: 4px solid #0284c7; background: #f0f9ff;">
-            <div class="index-badge" style="background: #0284c7; color: white;">7</div>
+          <div class="index-card" style="">
+            <div class="index-badge" style="">7</div>
             <div class="index-info">
-              <div class="index-title">Comunicación Asíncrona en React: El Hook useEffect, Consumo de APIs REST y Ciclo de Vida <span style="font-size: 0.65em; background: #0284c7; color: white; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 800; vertical-align: middle;">⚛️ REACT</span></div>
-              <p class="index-desc">La comunicación con servidores web en React se gestiona mediante efectos secundarios (Side Effects) orquestados por el hook useEffect.</p>
+              <div class="index-title">Enrutamiento y Proyecto Tienda en Angular: Menú, Catálogo con Tarjetas y Vista de Detalle</div>
+              <p class="index-desc">El sistema de enrutamiento **Angular Router** permite construir aplicaciones SPA con navegación fluida de URL sin recarga de página, soportando parámetros de ruta, vistas anidadas y guardias de seguridad.</p>
             </div>
           </div>
           <div class="index-card" style="">
@@ -497,147 +497,271 @@
       <section>
         <div class="slide-header">
           <span class="badge-sub">Frameworks Frontend Modernos</span>
-          <h2>⚛️ Arquitectura y Fundamentos de React como Framework SPA</h2>
+          <h2>🅰️ Arquitectura y Fundamentos de Angular (Framework SPA)</h2>
         </div>
         <div class="index-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 6px;">
           
-          <!-- Columna 1: Componentes y JSX -->
-          <div class="index-card" style="border-top: 4px solid #0284c7; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
-            <div style="font-weight: 800; font-size: 0.80em; color: #0284c7; display: flex; align-items: center; justify-content: space-between;">
-              <span>🧩 1. Componentes y JSX</span>
-              <span style="font-size: 0.7em; background: #e0f2fe; color: #0369a1; padding: 2px 7px; border-radius: 6px; font-weight: 700;">Declarativo</span>
+          <!-- Columna 1: Componentes Standalone -->
+          <div class="index-card" style="border-top: 4px solid #dc2626; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.80em; color: #dc2626; display: flex; align-items: center; justify-content: space-between;">
+              <span>🧩 1. Componentes Standalone</span>
+              <span style="font-size: 0.7em; background: #fee2e2; color: #991b1b; padding: 2px 7px; border-radius: 6px; font-weight: 700;">@Component</span>
             </div>
             <p style="font-size: 0.66em; color: #334155; margin: 0; line-height: 1.45;">
-              La interfaz se descompone en funciones puras reutilizables e independientes. En lugar de manipular el DOM imperativamente, se declara la UI mediante <strong>JSX</strong>:
+              En Angular moderno (v17/v18), los componentes son autónomos (<code>standalone: true</code>), eliminando la necesidad de <code>NgModule</code>:
             </p>
             <ul style="font-size: 0.62em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
-              <li><strong>Sintaxis JSX:</strong> Unión de marcado semántico y JavaScript vivo (<code>React.createElement</code>).</li>
-              <li><strong>Props:</strong> Parámetros inmutables de entrada (flujo unidireccional padre-hijo).</li>
-              <li><strong>Composición:</strong> Construcción de interfaces complejas anidando componentes modulares.</li>
+              <li><strong>Imports directos:</strong> <code>imports: [CommonModule, RouterLink]</code>.</li>
+              <li><strong>Sintaxis Control Flow:</strong> Bloques <code>@for (p of productos; track p.id)</code> e <code>@if (producto)</code> integrados en plantilla.</li>
+              <li><strong>Data Binding:</strong> Interpolación <code>{{ p.nombre }}</code>, atributos <code>[src]</code> y eventos <code>(click)</code>.</li>
             </ul>
-            <div style="margin-top: auto; font-size: 0.58em; background: #f0f9ff; color: #0369a1; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #0284c7;">
-              💡 <code>UI = f(state)</code>: La interfaz es el reflejo directo y predecible del estado actual.
+            <div style="margin-top: auto; font-size: 0.58em; background: #fef2f2; color: #991b1b; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #dc2626;">
+              💡 Control Flow nativo: Sintaxis declarativa limpia y ultra rápida.
             </div>
           </div>
 
-          <!-- Columna 2: Virtual DOM y Fiber -->
-          <div class="index-card" style="border-top: 4px solid #6366f1; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
-            <div style="font-weight: 800; font-size: 0.80em; color: #4338ca; display: flex; align-items: center; justify-content: space-between;">
-              <span>⚡ 2. Virtual DOM y Fiber</span>
-              <span style="font-size: 0.7em; background: #e0e7ff; color: #3730a3; padding: 2px 7px; border-radius: 6px; font-weight: 700;">Rendimiento</span>
+          <!-- Columna 2: Servicios e Inyección -->
+          <div class="index-card" style="border-top: 4px solid #2563eb; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.80em; color: #1d4ed8; display: flex; align-items: center; justify-content: space-between;">
+              <span>💉 2. Servicios e Inyección (DI)</span>
+              <span style="font-size: 0.7em; background: #dbeafe; color: #1e40af; padding: 2px 7px; border-radius: 6px; font-weight: 700;">@Injectable</span>
             </div>
             <p style="font-size: 0.66em; color: #334155; margin: 0; line-height: 1.45;">
-              React no muta el DOM real del navegador en cada evento. Mantiene una copia ligera en memoria (<strong>Virtual DOM</strong>):
+              La lógica de negocio y las llamadas HTTP se desacoplan en clases reutilizables inyectables:
             </p>
             <ul style="font-size: 0.62em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
-              <li><strong>Algoritmo de Diffing:</strong> Compara el árbol nuevo con el previo nodo a nodo.</li>
-              <li><strong>Batching Automático:</strong> Agrupa múltiples mutaciones de estado en un único redibujado.</li>
-              <li><strong>Reconciliación Fiber:</strong> Prioriza interacciones críticas de usuario sin congelar la pantalla.</li>
+              <li><strong>Singleton Global:</strong> Decorador <code>@Injectable({ providedIn: 'root' })</code>.</li>
+              <li><strong>HttpClient:</strong> Módulo oficial para peticiones REST asíncronas basadas en Observables RxJS.</li>
+              <li><strong>Inyección limpia:</strong> Inyección automática por constructor en los componentes.</li>
             </ul>
-            <div style="margin-top: auto; font-size: 0.58em; background: #eef2ff; color: #3730a3; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #6366f1;">
-              🚀 Minimiza el coste de reflow y repaint en el motor de renderizado.
+            <div style="margin-top: auto; font-size: 0.58em; background: #eff6ff; color: #1e40af; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #2563eb;">
+              🛡️ Desacoplamiento total entre datos, lógica y presentación visual.
             </div>
           </div>
 
-          <!-- Columna 3: Hooks y Reactividad -->
-          <div class="index-card" style="border-top: 4px solid #ec4899; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
-            <div style="font-weight: 800; font-size: 0.80em; color: #be185d; display: flex; align-items: center; justify-content: space-between;">
-              <span>🪝 3. Hooks: Estado y Ciclo</span>
-              <span style="font-size: 0.7em; background: #fce7f3; color: #9d174d; padding: 2px 7px; border-radius: 6px; font-weight: 700;">Reactividad</span>
+          <!-- Columna 3: Angular Router SPA -->
+          <div class="index-card" style="border-top: 4px solid #059669; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.80em; color: #047857; display: flex; align-items: center; justify-content: space-between;">
+              <span>🚦 3. Enrutamiento SPA</span>
+              <span style="font-size: 0.7em; background: #d1fae5; color: #065f46; padding: 2px 7px; border-radius: 6px; font-weight: 700;">Angular Router</span>
             </div>
             <p style="font-size: 0.66em; color: #334155; margin: 0; line-height: 1.45;">
-              Funciones nativas que permiten "enganchar" estado y ciclo de vida en componentes funcionales limpios:
+              Navegación fluida entre pantallas sin recargar la página web en la barra del navegador:
             </p>
             <ul style="font-size: 0.62em; color: #475569; margin: 0; padding-left: 16px; line-height: 1.45;">
-              <li><code>useState</code>: Estado reactivo local con principio de inmutabilidad estricto.</li>
-              <li><code>useEffect</code>: Control de efectos asíncronos (Fetch API, timers, cancelación).</li>
-              <li><code>useContext / useMemo</code>: Estado global y memoización de cálculos intensivos.</li>
+              <li><strong>Tabla de Rutas:</strong> Mapeo <code>path: 'producto/:id'</code> a componentes.</li>
+              <li><strong>Directiva routerLink:</strong> Navegación declarativa en plantillas (<code>routerLink="/productos"</code>).</li>
+              <li><strong>ActivatedRoute:</strong> Lectura de parámetros de la URL activa en TypeScript.</li>
             </ul>
-            <div style="margin-top: auto; font-size: 0.58em; background: #fdf2f8; color: #9d174d; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #ec4899;">
-              🛡️ Inmutabilidad: <code>setItems(prev => [...prev, nuevo])</code>
+            <div style="margin-top: auto; font-size: 0.58em; background: #ecfdf5; color: #065f46; padding: 5px 8px; border-radius: 6px; border-left: 3px solid #059669;">
+              🚀 Experiencia de aplicación nativa e inmediatez de respuesta.
             </div>
           </div>
 
         </div>
 
         <div style="margin-top: 10px; background: #0f172a; color: #94a3b8; padding: 7px 14px; border-radius: 8px; font-size: 0.64em; display: flex; align-items: center; justify-content: space-between; border: 1px solid #1e293b;">
-          <span>⚛️ <strong>Stack SPA Moderno:</strong> React 18 ➔ React Router (Navegación) ➔ TanStack Query (Caché Asíncrona) ➔ Tailwind CSS / Vite</span>
-          <span style="color: #38bdf8; font-weight: 700;">Estándar Frontend DAW</span>
+          <span>🅰️ <strong>Stack Angular Moderno:</strong> Angular v18 Standalone ➔ Angular Router ➔ HttpClient ➔ TypeScript & Signals</span>
+          <span style="color: #38bdf8; font-weight: 700;">Estándar Empresarial DAW</span>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Comparativa Arquitectónica</span>
-          <h2>⚖️ Vanilla JavaScript vs React vs Frameworks SPA (Angular, Vue)</h2>
+          <span class="badge-sub">Tutorial Paso a Paso Angular</span>
+          <h2>🛍️ Proyecto Tienda Angular: Pasos 1 a 3 (Setup, Modelo y Servicio)</h2>
         </div>
-        <div class="index-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-top: 6px;">
+        <div class="index-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 6px;">
           
-          <!-- Vanilla JS -->
-          <div class="index-card" style="border-top: 4px solid #f59e0b; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
-            <div style="font-weight: 800; font-size: 0.78em; color: #b45309;">🍦 Vanilla JS</div>
-            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.4;">
-              Manipulación imperativa y directa del DOM (<code>document.getElementById</code>, <code>innerHTML</code>).
+          <!-- Paso 1 -->
+          <div class="index-card" style="border-top: 4px solid #6366f1; flex-direction: column; gap: 6px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #4338ca;">⚡ Paso 1: CLI y Setup Inicial</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.35;">
+              Creación del proyecto autónomo Standalone mediante la CLI oficial de Angular:
             </p>
-            <div style="font-size: 0.58em; color: #475569; margin-top: 4px;">
-              <div><strong>Ventaja:</strong> 0 KB bundle, control directo sin dependencias.</div>
-              <div style="margin-top: 3px;"><strong>Inconveniente:</strong> Código difícil de sincronizar y mantener en proyectos grandes.</div>
-            </div>
-            <div style="margin-top: auto; font-size: 0.56em; background: #fef3c7; color: #92400e; padding: 4px 6px; border-radius: 4px;">
-              Directo al DOM
-            </div>
+            <pre style="background: #0f172a; color: #38bdf8; padding: 8px; border-radius: 6px; font-size: 0.58em; margin: 0; font-family: monospace;"># Instalar CLI e iniciar proyecto
+npm install -g @angular/cli
+ng new tienda-angular --standalone
+cd tienda-angular
+ng serve</pre>
           </div>
 
-          <!-- React -->
-          <div class="index-card" style="border-top: 4px solid #0284c7; flex-direction: column; gap: 6px; padding: 12px; background: #f0f9ff;">
-            <div style="font-weight: 800; font-size: 0.78em; color: #0284c7;">⚛️ React 18</div>
-            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.4;">
-              Librería declarativa basada en componentes, Virtual DOM y Hooks (<code>useState</code>, <code>useEffect</code>).
+          <!-- Paso 2 -->
+          <div class="index-card" style="border-top: 4px solid #0284c7; flex-direction: column; gap: 6px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #0284c7;">📐 Paso 2: Modelo de Datos</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.35;">
+              Definición del contrato TypeScript <code>Producto</code> en <code>models/producto.ts</code>:
             </p>
-            <div style="font-size: 0.58em; color: #475569; margin-top: 4px;">
-              <div><strong>Data Binding:</strong> Unidireccional (top-down).</div>
-              <div style="margin-top: 3px;"><strong>Fortaleza:</strong> Ecosistema gigantesco, máxima adopción empresarial, flexibilidad total.</div>
-            </div>
-            <div style="margin-top: auto; font-size: 0.56em; background: #e0f2fe; color: #0369a1; padding: 4px 6px; border-radius: 4px; font-weight: 700;">
-              Virtual DOM + Hooks
-            </div>
+            <pre style="background: #0f172a; color: #7dd3fc; padding: 8px; border-radius: 6px; font-size: 0.56em; margin: 0; font-family: monospace;">export interface Producto {
+  id: number;
+  nombre: string;
+  precio: number;
+  imagen: string;
+  descripcion: string;
+  categoria: string;
+}</pre>
           </div>
 
-          <!-- Angular -->
-          <div class="index-card" style="border-top: 4px solid #dc2626; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
-            <div style="font-weight: 800; font-size: 0.78em; color: #dc2626;">🅰️ Angular</div>
-            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.4;">
-              Framework empresarial completo y estructurado basado en TypeScript y decoradores (<code>@Component</code>).
+          <!-- Paso 3 -->
+          <div class="index-card" style="border-top: 4px solid #059669; flex-direction: column; gap: 6px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #047857;">💉 Paso 3: Servicio de Datos</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.35;">
+              Generación de <code>ProductosService</code> con <code>ng g s servicios/productos</code>:
             </p>
-            <div style="font-size: 0.58em; color: #475569; margin-top: 4px;">
-              <div><strong>Data Binding:</strong> Bidireccional (<code>[(ngModel)]</code>).</div>
-              <div style="margin-top: 3px;"><strong>Fortaleza:</strong> Todo incluido de fábrica (HttpClient con RxJS, Router, Inyección).</div>
-            </div>
-            <div style="margin-top: auto; font-size: 0.56em; background: #fee2e2; color: #991b1b; padding: 4px 6px; border-radius: 4px;">
-              Framework Integral
-            </div>
-          </div>
+            <pre style="background: #0f172a; color: #6ee7b7; padding: 8px; border-radius: 6px; font-size: 0.54em; margin: 0; font-family: monospace;">@Injectable({ providedIn: 'root' })
+export class ProductosService {
+  private lista: Producto[] = [...];
 
-          <!-- Vue.js -->
-          <div class="index-card" style="border-top: 4px solid #10b981; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
-            <div style="font-weight: 800; font-size: 0.78em; color: #047857;">💚 Vue.js</div>
-            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.4;">
-              Framework progresivo con Single File Components (<code>.vue</code>) y reactividad con Proxies (Composition API).
-            </p>
-            <div style="font-size: 0.58em; color: #475569; margin-top: 4px;">
-              <div><strong>Data Binding:</strong> Reactivo / <code>v-model</code>.</div>
-              <div style="margin-top: 3px;"><strong>Fortaleza:</strong> Curva de aprendizaje muy accesible y excelente rendimiento.</div>
-            </div>
-            <div style="margin-top: auto; font-size: 0.56em; background: #d1fae5; color: #065f46; padding: 4px 6px; border-radius: 4px;">
-              Progresivo
-            </div>
+  getProductos(): Producto[] {
+    return this.lista;
+  }
+  getProductoById(id: number) {
+    return this.lista.find(p => p.id === id);
+  }
+}</pre>
           </div>
 
         </div>
+      </section>
 
-        <div style="margin-top: 10px; background: #f8fafc; color: #475569; padding: 7px 14px; border-radius: 8px; font-size: 0.62em; display: flex; align-items: center; justify-content: space-between; border: 1px solid #e2e8f0;">
-          <span>🎯 <strong>Conclusión Curricular:</strong> En DWEC dominamos tanto el motor nativo (Vanilla DOM/Fetch) como el estándar de la industria (React / SPAs).</span>
-          <span style="color: #4f46e5; font-weight: 700;">Polivalencia DAW</span>
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Tutorial Paso a Paso Angular</span>
+          <h2>🍔 Proyecto Tienda Angular: Pasos 4 y 5 (Menú y Catálogo de Tarjetas)</h2>
+        </div>
+        <div class="index-grid" style="grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px;">
+          
+          <!-- Paso 4 -->
+          <div class="index-card" style="border-top: 4px solid #f59e0b; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #b45309;">🍔 Paso 4: Menú de Navegación (NavbarComponent)</div>
+            <p style="font-size: 0.64em; color: #334155; margin: 0; line-height: 1.4;">
+              Componente <code>NavbarComponent</code> con enlaces sin recarga mediante directivas <code>routerLink</code>:
+            </p>
+            <pre style="background: #0f172a; color: #fcd34d; padding: 10px; border-radius: 6px; font-size: 0.58em; margin: 0; font-family: monospace;">@Component({
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
+  template: `
+    <nav class="navbar">
+      <div class="logo">🅰️ Tienda Angular</div>
+      <div class="menu">
+        <a routerLink="/productos" routerLinkActive="active">🛒 Catálogo</a>
+      </div>
+    </nav>
+  `
+})
+export class NavbarComponent {}</pre>
+          </div>
+
+          <!-- Paso 5 -->
+          <div class="index-card" style="border-top: 4px solid #ec4899; flex-direction: column; gap: 6px; padding: 12px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.78em; color: #be185d;">🛒 Paso 5: Catálogo de Tarjetas (ProductoListaComponent)</div>
+            <p style="font-size: 0.64em; color: #334155; margin: 0; line-height: 1.4;">
+              Grid de tarjetas renderizadas con el nuevo control flow <code>@for</code> de Angular v17+:
+            </p>
+            <pre style="background: #0f172a; color: #f472b6; padding: 10px; border-radius: 6px; font-size: 0.56em; margin: 0; font-family: monospace;">@Component({
+  selector: 'app-producto-lista',
+  standalone: true,
+  imports: [RouterLink, CurrencyPipe],
+  template: `
+    <div class="grid-productos">
+      @for (p of productos; track p.id) {
+        <div class="tarjeta-card">
+          <div class="img">{{ p.imagen }}</div>
+          <h3>{{ p.nombre }}</h3>
+          <p class="precio">{{ p.precio | currency:'EUR' }}</p>
+          <button [routerLink]="['/producto', p.id]">🔍 Ver Detalle</button>
+        </div>
+      }
+    </div>
+  `
+})
+export class ProductoListaComponent implements OnInit {
+  productos: Producto[] = [];
+  constructor(private service: ProductosService) {}
+  ngOnInit() { this.productos = this.service.getProductos(); }
+}</pre>
+          </div>
+
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Tutorial Paso a Paso Angular</span>
+          <h2>🔍 Proyecto Tienda Angular: Pasos 6 a 8 (Detalle, Rutas y Layout Raíz)</h2>
+        </div>
+        <div class="index-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 6px;">
+          
+          <!-- Paso 6 -->
+          <div class="index-card" style="border-top: 4px solid #0284c7; flex-direction: column; gap: 6px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #0284c7;">🔍 Paso 6: Componente Detalle</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.35;">
+              Lectura del parámetro <code>:id</code> de la URL activa inyectando <code>ActivatedRoute</code>:
+            </p>
+            <pre style="background: #0f172a; color: #38bdf8; padding: 8px; border-radius: 6px; font-size: 0.54em; margin: 0; font-family: monospace;">@Component({
+  selector: 'app-producto-detalle',
+  standalone: true,
+  imports: [RouterLink],
+  template: `
+    @if (producto) {
+      <div class="ficha-detalle">
+        <button routerLink="/productos">← Volver</button>
+        <h2>{{ producto.nombre }}</h2>
+        <p>{{ producto.descripcion }}</p>
+        <p class="precio">{{ producto.precio }}€</p>
+      </div>
+    }
+  `
+})
+export class ProductoDetalleComponent implements OnInit {
+  producto?: Producto;
+  constructor(private route: ActivatedRoute, private service: ProductosService) {}
+  ngOnInit() {
+    const id = Number(this.route.snapshot.params['id']);
+    this.producto = this.service.getProductoById(id);
+  }
+}</pre>
+          </div>
+
+          <!-- Paso 7 -->
+          <div class="index-card" style="border-top: 4px solid #8b5cf6; flex-direction: column; gap: 6px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #6d28d9;">🚦 Paso 7: Configuración de Rutas</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.35;">
+              Mapeo de URLs en <code>app.routes.ts</code>:
+            </p>
+            <pre style="background: #0f172a; color: #c084fc; padding: 8px; border-radius: 6px; font-size: 0.54em; margin: 0; font-family: monospace;">export const routes: Routes = [
+  { 
+    path: '', 
+    redirectTo: 'productos', 
+    pathMatch: 'full' 
+  },
+  { 
+    path: 'productos', 
+    component: ProductoListaComponent 
+  },
+  { 
+    path: 'producto/:id', 
+    component: ProductoDetalleComponent 
+  }
+];</pre>
+          </div>
+
+          <!-- Paso 8 -->
+          <div class="index-card" style="border-top: 4px solid #10b981; flex-direction: column; gap: 6px; padding: 10px; background: #ffffff;">
+            <div style="font-weight: 800; font-size: 0.76em; color: #047857;">🏗️ Paso 8: Layout Raíz</div>
+            <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.35;">
+              Maquetación general en <code>app.component.html</code>:
+            </p>
+            <pre style="background: #0f172a; color: #34d399; padding: 8px; border-radius: 6px; font-size: 0.54em; margin: 0; font-family: monospace;"><!-- Barra de navegación global -->
+<app-navbar></app-navbar>
+
+<!-- Contenedor dinámico de rutas -->
+<main class="contenedor-principal">
+  <router-outlet></router-outlet>
+</main></pre>
+          </div>
+
         </div>
       </section>
 
@@ -1524,49 +1648,39 @@ api.get(&quot;/todos/1&quot;).then(res =&gt; console.log(&quot;Datos recibidos:&
       <section>
         <div class="slide-header">
           <span class="badge-sub">Bloque 6 de 8 · Teoría y Demostración</span>
-          <h2>6. React como Framework Frontend: Componentes Funcionales, Virtual DOM y Estado con useState</h2>
+          <h2>6. Angular como Framework Frontend SPA: Componentes Standalone, Servicios e Inyección de Dependencias</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p><strong>React</strong> es la librería y ecosistema de referencia mundial para la creación de interfaces de usuario interactivas y declarativas:</p>
+            <div class="card-text"><p><strong>Angular</strong> es una plataforma y framework robusto mantenido por Google para la construcción de aplicaciones web de una sola página (<strong>SPA - Single Page Application</strong>) escalables y de nivel empresarial:</p>
 <ul class="concept-list">
-  <li><strong>Paradigma Declarativo vs Imperativo:</strong>
+  <li><strong>Arquitectura Basada en Componentes Standalone:</strong>
     <ul>
-      <li><em>Paradigma Imperativo Clásico:</em> El desarrollador manipula manualmente el DOM paso a paso (<code>document.createElement</code>, <code>appendChild</code>, <code>classList.toggle</code>), lo que genera código frágil, propenso a errores de sincronización y difícil de mantener.</li>
-      <li><em>Paradigma Declarativo de React:</em> El desarrollador define únicamente <strong>cómo debe lucir la interfaz</strong> para un estado determinado (<code>UI = f(state)</code>). Cuando el estado cambia, React se encarga de calcular las diferencias y actualizar el DOM de forma óptima.</li>
+      <li><em>Componentes Autónomos (Standalone Components):</em> Desde Angular v14+ y consolidado como estándar en v17/v18, los componentes no requieren declaración en <code>NgModule</code>. Cada componente declara explícitamente sus dependencias en la propiedad <code>imports: [CommonModule, RouterLink]</code> del decorador <code>@Component</code>.</li>
+      <li><em>Decorador <code>@Component</code>:</em> Define los metadatos de la clase TypeScript: <code>selector</code> (etiqueta HTML personalizada como <code>&lt;app-navbar&gt;</code>), <code>templateUrl</code> / <code>template</code> (marcado HTML) y <code>styleUrls</code> / <code>styles</code> (estilos aislados).</li>
+      <li><em>Sintaxis de Control Flow Moderna:</em> Bloques nativos integrados en plantilla: <code>@for (item of coleccion; track item.id)</code> para iterar listas con tracking obligatorio, <code>@if (condicion) { ... } @else { ... }</code> para renderizado condicional, y <code>@switch</code>.</li>
     </ul>
   </li>
-  <li><strong>Componentes Funcionales y JSX:</strong>
+  <li><strong>Data Binding (Enlace de Datos Bidireccional y Unidireccional):</strong>
     <ul>
-      <li><em>Componentes Funcionales:</em> Funciones de JavaScript puras que reciben datos de entrada (<strong>props</strong>) y retornan una estructura visual en JSX.</li>
-      <li><em>Sintaxis JSX (JavaScript XML):</em> Extensión que permite escribir marcado similar a HTML directamente en JavaScript. Se transcompila a llamadas nativas <code>React.createElement(tipo, props, ...hijos)</code>. Requiere atributos como <code>className</code> en vez de <code>class</code> y expresiones dinámicas entre llaves <code>{variable}</code>.</li>
-      <li><em>Props (Propiedades):</em> Argumentos inmutables de solo lectura pasados de componentes padres a hijos, garantizando un <strong>flujo de datos unidireccional (top-down)</strong>.</li>
+      <li><em>Interpolación <code>{{ expresion }}</code>:</em> Muestra valores del componente TypeScript en la plantilla de texto HTML.</li>
+      <li><em>Property Binding <code>[propiedad]="variable"</code>:</em> Enlaza valores TypeScript a atributos o propiedades del DOM (ej. <code>[src]="producto.imagen"</code>).</li>
+      <li><em>Event Binding <code>(evento)="metodo()"</code>:</em> Escucha eventos del usuario y ejecuta métodos de la clase (ej. <code>(click)="seleccionar(p.id)"</code>).</li>
+      <li><em>Two-Way Binding <code>[(ngModel)]="campo"</code>:</em> Sincronización automática de doble vía para elementos de formulario.</li>
     </ul>
   </li>
-  <li><strong>El Virtual DOM y el Algoritmo de Reconciliación (Fiber):</strong>
-    <p>React mantiene una copia ligera del DOM en memoria (Virtual DOM). Al cambiar el estado:</p>
-    <ol>
-      <li>Genera un nuevo árbol Virtual DOM.</li>
-      <li>Ejecuta el <strong>algoritmo de Diffing</strong> para comparar el árbol nuevo con el anterior.</li>
-      <li>Aplica exclusivamente las mutaciones mínimas necesarias sobre el DOM real del navegador en un único lote agrupado (<em>batching</em>).</li>
-    </ol>
-  </li>
-  <li><strong>Gestión del Estado Local con el Hook <code>useState</code>:</strong>
-    <ul>
-      <li>Declaración: <code>const [contador, setContador] = React.useState(0);</code>.</li>
-      <li><strong>Principio Sagrado de Inmutabilidad:</strong> Jamás se debe mutar el estado directamente (<code>contador = 5</code> o <code>items.push(x)</code>). Siempre se debe llamar a la función actualizadora <code>setContador(5)</code> o <code>setItems(prev => [...prev, x])</code> para que React detecte el cambio y dispare el re-renderizado.</li>
-      <li><em>Renderizado de Listas:</em> Al mapear arrays con <code>.map()</code>, es obligatorio proporcionar una propiedad <code>key</code> única y estable a cada elemento para que el algoritmo de reconciliación identifique inserciones y borrados sin reordenar todo el árbol.</li>
-    </ul>
+  <li><strong>Servicios e Inyección de Dependencias (DI - Dependency Injection):</strong>
+    <p>Los servicios son clases TypeScript marcadas con el decorador <code>@Injectable({ providedIn: 'root' })</code> que centralizan la lógica de negocio, el estado compartido y la comunicación HTTP. El motor de inyección de dependencias de Angular instancia automáticamente el servicio como un <em>Singleton</em> único para toda la aplicación.</p>
   </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>React 18 y Estándares Modernos 2026:</strong></p>
+            <div class="card-text"><p><strong>Angular CLI y Reactividad Moderna (Signals & RxJS):</strong></p>
 <ul class="concept-list">
-  <li><strong>Renderizado Concurrente (Concurrent React):</strong> React 18 divide el trabajo de renderizado en trozos interrumpibles, permitiendo que la interfaz siga respondiendo inmediatamente a la interacción del usuario incluso durante cálculos intensivos.</li>
-  <li><strong>Transición Automática por Lotes (Automatic Batching):</strong> Todas las actualizaciones de estado dentro de promesas, <code>setTimeout</code> o manejadores de eventos se agrupan en un único ciclo de renderizado, multiplicando el rendimiento.</li>
+  <li><strong>Angular CLI (Command Line Interface):</strong> Herramienta oficial de línea de comandos para generar proyectos (<code>ng new app --standalone</code>), componentes (<code>ng g c componentes/producto-lista</code>) y servicios (<code>ng g s servicios/productos</code>).</li>
+  <li><strong>Angular Signals vs RxJS:</strong> Angular v16+ introduce <em>Signals</em> (<code>const contador = signal(0);</code>) para una reactividad fina y transparente que notifica cambios exactos a las plantillas sin requerir <code>Zone.js</code>. Para flujos asíncronos complejos y peticiones HTTP, se utiliza <code>RxJS</code> y sus <code>Observables</code>.</li>
 </ul></div>
           </div>
         </div>
@@ -1575,57 +1689,71 @@ api.get(&quot;/todos/1&quot;).then(res =&gt; console.log(&quot;Datos recibidos:&
             <span>💻 Demostración Práctica e Implementación de Código</span>
             
           </div>
-          <pre><code class="language-javascript">// Componente Funcional con Estado Reactivo (useState) y Montaje en el DOM
-// Requiere React 18 y ReactDOM cargados en el entorno
+          <pre><code class="language-javascript">// Estructura de un Servicio e Inyección en un Componente Standalone de Angular
+// 1. Servicio de Productos con @Injectable
+/*
+@Injectable({ providedIn: &#x27;root&#x27; })
+export class ProductosService {
+  private productos: Producto[] = [
+    { id: 1, nombre: &quot;Portátil Gaming Pro&quot;, precio: 1299.99, categoria: &quot;Electrónica&quot; },
+    { id: 2, nombre: &quot;Teclado Mecánico RGB&quot;, precio: 89.50, categoria: &quot;Accesorios&quot; }
+  ];
 
-function ContadorInteract() {
-    const [contador, setContador] = React.useState(0);
-
-    const incrementar = () =&gt; setContador(prev =&gt; prev + 1);
-    const reiniciar = () =&gt; setContador(0);
-
-    return React.createElement(&quot;div&quot;, {
-        className: &quot;tarjeta-react&quot;,
-        style: { padding: &quot;16px&quot;, background: &quot;#0f172a&quot;, color: &quot;#fff&quot;, borderRadius: &quot;10px&quot;, fontFamily: &quot;sans-serif&quot; }
-    },
-        React.createElement(&quot;h3&quot;, { style: { color: &quot;#38bdf8&quot;, margin: &quot;0 0 10px 0&quot; } }, &quot;⚛️ Contador Reactivo con Hooks&quot;),
-        React.createElement(&quot;p&quot;, { style: { fontSize: &quot;1.2em&quot;, fontWeight: &quot;bold&quot; } }, `Valor actual: ${contador}`),
-        React.createElement(&quot;div&quot;, { style: { display: &quot;flex&quot;, gap: &quot;8px&quot;, marginTop: &quot;10px&quot; } },
-            React.createElement(&quot;button&quot;, {
-                onClick: incrementar,
-                style: { background: &quot;#6366f1&quot;, color: &quot;#fff&quot;, border: &quot;none&quot;, padding: &quot;6px 14px&quot;, borderRadius: &quot;6px&quot;, cursor: &quot;pointer&quot; }
-            }, &quot;➕ Sumar 1&quot;),
-            React.createElement(&quot;button&quot;, {
-                onClick: reiniciar,
-                style: { background: &quot;#475569&quot;, color: &quot;#fff&quot;, border: &quot;none&quot;, padding: &quot;6px 14px&quot;, borderRadius: &quot;6px&quot;, cursor: &quot;pointer&quot; }
-            }, &quot;🔄 Reiniciar&quot;)
-        )
-    );
+  getProductos(): Producto[] {
+    return this.productos;
+  }
 }
 
-// Montaje en el DOM con ReactDOM.createRoot
-const contenedor = document.getElementById(&quot;app&quot;);
-if (contenedor) {
-    const root = ReactDOM.createRoot(contenedor);
-    root.render(React.createElement(ContadorInteract));
-    console.log(&quot;✅ Componente React montado satisfactoriamente con ReactDOM.createRoot.&quot;);
-}</code></pre>
+// 2. Componente Standalone con Inyección de Dependencias
+@Component({
+  selector: &#x27;app-producto-lista&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    &lt;div class=&quot;catalogo-grid&quot;&gt;
+      @for (p of productos; track p.id) {
+        &lt;div class=&quot;tarjeta-producto&quot;&gt;
+          &lt;h4&gt;{{ p.nombre }}&lt;/h4&gt;
+          &lt;p&gt;Precio: {{ p.precio }}€&lt;/p&gt;
+          &lt;button (click)=&quot;comprar(p.id)&quot;&gt;Comprar&lt;/button&gt;
+        &lt;/div&gt;
+      } @empty {
+        &lt;p&gt;No hay productos disponibles.&lt;/p&gt;
+      }
+    &lt;/div&gt;
+  `
+})
+export class ProductoListaComponent implements OnInit {
+  productos: Producto[] = [];
+
+  constructor(private productosService: ProductosService) {}
+
+  ngOnInit() {
+    this.productos = this.productosService.getProductos();
+  }
+
+  comprar(id: number) {
+    console.log(&quot;Producto comprado:&quot;, id);
+  }
+}
+*/
+console.log(&quot;🅰️ Arquitectura Angular Standalone: Componentes, Servicios e Inyección de Dependencias.&quot;);</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 6</span>
-          <h2>🎯 Reto 6: Componente React Interactivo de Lista de Tareas y Filtro con useState e Inmutabilidad</h2>
+          <h2>🎯 Reto 6: Simulador de Componentes y Data-Binding Angular</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Diseña un componente funcional en React llamado `GestorTareasReact` que implemente: 1) Un estado para almacenar un array de tareas (con id, texto, completada y prioridad: &quot;alta&quot; | &quot;media&quot; | &quot;baja&quot;), 2) Un estado para el filtro activo (&quot;todas&quot;, &quot;pendientes&quot;, &quot;completadas&quot;), 3) Funcionalidad para alternar el estado completada de una tarea de forma estrictamente inmutable con spread operator, 4) Añadir nuevas tareas desde un formulario controlado, 5) Eliminar tareas seleccionadas, 6) Un resumen dinámico con contador de pendientes y porcentaje de avance, y 7) Renderizado del componente montándolo en `#app` con `ReactDOM.createRoot`.</div>
+            <div class="callout-body">Crea una representación interactiva del funcionamiento de un componente de Angular que demuestre la inyección de dependencias de un servicio de datos, interpolación de variables, property binding e iteración de tarjetas de producto con respuestas a eventos de selección.</div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
-            <div class="callout-body">Utiliza React.useState([]) para las tareas y React.useState(&quot;todas&quot;) para el filtro. En el toggle, usa tareas.map(t =&gt; t.id === id ? { ...t, completada: !t.completada } : t). Para añadir, usa setTareas(prev =&gt; [...prev, nuevaTarea]). Monta con ReactDOM.createRoot(document.getElementById(&quot;app&quot;)).render(React.createElement(GestorTareasReact)).</div>
+            <div class="callout-body">Usa una clase de servicio JS simulando el servicio de Angular e inyéctala en la vista para renderizar dinámicamente las tarjetas de producto.</div>
           </div>
           
           <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
@@ -1635,156 +1763,55 @@ if (contenedor) {
             </summary>
             <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
               <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
-                <strong style="color: #0f172a;">Explicación Técnica:</strong> La inmutabilidad en la actualización del estado de React es el pilar que permite al Virtual DOM detectar mutaciones por referencia y reconciliar únicamente los nodos afectados, garantizando un rendimiento óptimo.
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> La separación clara entre plantillas HTML declarativas y clases TypeScript de lógica desacopladas mediante servicios inyectables es el corazón del diseño de Angular.
               </div>
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
-                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 6: Componente React Funcional con Gestión de Estado (useState) e Inmutabilidad
-function GestorTareasReact() {
-    const [tareas, setTareas] = React.useState([
-        { id: 1, texto: &quot;Comprender la reconciliación del Virtual DOM&quot;, completada: true, prioridad: &quot;alta&quot; },
-        { id: 2, texto: &quot;Gestionar estado inmutable con useState&quot;, completada: true, prioridad: &quot;alta&quot; },
-        { id: 3, texto: &quot;Consumir APIs asíncronas dentro de useEffect&quot;, completada: false, prioridad: &quot;media&quot; },
-        { id: 4, texto: &quot;Evitar fugas de memoria con AbortController&quot;, completada: false, prioridad: &quot;baja&quot; }
-    ]);
-    const [filtro, setFiltro] = React.useState(&quot;todas&quot;);
-    const [nuevoTexto, setNuevoTexto] = React.useState(&quot;&quot;);
-    const [prioridad, setPrioridad] = React.useState(&quot;media&quot;);
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 6: Simulador del Patrón Servicio-Componente de Angular
+class ProductosServiceSimulado {
+    constructor() {
+        this.productos = [
+            { id: 101, nombre: &quot;Laptop Ultrabook Pro&quot;, precio: 1199, imagen: &quot;💻&quot;, descripcion: &quot;Procesador Intel i7 16GB RAM SSD 512GB&quot; },
+            { id: 102, nombre: &quot;Monitor 4K Ergonomía&quot;, precio: 349, imagen: &quot;🖥️&quot;, descripcion: &quot;Pantalla IPS 27 pulgadas HDR400&quot; },
+            { id: 103, nombre: &quot;Auriculares Noise Cancelling&quot;, precio: 199, imagen: &quot;🎧&quot;, descripcion: &quot;Cancelación activa de ruido 30h batería&quot; },
+            { id: 104, nombre: &quot;Ratón Inalámbrico Pro&quot;, precio: 79, imagen: &quot;🖱️&quot;, descripcion: &quot;Sensor óptico 26K DPI diseño ergonómico&quot; }
+        ];
+    }
 
-    // Operación Inmutable: Alternar completado con .map() y operador spread
-    const alternarTarea = (id) =&gt; {
-        setTareas(prev =&gt; prev.map(t =&gt; t.id === id ? { ...t, completada: !t.completada } : t));
-    };
+    getProductos() {
+        return this.productos;
+    }
 
-    // Operación Inmutable: Eliminar tarea con .filter()
-    const eliminarTarea = (id) =&gt; {
-        setTareas(prev =&gt; prev.filter(t =&gt; t.id !== id));
-    };
-
-    // Operación Inmutable: Añadir tarea con [...prev, nueva]
-    const agregarTarea = (e) =&gt; {
-        e.preventDefault();
-        const textoLimpio = nuevoTexto.trim();
-        if (!textoLimpio) return;
-
-        const nueva = {
-            id: Date.now(),
-            texto: textoLimpio,
-            completada: false,
-            prioridad
-        };
-
-        setTareas(prev =&gt; [...prev, nueva]);
-        setNuevoTexto(&quot;&quot;);
-    };
-
-    // Filtrado declarativo en render
-    const tareasVisibles = tareas.filter(t =&gt; {
-        if (filtro === &quot;pendientes&quot;) return !t.completada;
-        if (filtro === &quot;completadas&quot;) return t.completada;
-        return true;
-    });
-
-    const totalPendientes = tareas.filter(t =&gt; !t.completada).length;
-    const porcentajeProgreso = tareas.length &gt; 0
-        ? Math.round(((tareas.length - totalPendientes) / tareas.length) * 100)
-        : 0;
-
-    return React.createElement(&quot;div&quot;, {
-        className: &quot;p-4 bg-slate-900 border border-slate-700 rounded-xl text-slate-100 font-sans max-w-xl mx-auto shadow-2xl&quot;
-    },
-        // Encabezado con Métricas
-        React.createElement(&quot;div&quot;, { className: &quot;flex items-center justify-between border-b border-slate-700 pb-3 mb-3&quot; },
-            React.createElement(&quot;div&quot;, null,
-                React.createElement(&quot;h3&quot;, { className: &quot;text-sm font-bold text-indigo-400 flex items-center gap-2 m-0&quot; }, &quot;⚛️ Gestor de Tareas React&quot;),
-                React.createElement(&quot;span&quot;, { className: &quot;text-[11px] text-slate-400&quot; }, &quot;Estado local reactivo con Hook useState&quot;)
-            ),
-            React.createElement(&quot;span&quot;, { className: &quot;text-xs bg-indigo-950 text-indigo-300 border border-indigo-700 px-2.5 py-1 rounded-full font-semibold&quot; },
-                `${totalPendientes} pendientes (${porcentajeProgreso}%)`
-            )
-        ),
-
-        // Formulario controlado para añadir tarea
-        React.createElement(&quot;form&quot;, { onSubmit: agregarTarea, className: &quot;flex gap-2 mb-3&quot; },
-            React.createElement(&quot;input&quot;, {
-                type: &quot;text&quot;,
-                placeholder: &quot;Escribe una nueva tarea...&quot;,
-                value: nuevoTexto,
-                onChange: (e) =&gt; setNuevoTexto(e.target.value),
-                className: &quot;flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500&quot;
-            }),
-            React.createElement(&quot;select&quot;, {
-                value: prioridad,
-                onChange: (e) =&gt; setPrioridad(e.target.value),
-                className: &quot;bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-slate-300&quot;
-            },
-                React.createElement(&quot;option&quot;, { value: &quot;baja&quot; }, &quot;Baja&quot;),
-                React.createElement(&quot;option&quot;, { value: &quot;media&quot; }, &quot;Media&quot;),
-                React.createElement(&quot;option&quot;, { value: &quot;alta&quot; }, &quot;Alta&quot;)
-            ),
-            React.createElement(&quot;button&quot;, {
-                type: &quot;submit&quot;,
-                className: &quot;bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition-colors&quot;
-            }, &quot;+ Añadir&quot;)
-        ),
-
-        // Barra de Filtros
-        React.createElement(&quot;div&quot;, { className: &quot;flex gap-1.5 mb-3&quot; },
-            [&quot;todas&quot;, &quot;pendientes&quot;, &quot;completadas&quot;].map(f =&gt;
-                React.createElement(&quot;button&quot;, {
-                    key: f,
-                    onClick: () =&gt; setFiltro(f),
-                    className: `text-xs px-2.5 py-1 rounded-md font-semibold capitalize transition-all ${
-                        filtro === f ? &quot;bg-indigo-600 text-white shadow-sm&quot; : &quot;bg-slate-800 text-slate-400 hover:bg-slate-700&quot;
-                    }`
-                }, f)
-            )
-        ),
-
-        // Lista Reactiva con keys
-        React.createElement(&quot;ul&quot;, { className: &quot;space-y-1.5 max-h-52 overflow-y-auto p-0 m-0 list-none&quot; },
-            tareasVisibles.length === 0
-                ? React.createElement(&quot;li&quot;, { className: &quot;text-slate-500 text-xs italic py-3 text-center&quot; }, &quot;No hay tareas en esta vista.&quot;)
-                : tareasVisibles.map(t =&gt;
-                    React.createElement(&quot;li&quot;, {
-                        key: t.id,
-                        className: `flex items-center justify-between p-2 rounded-lg border text-xs transition-all ${
-                            t.completada ? &quot;bg-slate-950/40 border-slate-800 text-slate-500 line-through&quot; : &quot;bg-slate-800/80 border-slate-700 text-slate-200&quot;
-                        }`
-                    },
-                        React.createElement(&quot;span&quot;, {
-                            onClick: () =&gt; alternarTarea(t.id),
-                            className: &quot;cursor-pointer flex-1 select-none flex items-center gap-1.5&quot;
-                        },
-                            t.completada ? &quot;✅&quot; : &quot;⭕&quot;,
-                            t.texto
-                        ),
-                        React.createElement(&quot;div&quot;, { className: &quot;flex items-center gap-2&quot; },
-                            React.createElement(&quot;span&quot;, {
-                                className: `text-[10px] px-1.5 py-0.5 rounded font-bold uppercase ${
-                                    t.prioridad === &quot;alta&quot; ? &quot;bg-red-950 text-red-300 border border-red-800&quot; :
-                                    t.prioridad === &quot;media&quot; ? &quot;bg-amber-950 text-amber-300 border border-amber-800&quot; :
-                                    &quot;bg-slate-800 text-slate-400&quot;
-                                }`
-                            }, t.prioridad),
-                            React.createElement(&quot;button&quot;, {
-                                onClick: () =&gt; eliminarTarea(t.id),
-                                className: &quot;text-slate-400 hover:text-red-400 text-xs px-1 bg-transparent border-0 cursor-pointer&quot;,
-                                title: &quot;Eliminar tarea&quot;
-                            }, &quot;🗑️&quot;)
-                        )
-                    )
-                )
-        )
-    );
+    getProductoById(id) {
+        return this.productos.find(p =&gt; p.id === Number(id));
+    }
 }
 
-// Montaje en el contenedor DOM (#app)
-const target = document.getElementById(&quot;app&quot;) || document.getElementById(&quot;sandbox-container&quot;);
-if (target) {
-    const root = ReactDOM.createRoot(target);
-    root.render(React.createElement(GestorTareasReact));
-    console.log(&quot;⚛️ [React 18] GestorTareasReact montado con éxito en el DOM.&quot;);
+// Inicialización del simulador en el DOM
+const servicio = new ProductosServiceSimulado();
+const appEl = document.getElementById(&quot;app&quot;) || document.getElementById(&quot;sandbox-container&quot;);
+
+if (appEl) {
+    const lista = servicio.getProductos();
+    appEl.innerHTML = `
+        &lt;div style=&quot;background: #0f172a; padding: 16px; border-radius: 12px; color: white; font-family: sans-serif;&quot;&gt;
+            &lt;div style=&quot;display: flex; justify-content: space-between; align-items: center; border-b: 1px solid #334155; pb-3; margin-bottom: 12px;&quot;&gt;
+                &lt;h3 style=&quot;margin: 0; color: #38bdf8; font-size: 1.1em;&quot;&gt;🅰️ Componente Angular: ProductoListaComponent&lt;/h3&gt;
+                &lt;span style=&quot;font-size: 0.75em; background: #0284c7; padding: 3px 8px; border-radius: 4px;&quot;&gt;Standalone @Component&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div style=&quot;display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;&quot;&gt;
+                ${lista.map(p =&gt; `
+                    &lt;div style=&quot;background: #1e293b; border: 1px solid #475569; padding: 10px; border-radius: 8px;&quot;&gt;
+                        &lt;div style=&quot;font-size: 2em; text-align: center;&quot;&gt;${p.imagen}&lt;/div&gt;
+                        &lt;h4 style=&quot;margin: 6px 0 2px 0; font-size: 0.9em; color: #f8fafc;&quot;&gt;${p.nombre}&lt;/h4&gt;
+                        &lt;p style=&quot;margin: 0; color: #38bdf8; font-weight: bold; font-size: 0.85em;&quot;&gt;${p.precio} €&lt;/p&gt;
+                        &lt;button onclick=&quot;alert(&#x27;Seleccionado: ${p.nombre}&#x27;)&quot; style=&quot;margin-top: 8px; width: 100%; background: #2563eb; color: white; border: none; padding: 5px; border-radius: 4px; cursor: pointer; font-size: 0.8em;&quot;&gt;Ver Detalle (Angular Router)&lt;/button&gt;
+                    &lt;/div&gt;
+                `).join(&#x27;&#x27;)}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    `;
+    console.log(&quot;🅰️ [Angular Sim] ProductoListaComponent renderizado con datos del ProductosService.&quot;);
 }</code></pre>
               </div>
             </div>
@@ -1805,52 +1832,52 @@ if (target) {
       <section>
         <div class="slide-header">
           <span class="badge-sub">Bloque 7 de 8 · Teoría y Demostración</span>
-          <h2>7. Comunicación Asíncrona en React: El Hook useEffect, Consumo de APIs REST y Ciclo de Vida</h2>
+          <h2>7. Enrutamiento y Proyecto Tienda en Angular: Menú, Catálogo con Tarjetas y Vista de Detalle</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>La comunicación con servidores web en React se gestiona mediante <strong>efectos secundarios (Side Effects)</strong> orquestados por el hook <code>useEffect</code>:</p>
+            <div class="card-text"><p>El sistema de enrutamiento **Angular Router** permite construir aplicaciones SPA con navegación fluida de URL sin recarga de página, soportando parámetros de ruta, vistas anidadas y guardias de seguridad:</p>
 <ul class="concept-list">
-  <li><strong>Efectos Secundarios en Componentes Funcionales:</strong>
-    <p>Operaciones que interactúan con el exterior del renderizado puro: realizar peticiones HTTP (Fetch/Axios), suscribirse a WebSockets, manipular temporizadores (<code>setInterval</code>) o acceder a <code>localStorage</code>.</p>
-  </li>
-  <li><strong>El Hook <code>useEffect</code> y el Array de Dependencias:</strong>
+  <li><strong>Configuración del Enrutador Angular (`app.routes.ts`):</strong>
     <ul>
-      <li><code>useEffect(() => { ... }, [])</code>: <em>Array vacío</em>. Se ejecuta <strong>exclusivamente una vez</strong> tras el primer montaje del componente en el DOM. Es el lugar idóneo para cargar los datos iniciales de una API.</li>
-      <li><code>useEffect(() => { ... }, [categoriaId, pagina])</code>: <em>Con dependencias</em>. Se ejecuta tras el montaje y <strong>cada vez que cambie</strong> cualquiera de las dependencias especificadas.</li>
-      <li><code>useEffect(() => { ... })</code>: <em>Sin array de dependencias</em>. Se ejecuta tras <strong>cada renderizado</strong> del componente (antipatrón para peticiones HTTP ya que genera bucles infinitos de red).</li>
+      <li><em>Definición de Rutas:</em> Un array de objetos <code>Route</code> que asocia rutas URL con sus componentes correspondientes:
+        <pre><code>export const routes: Routes = [
+  { path: '', redirectTo: 'productos', pathMatch: 'full' },
+  { path: 'productos', component: ProductoListaComponent },
+  { path: 'producto/:id', component: ProductoDetalleComponent },
+  { path: '**', component: NotFoundComponent }
+];</code></pre>
+      </li>
+      <li><em>Contenedor de Salida <code>&lt;router-outlet&gt;&lt;/router-outlet&gt;</code>:</em> Directiva insertada en el componente principal (<code>AppComponent</code>) que actúa como marcador de posición donde Angular Router renderiza dinámicamente el componente de la ruta activa.</li>
     </ul>
   </li>
-  <li><strong>Patrón Estándar de Consumo Asíncrono con <code>fetch</code>:</strong>
-    <p>La función de <code>useEffect</code> <strong>no puede ser declarada como <code>async</code></strong> (porque debe retornar una función de limpieza o nada). Se define una función asíncrona en su interior:</p>
-    <pre><code>useEffect(() => {
-    async function cargarDatos() {
-        const res = await fetch("/api/recursos");
-        const json = await res.json();
-        setDatos(json);
-    }
-    cargarDatos();
-}, []);</code></pre>
-  </li>
-  <li><strong>Los 3 Estados Reactivos de la Interfaz Asíncrona:</strong>
+  <li><strong>Navegación Declarativa e Imperativa:</strong>
     <ul>
-      <li><code>cargando (loading)</code>: Spinner o Skeleton screen mientras la promesa está pendiente.</li>
-      <li><code>datos (success)</code>: Renderizado de la colección o entidad recibida.</li>
-      <li><code>error (failure)</code>: Mensaje contextualizado con opción de reintento si falla la red o el servidor devuelve un código HTTP insatisfactorio (<code>!res.ok</code>).</li>
+      <li><em>Directiva <code>routerLink</code>:</em> Enlace HTML sin recarga que intercepta los clics: <code>&lt;a routerLink="/productos" routerLinkActive="active"&gt;Catálogo&lt;/a&gt;</code>. Para rutas dinámicas con parámetros: <code>[routerLink]="['/producto', p.id]"</code>.</li>
+      <li><em>Servicio <code>Router</code>:</em> Navegación imperativa por código TypeScript: <code>this.router.navigate(['/producto', id])</code>.</li>
     </ul>
   </li>
-  <li><strong>Función de Limpieza (Cleanup) con <code>AbortController</code>:</strong>
-    <p>Si el componente se desmonta antes de que la petición HTTP finalice, o si el usuario cambia de filtro rápidamente, la petición previa debe cancelarse retornando una función de limpieza: <code>return () => controller.abort();</code>. Esto evita fugas de memoria y condiciones de carrera (<em>race conditions</em>).</p>
+  <li><strong>Lectura de Parámetros Dinámicos con <code>ActivatedRoute</code>:</strong>
+    <p>En el componente de detalle (<code>ProductoDetalleComponent</code>), se inyecta <code>ActivatedRoute</code> para capturar el valor del parámetro <code>:id</code> de la URL mediante <code>this.route.snapshot.params['id']</code> o <code>this.route.params.subscribe()</code>.</p>
+  </li>
+  <li><strong>Consumo de APIs REST con <code>HttpClient</code>:</strong>
+    <p>Módulo oficial de Angular registrado mediante <code>provideHttpClient()</code> para realizar peticiones asíncronas devolviendo <em>Observables de RxJS</em> totalmente integrados en el ciclo de vida de los componentes.</p>
   </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>El Ecosistema Asíncrono Profesional en React 2026:</strong></p>
+            <div class="card-text"><p><strong>Guía Arquitectónica del Proyecto Tienda Online en Angular:</strong></p>
 <ul class="concept-list">
-  <li><strong>TanStack Query (React Query) y SWR:</strong> En la industria, las peticiones complejas se delegan en librerías que implementan caché inteligente, revalidación en segundo plano (<em>Stale-While-Revalidate</em>), deduplicación y reintentos automáticos sin código repetitivo.</li>
-  <li><strong>React Server Components (RSC):</strong> En frameworks como Next.js, los componentes de servidor pueden realizar <code>await fetch()</code> de forma síncrona en el servidor antes de enviar el HTML pre-renderizado al navegador, eliminando la cascada de spinners en cliente.</li>
+  <li><strong>Paso 1: Inicialización con Angular CLI:</strong> Crear el proyecto Standalone: <code>ng new tienda-angular --standalone</code>.</li>
+  <li><strong>Paso 2: Modelado de Datos (TypeScript):</strong> Definir la interfaz <code>Producto</code> en <code>models/producto.ts</code>.</li>
+  <li><strong>Paso 3: Servicio de Datos:</strong> Generar <code>ProductosService</code> para gestionar el catálogo y las peticiones HTTP.</li>
+  <li><strong>Paso 4: Menú de Navegación (`NavbarComponent`):</strong> Barra superior con logo, buscador y enlaces `routerLink`.</li>
+  <li><strong>Paso 5: Catálogo de Productos (`ProductoListaComponent`):</strong> Grid de tarjetas iteradas con `@for` y botón de navegación.</li>
+  <li><strong>Paso 6: Vista de Detalle (`ProductoDetalleComponent`):</b> Muestra la información completa del producto seleccionado mediante `ActivatedRoute`.</li>
+  <li><strong>Paso 7: Enrutamiento (`app.routes.ts`):</strong> Registrar las rutas `/productos` y `/producto/:id`.</li>
+  <li><strong>Paso 8: Maquetación Raíz (`app.component.html`):</strong> Ensamblar `<app-navbar>` y `<router-outlet>`.</li>
 </ul></div>
           </div>
         </div>
@@ -1859,63 +1886,64 @@ if (target) {
             <span>💻 Demostración Práctica e Implementación de Código</span>
             
           </div>
-          <pre><code class="language-javascript">// Consumo Asíncrono con useEffect, AbortController y Manejo de Estados
-function UsuariosRemotosReact() {
-    const [usuarios, setUsuarios] = React.useState([]);
-    const [cargando, setCargando] = React.useState(true);
-    const [error, setError] = React.useState(null);
+          <pre><code class="language-javascript">// Ejemplo TypeScript: Configuración de Rutas y Componente Detalle en Angular
+/*
+// 1. Configuración de Rutas en app.routes.ts
+export const routes: Routes = [
+  { path: &#x27;&#x27;, redirectTo: &#x27;productos&#x27;, pathMatch: &#x27;full&#x27; },
+  { path: &#x27;productos&#x27;, component: ProductoListaComponent },
+  { path: &#x27;producto/:id&#x27;, component: ProductoDetalleComponent }
+];
 
-    React.useEffect(() =&gt; {
-        const controller = new AbortController();
+// 2. Componente Detalle con ActivatedRoute e Inyección de Dependencias
+@Component({
+  selector: &#x27;app-producto-detalle&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
+    @if (producto) {
+      &lt;div class=&quot;detalle-card&quot;&gt;
+        &lt;button routerLink=&quot;/productos&quot;&gt;← Volver al Catálogo&lt;/button&gt;
+        &lt;h2&gt;{{ producto.nombre }}&lt;/h2&gt;
+        &lt;p class=&quot;precio&quot;&gt;{{ producto.precio }}€&lt;/p&gt;
+        &lt;p class=&quot;desc&quot;&gt;{{ producto.descripcion }}&lt;/p&gt;
+      &lt;/div&gt;
+    } @else {
+      &lt;p&gt;⚠️ Producto no encontrado.&lt;/p&gt;
+    }
+  `
+})
+export class ProductoDetalleComponent implements OnInit {
+  producto?: Producto;
 
-        async function pedirUsuarios() {
-            try {
-                setCargando(true);
-                setError(null);
-                const res = await fetch(&quot;https://jsonplaceholder.typicode.com/users?_limit=3&quot;, {
-                    signal: controller.signal
-                });
-                if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-                const data = await res.json();
-                setUsuarios(data);
-            } catch (err) {
-                if (err.name !== &quot;AbortError&quot;) {
-                    setError(err.message);
-                }
-            } finally {
-                setCargando(false);
-            }
-        }
+  constructor(
+    private route: ActivatedRoute,
+    private productosService: ProductosService
+  ) {}
 
-        pedirUsuarios();
-
-        // Función de limpieza para cancelar peticiones pendientes
-        return () =&gt; controller.abort();
-    }, []);
-
-    if (cargando) return React.createElement(&quot;div&quot;, { style: { color: &quot;#38bdf8&quot; } }, &quot;⏳ Obteniendo usuarios...&quot;);
-    if (error) return React.createElement(&quot;div&quot;, { style: { color: &quot;#f87171&quot; } }, `❌ Error: ${error}`);
-
-    return React.createElement(&quot;ul&quot;, null,
-        usuarios.map(u =&gt; React.createElement(&quot;li&quot;, { key: u.id }, `${u.name} (${u.email})`))
-    );
-}</code></pre>
+  ngOnInit() {
+    const id = Number(this.route.snapshot.params[&#x27;id&#x27;]);
+    this.producto = this.productosService.getProductoById(id);
+  }
+}
+*/
+console.log(&quot;🚦 Angular Router: Configuración de Rutas y Lectura de Parámetros con ActivatedRoute.&quot;);</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 7</span>
-          <h2>🎯 Reto 7: Componente React Asíncrono de Catálogo de Usuarios con useEffect, Búsqueda en Vivo y Cancelación con AbortController</h2>
+          <h2>🎯 Reto 7: Proyecto Tienda Online en Angular: Menú, Catálogo con Tarjetas y Vista de Detalle</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Diseña un componente funcional en React llamado `CatalogoUsuariosAPI` que implemente: 1) Consumo de la API pública `https://jsonplaceholder.typicode.com/users` dentro de un hook `useEffect` con `fetch`, 2) Gestión de tres estados reactivos (`usuarios`, `cargando`, `error`), 3) Una barra de búsqueda en tiempo real que filtre a los usuarios por nombre sin requerir nuevas peticiones de red, 4) Función de limpieza con `AbortController` para cancelar la petición saliente si el componente se desmonta, 5) Botón interactivo de recarga manual de datos, y 6) Renderizado de tarjetas de usuario con nombre, empresa, email y ciudad, montando la aplicación en `#app`.</div>
+            <div class="callout-body">Diseña un simulador interactivo completo que represente la aplicación Tienda Online en Angular, incluyendo: 1) Barra de navegación superior con menú, 2) Vista de catálogo que renderice tarjetas de productos con imagen, título, precio y botón de navegación, y 3) Vista de detalle de producto que simule el cambio de ruta (Angular Router con `:id`) mostrando la ficha ampliada del producto con opción de retorno al catálogo.</div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
-            <div class="callout-body">Instancia const controller = new AbortController() al inicio de useEffect y pasa { signal: controller.signal } en fetch. En el bloque catch, comprueba if (err.name === &quot;AbortError&quot;) return. Retorna () =&gt; controller.abort() como función de limpieza. Renderiza condicionalmente el spinner, la alerta de error o la cuadrícula de usuarios filtrados.</div>
+            <div class="callout-body">Crea un estado visual de vista (&quot;catalogo&quot; | &quot;detalle&quot;) y almacena el productoSeleccionado. Al hacer clic en una tarjeta, cambia el estado a &quot;detalle&quot; mostrando la vista ampliada.</div>
           </div>
           
           <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
@@ -1925,158 +1953,143 @@ function UsuariosRemotosReact() {
             </summary>
             <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
               <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
-                <strong style="color: #0f172a;">Explicación Técnica:</strong> El desacoplamiento de la obtención de datos mediante useEffect y la cancelación de peticiones obsoletas con AbortController garantiza aplicaciones web reactivas robustas, sin condiciones de carrera ni fugas de memoria.
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El desacoplamiento entre componentes modulares, el enrutador SPA y los servicios inyectables constituye la arquitectura estándar para aplicaciones comerciales desarrolladas en Angular.
               </div>
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
-                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 7: Componente React Asíncrono con useEffect, API Fetch y AbortController
-function CatalogoUsuariosAPI() {
-    const [usuarios, setUsuarios] = React.useState([]);
-    const [cargando, setCargando] = React.useState(true);
-    const [error, setError] = React.useState(null);
-    const [busqueda, setBusqueda] = React.useState(&quot;&quot;);
-    const [recargaTick, setRecargaTick] = React.useState(0);
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 7: Simulador Interactivo de la Aplicación Tienda Online en Angular (Menú, Catálogo y Vista de Detalle)
+class TiendaAngularApp {
+    constructor(contenedorId) {
+        this.contenedor = document.getElementById(contenedorId);
+        this.vistaActual = &quot;catalogo&quot;; // &#x27;catalogo&#x27; | &#x27;detalle&#x27;
+        this.productoSeleccionadoId = null;
 
-    // Efecto asíncrono para consumir la API REST con ciclo de vida controlado
-    React.useEffect(() =&gt; {
-        const controller = new AbortController();
+        this.productos = [
+            { id: 1, nombre: &quot;Portátil Angular Ultra&quot;, precio: 1249, imagen: &quot;💻&quot;, descripcion: &quot;Procesador de última generación 16-Core, 32GB RAM DDR5, Pantalla OLED 120Hz. Ideal para desarrollo frontend intensivo con Angular CLI.&quot;, categoria: &quot;Ordenadores&quot; },
+            { id: 2, nombre: &quot;Teclado Mecánico TypeScript&quot;, precio: 129, imagen: &quot;⌨️&quot;, descripcion: &quot;Switches táctiles silenciosos, iluminación RGB direccionable por software, chasis de aluminio pulido y cable trenzado USB-C.&quot;, categoria: &quot;Periféricos&quot; },
+            { id: 3, nombre: &quot;Monitor Curvo 34\&quot; RxJS&quot;, precio: 499, imagen: &quot;🖥️&quot;, descripcion: &quot;Resolución UWQHD 3440x1440, tasa de refresco 144Hz, cobertura 99% sRGB. Visualización multitarea fluida sin parpadear.&quot;, categoria: &quot;Pantallas&quot; },
+            { id: 4, nombre: &quot;Auriculares Studio Signals&quot;, precio: 189, imagen: &quot;🎧&quot;, descripcion: &quot;Audio de alta resolución Hi-Res, cancelación activa de ruido adaptativa, micrófonos beamforming para videollamadas claras.&quot;, categoria: &quot;Audio&quot; }
+        ];
+    }
 
-        async function fetchUsuarios() {
-            setCargando(true);
-            setError(null);
-            console.log(&quot;🌐 [React useEffect] Iniciando petición HTTP a JSONPlaceholder...&quot;);
+    render() {
+        if (!this.contenedor) return;
 
-            try {
-                const res = await fetch(&quot;https://jsonplaceholder.typicode.com/users&quot;, {
-                    signal: controller.signal,
-                    headers: { &quot;Accept&quot;: &quot;application/json&quot; }
-                });
+        let contenidoHtml = &quot;&quot;;
 
-                if (!res.ok) {
-                    throw new Error(`Respuesta HTTP no satisfactoria (${res.status} ${res.statusText})`);
-                }
+        // 1. Barra de Navegación Sup (NavbarComponent)
+        const navbarHtml = `
+            &lt;nav style=&quot;background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 10px 10px 0 0;&quot;&gt;
+                &lt;div style=&quot;display: flex; items-center; gap: 10px;&quot;&gt;
+                    &lt;span style=&quot;font-size: 1.5em;&quot;&gt;🅰️&lt;/span&gt;
+                    &lt;strong style=&quot;color: #f8fafc; font-size: 1.1em;&quot;&gt;Tienda Angular Store&lt;/strong&gt;
+                &lt;/div&gt;
+                &lt;div style=&quot;display: flex; gap: 15px;&quot;&gt;
+                    &lt;button id=&quot;nav-catalogo&quot; style=&quot;background: ${this.vistaActual === &#x27;catalogo&#x27; ? &#x27;#2563eb&#x27; : &#x27;transparent&#x27;}; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em;&quot;&gt;
+                        🛒 Catálogo
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/nav&gt;
+        `;
 
-                const data = await res.json();
-                setUsuarios(data);
-                console.log(`✅ [React useEffect] Recibidos ${data.length} usuarios con éxito.`);
-            } catch (err) {
-                if (err.name === &quot;AbortError&quot;) {
-                    console.log(&quot;🛑 [React useEffect] Petición Fetch abortada limpiamente por desmontaje.&quot;);
-                } else {
-                    console.error(&quot;❌ [React useEffect] Error en la petición:&quot;, err.message);
-                    setError(err.message);
-                }
-            } finally {
-                setCargando(false);
+        // 2. Vista de Catálogo (ProductoListaComponent)
+        if (this.vistaActual === &quot;catalogo&quot;) {
+            contenidoHtml = `
+                &lt;div style=&quot;padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;&quot;&gt;
+                    &lt;div style=&quot;margin-bottom: 16px;&quot;&gt;
+                        &lt;h2 style=&quot;margin: 0; color: #f8fafc; font-size: 1.2em;&quot;&gt;Catálogo de Productos Destacados&lt;/h2&gt;
+                        &lt;p style=&quot;margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85em;&quot;&gt;Selecciona un producto para inspeccionar sus especificaciones técnicas (Angular Router: /producto/:id)&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div style=&quot;display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px;&quot;&gt;
+                        ${this.productos.map(p =&gt; `
+                            &lt;div style=&quot;background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s;&quot;&gt;
+                                &lt;div&gt;
+                                    &lt;div style=&quot;font-size: 3em; text-align: center; margin-bottom: 10px;&quot;&gt;${p.imagen}&lt;/div&gt;
+                                    &lt;span style=&quot;font-size: 0.7em; background: #0284c7; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;&quot;&gt;${p.categoria}&lt;/span&gt;
+                                    &lt;h3 style=&quot;margin: 8px 0 4px 0; color: #f8fafc; font-size: 1em;&quot;&gt;${p.nombre}&lt;/h3&gt;
+                                    &lt;p style=&quot;margin: 0; color: #38bdf8; font-weight: bold; font-size: 1.1em;&quot;&gt;${p.precio} €&lt;/p&gt;
+                                &lt;/div&gt;
+                                &lt;button class=&quot;btn-ver-detalle&quot; data-id=&quot;${p.id}&quot; style=&quot;margin-top: 14px; background: #2563eb; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em; width: 100%;&quot;&gt;
+                                    🔍 Ver Detalle
+                                &lt;/button&gt;
+                            &lt;/div&gt;
+                        `).join(&#x27;&#x27;)}
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            `;
+        } 
+        // 3. Vista de Detalle (ProductoDetalleComponent)
+        else if (this.vistaActual === &quot;detalle&quot;) {
+            const producto = this.productos.find(p =&gt; p.id === this.productoSeleccionadoId);
+            if (producto) {
+                contenidoHtml = `
+                    &lt;div style=&quot;padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;&quot;&gt;
+                        &lt;button id=&quot;btn-volver&quot; style=&quot;background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 16px; font-size: 0.85em; font-weight: bold;&quot;&gt;
+                            ← Volver al Catálogo
+                        &lt;/button&gt;
+                        &lt;div style=&quot;background: #0f172a; border: 1px solid #38bdf8; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 100px 1fr; gap: 20px; align-items: start;&quot;&gt;
+                            &lt;div style=&quot;font-size: 4em; text-align: center; background: #1e293b; border-radius: 10px; padding: 10px;&quot;&gt;${producto.imagen}&lt;/div&gt;
+                            &lt;div&gt;
+                                &lt;div style=&quot;display: flex; gap: 8px; align-items: center; margin-bottom: 6px;&quot;&gt;
+                                    &lt;span style=&quot;font-size: 0.7em; background: #0284c7; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold;&quot;&gt;${producto.categoria}&lt;/span&gt;
+                                    &lt;span style=&quot;font-size: 0.75em; color: #94a3b8;&quot;&gt;Ruta activa: /producto/${producto.id}&lt;/span&gt;
+                                &lt;/div&gt;
+                                &lt;h2 style=&quot;margin: 0 0 8px 0; color: #f8fafc; font-size: 1.4em;&quot;&gt;${producto.nombre}&lt;/h2&gt;
+                                &lt;p style=&quot;margin: 0 0 12px 0; color: #38bdf8; font-weight: bold; font-size: 1.3em;&quot;&gt;${producto.precio} €&lt;/p&gt;
+                                &lt;p style=&quot;margin: 0; color: #cbd5e1; font-size: 0.9em; line-height: 1.5; background: #1e293b; padding: 12px; border-radius: 8px; border-left: 3px solid #38bdf8;&quot;&gt;
+                                    ${producto.descripcion}
+                                &lt;/p&gt;
+                                &lt;div style=&quot;margin-top: 16px; display: flex; gap: 10px;&quot;&gt;
+                                    &lt;button onclick=&quot;alert(&#x27;🛒 Producto añadido al carrito de compra de Angular&#x27;)&quot; style=&quot;background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9em;&quot;&gt;
+                                        🛒 Añadir al Carrito
+                                    &lt;/button&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                `;
             }
         }
 
-        fetchUsuarios();
+        this.contenedor.innerHTML = navbarHtml + contenidoHtml;
+        this.bindEvents();
+    }
 
-        // Función de Limpieza (Cleanup Function)
-        return () =&gt; {
-            controller.abort();
-        };
-    }, [recargaTick]); // Se re-ejecuta cuando el usuario solicita una recarga
+    bindEvents() {
+        const btnNavCat = this.contenedor.querySelector(&quot;#nav-catalogo&quot;);
+        if (btnNavCat) {
+            btnNavCat.onclick = () =&gt; {
+                this.vistaActual = &quot;catalogo&quot;;
+                this.render();
+            };
+        }
 
-    // Filtrado en memoria reactivo
-    const usuariosFiltrados = usuarios.filter(u =&gt;
-        u.name.toLowerCase().includes(busqueda.toLowerCase()) ||
-        u.email.toLowerCase().includes(busqueda.toLowerCase())
-    );
+        const btnVolver = this.contenedor.querySelector(&quot;#btn-volver&quot;);
+        if (btnVolver) {
+            btnVolver.onclick = () =&gt; {
+                this.vistaActual = &quot;catalogo&quot;;
+                this.render();
+            };
+        }
 
-    return React.createElement(&quot;div&quot;, {
-        className: &quot;p-4 bg-slate-900 border border-slate-700 rounded-xl text-slate-100 font-sans max-w-2xl mx-auto shadow-2xl&quot;
-    },
-        // Encabezado
-        React.createElement(&quot;div&quot;, { className: &quot;flex items-center justify-between border-b border-slate-700 pb-3 mb-4 flex-wrap gap-2&quot; },
-            React.createElement(&quot;div&quot;, null,
-                React.createElement(&quot;h3&quot;, { className: &quot;text-sm font-bold text-sky-400 flex items-center gap-2 m-0&quot; },
-                    &quot;👥 Catálogo de Usuarios Asíncrono&quot;
-                ),
-                React.createElement(&quot;span&quot;, { className: &quot;text-[11px] text-slate-400&quot; },
-                    &quot;React 18 · useEffect · Fetch API · AbortController&quot;
-                )
-            ),
-            React.createElement(&quot;button&quot;, {
-                onClick: () =&gt; setRecargaTick(t =&gt; t + 1),
-                disabled: cargando,
-                className: &quot;bg-sky-600 hover:bg-sky-500 disabled:bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors cursor-pointer border-0 flex items-center gap-1.5&quot;
-            },
-                cargando ? &quot;⏳ Cargando...&quot; : &quot;🔄 Recargar API&quot;
-            )
-        ),
-
-        // Barra de búsqueda interactiva
-        React.createElement(&quot;div&quot;, { className: &quot;mb-4&quot; },
-            React.createElement(&quot;input&quot;, {
-                type: &quot;text&quot;,
-                placeholder: &quot;🔍 Filtrar por nombre o email en tiempo real...&quot;,
-                value: busqueda,
-                onChange: (e) =&gt; setBusqueda(e.target.value),
-                className: &quot;w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 box-border&quot;
-            })
-        ),
-
-        // Estado 1: Cargando (Skeleton / Spinner)
-        cargando &amp;&amp; React.createElement(&quot;div&quot;, { className: &quot;p-6 text-center text-slate-400 space-y-2&quot; },
-            React.createElement(&quot;div&quot;, { className: &quot;text-2xl animate-spin inline-block&quot; }, &quot;⏳&quot;),
-            React.createElement(&quot;p&quot;, { className: &quot;text-xs m-0&quot; }, &quot;Consultando API REST externa y sincronizando Virtual DOM...&quot;)
-        ),
-
-        // Estado 2: Error
-        error &amp;&amp; !cargando &amp;&amp; React.createElement(&quot;div&quot;, {
-            className: &quot;p-4 bg-red-950/50 border border-red-800 rounded-lg text-red-200 text-xs&quot;
-        },
-            React.createElement(&quot;strong&quot;, null, &quot;❌ Error al cargar usuarios: &quot;),
-            error,
-            React.createElement(&quot;div&quot;, { className: &quot;mt-2&quot; },
-                React.createElement(&quot;button&quot;, {
-                    onClick: () =&gt; setRecargaTick(t =&gt; t + 1),
-                    className: &quot;bg-red-700 hover:bg-red-600 text-white text-xs px-3 py-1 rounded border-0 cursor-pointer&quot;
-                }, &quot;Reintentar ahora&quot;)
-            )
-        ),
-
-        // Estado 3: Éxito con Cuadrícula de Usuarios
-        !cargando &amp;&amp; !error &amp;&amp; React.createElement(&quot;div&quot;, null,
-            React.createElement(&quot;div&quot;, { className: &quot;text-[11px] text-slate-400 mb-2 flex justify-between&quot; },
-                React.createElement(&quot;span&quot;, null, `Mostrando ${usuariosFiltrados.length} de ${usuarios.length} usuarios`),
-                busqueda &amp;&amp; React.createElement(&quot;span&quot;, { className: &quot;text-sky-400&quot; }, `Filtro: &quot;${busqueda}&quot;`)
-            ),
-            usuariosFiltrados.length === 0
-                ? React.createElement(&quot;p&quot;, { className: &quot;text-slate-500 text-xs italic text-center py-4&quot; }, &quot;No se encontraron coincidencias con la búsqueda.&quot;)
-                : React.createElement(&quot;div&quot;, { className: &quot;grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-64 overflow-y-auto pr-1&quot; },
-                    usuariosFiltrados.map(u =&gt;
-                        React.createElement(&quot;div&quot;, {
-                            key: u.id,
-                            className: &quot;p-3 bg-slate-800/80 border border-slate-700/80 rounded-lg text-xs hover:border-sky-500/50 transition-all flex flex-col justify-between&quot;
-                        },
-                            React.createElement(&quot;div&quot;, null,
-                                React.createElement(&quot;div&quot;, { className: &quot;font-bold text-slate-100 flex items-center justify-between mb-1&quot; },
-                                    React.createElement(&quot;span&quot;, null, `👤 ${u.name}`),
-                                    React.createElement(&quot;span&quot;, { className: &quot;text-[10px] text-slate-400 font-mono&quot; }, `#${u.id}`)
-                                ),
-                                React.createElement(&quot;p&quot;, { className: &quot;text-slate-400 text-[11px] m-0&quot; }, `📧 ${u.email}`),
-                                React.createElement(&quot;p&quot;, { className: &quot;text-slate-400 text-[11px] m-0&quot; }, `🏢 ${u.company?.name || &quot;Sin empresa&quot;}`)
-                            ),
-                            React.createElement(&quot;div&quot;, { className: &quot;mt-2 pt-2 border-t border-slate-700/50 flex justify-between items-center text-[10px] text-sky-300/80&quot; },
-                                React.createElement(&quot;span&quot;, null, `📍 ${u.address?.city || &quot;Ciudad&quot;}`),
-                                React.createElement(&quot;span&quot;, null, `🌐 ${u.website}`)
-                            )
-                        )
-                    )
-                )
-        )
-    );
+        const btnsDetalle = this.contenedor.querySelectorAll(&quot;.btn-ver-detalle&quot;);
+        btnsDetalle.forEach(btn =&gt; {
+            btn.onclick = (e) =&gt; {
+                const id = Number(e.currentTarget.dataset.id);
+                this.productoSeleccionadoId = id;
+                this.vistaActual = &quot;detalle&quot;;
+                this.render();
+            };
+        });
+    }
 }
 
-// Montaje en el contenedor DOM (#app)
-const mountPoint = document.getElementById(&quot;app&quot;) || document.getElementById(&quot;sandbox-container&quot;);
-if (mountPoint) {
-    const root = ReactDOM.createRoot(mountPoint);
-    root.render(React.createElement(CatalogoUsuariosAPI));
-    console.log(&quot;⚛️ [React 18] CatalogoUsuariosAPI montado con éxito en el DOM.&quot;);
+// Inicialización de la Tienda Angular en el Sandbox
+const mountNode = document.getElementById(&quot;app&quot;) || document.getElementById(&quot;sandbox-container&quot;);
+if (mountNode) {
+    const tienda = new TiendaAngularApp(mountNode.id);
+    tienda.render();
+    console.log(&quot;🅰️ [Angular Store App] Tienda Online montada con éxito con Menú, Catálogo de Tarjetas y Vista de Detalle.&quot;);
 }</code></pre>
               </div>
             </div>
@@ -2332,8 +2345,8 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 6</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Componente React Interactivo de Lista de Tareas y Filtro con useState e Inmutabilidad</strong>
-          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: React como Framework Frontend: Componentes Funcionales, Virtual DOM y Estado con useState</p>
+          <strong style="font-size: 0.76em; color: #0f172a;">Simulador de Componentes y Data-Binding Angular</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 6: Angular como Framework Frontend SPA: Componentes Standalone, Servicios e Inyección de Dependencias</p>
         </div>
         <a href="ejercicios.html?item=reto-6" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
           🚀 Ver Solución
@@ -2342,8 +2355,8 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 7</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Componente React Asíncrono de Catálogo de Usuarios con useEffect, Búsqueda en Vivo y Cancelación con AbortController</strong>
-          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 7: Comunicación Asíncrona en React: El Hook useEffect, Consumo de APIs REST y Ciclo de Vida</p>
+          <strong style="font-size: 0.76em; color: #0f172a;">Proyecto Tienda Online en Angular: Menú, Catálogo con Tarjetas y Vista de Detalle</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 7: Enrutamiento y Proyecto Tienda en Angular: Menú, Catálogo con Tarjetas y Vista de Detalle</p>
         </div>
         <a href="ejercicios.html?item=reto-7" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
           🚀 Ver Solución
