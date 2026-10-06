@@ -1970,46 +1970,69 @@ class TiendaAngularApp {
             { id: 3, nombre: &quot;Monitor Curvo 34\&quot; RxJS&quot;, precio: 499, imagen: &quot;🖥️&quot;, descripcion: &quot;Resolución UWQHD 3440x1440, tasa de refresco 144Hz, cobertura 99% sRGB. Visualización multitarea fluida sin parpadear.&quot;, categoria: &quot;Pantallas&quot; },
             { id: 4, nombre: &quot;Auriculares Studio Signals&quot;, precio: 189, imagen: &quot;🎧&quot;, descripcion: &quot;Audio de alta resolución Hi-Res, cancelación activa de ruido adaptativa, micrófonos beamforming para videollamadas claras.&quot;, categoria: &quot;Audio&quot; }
         ];
+
+        this.inyectarEstilos();
+    }
+
+    inyectarEstilos() {
+        if (document.getElementById(&quot;tienda-angular-styles&quot;)) return;
+        const style = document.createElement(&quot;style&quot;);
+        style.id = &quot;tienda-angular-styles&quot;;
+        style.textContent = `
+            .t-app { font-family: system-ui, sans-serif; border-radius: 10px; overflow: hidden; background: #1e293b; color: #f8fafc; text-align: left; }
+            .t-nav { background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+            .t-nav-brand { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #f8fafc; }
+            .t-nav-btn { background: #2563eb; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
+            .t-nav-btn.inactive { background: transparent; }
+            .t-body { padding: 20px; }
+            .t-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; }
+            .t-card { background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; }
+            .t-badge { font-size: 0.7em; background: #0284c7; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; display: inline-block; }
+            .t-price { color: #38bdf8; font-weight: bold; font-size: 1.1em; margin: 4px 0 0 0; }
+            .t-btn-detail { margin-top: 14px; background: #2563eb; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em; width: 100%; }
+            .t-btn-back { background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 16px; font-size: 0.85em; font-weight: bold; }
+            .t-detail-card { background: #0f172a; border: 1px solid #38bdf8; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: start; }
+            .t-detail-desc { color: #cbd5e1; font-size: 0.9em; line-height: 1.5; background: #1e293b; padding: 12px; border-radius: 8px; border-left: 3px solid #38bdf8; margin: 12px 0; }
+            .t-btn-cart { background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9em; }
+        `;
+        document.head.appendChild(style);
     }
 
     render() {
         if (!this.contenedor) return;
-
         let contenidoHtml = &quot;&quot;;
 
-        // 1. Barra de Navegación Sup (NavbarComponent)
         const navbarHtml = `
-            &lt;nav style=&quot;background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 10px 10px 0 0;&quot;&gt;
-                &lt;div style=&quot;display: flex; items-center; gap: 10px;&quot;&gt;
+            &lt;nav class=&quot;t-nav&quot;&gt;
+                &lt;div class=&quot;t-nav-brand&quot;&gt;
                     &lt;span style=&quot;font-size: 1.5em;&quot;&gt;🅰️&lt;/span&gt;
-                    &lt;strong style=&quot;color: #f8fafc; font-size: 1.1em;&quot;&gt;Tienda Angular Store&lt;/strong&gt;
+                    &lt;span&gt;Tienda Angular Store&lt;/span&gt;
                 &lt;/div&gt;
-                &lt;div style=&quot;display: flex; gap: 15px;&quot;&gt;
-                    &lt;button id=&quot;nav-catalogo&quot; style=&quot;background: ${this.vistaActual === &#x27;catalogo&#x27; ? &#x27;#2563eb&#x27; : &#x27;transparent&#x27;}; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em;&quot;&gt;
+                &lt;div&gt;
+                    &lt;button id=&quot;nav-catalogo&quot; class=&quot;t-nav-btn ${this.vistaActual === &#x27;catalogo&#x27; ? &#x27;&#x27; : &#x27;inactive&#x27;}&quot;&gt;
                         🛒 Catálogo
                     &lt;/button&gt;
                 &lt;/div&gt;
             &lt;/nav&gt;
         `;
 
-        // 2. Vista de Catálogo (ProductoListaComponent)
         if (this.vistaActual === &quot;catalogo&quot;) {
             contenidoHtml = `
-                &lt;div style=&quot;padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;&quot;&gt;
+                &lt;div class=&quot;t-body&quot;&gt;
                     &lt;div style=&quot;margin-bottom: 16px;&quot;&gt;
                         &lt;h2 style=&quot;margin: 0; color: #f8fafc; font-size: 1.2em;&quot;&gt;Catálogo de Productos Destacados&lt;/h2&gt;
                         &lt;p style=&quot;margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85em;&quot;&gt;Selecciona un producto para inspeccionar sus especificaciones técnicas (Angular Router: /producto/:id)&lt;/p&gt;
                     &lt;/div&gt;
-                    &lt;div style=&quot;display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px;&quot;&gt;
+                    &lt;div class=&quot;t-grid&quot;&gt;
                         ${this.productos.map(p =&gt; `
-                            &lt;div style=&quot;background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s;&quot;&gt;
+                            &lt;div class=&quot;t-card&quot;&gt;
                                 &lt;div&gt;
                                     &lt;div style=&quot;font-size: 3em; text-align: center; margin-bottom: 10px;&quot;&gt;${p.imagen}&lt;/div&gt;
-                                    &lt;span style=&quot;font-size: 0.7em; background: #0284c7; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;&quot;&gt;${p.categoria}&lt;/span&gt;
+                                    &lt;span class=&quot;t-badge&quot;&gt;${p.categoria}&lt;/span&gt;
                                     &lt;h3 style=&quot;margin: 8px 0 4px 0; color: #f8fafc; font-size: 1em;&quot;&gt;${p.nombre}&lt;/h3&gt;
-                                    &lt;p style=&quot;margin: 0; color: #38bdf8; font-weight: bold; font-size: 1.1em;&quot;&gt;${p.precio} €&lt;/p&gt;
+                                    &lt;p class=&quot;t-price&quot;&gt;${p.precio} €&lt;/p&gt;
                                 &lt;/div&gt;
-                                &lt;button class=&quot;btn-ver-detalle&quot; data-id=&quot;${p.id}&quot; style=&quot;margin-top: 14px; background: #2563eb; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em; width: 100%;&quot;&gt;
+                                &lt;button class=&quot;btn-ver-detalle t-btn-detail&quot; data-id=&quot;${p.id}&quot;&gt;
                                     🔍 Ver Detalle
                                 &lt;/button&gt;
                             &lt;/div&gt;
@@ -2017,30 +2040,28 @@ class TiendaAngularApp {
                     &lt;/div&gt;
                 &lt;/div&gt;
             `;
-        } 
-        // 3. Vista de Detalle (ProductoDetalleComponent)
-        else if (this.vistaActual === &quot;detalle&quot;) {
+        } else if (this.vistaActual === &quot;detalle&quot;) {
             const producto = this.productos.find(p =&gt; p.id === this.productoSeleccionadoId);
             if (producto) {
                 contenidoHtml = `
-                    &lt;div style=&quot;padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;&quot;&gt;
-                        &lt;button id=&quot;btn-volver&quot; style=&quot;background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 16px; font-size: 0.85em; font-weight: bold;&quot;&gt;
+                    &lt;div class=&quot;t-body&quot;&gt;
+                        &lt;button id=&quot;btn-volver&quot; class=&quot;t-btn-back&quot;&gt;
                             ← Volver al Catálogo
                         &lt;/button&gt;
-                        &lt;div style=&quot;background: #0f172a; border: 1px solid #38bdf8; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 100px 1fr; gap: 20px; align-items: start;&quot;&gt;
-                            &lt;div style=&quot;font-size: 4em; text-align: center; background: #1e293b; border-radius: 10px; padding: 10px;&quot;&gt;${producto.imagen}&lt;/div&gt;
+                        &lt;div class=&quot;t-detail-card&quot;&gt;
+                            &lt;div style=&quot;font-size: 3.5em; text-align: center; background: #1e293b; border-radius: 10px; padding: 10px;&quot;&gt;${producto.imagen}&lt;/div&gt;
                             &lt;div&gt;
                                 &lt;div style=&quot;display: flex; gap: 8px; align-items: center; margin-bottom: 6px;&quot;&gt;
-                                    &lt;span style=&quot;font-size: 0.7em; background: #0284c7; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold;&quot;&gt;${producto.categoria}&lt;/span&gt;
+                                    &lt;span class=&quot;t-badge&quot;&gt;${producto.categoria}&lt;/span&gt;
                                     &lt;span style=&quot;font-size: 0.75em; color: #94a3b8;&quot;&gt;Ruta activa: /producto/${producto.id}&lt;/span&gt;
                                 &lt;/div&gt;
                                 &lt;h2 style=&quot;margin: 0 0 8px 0; color: #f8fafc; font-size: 1.4em;&quot;&gt;${producto.nombre}&lt;/h2&gt;
-                                &lt;p style=&quot;margin: 0 0 12px 0; color: #38bdf8; font-weight: bold; font-size: 1.3em;&quot;&gt;${producto.precio} €&lt;/p&gt;
-                                &lt;p style=&quot;margin: 0; color: #cbd5e1; font-size: 0.9em; line-height: 1.5; background: #1e293b; padding: 12px; border-radius: 8px; border-left: 3px solid #38bdf8;&quot;&gt;
+                                &lt;p class=&quot;t-price&quot; style=&quot;font-size: 1.3em;&quot;&gt;${producto.precio} €&lt;/p&gt;
+                                &lt;p class=&quot;t-detail-desc&quot;&gt;
                                     ${producto.descripcion}
                                 &lt;/p&gt;
                                 &lt;div style=&quot;margin-top: 16px; display: flex; gap: 10px;&quot;&gt;
-                                    &lt;button onclick=&quot;alert(&#x27;🛒 Producto añadido al carrito de compra de Angular&#x27;)&quot; style=&quot;background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9em;&quot;&gt;
+                                    &lt;button onclick=&quot;alert(&#x27;🛒 Producto añadido al carrito de compra de Angular&#x27;)&quot; class=&quot;t-btn-cart&quot;&gt;
                                         🛒 Añadir al Carrito
                                     &lt;/button&gt;
                                 &lt;/div&gt;
@@ -2051,6 +2072,7 @@ class TiendaAngularApp {
             }
         }
 
+        this.contenedor.className = &quot;t-app&quot;;
         this.contenedor.innerHTML = navbarHtml + contenidoHtml;
         this.bindEvents();
     }
