@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reto 9: Proyecto Tienda Online en React 18: Menú, Catálogo con Tarjetas, Filtro en Vivo y Vista de Detalle (useState y useEffect) - UT7: Comunicación Asíncrona (AJAX), Fetch API, Formatos y Frameworks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.10/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'Fira Code', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 p-4 sm:p-6 min-h-screen">
+  <div class="max-w-4xl mx-auto space-y-4">
+    <!-- Header -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl">
+      <div class="flex items-center justify-between gap-4 flex-wrap mb-2">
+        <span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">🎯 Reto 9 Propuesto en Presentación</span>
+        <span class="text-xs text-slate-400 font-medium">Bloque 9: Proyecto Tienda Online en React 18: Paso a Paso con Componentes, JSX y Hooks (useState y useEffect)</span>
+      </div>
+      <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 9: Proyecto Tienda Online en React 18: Menú, Catálogo con Tarjetas, Filtro en Vivo y Vista de Detalle (useState y useEffect)</h1>
+      <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
+        <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
+        <p class="text-xs text-slate-300 leading-relaxed">Construye un simulador interactivo completo que represente la arquitectura de la aplicación Tienda Online en React 18, incluyendo: 1) Barra de navegación superior con badge reactivo del carrito, 2) Catálogo en grid con tarjetas de productos y filtro de búsqueda en tiempo real mediante `useState`, 3) Carga asíncrona inicial de datos simulando un efecto secundario con `useEffect`, y 4) Ficha de detalle de producto con opción de retorno al catálogo principal.</p>
+      </div>
+      <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Crea una clase contenedora `ReactStoreSimulator` que maneje la reactividad del estado y ejecute `efectoInicialMontado()` para simular la carga con `useEffect`. Utiliza `\x3C` para escapar cualquier etiqueta HTML en las cadenas JS.</div>
+    </div>
+
+    <!-- Playground Action Bar -->
+    <div class="flex items-center justify-between gap-3 bg-slate-900 border border-slate-800 px-4 py-3 rounded-xl">
+      <div class="flex items-center gap-2">
+        <button id="btn-ejecutar" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg shadow-lg shadow-indigo-600/20 transition-all flex items-center gap-1.5 hover:scale-[1.02]">
+          <span>▶️ Ejecutar Solución</span>
+        </button>
+        <button id="btn-limpiar" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg transition-colors">
+          🧹 Limpiar Consola
+        </button>
+      </div>
+      <span class="text-[11px] text-slate-400 hidden sm:inline">Salida dual: Terminal interactivo y Consola F12</span>
+    </div>
+
+    <!-- Interactive Terminal Output -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+      <div class="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+          <span class="ml-2 font-bold text-slate-300">Terminal de Ejecución en Vivo</span>
+        </div>
+        <span id="log-count" class="text-[11px] text-slate-500">0 entradas</span>
+      </div>
+      <div id="console-output" class="p-4 font-mono text-xs max-h-[360px] overflow-y-auto space-y-1.5 text-slate-300 leading-relaxed bg-[#0a0d14]">
+        <!-- Logs dinámicos -->
+      </div>
+    </div>
+
+    <!-- DOM Sandbox Area for Retos that manipulate DOM -->
+    <div id="sandbox-container" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-2">
+      <div class="flex items-center justify-between border-b border-slate-800/80 pb-2 mb-2">
+        <span class="font-bold text-slate-400 flex items-center gap-1.5">
+          <span>🖥️ Área de Renderizado DOM / Contenedor de Pruebas</span>
+        </span>
+        <span class="text-[10px] text-slate-500">#sandbox-container</span>
+      </div>
+      <div id="app" class="min-h-[20px]"></div>
+      <div id="contenedor" class="min-h-[20px]"></div>
+      <div id="lista-carrito"></div>
+    </div>
+
+    <!-- Code Explanation & Source -->
+    <details class="bg-slate-900/80 border border-slate-800 rounded-xl p-4 text-xs">
+      <summary class="font-bold text-indigo-400 cursor-pointer flex items-center justify-between select-none">
+        <span>📖 Explicación Técnica y Código Fuente</span>
+        <span class="text-slate-500 text-[11px] bg-slate-800 px-2 py-0.5 rounded">Ver código</span>
+      </summary>
+      <div class="mt-3 text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
+        <p class="mb-3 text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-slate-800">El patrón de arquitectura basada en componentes declarativos, elevación de estado y efectos en React simplifica el desarrollo de SPAs comerciales mantenibles y reactivas.</p>
+        <pre class="bg-[#070a10] p-4 rounded-xl border border-slate-800 overflow-x-auto text-[11px] text-indigo-200 leading-relaxed"><code>// Reto 9: Simulador Interactivo de la Aplicación Tienda Online en React 18 (useState y useEffect)
+class ReactStoreSimulator {
+    constructor(contenedorId) {
+        this.contenedor = document.getElementById(contenedorId);
+        // Estado reactivo de la aplicación React (useState)
+        this.state = {
+            productos: [],
+            carrito: [],
+            cargando: true,
+            busqueda: &quot;&quot;,
+            vistaActual: &quot;catalogo&quot;, // &#x27;catalogo&#x27; | &#x27;detalle&#x27;
+            productoSeleccionado: null
+        };
+
+        // Simulación de efecto secundario useEffect(() =&gt; {}, []) al montar el componente
+        this.efectoInicialMontado();
+    }
+
+    // Función equivalente al despachador setState() de React para re-renderizar reactivamente
+    setState(nuevoEstadoParcial) {
+        this.state = { ...this.state, ...nuevoEstadoParcial };
+        this.render();
+    }
+
+    efectoInicialMontado() {
+        console.log(&quot;⚛️ [useEffect] Ejecutando efecto de carga inicial de productos desde la API REST...&quot;);
+        setTimeout(() =&gt; {
+            const datosApi = [
+                { id: 1, nombre: &quot;Portátil React Book 16&quot;, precio: 1299, imagen: &quot;💻&quot;, descripcion: &quot;Procesador M3 Ultra 16-Core, 32GB RAM DDR5, Pantalla OLED 120Hz. Optimizado para desarrollo con React 18 y Next.js.&quot;, categoria: &quot;Ordenadores&quot; },
+                { id: 2, nombre: &quot;Teclado Mecánico JSX RGB&quot;, precio: 119, imagen: &quot;⌨️&quot;, descripcion: &quot;Switches mecánicos táctiles silenciosos, iluminación RGB direccionable por software y cable trenzado USB-C.&quot;, categoria: &quot;Periféricos&quot; },
+                { id: 3, nombre: &quot;Monitor Curvo Hooks 4K&quot;, precio: 449, imagen: &quot;🖥️&quot;, descripcion: &quot;Resolución UHD 3840x2160, 144Hz, cobertura 99% sRGB. Visualización multitarea sin parpadeos para desarrolladores.&quot;, categoria: &quot;Pantallas&quot; },
+                { id: 4, nombre: &quot;Auriculares State HiFi&quot;, precio: 179, imagen: &quot;🎧&quot;, descripcion: &quot;Audio de alta resolución Hi-Res, cancelación activa de ruido adaptativa y micrófonos duales beamforming.&quot;, categoria: &quot;Audio&quot; }
+            ];
+            this.setState({ productos: datosApi, cargando: false });
+        }, 500);
+    }
+
+    render() {
+        if (!this.contenedor) return;
+
+        if (this.state.cargando) {
+            this.contenedor.innerHTML = `
+                \x3Cdiv style=&quot;padding: 24px; background: #0f172a; color: #38bdf8; font-weight: bold; border-radius: 10px; font-family: sans-serif; text-align: center;&quot;\x3E
+                    ⌛ [React useEffect] Cargando productos asíncronos desde API REST...
+                \x3C/div\x3E
+            `;
+            return;
+        }
+
+        // 1. Componente Navbar
+        const navbarHtml = `
+            \x3Cnav style=&quot;background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 10px 10px 0 0;&quot;\x3E
+                \x3Cdiv style=&quot;display: flex; align-items: center; gap: 10px;&quot;\x3E
+                    \x3Cspan style=&quot;font-size: 1.5em;&quot;\x3E⚛️\x3C/span\x3E
+                    \x3Cstrong style=&quot;color: #f8fafc; font-size: 1.1em;&quot;\x3ETienda React 18 Store\x3C/strong\x3E
+                \x3C/div\x3E
+                \x3Cdiv style=&quot;display: flex; gap: 12px; align-items: center;&quot;\x3E
+                    \x3Cbutton id=&quot;btn-nav-catalogo&quot; style=&quot;background: ${this.state.vistaActual === &#x27;catalogo&#x27; ? &#x27;#0284c7&#x27; : &#x27;transparent&#x27;}; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em;&quot;\x3E
+                        🛒 Catálogo
+                    \x3C/button\x3E
+                    \x3Cspan style=&quot;background: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 0.8em;&quot;\x3E
+                        🛒 Carrito (${this.state.carrito.length})
+                    \x3C/span\x3E
+                \x3C/div\x3E
+            \x3C/nav\x3E
+        `;
+
+        let cuerpoHtml = &quot;&quot;;
+
+        // 2. Componente Vista de Catálogo con Filtro useState
+        if (this.state.vistaActual === &quot;catalogo&quot;) {
+            const productosFiltrados = this.state.productos.filter(p =&gt;
+                p.nombre.toLowerCase().includes(this.state.busqueda.toLowerCase())
+            );
+
+            cuerpoHtml = `
+                \x3Cdiv style=&quot;padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;&quot;\x3E
+                    \x3Cdiv style=&quot;margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; gap: 14px;&quot;\x3E
+                        \x3Cdiv\x3E
+                            \x3Ch2 style=&quot;margin: 0; color: #f8fafc; font-size: 1.2em;&quot;\x3ECatálogo de Productos Destacados\x3C/h2\x3E
+                            \x3Cp style=&quot;margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85em;&quot;\x3ERenderizado reactivo de componentes e inmutabilidad de estado en React 18\x3C/p\x3E
+                        \x3C/div\x3E
+                        \x3Cinput id=&quot;react-search-input&quot; type=&quot;text&quot; placeholder=&quot;🔍 Filtrar en vivo (useState)...&quot; value=&quot;${this.state.busqueda}&quot; style=&quot;padding: 8px 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 0.85em; width: 220px;&quot; /\x3E
+                    \x3C/div\x3E
+
+                    \x3Cdiv style=&quot;display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px;&quot;\x3E
+                        ${productosFiltrados.map(p =&gt; `
+                            \x3Cdiv style=&quot;background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;&quot;\x3E
+                                \x3Cdiv\x3E
+                                    \x3Cdiv style=&quot;font-size: 3em; text-align: center; margin-bottom: 8px;&quot;\x3E${p.imagen}\x3C/div\x3E
+                                    \x3Cspan style=&quot;font-size: 0.7em; background: #0284c7; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;&quot;\x3E${p.categoria}\x3C/span\x3E
+                                    \x3Ch3 style=&quot;margin: 8px 0 4px 0; color: #f8fafc; font-size: 1em;&quot;\x3E${p.nombre}\x3C/h3\x3E
+                                    \x3Cp style=&quot;margin: 0; color: #38bdf8; font-weight: bold; font-size: 1.1em;&quot;\x3E${p.precio} €\x3C/p\x3E
+                                \x3C/div\x3E
+                                \x3Cdiv style=&quot;margin-top: 14px; display: flex; flex-direction: column; gap: 6px;&quot;\x3E
+                                    \x3Cbutton class=&quot;btn-react-detalle&quot; data-id=&quot;${p.id}&quot; style=&quot;background: #0284c7; color: white; border: none; padding: 7px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.82em; width: 100%;&quot;\x3E
+                                        🔍 Ver Detalle
+                                    \x3C/button\x3E
+                                    \x3Cbutton class=&quot;btn-react-add&quot; data-id=&quot;${p.id}&quot; style=&quot;background: #10b981; color: white; border: none; padding: 7px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.82em; width: 100%;&quot;\x3E
+                                        ➕ Añadir al Carrito
+                                    \x3C/button\x3E
+                                \x3C/div\x3E
+                            \x3C/div\x3E
+                        `).join(&#x27;&#x27;)}
+                    \x3C/div\x3E
+                \x3C/div\x3E
+            `;
+        } 
+        // 3. Componente Vista de Detalle (ProductoDetalle)
+        else if (this.state.vistaActual === &quot;detalle&quot; &amp;&amp; this.state.productoSeleccionado) {
+            const p = this.state.productoSeleccionado;
+            cuerpoHtml = `
+                \x3Cdiv style=&quot;padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;&quot;\x3E
+                    \x3Cbutton id=&quot;btn-react-volver&quot; style=&quot;background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 16px; font-size: 0.85em; font-weight: bold;&quot;\x3E
+                        ← Volver al Catálogo
+                    \x3C/button\x3E
+                    \x3Cdiv style=&quot;background: #0f172a; border: 1px solid #38bdf8; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: start;&quot;\x3E
+                        \x3Cdiv style=&quot;font-size: 3.5em; text-align: center; background: #1e293b; border-radius: 10px; padding: 10px;&quot;\x3E${p.imagen}\x3C/div\x3E
+                        \x3Cdiv\x3E
+                            \x3Cdiv style=&quot;display: flex; gap: 8px; align-items: center; margin-bottom: 6px;&quot;\x3E
+                                \x3Cspan style=&quot;font-size: 0.7em; background: #0284c7; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold;&quot;\x3E${p.categoria}\x3C/span\x3E
+                            \x3C/div\x3E
+                            \x3Ch2 style=&quot;margin: 0 0 8px 0; color: #f8fafc; font-size: 1.4em;&quot;\x3E${p.nombre}\x3C/h2\x3E
+                            \x3Cp style=&quot;margin: 0 0 12px 0; color: #38bdf8; font-weight: bold; font-size: 1.3em;&quot;\x3E${p.precio} €\x3C/p\x3E
+                            \x3Cp style=&quot;margin: 0; color: #cbd5e1; font-size: 0.9em; line-height: 1.5; background: #1e293b; padding: 12px; border-radius: 8px; border-left: 3px solid #38bdf8;&quot;\x3E
+                                ${p.descripcion}
+                            \x3C/p\x3E
+                            \x3Cdiv style=&quot;margin-top: 16px;&quot;\x3E
+                                \x3Cbutton class=&quot;btn-react-add&quot; data-id=&quot;${p.id}&quot; style=&quot;background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9em;&quot;\x3E
+                                    🛒 Añadir al Carrito de React
+                                \x3C/button\x3E
+                            \x3C/div\x3E
+                        \x3C/div\x3E
+                    \x3C/div\x3E
+                \x3C/div\x3E
+            `;
+        }
+
+        this.contenedor.innerHTML = navbarHtml + cuerpoHtml;
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        const btnNavCat = this.contenedor.querySelector(&quot;#btn-nav-catalogo&quot;);
+        if (btnNavCat) {
+            btnNavCat.onclick = () =&gt; {
+                this.setState({ vistaActual: &quot;catalogo&quot; });
+            };
+        }
+
+        const btnVolver = this.contenedor.querySelector(&quot;#btn-react-volver&quot;);
+        if (btnVolver) {
+            btnVolver.onclick = () =&gt; {
+                this.setState({ vistaActual: &quot;catalogo&quot; });
+            };
+        }
+
+        const searchInput = this.contenedor.querySelector(&quot;#react-search-input&quot;);
+        if (searchInput) {
+            searchInput.oninput = (e) =&gt; {
+                this.setState({ busqueda: e.target.value });
+            };
+        }
+
+        const btnsDetalle = this.contenedor.querySelectorAll(&quot;.btn-react-detalle&quot;);
+        btnsDetalle.forEach(btn =&gt; {
+            btn.onclick = (e) =&gt; {
+                const id = Number(e.currentTarget.dataset.id);
+                const producto = this.state.productos.find(p =&gt; p.id === id);
+                if (producto) {
+                    this.setState({ productoSeleccionado: producto, vistaActual: &quot;detalle&quot; });
+                }
+            };
+        });
+
+        const btnsAdd = this.contenedor.querySelectorAll(&quot;.btn-react-add&quot;);
+        btnsAdd.forEach(btn =&gt; {
+            btn.onclick = (e) =&gt; {
+                const id = Number(e.currentTarget.dataset.id);
+                const producto = this.state.productos.find(p =&gt; p.id === id);
+                if (producto) {
+                    this.setState({ carrito: [...this.state.carrito, producto] });
+                }
+            };
+        });
+    }
+}
+
+// Inicialización en Sandbox
+const mountNode = document.getElementById(&quot;app&quot;) || document.getElementById(&quot;sandbox-container&quot;);
+if (mountNode) {
+    const reactApp = new ReactStoreSimulator(mountNode.id);
+}</code></pre>
+      </div>
+    </details>
+  </div>
+
+  <script>
+    const outputEl = document.getElementById('console-output');
+    const countEl = document.getElementById('log-count');
+    let logCount = 0;
+
+    function renderTable(data) {
+      if (!data) return String(data);
+      if (Array.isArray(data)) {
+        if (data.length === 0) return '[] (Array vacío)';
+        const keys = Object.keys(data[0] || {});
+        if (keys.length === 0) return JSON.stringify(data);
+        let ths = keys.map(k => `<th class="border border-slate-700 bg-slate-800 px-2 py-1 text-left font-semibold text-indigo-300 text-[10px]">${k}</th>`).join('');
+        let rows = data.map((row, i) => {
+          let tds = keys.map(k => `<td class="border border-slate-800/80 px-2 py-1 text-[11px] text-slate-300">${row[k] !== undefined ? String(row[k]) : ''}</td>`).join('');
+          let bg = i % 2 === 0 ? 'bg-slate-900/50' : 'bg-slate-950/50';
+          return `<tr class="${bg}">${tds}</tr>`;
+        }).join('');
+        return `<div class="overflow-x-auto my-1"><table class="w-full border-collapse border border-slate-700 text-xs"><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table></div>`;
+      } else if (typeof data === 'object') {
+        const keys = Object.keys(data);
+        let rows = keys.map(k => `<tr><td class="border border-slate-800 bg-slate-800/60 font-semibold text-indigo-300 px-2 py-1 text-[11px]">${k}</td><td class="border border-slate-800 px-2 py-1 text-[11px] text-slate-300">${String(data[k])}</td></tr>`).join('');
+        return `<div class="overflow-x-auto my-1"><table class="border-collapse border border-slate-700 text-xs"><tbody>${rows}</tbody></table></div>`;
+      }
+      return String(data);
+    }
+
+    function appendLog(type, args) {
+      logCount++;
+      countEl.textContent = logCount + " entradas";
+      const line = document.createElement('div');
+      line.className = "flex items-start gap-2 py-1 border-b border-slate-800/40";
+      
+      const time = new Date().toLocaleTimeString();
+      const timeSpan = `<span class="text-slate-600 text-[10px] font-mono select-none pt-0.5">${time}</span>`;
+      
+      let badgeColor = "bg-slate-800 text-slate-300 border border-slate-700";
+      let textCol = "text-slate-200";
+      if (type === 'warn') { badgeColor = "bg-amber-950 text-amber-300 border border-amber-800"; textCol = "text-amber-200"; }
+      if (type === 'error') { badgeColor = "bg-rose-950 text-rose-300 border border-rose-800"; textCol = "text-rose-200"; }
+      if (type === 'table') { badgeColor = "bg-indigo-950 text-indigo-300 border border-indigo-800"; }
+      if (type === 'time') { badgeColor = "bg-emerald-950 text-emerald-300 border border-emerald-800"; textCol = "text-emerald-300"; }
+      if (type === 'group') { badgeColor = "bg-blue-950 text-blue-300 border border-blue-800 font-bold"; textCol = "text-blue-200 font-bold"; }
+      if (type === 'system') { badgeColor = "bg-purple-950 text-purple-300 border border-purple-800"; textCol = "text-purple-200 italic"; }
+
+      const badge = `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${badgeColor} flex-shrink-0">${type}</span>`;
+      
+      let contentHtml = "";
+      if (type === 'table') {
+        contentHtml = renderTable(args[0]);
+      } else {
+        let str = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+        contentHtml = `<pre class="font-mono text-xs whitespace-pre-wrap break-all ${textCol} flex-1 m-0">${str}</pre>`;
+      }
+      
+      line.innerHTML = `${timeSpan} ${badge} <div class="flex-1">${contentHtml}</div>`;
+      outputEl.appendChild(line);
+      outputEl.scrollTop = outputEl.scrollHeight;
+    }
+
+    const origLog = console.log;
+    const origWarn = console.warn;
+    const origErr = console.error;
+    const origTable = console.table;
+    const origGroup = console.group || console.log;
+    const origGroupEnd = console.groupEnd || (() => {});
+    const origAssert = console.assert;
+    const origTime = console.time || (() => {});
+    const origTimeEnd = console.timeEnd || (() => {});
+
+    const timers = {};
+
+    console.log = (...args) => { origLog(...args); appendLog('log', args); };
+    console.warn = (...args) => { origWarn(...args); appendLog('warn', args); };
+    console.error = (...args) => { origErr(...args); appendLog('error', args); };
+    console.table = (data) => { origTable(data); appendLog('table', [data]); };
+    console.group = (name) => { origGroup(name); appendLog('group', [name]); };
+    console.groupCollapsed = (name) => { origGroup(name); appendLog('group', [name]); };
+    console.groupEnd = () => { origGroupEnd(); };
+    console.assert = (assertion, ...args) => {
+      origAssert(assertion, ...args);
+      if (!assertion) {
+        appendLog('error', ['Assertion failed ❌', ...args]);
+      } else {
+        appendLog('log', ['Assertion passed ✅', ...args]);
+      }
+    };
+    console.time = (label = 'default') => {
+      timers[label] = performance.now();
+      origTime(label);
+      appendLog('time', [`⏱️ Inicio temporizador: "${label}"`]);
+    };
+    console.timeEnd = (label = 'default') => {
+      const elapsed = timers[label] !== undefined ? (performance.now() - timers[label]).toFixed(3) : 0;
+      origTimeEnd(label);
+      appendLog('time', [`⏱️ Fin temporizador "${label}": ${elapsed} ms`]);
+    };
+
+    document.getElementById('btn-limpiar').onclick = () => {
+      outputEl.innerHTML = '<div class="text-slate-500 italic py-1">Consola limpia. Presiona "Ejecutar Solución" para correr el script.</div>';
+      logCount = 0;
+      countEl.textContent = "0 entradas";
+    };
+
+    const RAW_SOLUTION = "// Reto 9: Simulador Interactivo de la Aplicación Tienda Online en React 18 (useState y useEffect)\nclass ReactStoreSimulator {\n    constructor(contenedorId) {\n        this.contenedor = document.getElementById(contenedorId);\n        // Estado reactivo de la aplicación React (useState)\n        this.state = {\n            productos: [],\n            carrito: [],\n            cargando: true,\n            busqueda: \"\",\n            vistaActual: \"catalogo\", // 'catalogo' | 'detalle'\n            productoSeleccionado: null\n        };\n\n        // Simulación de efecto secundario useEffect(() => {}, []) al montar el componente\n        this.efectoInicialMontado();\n    }\n\n    // Función equivalente al despachador setState() de React para re-renderizar reactivamente\n    setState(nuevoEstadoParcial) {\n        this.state = { ...this.state, ...nuevoEstadoParcial };\n        this.render();\n    }\n\n    efectoInicialMontado() {\n        console.log(\"⚛️ [useEffect] Ejecutando efecto de carga inicial de productos desde la API REST...\");\n        setTimeout(() => {\n            const datosApi = [\n                { id: 1, nombre: \"Portátil React Book 16\", precio: 1299, imagen: \"💻\", descripcion: \"Procesador M3 Ultra 16-Core, 32GB RAM DDR5, Pantalla OLED 120Hz. Optimizado para desarrollo con React 18 y Next.js.\", categoria: \"Ordenadores\" },\n                { id: 2, nombre: \"Teclado Mecánico JSX RGB\", precio: 119, imagen: \"⌨️\", descripcion: \"Switches mecánicos táctiles silenciosos, iluminación RGB direccionable por software y cable trenzado USB-C.\", categoria: \"Periféricos\" },\n                { id: 3, nombre: \"Monitor Curvo Hooks 4K\", precio: 449, imagen: \"🖥️\", descripcion: \"Resolución UHD 3840x2160, 144Hz, cobertura 99% sRGB. Visualización multitarea sin parpadeos para desarrolladores.\", categoria: \"Pantallas\" },\n                { id: 4, nombre: \"Auriculares State HiFi\", precio: 179, imagen: \"🎧\", descripcion: \"Audio de alta resolución Hi-Res, cancelación activa de ruido adaptativa y micrófonos duales beamforming.\", categoria: \"Audio\" }\n            ];\n            this.setState({ productos: datosApi, cargando: false });\n        }, 500);\n    }\n\n    render() {\n        if (!this.contenedor) return;\n\n        if (this.state.cargando) {\n            this.contenedor.innerHTML = `\n                \\x3Cdiv style=\"padding: 24px; background: #0f172a; color: #38bdf8; font-weight: bold; border-radius: 10px; font-family: sans-serif; text-align: center;\"\\x3E\n                    ⌛ [React useEffect] Cargando productos asíncronos desde API REST...\n                \\x3C/div\\x3E\n            `;\n            return;\n        }\n\n        // 1. Componente Navbar\n        const navbarHtml = `\n            \\x3Cnav style=\"background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 10px 10px 0 0;\"\\x3E\n                \\x3Cdiv style=\"display: flex; align-items: center; gap: 10px;\"\\x3E\n                    \\x3Cspan style=\"font-size: 1.5em;\"\\x3E⚛️\\x3C/span\\x3E\n                    \\x3Cstrong style=\"color: #f8fafc; font-size: 1.1em;\"\\x3ETienda React 18 Store\\x3C/strong\\x3E\n                \\x3C/div\\x3E\n                \\x3Cdiv style=\"display: flex; gap: 12px; align-items: center;\"\\x3E\n                    \\x3Cbutton id=\"btn-nav-catalogo\" style=\"background: ${this.state.vistaActual === 'catalogo' ? '#0284c7' : 'transparent'}; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em;\"\\x3E\n                        🛒 Catálogo\n                    \\x3C/button\\x3E\n                    \\x3Cspan style=\"background: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 0.8em;\"\\x3E\n                        🛒 Carrito (${this.state.carrito.length})\n                    \\x3C/span\\x3E\n                \\x3C/div\\x3E\n            \\x3C/nav\\x3E\n        `;\n\n        let cuerpoHtml = \"\";\n\n        // 2. Componente Vista de Catálogo con Filtro useState\n        if (this.state.vistaActual === \"catalogo\") {\n            const productosFiltrados = this.state.productos.filter(p =>\n                p.nombre.toLowerCase().includes(this.state.busqueda.toLowerCase())\n            );\n\n            cuerpoHtml = `\n                \\x3Cdiv style=\"padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;\"\\x3E\n                    \\x3Cdiv style=\"margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; gap: 14px;\"\\x3E\n                        \\x3Cdiv\\x3E\n                            \\x3Ch2 style=\"margin: 0; color: #f8fafc; font-size: 1.2em;\"\\x3ECatálogo de Productos Destacados\\x3C/h2\\x3E\n                            \\x3Cp style=\"margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85em;\"\\x3ERenderizado reactivo de componentes e inmutabilidad de estado en React 18\\x3C/p\\x3E\n                        \\x3C/div\\x3E\n                        \\x3Cinput id=\"react-search-input\" type=\"text\" placeholder=\"🔍 Filtrar en vivo (useState)...\" value=\"${this.state.busqueda}\" style=\"padding: 8px 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 0.85em; width: 220px;\" /\\x3E\n                    \\x3C/div\\x3E\n\n                    \\x3Cdiv style=\"display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px;\"\\x3E\n                        ${productosFiltrados.map(p => `\n                            \\x3Cdiv style=\"background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;\"\\x3E\n                                \\x3Cdiv\\x3E\n                                    \\x3Cdiv style=\"font-size: 3em; text-align: center; margin-bottom: 8px;\"\\x3E${p.imagen}\\x3C/div\\x3E\n                                    \\x3Cspan style=\"font-size: 0.7em; background: #0284c7; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;\"\\x3E${p.categoria}\\x3C/span\\x3E\n                                    \\x3Ch3 style=\"margin: 8px 0 4px 0; color: #f8fafc; font-size: 1em;\"\\x3E${p.nombre}\\x3C/h3\\x3E\n                                    \\x3Cp style=\"margin: 0; color: #38bdf8; font-weight: bold; font-size: 1.1em;\"\\x3E${p.precio} €\\x3C/p\\x3E\n                                \\x3C/div\\x3E\n                                \\x3Cdiv style=\"margin-top: 14px; display: flex; flex-direction: column; gap: 6px;\"\\x3E\n                                    \\x3Cbutton class=\"btn-react-detalle\" data-id=\"${p.id}\" style=\"background: #0284c7; color: white; border: none; padding: 7px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.82em; width: 100%;\"\\x3E\n                                        🔍 Ver Detalle\n                                    \\x3C/button\\x3E\n                                    \\x3Cbutton class=\"btn-react-add\" data-id=\"${p.id}\" style=\"background: #10b981; color: white; border: none; padding: 7px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.82em; width: 100%;\"\\x3E\n                                        ➕ Añadir al Carrito\n                                    \\x3C/button\\x3E\n                                \\x3C/div\\x3E\n                            \\x3C/div\\x3E\n                        `).join('')}\n                    \\x3C/div\\x3E\n                \\x3C/div\\x3E\n            `;\n        } \n        // 3. Componente Vista de Detalle (ProductoDetalle)\n        else if (this.state.vistaActual === \"detalle\" && this.state.productoSeleccionado) {\n            const p = this.state.productoSeleccionado;\n            cuerpoHtml = `\n                \\x3Cdiv style=\"padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;\"\\x3E\n                    \\x3Cbutton id=\"btn-react-volver\" style=\"background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 16px; font-size: 0.85em; font-weight: bold;\"\\x3E\n                        ← Volver al Catálogo\n                    \\x3C/button\\x3E\n                    \\x3Cdiv style=\"background: #0f172a; border: 1px solid #38bdf8; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: start;\"\\x3E\n                        \\x3Cdiv style=\"font-size: 3.5em; text-align: center; background: #1e293b; border-radius: 10px; padding: 10px;\"\\x3E${p.imagen}\\x3C/div\\x3E\n                        \\x3Cdiv\\x3E\n                            \\x3Cdiv style=\"display: flex; gap: 8px; align-items: center; margin-bottom: 6px;\"\\x3E\n                                \\x3Cspan style=\"font-size: 0.7em; background: #0284c7; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold;\"\\x3E${p.categoria}\\x3C/span\\x3E\n                            \\x3C/div\\x3E\n                            \\x3Ch2 style=\"margin: 0 0 8px 0; color: #f8fafc; font-size: 1.4em;\"\\x3E${p.nombre}\\x3C/h2\\x3E\n                            \\x3Cp style=\"margin: 0 0 12px 0; color: #38bdf8; font-weight: bold; font-size: 1.3em;\"\\x3E${p.precio} €\\x3C/p\\x3E\n                            \\x3Cp style=\"margin: 0; color: #cbd5e1; font-size: 0.9em; line-height: 1.5; background: #1e293b; padding: 12px; border-radius: 8px; border-left: 3px solid #38bdf8;\"\\x3E\n                                ${p.descripcion}\n                            \\x3C/p\\x3E\n                            \\x3Cdiv style=\"margin-top: 16px;\"\\x3E\n                                \\x3Cbutton class=\"btn-react-add\" data-id=\"${p.id}\" style=\"background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9em;\"\\x3E\n                                    🛒 Añadir al Carrito de React\n                                \\x3C/button\\x3E\n                            \\x3C/div\\x3E\n                        \\x3C/div\\x3E\n                    \\x3C/div\\x3E\n                \\x3C/div\\x3E\n            `;\n        }\n\n        this.contenedor.innerHTML = navbarHtml + cuerpoHtml;\n        this.bindEvents();\n    }\n\n    bindEvents() {\n        const btnNavCat = this.contenedor.querySelector(\"#btn-nav-catalogo\");\n        if (btnNavCat) {\n            btnNavCat.onclick = () => {\n                this.setState({ vistaActual: \"catalogo\" });\n            };\n        }\n\n        const btnVolver = this.contenedor.querySelector(\"#btn-react-volver\");\n        if (btnVolver) {\n            btnVolver.onclick = () => {\n                this.setState({ vistaActual: \"catalogo\" });\n            };\n        }\n\n        const searchInput = this.contenedor.querySelector(\"#react-search-input\");\n        if (searchInput) {\n            searchInput.oninput = (e) => {\n                this.setState({ busqueda: e.target.value });\n            };\n        }\n\n        const btnsDetalle = this.contenedor.querySelectorAll(\".btn-react-detalle\");\n        btnsDetalle.forEach(btn => {\n            btn.onclick = (e) => {\n                const id = Number(e.currentTarget.dataset.id);\n                const producto = this.state.productos.find(p => p.id === id);\n                if (producto) {\n                    this.setState({ productoSeleccionado: producto, vistaActual: \"detalle\" });\n                }\n            };\n        });\n\n        const btnsAdd = this.contenedor.querySelectorAll(\".btn-react-add\");\n        btnsAdd.forEach(btn => {\n            btn.onclick = (e) => {\n                const id = Number(e.currentTarget.dataset.id);\n                const producto = this.state.productos.find(p => p.id === id);\n                if (producto) {\n                    this.setState({ carrito: [...this.state.carrito, producto] });\n                }\n            };\n        });\n    }\n}\n\n// Inicialización en Sandbox\nconst mountNode = document.getElementById(\"app\") || document.getElementById(\"sandbox-container\");\nif (mountNode) {\n    const reactApp = new ReactStoreSimulator(mountNode.id);\n}";
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'reto-log') {
+        appendLog('log', e.data.args);
+      }
+    });
+
+    async function ejecutarSolucion() {
+      appendLog('system', ['🚀 Ejecutando script del reto en entorno interactivo...']);
+      const code = RAW_SOLUTION.trim();
+
+      // Caso 1: Documento HTML completo (ej. Reto 4: Integración en HTML)
+      if (code.startsWith("<!DOCTYPE") || code.startsWith("<html")) {
+        appendLog('system', ['🌐 Documento HTML5 detectado. Renderizando en el Sandbox...']);
+        const sandbox = document.getElementById('sandbox-container');
+        if (sandbox) {
+          const oldFrame = document.getElementById('reto-html-frame');
+          if (oldFrame) oldFrame.remove();
+          const iframe = document.createElement('iframe');
+          iframe.id = 'reto-html-frame';
+          iframe.className = 'w-full h-44 border border-slate-700 rounded-lg bg-white mt-2';
+          sandbox.appendChild(iframe);
+          
+          const hookScript = `<script>
+            const _origLog = console.log;
+            console.log = (...a) => { _origLog(...a); window.parent.postMessage({type:'reto-log', args: a}, '*'); };
+          <\/script>`;
+          const finalHtml = code.includes('<head>') ? code.replace('<head>', '<head>' + hookScript) : hookScript + code;
+          iframe.srcdoc = finalHtml;
+        }
+        appendLog('log', ['✅ Documento HTML cargado en el sandbox. Los logs se reflejan arriba.']);
+        return;
+      }
+
+      // Caso 2: Comandos de Terminal Git / Bash (ej. Reto 5: Git)
+      if (code.startsWith("git ") || code.startsWith("#")) {
+        appendLog('system', ['💻 [Simulador de Terminal Git]']);
+        code.split('\n').forEach(line => {
+          const l = line.trim();
+          if (l.startsWith('#')) {
+            appendLog('warn', [l]);
+          } else if (l) {
+            appendLog('log', ['$ ' + l]);
+          }
+        });
+        appendLog('system', ['✅ Secuencia Git ejecutada correctamente en el repositorio.']);
+        return;
+      }
+
+      // Caso 3: Código JavaScript / React
+      try {
+        let executableCode = code;
+        if (window.Babel && (code.includes('<') || code.includes('useState') || code.includes('React.'))) {
+          try {
+            executableCode = window.Babel.transform(code, { presets: ['react'] }).code;
+          } catch (bErr) {
+            console.warn("Babel transform note:", bErr.message);
+          }
+        }
+        const runFn = new Function('console', executableCode);
+        const res = runFn(window.console);
+        if (res !== undefined) {
+          appendLog('log', ['⬅️ Retorno:', res]);
+        }
+      } catch (err) {
+        console.error("Excepción en la ejecución:", err.message);
+      }
+    }
+
+    document.getElementById('btn-ejecutar').onclick = () => {
+      ejecutarSolucion();
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      ejecutarSolucion();
+    });
+  </script>
+</body>
+</html>

@@ -494,8 +494,8 @@
           <div class="index-card" style="border-left: 4px solid #0284c7; background: #f0f9ff;">
             <div class="index-badge" style="background: #0284c7; color: white;">9</div>
             <div class="index-info">
-              <div class="index-title">Componentes, Estado y Ciclo de Vida en React: Hooks (useState, useEffect) y Arquitectura de Componentes <span style="font-size: 0.65em; background: #0284c7; color: white; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 800; vertical-align: middle;">⚛️ REACT</span></div>
-              <p class="index-desc">React es una librería declarativa y basada en componentes para la creación de interfaces de usuario interactivas en Single Page Applications (SPAs).</p>
+              <div class="index-title">Proyecto Tienda Online en React 18: Paso a Paso con Componentes, JSX y Hooks (useState y useEffect) <span style="font-size: 0.65em; background: #0284c7; color: white; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 800; vertical-align: middle;">⚛️ REACT</span></div>
+              <p class="index-desc">React 18 permite construir aplicaciones SPA altamente reactivas organizando la interfaz en componentes declarativos y gestionando los datos mediante Hooks (`useState` y `useEffect`) . A continuación se detalla la construcción paso a paso del proyecto Tienda Online en React.</p>
             </div>
           </div>
         </div>
@@ -2042,38 +2042,44 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
       <section>
         <div class="slide-header">
           <span class="badge-sub">Bloque 9 de 9 · Teoría y Demostración</span>
-          <h2>9. Componentes, Estado y Ciclo de Vida en React: Hooks (useState, useEffect) y Arquitectura de Componentes</h2>
+          <h2>9. Proyecto Tienda Online en React 18: Paso a Paso con Componentes, JSX y Hooks (useState y useEffect)</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p><strong>React</strong> es una librería declarativa y basada en componentes para la creación de interfaces de usuario interactivas en Single Page Applications (SPAs):</p>
+            <div class="card-text"><p><strong>React 18</strong> permite construir aplicaciones SPA altamente reactivas organizando la interfaz en componentes declarativos y gestionando los datos mediante <strong>Hooks (`useState` y `useEffect`)</strong>. A continuación se detalla la construcción paso a paso del proyecto <strong>Tienda Online en React</strong>:</p>
 <ul class="concept-list">
-  <li><strong>Arquitectura Basada en Componentes y Sintaxis JSX:</strong>
-    <p>Las aplicaciones React se estructuran dividiendo la interfaz en componentes independientes y reutilizables. JSX (JavaScript XML) permite escribir sintaxis de marcado similar a HTML directamente dentro del código JavaScript.</p>
+  <li><strong>Paso 1: Setup Inicial con Vite CLI (`npm create vite@latest`):</strong>
+    <p>Inicialización rápida de un proyecto React 18 moderno sin sobrecarga de configuración:</p>
+    <pre><code>npm create vite@latest tienda-react -- --template react
+cd tienda-react
+npm install
+npm run dev</code></pre>
   </li>
-  <li><strong>Gestión de Estado Reactivo con <code>useState</code>:</strong>
-    <p>El hook <code>useState</code> permite declarar variables de estado reactivo. Cuando el estado cambia mediante su función actualizadora, React vuelve a renderizar automáticamente la interfaz para reflejar los nuevos datos en el DOM Virtual (VDOM).</p>
+  <li><strong>Paso 2: Modelado del Estado Global en `App.jsx` (`useState`):</strong>
+    <p>Se declaran las variables de estado reactivo principales: lista de productos, carrito de compras, vista activa (<code>'catalogo' | 'detalle'</code>), término de búsqueda y producto seleccionado.</p>
   </li>
-  <li><strong>Gestión de Efectos Secundarios y Peticiones Asíncronas con <code>useEffect</code>:</strong>
-    <p>El hook <code>useEffect</code> sincroniza el componente con sistemas externos (como peticiones HTTP con <code>fetch</code>, temporizadores o suscripciones):</p>
-    <ul>
-      <li><em>Array de Dependencias Vacío <code>[]</code>:</em> Se ejecuta una sola vez al montar el componente en el DOM (ideal para cargar datos iniciales).</li>
-      <li><em>Array con Variables <code>[filtro]</code>:</em> Se reejecuta cada vez que cambia el valor de alguna variable indicada.</li>
-      <li><em>Función de Limpieza (Cleanup):</em> Retornar una función desde el efecto para cancelar peticiones pendientes o limpiar subscripciones.</li>
-    </ul>
+  <li><strong>Paso 3: Barra de Navegación Superior (`Navbar.jsx`):</strong>
+    <p>Componente funcional que recibe como <em>props</em> la longitud del carrito y la función de navegación para mostrar la marca de la tienda y el contador reactivo en tiempo real.</p>
   </li>
-  <li><strong>Flujo de Datos Unidireccional (Props):</strong>
-    <p>Los componentes padres comunican datos y callbacks hacia los componentes hijos exclusivamente mediante propiedades (<strong>props</strong>) de arriba a abajo.</p>
+  <li><strong>Paso 4: Catálogo y Grid de Tarjetas (`ProductoLista.jsx`):</strong>
+    <p>Renderizado declarativo del array de productos con <code>.map()</code>. Cada tarjeta muestra la imagen, nombre, categoría, precio y botones para añadir al carrito o ver el detalle ampliatorio.</p>
+  </li>
+  <li><strong>Paso 5: Vista de Ficha Ampliada (`ProductoDetalle.jsx`):</strong>
+    <p>Componente dedicado que muestra las especificaciones técnicas completas del producto seleccionado y un botón para retornar al catálogo principal.</p>
+  </li>
+  <li><strong>Paso 6: Efecto Asíncrono de Carga y Persistencia (`useEffect`):</strong>
+    <p>Uso de <code>useEffect(() => { ... }, [])</code> con array de dependencias vacío para cargar los productos desde la API REST al montar el componente, y persistencia automática del carrito en <code>localStorage</code>.</p>
   </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>Estándares React 18, React DOM y Arquitectura con Hooks:</strong></p>
+            <div class="card-text"><p><strong>Patrones Avanzados en React 18: Componentes Funcionales, Hooks y Reconciliación VDOM:</strong></p>
 <ul class="concept-list">
-  <li><strong>Virtual DOM y Reconciliación:</strong> React mantiene una representación ligera en memoria del DOM (Virtual DOM). Al cambiar el estado, realiza una comparación algorítmica diferida (diffing) y aplica únicamente las modificaciones mínimas necesarias al DOM real del navegador.</li>
-  <li><strong>Reglas de los Hooks:</strong> Los Hooks solo deben invocarse en el nivel superior de componentes funcionales de React, nunca dentro de bucles, condicionales o funciones anidadas.</li>
+  <li><strong>Elevación de Estado (Lifting State Up):</strong> Cuando dos o más componentes necesitan compartir el mismo estado reactivo (ej. `Navbar` y `ProductoLista` compartiendo el carrito), el estado se eleva al ancestro común más cercano (`App.jsx`).</li>
+  <li><strong>Renderizado Inmutable y Virtual DOM:</strong> En React nunca se mutan variables directamente (`state.carrito.push()`). Se utiliza la inmutabilidad (`setCarrito([...carrito, nuevoProducto])`), permitiendo que el motor de reconciliación de React 18 calcule de forma óptima las diferencias en el VDOM.</li>
+  <li><strong>Limpieza de Efectos en `useEffect`:</strong> Si se registran eventos globales o temporizadores dentro de `useEffect`, debe retornar una función de limpieza para prevenir fugas de memoria al desmontar el componente.</li>
 </ul></div>
           </div>
         </div>
@@ -2082,66 +2088,112 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
             <span>💻 Demostración Práctica e Implementación de Código</span>
             
           </div>
-          <pre><code class="language-javascript">// Ejemplo React 18: Componente Funcional con Estado (useState) y Efecto Secundario (useEffect)
-/*
-import React, { useState, useEffect } from &#x27;react&#x27;;
+          <pre><code class="language-javascript">// Proyecto Tienda Online en React 18 Paso a Paso (JSX, useState y useEffect)
 
-export function CatalogoReactApp() {
-  const [productos, setProductos] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [busqueda, setBusqueda] = useState(&#x27;&#x27;);
-
-  // Efecto secundario: Carga asíncrona de datos al montar el componente
-  useEffect(() =&gt; {
-    fetch(&#x27;https://jsonplaceholder.typicode.com/posts?_limit=4&#x27;)
-      .then(res =&gt; res.json())
-      .then(data =&gt; {
-        setProductos(data);
-        setCargando(false);
-      });
-  }, []);
-
-  const productosFiltrados = productos.filter(p =&gt; 
-    p.title.toLowerCase().includes(busqueda.toLowerCase())
-  );
-
-  if (cargando) return &lt;p&gt;⌛ Cargando productos en React...&lt;/p&gt;;
-
+// 1. Componente Navbar (Navbar.jsx)
+function Navbar({ itemsCarrito, onIrCatalogo }) {
   return (
-    &lt;div className=&quot;catalogo-container&quot;&gt;
-      &lt;h2&gt;⚛️ Catálogo React 18 SPA&lt;/h2&gt;
-      &lt;input 
-        type=&quot;text&quot; 
-        value={busqueda} 
-        onChange={(e) =&gt; setBusqueda(e.target.value)} 
-        placeholder=&quot;Buscar...&quot; 
-      /&gt;
-      &lt;ul&gt;
-        {productosFiltrados.map(p =&gt; (
-          &lt;li key={p.id}&gt;{p.title}&lt;/li&gt;
-        ))}
-      &lt;/ul&gt;
+    &lt;nav className=&quot;navbar&quot; style={{ background: &#x27;#0f172a&#x27;, padding: &#x27;12px 20px&#x27;, color: &#x27;#fff&#x27;, display: &#x27;flex&#x27;, justifyContent: &#x27;space-between&#x27;, borderRadius: &#x27;10px 10px 0 0&#x27; }}&gt;
+      &lt;div style={{ display: &#x27;flex&#x27;, alignItems: &#x27;center&#x27;, gap: &#x27;10px&#x27; }}&gt;
+        &lt;span style={{ fontSize: &#x27;1.4em&#x27; }}&gt;⚛️&lt;/span&gt;
+        &lt;strong&gt;React Store 18&lt;/strong&gt;
+      &lt;/div&gt;
+      &lt;button onClick={onIrCatalogo} style={{ background: &#x27;#0284c7&#x27;, color: &#x27;white&#x27;, border: &#x27;none&#x27;, padding: &#x27;6px 12px&#x27;, borderRadius: &#x27;6px&#x27;, cursor: &#x27;pointer&#x27;, fontWeight: &#x27;bold&#x27; }}&gt;
+        🛒 Carrito ({itemsCarrito})
+      &lt;/button&gt;
+    &lt;/nav&gt;
+  );
+}
+
+// 2. Componente Ficha de Detalle (ProductoDetalle.jsx)
+function ProductoDetalle({ producto, onVolver, onAddCarrito }) {
+  return (
+    &lt;div style={{ padding: &#x27;20px&#x27;, background: &#x27;#1e293b&#x27;, color: &#x27;white&#x27;, borderRadius: &#x27;0 0 10px 10px&#x27; }}&gt;
+      &lt;button onClick={onVolver} style={{ background: &#x27;#334155&#x27;, color: &#x27;white&#x27;, border: &#x27;none&#x27;, padding: &#x27;6px 12px&#x27;, borderRadius: &#x27;6px&#x27;, cursor: &#x27;pointer&#x27;, marginBottom: &#x27;16px&#x27; }}&gt;
+        ← Volver al Catálogo
+      &lt;/button&gt;
+      &lt;div style={{ display: &#x27;grid&#x27;, gridTemplateColumns: &#x27;80px 1fr&#x27;, gap: &#x27;20px&#x27;, background: &#x27;#0f172a&#x27;, padding: &#x27;20px&#x27;, borderRadius: &#x27;10px&#x27;, border: &#x27;1px solid #38bdf8&#x27; }}&gt;
+        &lt;div style={{ fontSize: &#x27;3.5em&#x27;, textAlign: &#x27;center&#x27; }}&gt;{producto.imagen}&lt;/div&gt;
+        &lt;div&gt;
+          &lt;h2 style={{ margin: &#x27;0 0 6px 0&#x27;, color: &#x27;#38bdf8&#x27; }}&gt;{producto.nombre}&lt;/h2&gt;
+          &lt;p style={{ fontWeight: &#x27;bold&#x27;, fontSize: &#x27;1.2em&#x27; }}&gt;{producto.precio} €&lt;/p&gt;
+          &lt;p style={{ color: &#x27;#cbd5e1&#x27;, lineHeight: &#x27;1.5&#x27; }}&gt;{producto.descripcion}&lt;/p&gt;
+          &lt;button onClick={() =&gt; onAddCarrito(producto)} style={{ background: &#x27;#10b981&#x27;, color: &#x27;white&#x27;, border: &#x27;none&#x27;, padding: &#x27;8px 16px&#x27;, borderRadius: &#x27;6px&#x27;, cursor: &#x27;pointer&#x27;, fontWeight: &#x27;bold&#x27; }}&gt;
+            🛒 Añadir al Carrito
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   );
 }
-*/
-console.log(&quot;⚛️ React 18: Componentes Funcionales, useState y useEffect cargados correctamente.&quot;);</code></pre>
+
+// 3. Componente Raíz de la Aplicación (App.jsx)
+function ReactStoreApp() {
+  const [productos, setProductos] = useState([]);
+  const [carrito, setCarrito] = useState([]);
+  const [vista, setVista] = useState(&#x27;catalogo&#x27;); // &#x27;catalogo&#x27; | &#x27;detalle&#x27;
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+  // useEffect para cargar productos al montar el componente
+  useEffect(() =&gt; {
+    // Simulación de respuesta asíncrona de API REST
+    setTimeout(() =&gt; {
+      setProductos([
+        { id: 1, nombre: &quot;Laptop React Pro 16&quot;, precio: 1299, imagen: &quot;💻&quot;, descripcion: &quot;Procesador M3 Max, 32GB RAM, Pantalla Liquid Retina XDR. Diseñado para desarrollo frontend React 18.&quot; },
+        { id: 2, nombre: &quot;Teclado Mecánico Hooks&quot;, precio: 119, imagen: &quot;⌨️&quot;, descripcion: &quot;Switches táctiles silenciosos, layout español ISO y retroiluminación RGB direccionable.&quot; }
+      ]);
+    }, 400);
+  }, []);
+
+  const handleVerDetalle = (producto) =&gt; {
+    setProductoSeleccionado(producto);
+    setVista(&#x27;detalle&#x27;);
+  };
+
+  const handleAddCarrito = (producto) =&gt; {
+    setCarrito([...carrito, producto]);
+  };
+
+  return (
+    &lt;div style={{ fontFamily: &#x27;sans-serif&#x27; }}&gt;
+      &lt;Navbar itemsCarrito={carrito.length} onIrCatalogo={() =&gt; setVista(&#x27;catalogo&#x27;)} /&gt;
+      {vista === &#x27;catalogo&#x27; ? (
+        &lt;div style={{ padding: &#x27;20px&#x27;, background: &#x27;#1e293b&#x27;, borderRadius: &#x27;0 0 10px 10px&#x27; }}&gt;
+          &lt;div style={{ display: &#x27;grid&#x27;, gridTemplateColumns: &#x27;repeat(auto-fill, minmax(200px, 1fr))&#x27;, gap: &#x27;14px&#x27; }}&gt;
+            {productos.map(p =&gt; (
+              &lt;div key={p.id} style={{ background: &#x27;#0f172a&#x27;, border: &#x27;1px solid #334155&#x27;, borderRadius: &#x27;8px&#x27;, padding: &#x27;14px&#x27;, color: &#x27;white&#x27; }}&gt;
+                &lt;div style={{ fontSize: &#x27;3em&#x27;, textAlign: &#x27;center&#x27; }}&gt;{p.imagen}&lt;/div&gt;
+                &lt;h3 style={{ margin: &#x27;8px 0 4px 0&#x27;, fontSize: &#x27;1em&#x27; }}&gt;{p.nombre}&lt;/h3&gt;
+                &lt;p style={{ color: &#x27;#38bdf8&#x27;, fontWeight: &#x27;bold&#x27; }}&gt;{p.precio} €&lt;/p&gt;
+                &lt;button onClick={() =&gt; handleVerDetalle(p)} style={{ background: &#x27;#0284c7&#x27;, color: &#x27;white&#x27;, border: &#x27;none&#x27;, padding: &#x27;6px&#x27;, borderRadius: &#x27;4px&#x27;, cursor: &#x27;pointer&#x27;, width: &#x27;100%&#x27; }}&gt;
+                  🔍 Ver Detalle
+                &lt;/button&gt;
+              &lt;/div&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      ) : (
+        &lt;ProductoDetalle producto={productoSeleccionado} onVolver={() =&gt; setVista(&#x27;catalogo&#x27;)} onAddCarrito={handleAddCarrito} /&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
           <span class="badge-sub badge-exercise">🎯 Reto Propuesto tras Explicación · Bloque 9</span>
-          <h2>🎯 Reto 9: Componente React Interactivo de Catálogo con Filtro en Vivo y Estado de Carrito (useState y useEffect)</h2>
+          <h2>🎯 Reto 9: Proyecto Tienda Online en React 18: Menú, Catálogo con Tarjetas, Filtro en Vivo y Vista de Detalle (useState y useEffect)</h2>
         </div>
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Diseña una aplicación reactiva en JavaScript que simule el comportamiento de un componente funcional de React con `useState` y `useEffect`. Debe implementar: 1) Estado reactivo para la lista de productos y carrito de compras, 2) Efecto secundario que simule la carga asíncrona de datos desde una API remota al montar la vista, y 3) Filtro en tiempo real por nombre de producto con actualización reactiva en el DOM.</div>
+            <div class="callout-body">Construye un simulador interactivo completo que represente la arquitectura de la aplicación Tienda Online en React 18, incluyendo: 1) Barra de navegación superior con badge reactivo del carrito, 2) Catálogo en grid con tarjetas de productos y filtro de búsqueda en tiempo real mediante `useState`, 3) Carga asíncrona inicial de datos simulando un efecto secundario con `useEffect`, y 4) Ficha de detalle de producto con opción de retorno al catálogo principal.</div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
-            <div class="callout-body">Crea una clase o función contenedora `ReactStoreSimulator` que administre el estado y vuelva a renderizar la vista cuando `setState` cambie los valores. Utiliza `\x3C` para escapar cualquier etiqueta HTML en las cadenas de plantilla JS.</div>
+            <div class="callout-body">Crea una clase contenedora `ReactStoreSimulator` que maneje la reactividad del estado y ejecute `efectoInicialMontado()` para simular la carga con `useEffect`. Utiliza `\x3C` para escapar cualquier etiqueta HTML en las cadenas JS.</div>
           </div>
           
           <details class="reto-solution-details" style="padding: 10px 14px; margin-top: 4px;">
@@ -2151,104 +2203,192 @@ console.log(&quot;⚛️ React 18: Componentes Funcionales, useState y useEffect
             </summary>
             <div style="margin-top: 8px; border-top: 1px solid #e0e7ff; padding-top: 8px;">
               <div style="font-size: 0.70em; color: #334155; margin-bottom: 8px; line-height: 1.45;">
-                <strong style="color: #0f172a;">Explicación Técnica:</strong> La arquitectura basada en componentes declarativos y hooks de React simplifica la gestión del estado interactivo y el consumo asíncrono de datos en SPAs modernas.
+                <strong style="color: #0f172a;">Explicación Técnica:</strong> El patrón de arquitectura basada en componentes declarativos, elevación de estado y efectos en React simplifica el desarrollo de SPAs comerciales mantenibles y reactivas.
               </div>
               <div class="code-demo-card" style="margin-top: 6px; padding: 8px 12px; background: #090d16;">
                 <div class="code-demo-tag" style="color: #38bdf8; font-size: 0.62em;">💻 Código de la Solución Comentada:</div>
-                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 9: Simulador Interactivo de Componentes y Hooks en React (useState y useEffect)
+                <pre style="margin: 0; max-height: 220px; overflow-y: auto;"><code class="language-javascript">// Reto 9: Simulador Interactivo de la Aplicación Tienda Online en React 18 (useState y useEffect)
 class ReactStoreSimulator {
     constructor(contenedorId) {
         this.contenedor = document.getElementById(contenedorId);
-        // Estado reactivo (useState)
+        // Estado reactivo de la aplicación React (useState)
         this.state = {
             productos: [],
             carrito: [],
             cargando: true,
-            busqueda: &quot;&quot;
+            busqueda: &quot;&quot;,
+            vistaActual: &quot;catalogo&quot;, // &#x27;catalogo&#x27; | &#x27;detalle&#x27;
+            productoSeleccionado: null
         };
 
-        // Simulación de useEffect [] al montar
+        // Simulación de efecto secundario useEffect(() =&gt; {}, []) al montar el componente
         this.efectoInicialMontado();
     }
 
-    // Custom setState para re-renderizar de forma reactiva
+    // Función equivalente al despachador setState() de React para re-renderizar reactivamente
     setState(nuevoEstadoParcial) {
         this.state = { ...this.state, ...nuevoEstadoParcial };
         this.render();
     }
 
     efectoInicialMontado() {
-        console.log(&quot;⚛️ [useEffect] Ejecutando efecto de carga inicial de productos...&quot;);
+        console.log(&quot;⚛️ [useEffect] Ejecutando efecto de carga inicial de productos desde la API REST...&quot;);
         setTimeout(() =&gt; {
             const datosApi = [
-                { id: 1, nombre: &quot;Laptop React Pro&quot;, precio: 1199, categoria: &quot;Equipos&quot;, imagen: &quot;💻&quot; },
-                { id: 2, nombre: &quot;Teclado JSX RGB&quot;, precio: 99, categoria: &quot;Periféricos&quot;, imagen: &quot;⌨️&quot; },
-                { id: 3, nombre: &quot;Monitor Hooks 4K&quot;, precio: 389, categoria: &quot;Pantallas&quot;, imagen: &quot;🖥️&quot; },
-                { id: 4, nombre: &quot;Cascos State HiFi&quot;, precio: 149, categoria: &quot;Audio&quot;, imagen: &quot;🎧&quot; }
+                { id: 1, nombre: &quot;Portátil React Book 16&quot;, precio: 1299, imagen: &quot;💻&quot;, descripcion: &quot;Procesador M3 Ultra 16-Core, 32GB RAM DDR5, Pantalla OLED 120Hz. Optimizado para desarrollo con React 18 y Next.js.&quot;, categoria: &quot;Ordenadores&quot; },
+                { id: 2, nombre: &quot;Teclado Mecánico JSX RGB&quot;, precio: 119, imagen: &quot;⌨️&quot;, descripcion: &quot;Switches mecánicos táctiles silenciosos, iluminación RGB direccionable por software y cable trenzado USB-C.&quot;, categoria: &quot;Periféricos&quot; },
+                { id: 3, nombre: &quot;Monitor Curvo Hooks 4K&quot;, precio: 449, imagen: &quot;🖥️&quot;, descripcion: &quot;Resolución UHD 3840x2160, 144Hz, cobertura 99% sRGB. Visualización multitarea sin parpadeos para desarrolladores.&quot;, categoria: &quot;Pantallas&quot; },
+                { id: 4, nombre: &quot;Auriculares State HiFi&quot;, precio: 179, imagen: &quot;🎧&quot;, descripcion: &quot;Audio de alta resolución Hi-Res, cancelación activa de ruido adaptativa y micrófonos duales beamforming.&quot;, categoria: &quot;Audio&quot; }
             ];
             this.setState({ productos: datosApi, cargando: false });
-        }, 600);
+        }, 500);
     }
 
     render() {
         if (!this.contenedor) return;
 
         if (this.state.cargando) {
-            this.contenedor.innerHTML = `\x3Cdiv style=&quot;padding:20px; color:#38bdf8; font-weight:bold;&quot;\x3E⌛ [React useEffect] Cargando catálogo asíncrono desde API...\x3C/div\x3E`;
+            this.contenedor.innerHTML = `
+                \x3Cdiv style=&quot;padding: 24px; background: #0f172a; color: #38bdf8; font-weight: bold; border-radius: 10px; font-family: sans-serif; text-align: center;&quot;\x3E
+                    ⌛ [React useEffect] Cargando productos asíncronos desde API REST...
+                \x3C/div\x3E
+            `;
             return;
         }
 
-        const productosFiltrados = this.state.productos.filter(p =&gt;
-            p.nombre.toLowerCase().includes(this.state.busqueda.toLowerCase())
-        );
-
-        const html = `
-            \x3Cdiv style=&quot;background:#0f172a; color:#f8fafc; padding:18px; border-radius:10px; font-family:sans-serif;&quot;\x3E
-                \x3Cdiv style=&quot;display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid #334155; padding-bottom:10px;&quot;\x3E
-                    \x3Ch3 style=&quot;margin:0; color:#38bdf8;&quot;\x3E⚛️ Tienda React (useState + useEffect)\x3C/h3\x3E
-                    \x3Cspan style=&quot;background:#0284c7; padding:4px 10px; border-radius:6px; font-weight:bold; font-size:0.85em;&quot;\x3E🛒 Carrito: ${this.state.carrito.length} items\x3C/span\x3E
+        // 1. Componente Navbar
+        const navbarHtml = `
+            \x3Cnav style=&quot;background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 10px 10px 0 0;&quot;\x3E
+                \x3Cdiv style=&quot;display: flex; align-items: center; gap: 10px;&quot;\x3E
+                    \x3Cspan style=&quot;font-size: 1.5em;&quot;\x3E⚛️\x3C/span\x3E
+                    \x3Cstrong style=&quot;color: #f8fafc; font-size: 1.1em;&quot;\x3ETienda React 18 Store\x3C/strong\x3E
                 \x3C/div\x3E
-
-                \x3Cdiv style=&quot;margin-bottom:14px;&quot;\x3E
-                    \x3Cinput id=&quot;react-search&quot; type=&quot;text&quot; placeholder=&quot;🔍 Filtrar productos en vivo (useState)...&quot; value=&quot;${this.state.busqueda}&quot; style=&quot;width:100%; padding:8px 12px; border-radius:6px; border:1px solid #334155; background:#1e293b; color:white;&quot; /\x3E
+                \x3Cdiv style=&quot;display: flex; gap: 12px; align-items: center;&quot;\x3E
+                    \x3Cbutton id=&quot;btn-nav-catalogo&quot; style=&quot;background: ${this.state.vistaActual === &#x27;catalogo&#x27; ? &#x27;#0284c7&#x27; : &#x27;transparent&#x27;}; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em;&quot;\x3E
+                        🛒 Catálogo
+                    \x3C/button\x3E
+                    \x3Cspan style=&quot;background: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 0.8em;&quot;\x3E
+                        🛒 Carrito (${this.state.carrito.length})
+                    \x3C/span\x3E
                 \x3C/div\x3E
-
-                \x3Cdiv style=&quot;display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:10px;&quot;\x3E
-                    ${productosFiltrados.map(p =&gt; `
-                        \x3Cdiv style=&quot;background:#1e293b; padding:12px; border-radius:8px; border:1px solid #334155; display:flex; flex-direction:column; justify-content:space-between;&quot;\x3E
-                            \x3Cdiv\x3E
-                                \x3Cdiv style=&quot;font-size:2.5em; text-align:center;&quot;\x3E${p.imagen}\x3C/div\x3E
-                                \x3Ch4 style=&quot;margin:6px 0; color:#f8fafc;&quot;\x3E${p.nombre}\x3C/h4\x3E
-                                \x3Cp style=&quot;color:#38bdf8; font-weight:bold; margin:0 0 8px 0;&quot;\x3E${p.precio} €\x3C/p\x3E
-                            \x3C/div\x3E
-                            \x3Cbutton class=&quot;btn-add-cart&quot; data-id=&quot;${p.id}&quot; style=&quot;background:#10b981; color:white; border:none; padding:6px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:0.8em;&quot;\x3E
-                                ➕ Añadir al Carrito
-                            \x3C/button\x3E
-                        \x3C/div\x3E
-                    `).join(&#x27;&#x27;)}
-                \x3C/div\x3E
-            \x3C/div\x3E
+            \x3C/nav\x3E
         `;
 
-        this.contenedor.innerHTML = html;
+        let cuerpoHtml = &quot;&quot;;
+
+        // 2. Componente Vista de Catálogo con Filtro useState
+        if (this.state.vistaActual === &quot;catalogo&quot;) {
+            const productosFiltrados = this.state.productos.filter(p =&gt;
+                p.nombre.toLowerCase().includes(this.state.busqueda.toLowerCase())
+            );
+
+            cuerpoHtml = `
+                \x3Cdiv style=&quot;padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;&quot;\x3E
+                    \x3Cdiv style=&quot;margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; gap: 14px;&quot;\x3E
+                        \x3Cdiv\x3E
+                            \x3Ch2 style=&quot;margin: 0; color: #f8fafc; font-size: 1.2em;&quot;\x3ECatálogo de Productos Destacados\x3C/h2\x3E
+                            \x3Cp style=&quot;margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85em;&quot;\x3ERenderizado reactivo de componentes e inmutabilidad de estado en React 18\x3C/p\x3E
+                        \x3C/div\x3E
+                        \x3Cinput id=&quot;react-search-input&quot; type=&quot;text&quot; placeholder=&quot;🔍 Filtrar en vivo (useState)...&quot; value=&quot;${this.state.busqueda}&quot; style=&quot;padding: 8px 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 0.85em; width: 220px;&quot; /\x3E
+                    \x3C/div\x3E
+
+                    \x3Cdiv style=&quot;display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px;&quot;\x3E
+                        ${productosFiltrados.map(p =&gt; `
+                            \x3Cdiv style=&quot;background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;&quot;\x3E
+                                \x3Cdiv\x3E
+                                    \x3Cdiv style=&quot;font-size: 3em; text-align: center; margin-bottom: 8px;&quot;\x3E${p.imagen}\x3C/div\x3E
+                                    \x3Cspan style=&quot;font-size: 0.7em; background: #0284c7; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;&quot;\x3E${p.categoria}\x3C/span\x3E
+                                    \x3Ch3 style=&quot;margin: 8px 0 4px 0; color: #f8fafc; font-size: 1em;&quot;\x3E${p.nombre}\x3C/h3\x3E
+                                    \x3Cp style=&quot;margin: 0; color: #38bdf8; font-weight: bold; font-size: 1.1em;&quot;\x3E${p.precio} €\x3C/p\x3E
+                                \x3C/div\x3E
+                                \x3Cdiv style=&quot;margin-top: 14px; display: flex; flex-direction: column; gap: 6px;&quot;\x3E
+                                    \x3Cbutton class=&quot;btn-react-detalle&quot; data-id=&quot;${p.id}&quot; style=&quot;background: #0284c7; color: white; border: none; padding: 7px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.82em; width: 100%;&quot;\x3E
+                                        🔍 Ver Detalle
+                                    \x3C/button\x3E
+                                    \x3Cbutton class=&quot;btn-react-add&quot; data-id=&quot;${p.id}&quot; style=&quot;background: #10b981; color: white; border: none; padding: 7px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.82em; width: 100%;&quot;\x3E
+                                        ➕ Añadir al Carrito
+                                    \x3C/button\x3E
+                                \x3C/div\x3E
+                            \x3C/div\x3E
+                        `).join(&#x27;&#x27;)}
+                    \x3C/div\x3E
+                \x3C/div\x3E
+            `;
+        } 
+        // 3. Componente Vista de Detalle (ProductoDetalle)
+        else if (this.state.vistaActual === &quot;detalle&quot; &amp;&amp; this.state.productoSeleccionado) {
+            const p = this.state.productoSeleccionado;
+            cuerpoHtml = `
+                \x3Cdiv style=&quot;padding: 20px; background: #1e293b; border-radius: 0 0 10px 10px;&quot;\x3E
+                    \x3Cbutton id=&quot;btn-react-volver&quot; style=&quot;background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 16px; font-size: 0.85em; font-weight: bold;&quot;\x3E
+                        ← Volver al Catálogo
+                    \x3C/button\x3E
+                    \x3Cdiv style=&quot;background: #0f172a; border: 1px solid #38bdf8; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: start;&quot;\x3E
+                        \x3Cdiv style=&quot;font-size: 3.5em; text-align: center; background: #1e293b; border-radius: 10px; padding: 10px;&quot;\x3E${p.imagen}\x3C/div\x3E
+                        \x3Cdiv\x3E
+                            \x3Cdiv style=&quot;display: flex; gap: 8px; align-items: center; margin-bottom: 6px;&quot;\x3E
+                                \x3Cspan style=&quot;font-size: 0.7em; background: #0284c7; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold;&quot;\x3E${p.categoria}\x3C/span\x3E
+                            \x3C/div\x3E
+                            \x3Ch2 style=&quot;margin: 0 0 8px 0; color: #f8fafc; font-size: 1.4em;&quot;\x3E${p.nombre}\x3C/h2\x3E
+                            \x3Cp style=&quot;margin: 0 0 12px 0; color: #38bdf8; font-weight: bold; font-size: 1.3em;&quot;\x3E${p.precio} €\x3C/p\x3E
+                            \x3Cp style=&quot;margin: 0; color: #cbd5e1; font-size: 0.9em; line-height: 1.5; background: #1e293b; padding: 12px; border-radius: 8px; border-left: 3px solid #38bdf8;&quot;\x3E
+                                ${p.descripcion}
+                            \x3C/p\x3E
+                            \x3Cdiv style=&quot;margin-top: 16px;&quot;\x3E
+                                \x3Cbutton class=&quot;btn-react-add&quot; data-id=&quot;${p.id}&quot; style=&quot;background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9em;&quot;\x3E
+                                    🛒 Añadir al Carrito de React
+                                \x3C/button\x3E
+                            \x3C/div\x3E
+                        \x3C/div\x3E
+                    \x3C/div\x3E
+                \x3C/div\x3E
+            `;
+        }
+
+        this.contenedor.innerHTML = navbarHtml + cuerpoHtml;
         this.bindEvents();
     }
 
     bindEvents() {
-        const searchInput = this.contenedor.querySelector(&quot;#react-search&quot;);
+        const btnNavCat = this.contenedor.querySelector(&quot;#btn-nav-catalogo&quot;);
+        if (btnNavCat) {
+            btnNavCat.onclick = () =&gt; {
+                this.setState({ vistaActual: &quot;catalogo&quot; });
+            };
+        }
+
+        const btnVolver = this.contenedor.querySelector(&quot;#btn-react-volver&quot;);
+        if (btnVolver) {
+            btnVolver.onclick = () =&gt; {
+                this.setState({ vistaActual: &quot;catalogo&quot; });
+            };
+        }
+
+        const searchInput = this.contenedor.querySelector(&quot;#react-search-input&quot;);
         if (searchInput) {
             searchInput.oninput = (e) =&gt; {
                 this.setState({ busqueda: e.target.value });
             };
         }
 
-        const btnsAdd = this.contenedor.querySelectorAll(&quot;.btn-add-cart&quot;);
+        const btnsDetalle = this.contenedor.querySelectorAll(&quot;.btn-react-detalle&quot;);
+        btnsDetalle.forEach(btn =&gt; {
+            btn.onclick = (e) =&gt; {
+                const id = Number(e.currentTarget.dataset.id);
+                const producto = this.state.productos.find(p =&gt; p.id === id);
+                if (producto) {
+                    this.setState({ productoSeleccionado: producto, vistaActual: &quot;detalle&quot; });
+                }
+            };
+        });
+
+        const btnsAdd = this.contenedor.querySelectorAll(&quot;.btn-react-add&quot;);
         btnsAdd.forEach(btn =&gt; {
             btn.onclick = (e) =&gt; {
                 const id = Number(e.currentTarget.dataset.id);
-                const prod = this.state.productos.find(p =&gt; p.id === id);
-                if (prod) {
-                    this.setState({ carrito: [...this.state.carrito, prod] });
+                const producto = this.state.productos.find(p =&gt; p.id === id);
+                if (producto) {
+                    this.setState({ carrito: [...this.state.carrito, producto] });
                 }
             };
         });
@@ -2370,8 +2510,8 @@ if (mountNode) {
       <li class="final-ex-item" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 9</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
-          <strong style="font-size: 0.76em; color: #0f172a;">Componente React Interactivo de Catálogo con Filtro en Vivo y Estado de Carrito (useState y useEffect)</strong>
-          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 9: Componentes, Estado y Ciclo de Vida en React: Hooks (useState, useEffect) y Arquitectura de Componentes</p>
+          <strong style="font-size: 0.76em; color: #0f172a;">Proyecto Tienda Online en React 18: Menú, Catálogo con Tarjetas, Filtro en Vivo y Vista de Detalle (useState y useEffect)</strong>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 9: Proyecto Tienda Online en React 18: Paso a Paso con Componentes, JSX y Hooks (useState y useEffect)</p>
         </div>
         <a href="ejercicios.html?item=reto-9" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
           🚀 Ver Solución
