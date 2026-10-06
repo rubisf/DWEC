@@ -481,7 +481,7 @@
             <div class="index-badge" style="">7</div>
             <div class="index-info">
               <div class="index-title">Proyecto Tienda Online en Angular: Paso a Paso con Enrutamiento (Angular Router), Menú y Detalle</div>
-              <p class="index-desc">Construir una Single Page Application (SPA) comercial con Angular requiere organizar la arquitectura en componentes desacoplados y configurar el sistema de navegación Angular Router . A continuación se describe el desarrollo paso a paso del proyecto Tienda Online en Angular.</p>
+              <p class="index-desc">Construir una Single Page Application (SPA) comercial con Angular 17+ / 18 requiere estructurar la arquitectura mediante componentes autónomos ( Standalone Components ), servicios inyectables para la lógica de negocio y el enrutador oficial Angular Router para la navegación sin recargas de página. A continuación se detalla paso a paso la creación del proyecto Tienda Online en Angular , indicando para cada paso la ruta exacta del archivo a crear/modificar, su explicación técnica y su código fuente completo.</p>
             </div>
           </div>
           <div class="index-card" style="">
@@ -495,7 +495,7 @@
             <div class="index-badge" style="background: #0284c7; color: white;">9</div>
             <div class="index-info">
               <div class="index-title">Proyecto Tienda Online en React 18: Paso a Paso con Componentes, JSX y Hooks (useState y useEffect) <span style="font-size: 0.65em; background: #0284c7; color: white; padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 800; vertical-align: middle;">⚛️ REACT</span></div>
-              <p class="index-desc">React 18 permite construir aplicaciones SPA altamente reactivas organizando la interfaz en componentes declarativos y gestionando los datos mediante Hooks (`useState` y `useEffect`) . A continuación se detalla la construcción paso a paso del proyecto Tienda Online en React.</p>
+              <p class="index-desc">React 18 permite construir aplicaciones SPA dinámicas combinando sintaxis JSX (HTML dentro de JavaScript) y Hooks para la gestión del estado reactivo ( useState ) y la ejecución de efectos secundarios asíncronos ( useEffect ). A continuación se detalla paso a paso la construcción de la aplicación Tienda Online en React 18 , especificando el archivo a crear/editar, su fundamentación técnica y su código fuente completo.</p>
             </div>
           </div>
         </div>
@@ -1588,40 +1588,261 @@ if (appEl) {
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Construir una <strong>Single Page Application (SPA)</strong> comercial con Angular requiere organizar la arquitectura en componentes desacoplados y configurar el sistema de navegación <strong>Angular Router</strong>. A continuación se describe el desarrollo paso a paso del proyecto <strong>Tienda Online en Angular</strong>:</p>
+            <div class="card-text"><p>Construir una <strong>Single Page Application (SPA)</strong> comercial con <strong>Angular 17+ / 18</strong> requiere estructurar la arquitectura mediante componentes autónomos (<em>Standalone Components</em>), servicios inyectables para la lógica de negocio y el enrutador oficial <strong>Angular Router</strong> para la navegación sin recargas de página. A continuación se detalla paso a paso la creación del proyecto <strong>Tienda Online en Angular</strong>, indicando para cada paso la ruta exacta del archivo a crear/modificar, su explicación técnica y su código fuente completo:</p>
+
 <ul class="concept-list">
-  <li><strong>Paso 1: Inicialización del Proyecto Standalone (`ng new`):</strong>
-    <p>Creación del proyecto en consola activando el modo autónomo y el enrutador oficial:</p>
-    <pre><code>ng new tienda-angular --standalone --routing
+  <li><strong>Paso 1: Inicialización del Proyecto y Creación de la Estructura (Angular CLI):</strong>
+    <p>Abrimos la terminal e inicializamos un nuevo proyecto Angular en modo autónomo (<em>Standalone Architecture</em>, sin <code>NgModule</code>) y con el enrutador oficial activado:</p>
+    <pre><code>ng new tienda-angular --standalone --routing --style=css
 cd tienda-angular
+
+# Generar modelo, servicio y componentes modulares
+ng g i models/producto
+ng g s services/productos
+ng g c components/navbar
+ng g c components/producto-lista
+ng g c components/producto-detalle
+
 ng serve</code></pre>
+    <p>El comando <code>ng serve</code> compila la aplicación en memoria y arranca el servidor local de desarrollo en <code>http://localhost:4200/</code>.</p>
   </li>
-  <li><strong>Paso 2: Modelo de Datos TypeScript (`models/producto.model.ts`):</strong>
-    <p>Se define una <code>interface</code> que actúa como contrato estricto exigiendo los campos: <code>id</code>, <code>nombre</code>, <code>precio</code>, <code>imagen</code>, <code>descripcion</code> y <code>categoria</code>.</p>
+
+  <li><strong>Paso 2: Modelo de Datos TypeScript (<code>src/app/models/producto.model.ts</code>):</strong>
+    <p>Definimos la interfaz <code>Producto</code> en el archivo <code>src/app/models/producto.model.ts</code>. Esta interfaz actúa como un contrato estricto de tipos en TypeScript, garantizando autocompletado y validación de tipos durante el desarrollo.</p>
+    <pre><code>// Archivo: src/app/models/producto.model.ts
+
+export interface Producto {
+  id: number;
+  nombre: string;
+  precio: number;
+  imagen: string;
+  descripcion: string;
+  categoria: string;
+}</code></pre>
   </li>
-  <li><strong>Paso 3: Servicio de Datos e Inyección (`servicios/productos.service.ts`):</strong>
-    <p>Se genera el servicio inyectable <code>ProductosService</code> mediante <code>ng g s servicios/productos</code> para centralizar la lista de productos y exponer métodos como <code>getProductos()</code> y <code>getProductoById(id)</code>.</p>
+
+  <li><strong>Paso 3: Servicio de Datos e Inyección de Dependencias (<code>src/app/services/productos.service.ts</code>):</strong>
+    <p>En <code>src/app/services/productos.service.ts</code>, creamos el servicio <code>ProductosService</code> decorado con <code>@Injectable({ providedIn: 'root' })</code>. Este decorador registra el servicio como un <em>Singleton</em> a nivel raíz de la aplicación, permitiendo inyectarlo en cualquier componente sin necesidad de instanciarlo manualmente. Centraliza los datos del catálogo y expone los métodos de consulta <code>getProductos()</code> y <code>getProductoById(id)</code>.</p>
+    <pre><code>// Archivo: src/app/services/productos.service.ts
+
+import { Injectable } from '@angular/core';
+import { Producto } from '../models/producto.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductosService {
+  private productos: Producto[] = [
+    { 
+      id: 1, 
+      nombre: 'Laptop Angular Pro 16', 
+      precio: 1299, 
+      imagen: '💻', 
+      descripcion: 'Procesador M3 Ultra, 32GB RAM DDR5, Pantalla OLED 120Hz. Especialmente configurado para desarrollo frontend masivo con Angular Standalone.', 
+      categoria: 'Ordenadores' 
+    },
+    { 
+      id: 2, 
+      nombre: 'Teclado Mecánico Injectable RGB', 
+      precio: 119, 
+      imagen: '⌨️', 
+      descripcion: 'Switches táctiles silenciosos, layout español ISO y retroiluminación RGB direccionable por software.', 
+      categoria: 'Periféricos' 
+    },
+    { 
+      id: 3, 
+      nombre: 'Monitor Curvo RxJS 4K', 
+      precio: 449, 
+      imagen: '🖥️', 
+      descripcion: 'Resolución UHD 3840x2160, 144Hz, panel IPS profesional con tasa de refresco ultra fluida.', 
+      categoria: 'Pantallas' 
+    },
+    { 
+      id: 4, 
+      nombre: 'Auriculares Signal Sound', 
+      precio: 179, 
+      imagen: '🎧', 
+      descripcion: 'Cancelación activa de ruido (ANC), micrófonos beamforming para llamadas nítidas y sonido Hi-Res.', 
+      categoria: 'Audio' 
+    }
+  ];
+
+  // Obtiene el catálogo completo de productos
+  getProductos(): Producto[] {
+    return this.productos;
+  }
+
+  // Busca y retorna un producto específico por su ID numérico
+  getProductoById(id: number): Producto | undefined {
+    return this.productos.find(p => p.id === id);
+  }
+}</code></pre>
   </li>
-  <li><strong>Paso 4: Menú de Navegación (`NavbarComponent`):</strong>
-    <p>Componente standalone que renderiza la barra superior. Utiliza la directiva <code>routerLink="/productos"</code> para cambiar de pantalla sin recargar el navegador, y <code>routerLinkActive="active"</code> para resaltar el enlace activo.</p>
+
+  <li><strong>Paso 4: Barra de Navegación Superior (<code>src/app/components/navbar/navbar.component.ts</code>):</strong>
+    <p>Modificamos <code>src/app/components/navbar/navbar.component.ts</code>. Es un componente standalone que importa <code>RouterLink</code> y <code>RouterLinkActive</code> de <code>@angular/router</code>. La directiva <code>routerLink="/productos"</code> intercepta el clic e indica a Angular Router que cambie la vista activa sin recargar la página Web; <code>routerLinkActive="active-link"</code> aplica dinámicamente la clase CSS cuando la URL coincide.</p>
+    <pre><code>// Archivo: src/app/components/navbar/navbar.component.ts
+
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
+@Component({
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
+  template: `
+    &lt;nav style="background: #0f172a; padding: 16px 24px; color: white; display: flex; justify-content: space-between; align-items: center; border-radius: 8px;"&gt;
+      &lt;div style="display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: bold; color: #38bdf8;"&gt;
+        &lt;span&gt;🅰️&lt;/span&gt; Angular Store
+      &lt;/div&gt;
+      &lt;div style="display: flex; gap: 16px;"&gt;
+        &lt;a routerLink="/productos" routerLinkActive="active-link" style="color: #cbd5e1; text-decoration: none; font-weight: 500;"&gt;📦 Catálogo&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  `,
+  styles: [`
+    .active-link { color: #38bdf8 !important; font-weight: bold; border-bottom: 2px solid #38bdf8; }
+  `]
+})
+export class NavbarComponent {}</code></pre>
   </li>
-  <li><strong>Paso 5: Catálogo y Grid de Tarjetas (`ProductoListaComponent`):</strong>
-    <p>Componente que inyecta <code>ProductosService</code>, itera el array con <code>@for (p of productos; track p.id)</code> e incluye botones de navegación con <code>[routerLink]="['/producto', p.id]"</code>.</p>
+
+  <li><strong>Paso 5: Catálogo y Grid de Tarjetas (<code>src/app/components/producto-lista/producto-lista.component.ts</code>):</strong>
+    <p>En <code>src/app/components/producto-lista/producto-lista.component.ts</code>, inyectamos <code>ProductosService</code> mediante el constructor para obtener el catálogo en el ciclo de vida <code>ngOnInit()</code>. En la plantilla usamos el nuevo Control Flow de Angular <code>@for (producto of productos; track producto.id)</code> para iterar eficientemente las tarjetas, y <code>[routerLink]="['/producto', producto.id]"</code> para generar la navegación dinámica hacia la ficha de detalle.</p>
+    <pre><code>// Archivo: src/app/components/producto-lista/producto-lista.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { Producto } from '../../models/producto.model';
+import { ProductosService } from '../../services/productos.service';
+
+@Component({
+  selector: 'app-producto-lista',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
+    &lt;div style="padding: 20px; background: #1e293b; border-radius: 8px; margin-top: 16px;"&gt;
+      &lt;h2 style="color: #f8fafc; margin-bottom: 20px;"&gt;📦 Catálogo de Productos&lt;/h2&gt;
+      &lt;div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;"&gt;
+        @for (producto of productos; track producto.id) {
+          &lt;div style="background: #0f172a; border: 1px solid #334155; padding: 16px; border-radius: 8px; color: white; display: flex; flex-direction: column; justify-content: space-between;"&gt;
+            &lt;div style="font-size: 3.5rem; text-align: center; margin-bottom: 10px;"&gt;{{ producto.imagen }}&lt;/div&gt;
+            &lt;h3 style="margin: 0 0 8px 0; color: #f8fafc; font-size: 1.1rem;"&gt;{{ producto.nombre }}&lt;/h3&gt;
+            &lt;p style="color: #38bdf8; font-weight: bold; font-size: 1.2rem; margin: 0 0 12px 0;"&gt;{{ producto.precio }} €&lt;/p&gt;
+            &lt;a [routerLink]="['/producto', producto.id]" style="display: block; text-align: center; background: #2563eb; color: white; padding: 8px; border-radius: 6px; text-decoration: none; font-weight: 500;"&gt;🔍 Ver Detalle&lt;/a&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `
+})
+export class ProductoListaComponent implements OnInit {
+  productos: Producto[] = [];
+
+  constructor(private productosService: ProductosService) {}
+
+  ngOnInit(): void {
+    this.productos = this.productosService.getProductos();
+  }
+}</code></pre>
   </li>
-  <li><strong>Paso 6: Vista de Ficha Ampliada con Parameter Injection (`ProductoDetalleComponent`):</strong>
-    <p>Componente de detalle que inyecta el servicio de rutas <strong>`ActivatedRoute`</strong> para leer el parámetro id dinámico de la URL mediante <code>this.route.snapshot.params['id']</code> y mostrar la ficha técnica completa del producto.</p>
+
+  <li><strong>Paso 6: Vista de Ficha Ampliada con <code>ActivatedRoute</code> (<code>src/app/components/producto-detalle/producto-detalle.component.ts</code>):</strong>
+    <p>En <code>src/app/components/producto-detalle/producto-detalle.component.ts</code>, inyectamos el servicio de rutas <strong><code>ActivatedRoute</code></strong> para acceder a los parámetros dinámicos de la URL actual. En <code>ngOnInit()</code> leemos <code>this.route.snapshot.paramMap.get('id')</code>, convertimos el valor numérico y buscamos el producto en <code>ProductosService</code>. La plantilla utiliza <code>@if (producto) ... @else</code> para mostrar la ficha ampliada o una alerta de producto no encontrado.</p>
+    <pre><code>// Archivo: src/app/components/producto-detalle/producto-detalle.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Producto } from '../../models/producto.model';
+import { ProductosService } from '../../services/productos.service';
+
+@Component({
+  selector: 'app-producto-detalle',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
+    &lt;div style="padding: 20px; background: #1e293b; border-radius: 8px; margin-top: 16px; color: white;"&gt;
+      &lt;a routerLink="/productos" style="display: inline-block; background: #334155; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; margin-bottom: 20px;"&gt;← Volver al Catálogo&lt;/a&gt;
+      
+      @if (producto) {
+        &lt;div style="background: #0f172a; border: 1px solid #38bdf8; padding: 24px; border-radius: 12px; display: grid; grid-template-columns: 100px 1fr; gap: 24px; align-items: center;"&gt;
+          &lt;div style="font-size: 5rem; text-align: center;"&gt;{{ producto.imagen }}&lt;/div&gt;
+          &lt;div&gt;
+            &lt;span style="background: #0284c7; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;"&gt;{{ producto.categoria }}&lt;/span&gt;
+            &lt;h2 style="color: #38bdf8; margin: 10px 0;"&gt;{{ producto.nombre }}&lt;/h2&gt;
+            &lt;p style="font-size: 1.5rem; font-weight: bold; color: #10b981; margin: 0 0 12px 0;"&gt;{{ producto.precio }} €&lt;/p&gt;
+            &lt;p style="color: #cbd5e1; line-height: 1.6;"&gt;{{ producto.descripcion }}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      } @else {
+        &lt;div style="background: #7f1d1d; color: white; padding: 16px; border-radius: 8px;"&gt;
+          ⚠️ Producto no encontrado (ID no válido).
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  `
+})
+export class ProductoDetalleComponent implements OnInit {
+  producto: Producto | undefined;
+
+  constructor(
+    private route: ActivatedRoute,
+    private productosService: ProductosService
+  ) {}
+
+  ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      const id = Number(idParam);
+      this.producto = this.productosService.getProductoById(id);
+    }
+  }
+}</code></pre>
   </li>
-  <li><strong>Paso 7: Tabla de Configuración de Rutas (`app.routes.ts`):</strong>
-    <p>Mapeo entre patrones de URL y sus componentes correspondientes:</p>
-    <pre><code>export const routes: Routes = [
+
+  <li><strong>Paso 7: Tabla de Configuración de Rutas (<code>src/app/app.routes.ts</code>):</strong>
+    <p>En <code>src/app/app.routes.ts</code> definimos el array de configuración de rutas <code>Routes</code>. Asociamos la ruta raíz <code>''</code> para redirigir a <code>/productos</code>, la ruta <code>/productos</code> al componente <code>ProductoListaComponent</code>, y la ruta parametrizada <code>/producto/:id</code> a <code>ProductoDetalleComponent</code>.</p>
+    <pre><code>// Archivo: src/app/app.routes.ts
+
+import { Routes } from '@angular/router';
+import { ProductoListaComponent } from './components/producto-lista/producto-lista.component';
+import { ProductoDetalleComponent } from './components/producto-detalle/producto-detalle.component';
+
+export const routes: Routes = [
   { path: '', redirectTo: 'productos', pathMatch: 'full' },
   { path: 'productos', component: ProductoListaComponent },
   { path: 'producto/:id', component: ProductoDetalleComponent },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', redirectTo: 'productos' }
 ];</code></pre>
   </li>
-  <li><strong>Paso 8: Marcador de Posición en Layout Raíz (`app.component.html`):</strong>
-    <p>Se maqueta el layout insertando la barra de navegación <code>&lt;app-navbar&gt;&lt;/app-navbar&gt;</code> y el contenedor dinámico de enrutamiento <code>&lt;router-outlet&gt;&lt;/router-outlet&gt;</code> donde Angular Router sustituye al vuelo la vista activa.</p>
+
+  <li><strong>Paso 8: Layout Raíz y Marcador de Posición Router Outlet (<code>src/app/app.component.ts</code> y <code>src/app/app.component.html</code>):</strong>
+    <p>En el componente raíz <code>AppComponent</code> importamos <code>NavbarComponent</code> y la directiva <code>RouterOutlet</code>. En su plantilla HTML colocamos <code>&lt;app-navbar&gt;&lt;/app-navbar&gt;</code> fijo en la parte superior y la etiqueta <code>&lt;router-outlet&gt;&lt;/router-outlet&gt;</code> justo debajo. Angular Router utiliza esta última etiqueta como hueco dinámico donde renderiza e intercambia los componentes según la URL activa sin recargar el navegador Web.</p>
+    <pre><code>// Archivo: src/app/app.component.ts
+
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent],
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  title = 'tienda-angular';
+}</code></pre>
+    <pre><code>&lt;!-- Archivo: src/app/app.component.html --&gt;
+
+&lt;div style="max-width: 1000px; margin: 0 auto; padding: 20px; font-family: system-ui, -apple-system, sans-serif;"&gt;
+  &lt;app-navbar&gt;&lt;/app-navbar&gt;
+  &lt;main&gt;
+    &lt;router-outlet&gt;&lt;/router-outlet&gt;
+  &lt;/main&gt;
+&lt;/div&gt;</code></pre>
   </li>
 </ul></div>
           </div>
@@ -2074,29 +2295,172 @@ auditarEndpointAPI(&quot;https://jsonplaceholder.typicode.com/posts/1&quot;)
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p><strong>React 18</strong> permite construir aplicaciones SPA altamente reactivas organizando la interfaz en componentes declarativos y gestionando los datos mediante <strong>Hooks (`useState` y `useEffect`)</strong>. A continuación se detalla la construcción paso a paso del proyecto <strong>Tienda Online en React</strong>:</p>
+            <div class="card-text"><p><strong>React 18</strong> permite construir aplicaciones SPA dinámicas combinando sintaxis <strong>JSX</strong> (HTML dentro de JavaScript) y <strong>Hooks</strong> para la gestión del estado reactivo (<code>useState</code>) y la ejecución de efectos secundarios asíncronos (<code>useEffect</code>). A continuación se detalla paso a paso la construcción de la aplicación <strong>Tienda Online en React 18</strong>, especificando el archivo a crear/editar, su fundamentación técnica y su código fuente completo:</p>
+
 <ul class="concept-list">
-  <li><strong>Paso 1: Setup Inicial con Vite CLI (`npm create vite@latest`):</strong>
-    <p>Inicialización rápida de un proyecto React 18 moderno sin sobrecarga de configuración:</p>
+  <li><strong>Paso 1: Setup Inicial con Vite CLI (<code>npm create vite@latest</code>):</strong>
+    <p>Creación del proyecto en consola utilizando el empaquetador moderno <strong>Vite</strong> en lugar de herramientas legadas:</p>
     <pre><code>npm create vite@latest tienda-react -- --template react
 cd tienda-react
 npm install
 npm run dev</code></pre>
+    <p>El comando <code>npm run dev</code> inicia el servidor de desarrollo ultrarrápido con Hot Module Replacement (HMR) en <code>http://localhost:5173/</code>.</p>
   </li>
-  <li><strong>Paso 2: Modelado del Estado Global en `App.jsx` (`useState`):</strong>
-    <p>Se declaran las variables de estado reactivo principales: lista de productos, carrito de compras, vista activa (<code>'catalogo' | 'detalle'</code>), término de búsqueda y producto seleccionado.</p>
+
+  <li><strong>Paso 2: Componente Barra de Navegación (<code>src/components/Navbar.jsx</code>):</strong>
+    <p>Creamos el archivo <code>src/components/Navbar.jsx</code>. Este componente funcional recibe como <em>props</em> el número de elementos en el carrito (<code>itemsCarrito</code>) y la función callback <code>onIrCatalogo</code>. Muestra el título de la tienda y un botón con el contador reactivo del carrito de compras.</p>
+    <pre><code>// Archivo: src/components/Navbar.jsx
+
+import React from 'react';
+
+export function Navbar({ itemsCarrito, onIrCatalogo }) {
+  return (
+    &lt;nav style={{ background: '#0f172a', padding: '16px 24px', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '8px 8px 0 0' }}&gt;
+      &lt;div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.2rem', fontWeight: 'bold', color: '#38bdf8', cursor: 'pointer' }} onClick={onIrCatalogo}&gt;
+        &lt;span&gt;⚛️&lt;/span&gt; React Store 18
+      &lt;/div&gt;
+      &lt;button onClick={onIrCatalogo} style={{ background: '#0284c7', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}&gt;
+        🛒 Carrito ({itemsCarrito})
+      &lt;/button&gt;
+    &lt;/nav&gt;
+  );
+}</code></pre>
   </li>
-  <li><strong>Paso 3: Barra de Navegación Superior (`Navbar.jsx`):</strong>
-    <p>Componente funcional que recibe como <em>props</em> la longitud del carrito y la función de navegación para mostrar la marca de la tienda y el contador reactivo en tiempo real.</p>
+
+  <li><strong>Paso 3: Componente Catálogo y Grid de Tarjetas (<code>src/components/ProductoLista.jsx</code>):</strong>
+    <p>En <code>src/components/ProductoLista.jsx</code> renderizamos la cuadrícula de productos. Recibe por <em>props</em> el array de productos y las funciones handler <code>onVerDetalle</code> y <code>onAddCarrito</code>. Iteramos con el método <code>.map()</code> de JavaScript, asignando a cada tarjeta la propiedad obligatoria <code>key={producto.id}</code> para que el motor de reconciliación de React Virtual DOM identifique de forma única cada elemento.</p>
+    <pre><code>// Archivo: src/components/ProductoLista.jsx
+
+import React from 'react';
+
+export function ProductoLista({ productos, onVerDetalle, onAddCarrito }) {
+  return (
+    &lt;div style={{ padding: '20px', background: '#1e293b', borderRadius: '0 0 8px 8px', color: 'white' }}&gt;
+      &lt;h2 style={{ color: '#f8fafc', margin: '0 0 20px 0' }}&gt;📦 Catálogo de Productos&lt;/h2&gt;
+      &lt;div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px' }}&gt;
+        {productos.map((producto) =&gt; (
+          &lt;div key={producto.id} style={{ background: '#0f172a', border: '1px solid #334155', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}&gt;
+            &lt;div style={{ fontSize: '3.5rem', textAlign: 'center', marginBottom: '10px' }}&gt;{producto.imagen}&lt;/div&gt;
+            &lt;h3 style={{ margin: '0 0 8px 0', fontSize: '1.1rem', color: '#f8fafc' }}&gt;{producto.nombre}&lt;/h3&gt;
+            &lt;p style={{ color: '#38bdf8', fontWeight: 'bold', fontSize: '1.2rem', margin: '0 0 12px 0' }}&gt;{producto.precio} €&lt;/p&gt;
+            &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}&gt;
+              &lt;button onClick={() =&gt; onVerDetalle(producto)} style={{ background: '#0284c7', color: 'white', border: 'none', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontWeight: '500' }}&gt;
+                🔍 Ver Detalle
+              &lt;/button&gt;
+              &lt;button onClick={() =&gt; onAddCarrito(producto)} style={{ background: '#10b981', color: 'white', border: 'none', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontWeight: '500' }}&gt;
+                🛒 Añadir al Carrito
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
   </li>
-  <li><strong>Paso 4: Catálogo y Grid de Tarjetas (`ProductoLista.jsx`):</strong>
-    <p>Renderizado declarativo del array de productos con <code>.map()</code>. Cada tarjeta muestra la imagen, nombre, categoría, precio y botones para añadir al carrito o ver el detalle ampliatorio.</p>
+
+  <li><strong>Paso 4: Vista de Ficha Ampliada (<code>src/components/ProductoDetalle.jsx</code>):</strong>
+    <p>En <code>src/components/ProductoDetalle.jsx</code> implementamos la vista detallada del producto seleccionado. Si <code>producto</code> no existe retorna <code>null</code>. Muestra la información extendida y botones para volver al catálogo (ejecutando <code>onVolver()</code>) o añadir la unidad al carrito.</p>
+    <pre><code>// Archivo: src/components/ProductoDetalle.jsx
+
+import React from 'react';
+
+export function ProductoDetalle({ producto, onVolver, onAddCarrito }) {
+  if (!producto) return null;
+
+  return (
+    &lt;div style={{ padding: '20px', background: '#1e293b', borderRadius: '0 0 8px 8px', color: 'white' }}&gt;
+      &lt;button onClick={onVolver} style={{ background: '#334155', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', marginBottom: '20px', fontWeight: '500' }}&gt;
+        ← Volver al Catálogo
+      &lt;/button&gt;
+      &lt;div style={{ background: '#0f172a', border: '1px solid #38bdf8', padding: '24px', borderRadius: '12px', display: 'grid', gridTemplateColumns: '100px 1fr', gap: '24px', alignItems: 'center' }}&gt;
+        &lt;div style={{ fontSize: '5rem', textAlign: 'center' }}&gt;{producto.imagen}&lt;/div&gt;
+        &lt;div&gt;
+          &lt;span style={{ background: '#0284c7', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem' }}&gt;{producto.categoria}&lt;/span&gt;
+          &lt;h2 style={{ color: '#38bdf8', margin: '10px 0' }}&gt;{producto.nombre}&lt;/h2&gt;
+          &lt;p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#10b981', margin: '0 0 12px 0' }}&gt;{producto.precio} €&lt;/p&gt;
+          &lt;p style={{ color: '#cbd5e1', lineHeight: '1.6', marginBottom: '16px' }}&gt;{producto.descripcion}&lt;/p&gt;
+          &lt;button onClick={() =&gt; onAddCarrito(producto)} style={{ background: '#10b981', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem' }}&gt;
+            🛒 Añadir al Carrito
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
   </li>
-  <li><strong>Paso 5: Vista de Ficha Ampliada (`ProductoDetalle.jsx`):</strong>
-    <p>Componente dedicado que muestra las especificaciones técnicas completas del producto seleccionado y un botón para retornar al catálogo principal.</p>
-  </li>
-  <li><strong>Paso 6: Efecto Asíncrono de Carga y Persistencia (`useEffect`):</strong>
-    <p>Uso de <code>useEffect(() => { ... }, [])</code> con array de dependencias vacío para cargar los productos desde la API REST al montar el componente, y persistencia automática del carrito en <code>localStorage</code>.</p>
+
+  <li><strong>Paso 5: Orquestación del Estado Global y Efectos Asíncronos (<code>src/App.jsx</code>):</strong>
+    <p>En el componente principal <code>src/App.jsx</code> declaramos los estados reactivos usando <strong><code>useState</code></strong>: <code>productos</code>, <code>carrito</code>, <code>vista</code> ('catalogo' | 'detalle'), <code>productoSeleccionado</code> y <code>cargando</code>. Usamos <strong><code>useEffect(() =&gt; { ... }, [])</code></strong> con array de dependencias vacío para ejecutar una sola vez al montar la simulación de petición HTTP asíncrona a la API REST. Aplicamos la regla de inmutabilidad al actualizar el carrito mediante <code>setCarrito([...carrito, producto])</code>.</p>
+    <pre><code>// Archivo: src/App.jsx
+
+import React, { useState, useEffect } from 'react';
+import { Navbar } from './components/Navbar';
+import { ProductoLista } from './components/ProductoLista';
+import { ProductoDetalle } from './components/ProductoDetalle';
+
+export function App() {
+  const [productos, setProductos] = useState([]);
+  const [carrito, setCarrito] = useState([]);
+  const [vista, setVista] = useState('catalogo'); // 'catalogo' | 'detalle'
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  const [cargando, setCargando] = useState(true);
+
+  // Hook useEffect: simula la carga asíncrona de datos desde una API REST al montar
+  useEffect(() =&gt; {
+    const timer = setTimeout(() =&gt; {
+      const datosApi = [
+        { id: 1, nombre: 'Laptop React Pro 16', precio: 1299, imagen: '💻', descripcion: 'Procesador M3 Max, 32GB RAM, Pantalla Liquid Retina XDR. Diseñado para desarrollo frontend React 18.', categoria: 'Ordenadores' },
+        { id: 2, nombre: 'Teclado Mecánico Hooks RGB', precio: 119, imagen: '⌨️', descripcion: 'Switches táctiles silenciosos, layout español ISO y retroiluminación RGB direccionable.', categoria: 'Periféricos' },
+        { id: 3, nombre: 'Monitor Curvo Virtual DOM 4K', precio: 449, imagen: '🖥️', descripcion: 'Resolución UHD 3840x2160, 144Hz, panel IPS profesional.', categoria: 'Pantallas' },
+        { id: 4, nombre: 'Auriculares State Sound', precio: 179, imagen: '🎧', descripcion: 'Cancelación activa de ruido (ANC), micrófonos duales y sonido Hi-Res.', categoria: 'Audio' }
+      ];
+      setProductos(datosApi);
+      setCargando(false);
+    }, 500);
+
+    return () =&gt; clearTimeout(timer); // Limpieza de efecto
+  }, []);
+
+  const handleVerDetalle = (producto) =&gt; {
+    setProductoSeleccionado(producto);
+    setVista('detalle');
+  };
+
+  const handleAddCarrito = (producto) =&gt; {
+    setCarrito([...carrito, producto]); // Inmutabilidad: nuevo array con spread operator
+  };
+
+  const handleIrCatalogo = () =&gt; {
+    setVista('catalogo');
+    setProductoSeleccionado(null);
+  };
+
+  return (
+    &lt;div style={{ maxWidth: '1000px', margin: '20px auto', fontFamily: 'system-ui, -apple-system, sans-serif' }}&gt;
+      &lt;Navbar itemsCarrito={carrito.length} onIrCatalogo={handleIrCatalogo} /&gt;
+      {cargando ? (
+        &lt;div style={{ padding: '40px', textAlign: 'center', background: '#1e293b', color: '#38bdf8', borderRadius: '0 0 8px 8px' }}&gt;
+          ⏳ Cargando productos desde la API REST...
+        &lt;/div&gt;
+      ) : vista === 'catalogo' ? (
+        &lt;ProductoLista 
+          productos={productos} 
+          onVerDetalle={handleVerDetalle} 
+          onAddCarrito={handleAddCarrito} 
+        /&gt;
+      ) : (
+        &lt;ProductoDetalle 
+          producto={productoSeleccionado} 
+          onVolver={handleIrCatalogo} 
+          onAddCarrito={handleAddCarrito} 
+        /&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code></pre>
   </li>
 </ul></div>
           </div>
