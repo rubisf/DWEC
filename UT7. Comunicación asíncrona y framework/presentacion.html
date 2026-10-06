@@ -642,12 +642,12 @@ export class ProductosService {
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
   template: `
-    <nav class="navbar">
-      <div class="logo">🅰️ Tienda Angular</div>
-      <div class="menu">
-        <a routerLink="/productos" routerLinkActive="active">🛒 Catálogo</a>
-      </div>
-    </nav>
+    &lt;nav class="navbar"&gt;
+      &lt;div class="logo"&gt;🅰️ Tienda Angular&lt;/div&gt;
+      &lt;div class="menu"&gt;
+        &lt;a routerLink="/productos" routerLinkActive="active"&gt;🛒 Catálogo&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
   `
 })
 export class NavbarComponent {}</pre>
@@ -664,16 +664,16 @@ export class NavbarComponent {}</pre>
   standalone: true,
   imports: [RouterLink, CurrencyPipe],
   template: `
-    <div class="grid-productos">
+    &lt;div class="grid-productos"&gt;
       @for (p of productos; track p.id) {
-        <div class="tarjeta-card">
-          <div class="img">{{ p.imagen }}</div>
-          <h3>{{ p.nombre }}</h3>
-          <p class="precio">{{ p.precio | currency:'EUR' }}</p>
-          <button [routerLink]="['/producto', p.id]">🔍 Ver Detalle</button>
-        </div>
+        &lt;div class="tarjeta-card"&gt;
+          &lt;div class="img"&gt;{{ p.imagen }}&lt;/div&gt;
+          &lt;h3&gt;{{ p.nombre }}&lt;/h3&gt;
+          &lt;p class="precio"&gt;{{ p.precio | currency:'EUR' }}&lt;/p&gt;
+          &lt;button [routerLink]="['/producto', p.id]"&gt;🔍 Ver Detalle&lt;/button&gt;
+        &lt;/div&gt;
       }
-    </div>
+    &lt;/div&gt;
   `
 })
 export class ProductoListaComponent implements OnInit {
@@ -705,12 +705,12 @@ export class ProductoListaComponent implements OnInit {
   imports: [RouterLink],
   template: `
     @if (producto) {
-      <div class="ficha-detalle">
-        <button routerLink="/productos">← Volver</button>
-        <h2>{{ producto.nombre }}</h2>
-        <p>{{ producto.descripcion }}</p>
-        <p class="precio">{{ producto.precio }}€</p>
-      </div>
+      &lt;div class="ficha-detalle"&gt;
+        &lt;button routerLink="/productos"&gt;← Volver&lt;/button&gt;
+        &lt;h2&gt;{{ producto.nombre }}&lt;/h2&gt;
+        &lt;p&gt;{{ producto.descripcion }}&lt;/p&gt;
+        &lt;p class="precio"&gt;{{ producto.precio }}€&lt;/p&gt;
+      &lt;/div&gt;
     }
   `
 })
@@ -753,13 +753,13 @@ export class ProductoDetalleComponent implements OnInit {
             <p style="font-size: 0.62em; color: #334155; margin: 0; line-height: 1.35;">
               Maquetación general en <code>app.component.html</code>:
             </p>
-            <pre style="background: #0f172a; color: #34d399; padding: 8px; border-radius: 6px; font-size: 0.54em; margin: 0; font-family: monospace;"><!-- Barra de navegación global -->
-<app-navbar></app-navbar>
+            <pre style="background: #0f172a; color: #34d399; padding: 8px; border-radius: 6px; font-size: 0.54em; margin: 0; font-family: monospace;">&lt;!-- Barra de navegación global --&gt;
+&lt;app-navbar&gt;&lt;/app-navbar&gt;
 
-<!-- Contenedor dinámico de rutas -->
-<main class="contenedor-principal">
-  <router-outlet></router-outlet>
-</main></pre>
+&lt;!-- Contenedor dinámico de rutas --&gt;
+&lt;main class="contenedor-principal"&gt;
+  &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/main&gt;</pre>
           </div>
 
         </div>
