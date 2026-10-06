@@ -1875,7 +1875,7 @@ if (appEl) {
   <li><strong>Paso 3: Servicio de Datos:</strong> Generar <code>ProductosService</code> para gestionar el catálogo y las peticiones HTTP.</li>
   <li><strong>Paso 4: Menú de Navegación (`NavbarComponent`):</strong> Barra superior con logo, buscador y enlaces `routerLink`.</li>
   <li><strong>Paso 5: Catálogo de Productos (`ProductoListaComponent`):</strong> Grid de tarjetas iteradas con `@for` y botón de navegación.</li>
-  <li><strong>Paso 6: Vista de Detalle (`ProductoDetalleComponent`):</b> Muestra la información completa del producto seleccionado mediante `ActivatedRoute`.</li>
+  <li><strong>Paso 6: Vista de Detalle (`ProductoDetalleComponent`):</strong> Muestra la información completa del producto seleccionado mediante `ActivatedRoute`.</li>
   <li><strong>Paso 7: Enrutamiento (`app.routes.ts`):</strong> Registrar las rutas `/productos` y `/producto/:id`.</li>
   <li><strong>Paso 8: Maquetación Raíz (`app.component.html`):</strong> Ensamblar `<app-navbar>` y `<router-outlet>`.</li>
 </ul></div>
@@ -2003,71 +2003,71 @@ class TiendaAngularApp {
         let contenidoHtml = &quot;&quot;;
 
         const navbarHtml = `
-            &lt;nav class=&quot;t-nav&quot;&gt;
-                &lt;div class=&quot;t-nav-brand&quot;&gt;
-                    &lt;span style=&quot;font-size: 1.5em;&quot;&gt;🅰️&lt;/span&gt;
-                    &lt;span&gt;Tienda Angular Store&lt;/span&gt;
-                &lt;/div&gt;
-                &lt;div&gt;
-                    &lt;button id=&quot;nav-catalogo&quot; class=&quot;t-nav-btn ${this.vistaActual === &#x27;catalogo&#x27; ? &#x27;&#x27; : &#x27;inactive&#x27;}&quot;&gt;
+            \x3Cnav class=&quot;t-nav&quot;\x3E
+                \x3Cdiv class=&quot;t-nav-brand&quot;\x3E
+                    \x3Cspan style=&quot;font-size: 1.5em;&quot;\x3E🅰️\x3C/span\x3E
+                    \x3Cspan\x3ETienda Angular Store\x3C/span\x3E
+                \x3C/div\x3E
+                \x3Cdiv\x3E
+                    \x3Cbutton id=&quot;nav-catalogo&quot; class=&quot;t-nav-btn ${this.vistaActual === &#x27;catalogo&#x27; ? &#x27;&#x27; : &#x27;inactive&#x27;}&quot;\x3E
                         🛒 Catálogo
-                    &lt;/button&gt;
-                &lt;/div&gt;
-            &lt;/nav&gt;
+                    \x3C/button\x3E
+                \x3C/div\x3E
+            \x3C/nav\x3E
         `;
 
         if (this.vistaActual === &quot;catalogo&quot;) {
             contenidoHtml = `
-                &lt;div class=&quot;t-body&quot;&gt;
-                    &lt;div style=&quot;margin-bottom: 16px;&quot;&gt;
-                        &lt;h2 style=&quot;margin: 0; color: #f8fafc; font-size: 1.2em;&quot;&gt;Catálogo de Productos Destacados&lt;/h2&gt;
-                        &lt;p style=&quot;margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85em;&quot;&gt;Selecciona un producto para inspeccionar sus especificaciones técnicas (Angular Router: /producto/:id)&lt;/p&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;t-grid&quot;&gt;
+                \x3Cdiv class=&quot;t-body&quot;\x3E
+                    \x3Cdiv style=&quot;margin-bottom: 16px;&quot;\x3E
+                        \x3Ch2 style=&quot;margin: 0; color: #f8fafc; font-size: 1.2em;&quot;\x3ECatálogo de Productos Destacados\x3Ch2\x3E
+                        \x3Cp style=&quot;margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85em;&quot;\x3ESelecciona un producto para inspeccionar sus especificaciones técnicas (Angular Router: /producto/:id)\x3C/p\x3E
+                    \x3C/div\x3E
+                    \x3Cdiv class=&quot;t-grid&quot;\x3E
                         ${this.productos.map(p =&gt; `
-                            &lt;div class=&quot;t-card&quot;&gt;
-                                &lt;div&gt;
-                                    &lt;div style=&quot;font-size: 3em; text-align: center; margin-bottom: 10px;&quot;&gt;${p.imagen}&lt;/div&gt;
-                                    &lt;span class=&quot;t-badge&quot;&gt;${p.categoria}&lt;/span&gt;
-                                    &lt;h3 style=&quot;margin: 8px 0 4px 0; color: #f8fafc; font-size: 1em;&quot;&gt;${p.nombre}&lt;/h3&gt;
-                                    &lt;p class=&quot;t-price&quot;&gt;${p.precio} €&lt;/p&gt;
-                                &lt;/div&gt;
-                                &lt;button class=&quot;btn-ver-detalle t-btn-detail&quot; data-id=&quot;${p.id}&quot;&gt;
+                            \x3Cdiv class=&quot;t-card&quot;\x3E
+                                \x3Cdiv\x3E
+                                    \x3Cdiv style=&quot;font-size: 3em; text-align: center; margin-bottom: 10px;&quot;\x3E${p.imagen}\x3C/div\x3E
+                                    \x3Cspan class=&quot;t-badge&quot;\x3E${p.categoria}\x3C/span\x3E
+                                    \x3Ch3 style=&quot;margin: 8px 0 4px 0; color: #f8fafc; font-size: 1em;&quot;\x3E${p.nombre}\x3C/h3\x3E
+                                    \x3Cp class=&quot;t-price&quot;\x3E${p.precio} €\x3C/p\x3E
+                                \x3C/div\x3E
+                                \x3Cbutton class=&quot;btn-ver-detalle t-btn-detail&quot; data-id=&quot;${p.id}&quot;\x3E
                                     🔍 Ver Detalle
-                                &lt;/button&gt;
-                            &lt;/div&gt;
+                                \x3C/button\x3E
+                            \x3C/div\x3E
                         `).join(&#x27;&#x27;)}
-                    &lt;/div&gt;
-                &lt;/div&gt;
+                    \x3C/div\x3E
+                \x3C/div\x3E
             `;
         } else if (this.vistaActual === &quot;detalle&quot;) {
             const producto = this.productos.find(p =&gt; p.id === this.productoSeleccionadoId);
             if (producto) {
                 contenidoHtml = `
-                    &lt;div class=&quot;t-body&quot;&gt;
-                        &lt;button id=&quot;btn-volver&quot; class=&quot;t-btn-back&quot;&gt;
+                    \x3Cdiv class=&quot;t-body&quot;\x3E
+                        \x3Cbutton id=&quot;btn-volver&quot; class=&quot;t-btn-back&quot;\x3E
                             ← Volver al Catálogo
-                        &lt;/button&gt;
-                        &lt;div class=&quot;t-detail-card&quot;&gt;
-                            &lt;div style=&quot;font-size: 3.5em; text-align: center; background: #1e293b; border-radius: 10px; padding: 10px;&quot;&gt;${producto.imagen}&lt;/div&gt;
-                            &lt;div&gt;
-                                &lt;div style=&quot;display: flex; gap: 8px; align-items: center; margin-bottom: 6px;&quot;&gt;
-                                    &lt;span class=&quot;t-badge&quot;&gt;${producto.categoria}&lt;/span&gt;
-                                    &lt;span style=&quot;font-size: 0.75em; color: #94a3b8;&quot;&gt;Ruta activa: /producto/${producto.id}&lt;/span&gt;
-                                &lt;/div&gt;
-                                &lt;h2 style=&quot;margin: 0 0 8px 0; color: #f8fafc; font-size: 1.4em;&quot;&gt;${producto.nombre}&lt;/h2&gt;
-                                &lt;p class=&quot;t-price&quot; style=&quot;font-size: 1.3em;&quot;&gt;${producto.precio} €&lt;/p&gt;
-                                &lt;p class=&quot;t-detail-desc&quot;&gt;
+                        \x3C/button\x3E
+                        \x3Cdiv class=&quot;t-detail-card&quot;\x3E
+                            \x3Cdiv style=&quot;font-size: 3.5em; text-align: center; background: #1e293b; border-radius: 10px; padding: 10px;&quot;\x3E${producto.imagen}\x3C/div\x3E
+                            \x3Cdiv\x3E
+                                \x3Cdiv style=&quot;display: flex; gap: 8px; align-items: center; margin-bottom: 6px;&quot;\x3E
+                                    \x3Cspan class=&quot;t-badge&quot;\x3E${producto.categoria}\x3C/span\x3E
+                                    \x3Cspan style=&quot;font-size: 0.75em; color: #94a3b8;&quot;\x3ERuta activa: /producto/${producto.id}\x3C/span\x3E
+                                \x3C/div\x3E
+                                \x3Ch2 style=&quot;margin: 0 0 8px 0; color: #f8fafc; font-size: 1.4em;&quot;\x3E${producto.nombre}\x3C/h2\x3E
+                                \x3Cp class=&quot;t-price&quot; style=&quot;font-size: 1.3em;&quot;\x3E${producto.precio} €\x3C/p\x3E
+                                \x3Cp class=&quot;t-detail-desc&quot;\x3E
                                     ${producto.descripcion}
-                                &lt;/p&gt;
-                                &lt;div style=&quot;margin-top: 16px; display: flex; gap: 10px;&quot;&gt;
-                                    &lt;button onclick=&quot;alert(&#x27;🛒 Producto añadido al carrito de compra de Angular&#x27;)&quot; class=&quot;t-btn-cart&quot;&gt;
+                                \x3C/p\x3E
+                                \x3Cdiv style=&quot;margin-top: 16px; display: flex; gap: 10px;&quot;\x3E
+                                    \x3Cbutton onclick=&quot;alert(&#x27;🛒 Producto añadido al carrito de compra de Angular&#x27;)&quot; class=&quot;t-btn-cart&quot;\x3E
                                         🛒 Añadir al Carrito
-                                    &lt;/button&gt;
-                                &lt;/div&gt;
-                            &lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
+                                    \x3C/button\x3E
+                                \x3C/div\x3E
+                            \x3C/div\x3E
+                        \x3C/div\x3E
+                    \x3C/div\x3E
                 `;
             }
         }
