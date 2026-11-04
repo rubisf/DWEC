@@ -424,7 +424,7 @@
         <div class="badge">04</div>
         <h1>UT4: Funciones, Arrays, Programación Orientada a Objetos y Patrones</h1>
         <p class="subtitle">📚 Desarrollo Web en Entorno Cliente · Grado Superior (DAW)</p>
-        <div class="tagline">Funciones predefinidas y personalizadas, arrays y manipulación, operaciones agregadas (map, filter, reduce, sort), orientación a objetos (literales, constructores, clases ES6), patrones de diseño y depuración/documentación.</div>
+        <div class="tagline">Funciones predefinidas y personalizadas, arrays y manipulación, operaciones agregadas (map, filter, reduce, sort), orientación a objetos (literales, constructores, clases ES6), patrones de diseño clasificados (creacionales, estructurales y comportamentales) y depuración/documentación.</div>
         <div class="cover-hint">Presiona <strong>Espacio</strong> o <strong>Flecha Derecha</strong> para comenzar</div>
       </section>
 
@@ -466,8 +466,8 @@
           <div class="index-card" style="">
             <div class="index-badge" style="">5</div>
             <div class="index-info">
-              <div class="index-title">Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño Básicos</div>
-              <p class="index-desc">En el desarrollo de software frontend, los patrones de diseño son soluciones arquitectónicas probadas a problemas habituales en la organización de código, gestión del estado y desacoplamiento de componentes.</p>
+              <div class="index-title">Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño (Creacionales, Estructurales y Comportamentales)</div>
+              <p class="index-desc">En el desarrollo de software frontend, los patrones de diseño son soluciones arquitectónicas probadas a problemas habituales en la organización de código, estructuración y desacoplamiento de componentes. Se clasifican formalmente en tres grandes familias.</p>
             </div>
           </div>
           <div class="index-card" style="">
@@ -1205,27 +1205,30 @@ comparativaOrientacionObjetos();</code></pre>
       <section>
         <div class="slide-header">
           <span class="badge-sub">Bloque 5 de 6 · Teoría y Demostración</span>
-          <h2>5. Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño Básicos</h2>
+          <h2>5. Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño (Creacionales, Estructurales y Comportamentales)</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>En el desarrollo de software frontend, los <strong>patrones de diseño</strong> son soluciones arquitectónicas probadas a problemas habituales en la organización de código, gestión del estado y desacoplamiento de componentes:</p>
+            <div class="card-text"><p>En el desarrollo de software frontend, los <strong>patrones de diseño</strong> son soluciones arquitectónicas probadas a problemas habituales en la organización de código, estructuración y desacoplamiento de componentes. Se clasifican formalmente en tres grandes familias:</p>
 <ul class="concept-list">
-  <li><strong>Modelado de Entidades del Dominio:</strong> Organización de datos mediante colecciones de objetos interactivos que encapsulan estado y operaciones de negocio (ej. <code>Usuario</code>, <code>Producto</code>, <code>Carrito</code>).</li>
-  <li><strong>1. Patrón Módulo (Module Pattern):</strong> Aísla variables y funciones privadas exponiendo únicamente una API pública. Histórico con closures en IIFEs; estandarizado modernamente con los <strong>ES Modules</strong> nativos.</li>
-  <li><strong>2. Patrón Singleton (Instancia Única):</strong> Garantiza que una clase posea una única instancia en toda la aplicación y proporciona un punto de acceso global compartido.</li>
-  <li><strong>3. Patrón Factoría (Factory Pattern):</strong> Centraliza y abstrae la instanciación de familias de objetos dinámicamente según parámetros recibidos.</li>
-  <li><strong>4. Patrón Observador (Observer / Pub-Sub):</strong> Mecanismo de suscripción donde un sujeto notifica automáticamente a múltiples observadores ante cambios de estado.</li>
+  <li><strong>● Creacionales → Creación de Objetos:</strong>
+    <p>Abstraen el proceso de instanciación, haciendo que un sistema sea independiente de cómo se crean, componen y representan sus objetos (<em>Singleton, Factory Method, Builder, Prototype</em>).</p>
+  </li>
+  <li><strong>● Estructurales → Composición de Clases y Objetos:</strong>
+    <p>Se ocupan de cómo se combinan clases y objetos para formar estructuras más amplias y flexibles sin acoplamiento rígido (<em>Adapter, Decorator, Proxy, Facade, Composite</em>).</p>
+  </li>
+  <li><strong>● Comportamentales → Comunicación entre Objetos:</strong>
+    <p>Gestionan algoritmos, flujos de control y la distribución de responsabilidades y comunicación reactiva entre objetos independientes (<em>Observer, Strategy, Command, Mediator, State</em>).</p>
+  </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>Clasificación y Buenas Prácticas en Patrones de Diseño Frontend:</strong></p>
+            <div class="card-text"><p><strong>Mapa de Patrones de Diseño en JavaScript y Arquitectura Web:</strong></p>
 <ul class="concept-list">
-  <li><strong>Patrones Creacionales (Singleton, Factory, Builder):</strong> Gestionan los mecanismos de creación de objetos desacoplando al cliente de las clases concretas.</li>
-  <li><strong>Patrones Estructurales (Module, Facade, Adapter):</strong> Organizan las relaciones entre clases y objetos formando arquitecturas más amplias y mantenibles.</li>
-  <li><strong>Patrones de Comportamiento (Observer, Strategy, Command):</strong> Definen la comunicación y el flujo de control entre objetos independientes sin acoplamiento estrecho.</li>
+  <li><strong>¿Por qué usarlos en Frontend?</strong> Eliminan código duplicado, facilitan el testing con dobles de prueba (mocks), reducen el acoplamiento y estandarizan el vocabulario técnico en los equipos de desarrollo.</li>
+  <li><strong>Nativos vs Clásicos en JS:</strong> JavaScript ofrece primitivas nativas que facilitan ciertos patrones (ej. <code>Object.create()</code> para Prototype, <code>Proxy</code> nativo de ES6, y <code>Set</code>/<code>addEventListener</code> para Observer).</li>
 </ul></div>
           </div>
         </div>
@@ -1234,135 +1237,64 @@ comparativaOrientacionObjetos();</code></pre>
             <span>💻 Demostración Práctica e Implementación de Código</span>
             
           </div>
-          <pre><code class="language-javascript">// Patrón Singleton y Patrón Factoría en JavaScript
+          <pre><code class="language-javascript">// Resumen de Patrones de Diseño: Creacionales, Estructurales y Comportamentales
 
-// 1. Patrón Singleton Simple: Gestor de Configuración Global
-class ConfiguracionApp {
+// 1. Creacional: Singleton
+class AppConfig {
     static #instancia = null;
-
     constructor() {
-        if (ConfiguracionApp.#instancia) {
-            return ConfiguracionApp.#instancia; // Devuelve la instancia ya existente
-        }
-        this.idioma = &quot;es&quot;;
-        this.modoOscuro = true;
-        this.apiEndpoint = &quot;https://api.empresa.com/v1&quot;;
-        ConfiguracionApp.#instancia = this;
-    }
-
-    static getInstancia() {
-        if (!this.#instancia) {
-            this.#instancia = new ConfiguracionApp();
-        }
-        return this.#instancia;
+        if (AppConfig.#instancia) return AppConfig.#instancia;
+        this.version = &quot;2.0&quot;;
+        AppConfig.#instancia = this;
     }
 }
 
-// 2. Patrón Factoría: Creador de Notificaciones de UI
-class FactoriaNotificaciones {
-    static crear(tipo, mensaje) {
-        switch (tipo) {
-            case &quot;error&quot;:
-                return { tipo, mensaje, icono: &quot;❌&quot;, color: &quot;#ef4444&quot; };
-            case &quot;exito&quot;:
-                return { tipo, mensaje, icono: &quot;✅&quot;, color: &quot;#10b981&quot; };
-            case &quot;info&quot;:
-            default:
-                return { tipo, mensaje, icono: &quot;ℹ️&quot;, color: &quot;#3b82f6&quot; };
-        }
+// 2. Estructural: Adapter
+class AdaptadorJSON {
+    static adaptarXML(xmlStr) {
+        // Convierte XML a estructura JSON uniforme
+        return { dato: &quot;Convertido desde XML&quot; };
     }
 }
 
-const config1 = new ConfiguracionApp();
-const config2 = new ConfiguracionApp();
-console.log(&quot;¿Son la misma instancia Singleton?:&quot;, config1 === config2); // true
+// 3. Comportamental: Observer
+class Observable {
+    #obs = new Set();
+    suscribir(fn) { this.#obs.add(fn); }
+    emitir(valor) { this.#obs.forEach(fn =&gt; fn(valor)); }
+}
 
-const aviso = FactoriaNotificaciones.crear(&quot;exito&quot;, &quot;Operación completada con éxito.&quot;);
-console.log(&quot;Notificación generada:&quot;, aviso);</code></pre>
+console.log(&quot;Arquitectura de Patrones inicializada correctamente.&quot;);</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 5 · Patrones de Diseño (1 de 4)</span>
-          <h2>🧩 1. Patrón Módulo (Module Pattern)</h2>
+          <span class="badge-sub" style="background: rgba(217, 119, 6, 0.15); color: #d97706;">Familia de Patrones · Clasificación GoF</span>
+          <h2>🏗️ Creacionales: Creación de Objetos</h2>
         </div>
-        <div class="theory-grid">
-          <div class="content-card primary-card">
-            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El <strong>Patrón Módulo</strong> proporciona un mecanismo estricto de <strong>encapsulamiento</strong>, permitiendo empaquetar variables y métodos privados dentro de un ámbito protegido y exponer públicamente solo los métodos deseados:</p>
-<ul class="concept-list">
-  <li><strong>¿Qué problema resuelve?</strong> Evita la contaminación del espacio de nombres global (<code>window</code>) y previene colisiones accidentales entre scripts.</li>
-  <li><strong>Cuándo utilizarlo:</strong> Al construir librerías utilitarias, servicios de cálculo, módulos de persistencia o componentes con lógica interna sensible que no deba mutarse directamente.</li>
-  <li><strong>Principio de Mínimo Privilegio:</strong> Solo se hace accesible lo estrictamente indispensable para el resto de la aplicación.</li>
-</ul></div>
-          </div>
-          <div class="content-card accent-card">
-            <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>Evolución Técnica: de IIFEs a ES Modules:</strong></p>
-<ul class="concept-list">
-  <li><strong>Enfoque Clásico (IIFE):</strong> Mediante una función autoejecutable <code>(function() { ... return { publico }; })()</code>. Las variables internas quedan retenidas en un <em>closure</em> inaccesible.</li>
-  <li><strong>Estándar Moderno (ES Modules):</strong> Cada archivo <code>.js</code> constituye un módulo aislado por especificación (<code>&lt;script type="module"&gt;</code>). Se exportan explícitamente constantes, funciones o clases con <code>export</code> y se importan con <code>import</code>, disfrutando de modo estricto automático.</li>
-</ul></div>
-          </div>
+        <div class="content-card primary-card" style="margin-bottom: 12px;">
+          <div class="card-tag">💡 Definición y Propósito de la Familia</div>
+          <div class="card-text" style="font-size: 0.76em; color: #334155; line-height: 1.5;">Abstraen y centralizan el proceso de instanciación, haciendo que el sistema sea independiente de cómo se crean, componen y representan sus objetos.</div>
         </div>
-        <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
-            <span>💻 Código de Ejemplo: Implementación del Patrón Módulo (Module Pattern)</span>
-            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Patrón Estructural / Creacional</span>
-          </div>
-          <pre><code class="language-javascript">// --- Patrón Módulo: Implementación Clásica con IIFE y Closures Privados ---
-
-const ModuloInventario = (function() {
-    // 🔒 Variables estrictamente privadas (inaccesibles desde fuera)
-    const stock = new Map();
-    const IVA = 0.21;
-
-    function calcularValorItem(precio, cantidad) {
-        return precio * cantidad;
-    }
-
-    // 🌐 Objeto público que expone la API del módulo
-    return {
-        registrar(codigo, nombre, precio, cantidad = 1) {
-            stock.set(codigo, { nombre, precio, cantidad });
-            console.log(`✓ Registrado en módulo: [${codigo}] ${nombre} (${precio}€ x ${cantidad})`);
-        },
-        consultar(codigo) {
-            const item = stock.get(codigo);
-            return item ? { ...item } : null; // Retorna copia para evitar mutación directa
-        },
-        calcularValorTotal() {
-            let total = 0;
-            stock.forEach(item =&gt; {
-                total += calcularValorItem(item.precio, item.cantidad);
-            });
-            return Number((total * (1 + IVA)).toFixed(2));
-        }
-    };
-})();
-
-ModuloInventario.registrar(&quot;P100&quot;, &quot;Ratón Gaming&quot;, 45, 10);
-ModuloInventario.registrar(&quot;P200&quot;, &quot;Alfombrilla XL&quot;, 15, 20);
-
-console.log(&quot;Total Inventario con IVA:&quot;, ModuloInventario.calcularValorTotal(), &quot;€&quot;);
-console.log(&quot;Acceso directo a stock privado:&quot;, ModuloInventario.stock); // undefined (¡Encapsulado!)</code></pre>
+        <div class="index-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 8px;">
+          <div class="index-card" style="border-left: 4px solid #d97706; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Singleton</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 1 de 14</span></div><div class="index-card" style="border-left: 4px solid #d97706; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Factory Method</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 2 de 14</span></div><div class="index-card" style="border-left: 4px solid #d97706; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Builder</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 3 de 14</span></div><div class="index-card" style="border-left: 4px solid #d97706; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Prototype</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 4 de 14</span></div>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 5 · Patrones de Diseño (2 de 4)</span>
-          <h2>🧩 2. Patrón Singleton (Instancia Única)</h2>
+          <span class="badge-sub">Bloque 5 · Creacionales → Creación de objetos · Patrón 1 de 14</span>
+          <h2>🧩 1. Singleton</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El <strong>Patrón Singleton</strong> garantiza que una clase posea <strong>una única instancia compartida</strong> durante todo el ciclo de vida de la aplicación web y proporciona un punto de acceso global y centralizado a ella:</p>
+            <div class="card-text"><p>El patrón <strong>Singleton</strong> garantiza que una clase posea <strong>una única instancia compartida</strong> a lo largo de todo el ciclo de vida de la aplicación web y proporciona un punto de acceso global y centralizado a ella:</p>
 <ul class="concept-list">
   <li><strong>¿Qué problema resuelve?</strong> Evita múltiples estados dispersos o instancias duplicadas de recursos compartidos que deben ser únicos en la app.</li>
-  <li><strong>Cuándo utilizarlo:</strong> Gestores de configuración global, clientes de conexión a APIs REST/WebSockets, servicios de autenticación y sesión, carritos de compra o sistemas de telemetría y logs.</li>
-  <li><strong>Identidad en Memoria:</strong> Múltiples referencias <code>configA === configB</code> evalúan exactamente a <code>true</code>.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Gestores de configuración global, clientes de conexión a APIs REST/WebSockets, servicios de autenticación y sesión, carritos de compra o telemetría.</li>
+  <li><strong>Identidad en Memoria:</strong> Múltiples llamadas a <code>new</code> devuelven la misma referencia (<code>configA === configB</code> es <code>true</code>).</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
@@ -1371,16 +1303,16 @@ console.log(&quot;Acceso directo a stock privado:&quot;, ModuloInventario.stock)
 <ul class="concept-list">
   <li><strong>Campo Estático Privado:</strong> Se declara <code>static #instancia = null;</code> dentro de la clase para almacenar la referencia única.</li>
   <li><strong>Constructor Guard:</strong> Si <code>#instancia</code> ya existe en el momento de invocar <code>new</code>, se devuelve la instancia existente impidiendo recreaciones.</li>
-  <li><strong>Método Factoría Estático:</strong> Se expone <code>static getInstancia()</code> para obtenerla de forma declarativa sin requerir el operador <code>new</code>.</li>
+  <li><strong>Método Factoría Estático:</strong> Se expone <code>static getInstancia()</code> para obtenerla de forma declarativa.</li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
-            <span>💻 Código de Ejemplo: Implementación del Patrón Singleton (Instancia Única)</span>
-            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Patrón Creacional</span>
+            <span>💻 Código de Ejemplo: Implementación de Singleton</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Creacionales → Creación de objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- Patrón Singleton con Campos Privados Estáticos en ES6+ ---
+          <pre><code class="language-javascript">// --- 1. Patrón Singleton (Creacional) con Campos Privados Estáticos en ES6+ ---
 
 class ConfiguracionSistema {
     static #instancia = null; // Instancia única compartida a nivel de clase
@@ -1425,136 +1357,989 @@ console.log(&quot;¿Son idénticas en memoria?:&quot;, configA === configB); // 
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 5 · Patrones de Diseño (3 de 4)</span>
-          <h2>🧩 3. Patrón Factoría (Factory Pattern)</h2>
+          <span class="badge-sub">Bloque 5 · Creacionales → Creación de objetos · Patrón 2 de 14</span>
+          <h2>🧩 2. Factory Method</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El <strong>Patrón Factoría</strong> proporciona una interfaz o método centralizado para <strong>crear familias de objetos</strong> sin especificar explícitamente sus clases concretas en el código cliente:</p>
+            <div class="card-text"><p>El patrón <strong>Factory Method</strong> define una interfaz o método para crear un objeto, pero delega en las subclases o funciones especializadas la decisión de qué clase concreta instanciar:</p>
 <ul class="concept-list">
-  <li><strong>¿Qué problema resuelve?</strong> Desacopla la lógica de instanciación (<code>new Subclase()</code>), centralizando la decisión de qué objeto crear según los parámetros facilitados.</li>
-  <li><strong>Cuándo utilizarlo:</strong> Creación de componentes de interfaz (botones, modales), generadores de notificaciones según su canal (email, push, sms), o modelado de usuarios con roles heterogéneos.</li>
-  <li><strong>Principio Abierto/Cerrado (OCP):</strong> Permite añadir nuevos tipos de objetos creando nuevas clases sin tener que modificar el código que los consume.</li>
+  <li><strong>¿Qué problema resuelve?</strong> Desacopla el código cliente de las clases concretas que deben instanciarse. El creador opera contra interfaces o clases base genéricas.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Creación dinámica de componentes de interfaz (botones, modales, tarjetas), procesadores de formato (JSON, XML, CSV) o exportadores de documentos.</li>
+  <li><strong>Principio Abierto/Cerrado (OCP):</strong> Se pueden incorporar nuevos tipos creando nuevas subclases sin alterar el código existente del cliente.</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>Ventajas de la Abstracción y Testing:</strong></p>
+            <div class="card-text"><p><strong>Diferencia entre Factory Method y Factoría Simple:</strong></p>
 <ul class="concept-list">
-  <li><strong>Polimorfismo Compartido:</strong> Todos los objetos fabricados comparten una interfaz común (mismos métodos públicos como <code>enviar()</code> o <code>renderizar()</code>).</li>
-  <li><strong>Inyección y Mocks:</strong> En pruebas unitarias, la factoría permite sustituir fácilmente las instancias reales por objetos simulados (mocks) sin tocar el cliente.</li>
+  <li><strong>Factoría Simple:</strong> Un método con un switch/case que devuelve clases distintas según un parámetro de texto.</li>
+  <li><strong>Factory Method (GoF Puro):</strong> Patrón polimórfico donde la clase base delega la instanciación mediante herencia sobreescribiendo el método <code>crearBoton()</code>.</li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
-            <span>💻 Código de Ejemplo: Implementación del Patrón Factoría (Factory Pattern)</span>
-            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Patrón Creacional</span>
+            <span>💻 Código de Ejemplo: Implementación de Factory Method</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Creacionales → Creación de objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- Patrón Factoría: Creación Centralizada y Desacoplada de Notificaciones ---
+          <pre><code class="language-javascript">// --- 2. Patrón Factory Method (Creacional) en JavaScript ---
 
-class NotificacionPush {
-    constructor(mensaje) { this.tipo = &quot;PUSH&quot;; this.mensaje = mensaje; this.prioridad = &quot;ALTA&quot;; }
-    enviar() { console.log(`[📱 PUSH] Notificación enviada al dispositivo: &quot;${this.mensaje}&quot;`); }
-}
+// Clase Creadora Base (Abstracta)
+class DialogoUI {
+    // Operación principal que depende del Factory Method
+    renderizar() {
+        const boton = this.crearBoton(); // Invocación polimórfica al Factory Method
+        return `&lt;div class=&quot;dialogo&quot;&gt;Ventana Modal con [${boton.dibujar()}]&lt;/div&gt;`;
+    }
 
-class NotificacionEmail {
-    constructor(mensaje) { this.tipo = &quot;EMAIL&quot;; this.mensaje = mensaje; this.prioridad = &quot;MEDIA&quot;; }
-    enviar() { console.log(`[📧 EMAIL] Correo enviado a la bandeja: &quot;${this.mensaje}&quot;`); }
-}
-
-class NotificacionSMS {
-    constructor(mensaje) { this.tipo = &quot;SMS&quot;; this.mensaje = mensaje; this.prioridad = &quot;URGENTE&quot;; }
-    enviar() { console.log(`[💬 SMS] Mensaje de texto enviado a red móvil: &quot;${this.mensaje}&quot;`); }
-}
-
-// Factoría que centraliza la instanciación según el canal/tipo
-class FactoriaNotificaciones {
-    static crear(canal, mensaje) {
-        switch (canal.toLowerCase()) {
-            case &quot;push&quot;: return new NotificacionPush(mensaje);
-            case &quot;email&quot;: return new NotificacionEmail(mensaje);
-            case &quot;sms&quot;: return new NotificacionSMS(mensaje);
-            default: throw new Error(`El canal de notificación &#x27;${canal}&#x27; no es soportado.`);
-        }
+    // Factory Method (debe ser implementado por subclases)
+    crearBoton() {
+        throw new Error(&quot;El método crearBoton() debe ser implementado por la subclase.&quot;);
     }
 }
 
-const alerta1 = FactoriaNotificaciones.crear(&quot;push&quot;, &quot;Nueva tarea asignada en el tablero Scrum&quot;);
-const alerta2 = FactoriaNotificaciones.crear(&quot;sms&quot;, &quot;Código de autenticación 2FA: 948210&quot;);
-alerta1.enviar();
-alerta2.enviar();</code></pre>
+// Subclases creadoras concretas
+class DialogoWindows extends DialogoUI {
+    crearBoton() {
+        return { dibujar: () =&gt; &quot;🔘 Botón Estilo Windows 11 Fluent&quot; };
+    }
+}
+
+class DialogoHTML5 extends DialogoUI {
+    crearBoton() {
+        return { dibujar: () =&gt; &quot;&lt;button class=&#x27;btn-moderno&#x27;&gt;Aceptar&lt;/button&gt;&quot; };
+    }
+}
+
+const modalWeb = new DialogoHTML5();
+console.log(modalWeb.renderizar());
+// &lt;div class=&quot;dialogo&quot;&gt;Ventana Modal con [&lt;button class=&#x27;btn-moderno&#x27;&gt;Aceptar&lt;/button&gt;]&lt;/div&gt;
+
+const modalWin = new DialogoWindows();
+console.log(modalWin.renderizar());
+// &lt;div class=&quot;dialogo&quot;&gt;Ventana Modal con [🔘 Botón Estilo Windows 11 Fluent]&lt;/div&gt;</code></pre>
         </div>
       </section>
 
       <section>
         <div class="slide-header">
-          <span class="badge-sub">Bloque 5 · Patrones de Diseño (4 de 4)</span>
-          <h2>🧩 4. Patrón Observador (Observer / Pub-Sub)</h2>
+          <span class="badge-sub">Bloque 5 · Creacionales → Creación de objetos · Patrón 3 de 14</span>
+          <h2>🧩 3. Builder</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El <strong>Patrón Observador</strong> define una dependencia de uno a muchos entre objetos: cuando el objeto emisor (**Subject**) cambia su estado, **notifica automáticamente** a todos sus suscriptores (**Observers**):</p>
+            <div class="card-text"><p>El patrón <strong>Builder</strong> separa la construcción paso a paso de un objeto complejo de su representación final, permitiendo que el mismo proceso de construcción produzca diferentes configuraciones:</p>
 <ul class="concept-list">
-  <li><strong>¿Qué problema resuelve?</strong> Permite la comunicación reactiva entre objetos sin que exista un acoplamiento directo entre emisor y receptores.</li>
-  <li><strong>Cuándo utilizarlo:</strong> Interfaces reactivas donde múltiples vistas reaccionan a cambios de un modelo, buses de eventos globales, o suscripciones asíncronas en tiempo real.</li>
-  <li><strong>Fundamento del Frontend Moderno:</strong> Es el pilar sobre el que funcionan los eventos del DOM (<code>addEventListener</code>), librerías reactivas como RxJS en Angular, o gestores de estado como Redux y Signals.</li>
+  <li><strong>¿Qué problema resuelve?</strong> Elimina el problema del <em>"Telescoping Constructor"</em> (constructores con 8 o 10 parámetros opcionales y valores <code>null</code> confusos).</li>
+  <li><strong>Cuándo utilizarlo:</strong> Al construir constructores de consultas (Query Builders SQL/NoSQL), ensambladores de peticiones HTTP complejas o configuradores de UI personalizados.</li>
+  <li><strong>Fluent API:</strong> Cada método del constructor retorna <code>this</code>, habilitando encadenamiento de métodos limpio (<em>Method Chaining</em>).</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>Estructura del Sujeto y Colecciones Set:</strong></p>
+            <div class="card-text"><p><strong>Ventajas en Desarrollo Frontend:</strong></p>
 <ul class="concept-list">
-  <li><strong>Gestión de Suscriptores con Set:</strong> La clase Subject almacena los observadores en un <code>new Set()</code>, lo que garantiza O(1) en inserción/borrado y previene registros duplicados.</li>
-  <li><strong>Métodos Clave del Patrón:</strong> <code>suscribir(observador)</code>, <code>desuscribir(observador)</code> y <code>notificar(evento, datos)</code>.</li>
+  <li><strong>Inmutabilidad y Validación:</strong> Permite validar la integridad de todos los campos juntos en el paso final <code>.construir()</code> o <code>.build()</code> antes de crear la instancia definitiva.</li>
+  <li><strong>Legibilidad Declarativa:</strong> El código resulta auto-documentado y legible sin necesidad de memorizar el orden posicional de los argumentos.</li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
-            <span>💻 Código de Ejemplo: Implementación del Patrón Observador (Observer / Pub-Sub)</span>
-            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Patrón de Comportamiento</span>
+            <span>💻 Código de Ejemplo: Implementación de Builder</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Creacionales → Creación de objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- Patrón Observador (Observer / Pub-Sub) en JavaScript ---
+          <pre><code class="language-javascript">// --- 3. Patrón Builder (Creacional): Constructor de Peticiones HTTP Fluent ---
 
-class EmisorEventos {
-    constructor() {
-        this.suscriptores = new Set(); // Colección Set para evitar observadores duplicados
+class PeticionHTTPBuilder {
+    #url = &quot;&quot;;
+    #metodo = &quot;GET&quot;;
+    #cabeceras = {};
+    #cuerpo = null;
+    #timeoutMs = 5000;
+
+    paraUrl(url) {
+        this.#url = url;
+        return this; // Permite Method Chaining
     }
 
-    suscribir(observador) {
-        this.suscriptores.add(observador);
-        console.log(`+ Suscriptor añadido. Total activos: ${this.suscriptores.size}`);
+    conMetodo(metodo) {
+        this.#metodo = metodo.toUpperCase();
+        return this;
     }
 
-    desuscribir(observador) {
-        this.suscriptores.delete(observador);
-        console.log(`- Suscriptor eliminado. Restantes: ${this.suscriptores.size}`);
+    conCabecera(clave, valor) {
+        this.#cabeceras[clave] = valor;
+        return this;
     }
 
-    notificar(evento, datos) {
-        console.log(`📢 [EVENTO: ${evento}] Emitiendo a ${this.suscriptores.size} suscriptores...`);
-        this.suscriptores.forEach(obs =&gt; {
-            if (typeof obs.actualizar === &quot;function&quot;) {
-                obs.actualizar(evento, datos);
-            }
-        });
+    conCuerpoJSON(datos) {
+        this.#cabeceras[&quot;Content-Type&quot;] = &quot;application/json&quot;;
+        this.#cuerpo = JSON.stringify(datos);
+        return this;
+    }
+
+    conTimeout(ms) {
+        this.#timeoutMs = ms;
+        return this;
+    }
+
+    construir() {
+        if (!this.#url) throw new Error(&quot;La URL de la petición es obligatoria.&quot;);
+        return {
+            url: this.#url,
+            metodo: this.#metodo,
+            cabeceras: { ...this.#cabeceras },
+            cuerpo: this.#cuerpo,
+            timeoutMs: this.#timeoutMs
+        };
     }
 }
 
-// Observadores desacoplados que reaccionan a los cambios
-const visorConsola = { actualizar: (e, d) =&gt; console.log(`  [Consola] Evento: ${e}`, d) };
-const alertaUI = { actualizar: (e, d) =&gt; console.log(`  [Banner UI] Renderizando alerta: ${d.mensaje}`) };
+// Uso del Builder con interfaz fluida
+const peticionLogin = new PeticionHTTPBuilder()
+    .paraUrl(&quot;https://api.empresa.es/auth/login&quot;)
+    .conMetodo(&quot;POST&quot;)
+    .conCabecera(&quot;X-App-Client&quot;, &quot;DWEC-Frontend&quot;)
+    .conCuerpoJSON({ usuario: &quot;ruben&quot;, clave: &quot;123456&quot; })
+    .conTimeout(3000)
+    .construir();
+
+console.log(&quot;Petición Ensamblada:&quot;, peticionLogin);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Creacionales → Creación de objetos · Patrón 4 de 14</span>
+          <h2>🧩 4. Prototype</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Prototype</strong> especifica las clases de objetos a crear mediante una <strong>instancia prototípica</strong>, creando nuevos objetos copiando o clonando dicho prototipo existente:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Ahorra el elevado coste computacional de instanciar e inicializar objetos complejos desde cero repetidamente.</li>
+  <li><strong>Cuándo utilizarlo:</strong> En sistemas con generación masiva de objetos similares (partículas en Canvas, filas de hojas de cálculo, plantillas de documentos predefinidas).</li>
+  <li><strong>Naturaleza Prototípica de JavaScript:</strong> Es el modelo fundacional nativo del lenguaje JavaScript mediante <code>Object.create(prototipo)</code> y la propiedad <code>prototype</code>.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Delegación Prototípica vs Copia Superficial:</strong></p>
+<ul class="concept-list">
+  <li><strong>Delegación Prototípica (<code>Object.create</code>):</strong> Las propiedades y métodos del prototipo se comparten en memoria; los cambios en el prototipo se reflejan automáticamente en los clones.</li>
+  <li><strong>Clonación de Estado:</strong> Permite personalizar propiedades individuales en cada clon sin alterar el prototipo base.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Prototype</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Creacionales → Creación de objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 4. Patrón Prototype (Creacional): Clonación Prototípica Nativa en JS ---
+
+const prototipoEnemigo = {
+    tipo: &quot;Soldado Básico&quot;,
+    puntosVida: 100,
+    armadura: 15,
+    habilidades: [&quot;Ataque cuerpo a cuerpo&quot;],
+
+    atacar() {
+        console.log(`⚔️ ${this.nombre ?? this.tipo} inflige 20 puntos de daño.`);
+    },
+
+    clonar(nombrePersonalizado) {
+        // Crea un nuevo objeto delegando en el prototipo actual
+        const nuevoEnemigo = Object.create(this);
+        nuevoEnemigo.nombre = nombrePersonalizado;
+        return nuevoEnemigo;
+    }
+};
+
+// Crear prototipo especializado para arqueros
+const prototipoArquero = prototipoEnemigo.clonar(&quot;Arquero Base&quot;);
+prototipoArquero.puntosVida = 70;
+prototipoArquero.arma = &quot;Arco Largo&quot;;
+prototipoArquero.atacar = function() {
+    console.log(`🏹 ${this.nombre} dispara una flecha a distancia.`);
+};
+
+// Clonación rápida de múltiples instancias particulares
+const arquero1 = prototipoArquero.clonar(&quot;Robin Hood&quot;);
+const arquero2 = prototipoArquero.clonar(&quot;Legolas&quot;);
+
+arquero1.atacar(); // 🏹 Robin Hood dispara una flecha a distancia.
+arquero2.atacar(); // 🏹 Legolas dispara una flecha a distancia.
+console.log(&quot;Vida de arquero1:&quot;, arquero1.puntosVida); // 70 (Heredado de prototipoArquero)</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub" style="background: rgba(217, 119, 6, 0.15); color: #2563eb;">Familia de Patrones · Clasificación GoF</span>
+          <h2>🧱 Estructurales: Composición de Clases y Objetos</h2>
+        </div>
+        <div class="content-card primary-card" style="margin-bottom: 12px;">
+          <div class="card-tag">💡 Definición y Propósito de la Familia</div>
+          <div class="card-text" style="font-size: 0.76em; color: #334155; line-height: 1.5;">Se ocupan de cómo se combinan clases y objetos para formar estructuras más amplias, flexibles y desacopladas.</div>
+        </div>
+        <div class="index-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 8px;">
+          <div class="index-card" style="border-left: 4px solid #2563eb; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Adapter</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 5 de 14</span></div><div class="index-card" style="border-left: 4px solid #2563eb; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Decorator</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 6 de 14</span></div><div class="index-card" style="border-left: 4px solid #2563eb; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Proxy</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 7 de 14</span></div><div class="index-card" style="border-left: 4px solid #2563eb; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Facade</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 8 de 14</span></div><div class="index-card" style="border-left: 4px solid #2563eb; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Composite</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 9 de 14</span></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Estructurales → Composición de clases y objetos · Patrón 5 de 14</span>
+          <h2>🧩 5. Adapter</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Adapter (Adaptador)</strong> permite que clases con <strong>interfaces incompatibles</strong> puedan colaborar conjuntamente traduciendo la interfaz de una clase a otra que el cliente espera:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Permite integrar librerías de terceros o sistemas legados sin necesidad de modificar el código fuente del cliente ni del proveedor.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Al migrar de una librería antigua (ej. jQuery AJAX) a una moderna (Fetch API), al integrar diferentes pasarelas de pago, o al normalizar formatos de datos de APIs dispares.</li>
+  <li><strong>Principio de Responsabilidad Única:</strong> Separa la lógica de conversión de datos de la lógica de negocio principal.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Patrón Adapter en Frontend Moderno:</strong></p>
+<ul class="concept-list">
+  <li><strong>Envoltorios de API (Wrappers):</strong> En aplicaciones SPA, se crea un adaptador para que los componentes consuman un servicio normalizado, aislando a la interfaz de cambios en los nombres de campos del backend (ej. <code>first_name</code> ➔ <code>nombre</code>).</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Adapter</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Estructurales → Composición de clases y objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 5. Patrón Adapter (Estructural): Adaptador de Pasarela de Pago ---
+
+// Servicio Legado Externo (Interfaz incompatible con nuestra aplicación)
+class PasarelaAntiguaAPI {
+    procesarCargoEnCentimos(importeCentimos, codigoISO) {
+        console.log(`[Pasarela Antigua] Cargo de ${importeCentimos} céntimos efectuado en divisa: ${codigoISO}.`);
+        return true;
+    }
+}
+
+// Adaptador que implementa la interfaz moderna esperada por nuestra aplicación
+class AdaptadorPagoModerno {
+    #pasarelaAntigua;
+
+    constructor(pasarelaAntigua) {
+        this.#pasarelaAntigua = pasarelaAntigua;
+    }
+
+    // Método estándar que nuestra aplicación espera
+    pagar(importeEuros) {
+        const centimos = Math.round(importeEuros * 100);
+        const divisa = &quot;EUR&quot;;
+        console.log(`[Adaptador] Traduciendo ${importeEuros}€ a ${centimos} céntimos para la API externa...`);
+        return this.#pasarelaAntigua.procesarCargoEnCentimos(centimos, divisa);
+    }
+}
+
+// Función cliente que solo conoce la interfaz moderna &#x27;pagar(importeEuros)&#x27;
+function realizarCompra(procesadorPago, totalEuros) {
+    procesadorPago.pagar(totalEuros);
+}
+
+const apiExterna = new PasarelaAntiguaAPI();
+const adaptador = new AdaptadorPagoModerno(apiExterna);
+realizarCompra(adaptador, 89.95);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Estructurales → Composición de clases y objetos · Patrón 6 de 14</span>
+          <h2>🧩 6. Decorator</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Decorator (Decorador)</strong> permite añadir responsabilidades y comportamientos adicionales a objetos de forma <strong>dinámica en tiempo de ejecución</strong> envolviéndolos en objetos decoradores:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Evita la proliferación incontrolada de subclases por herencia estática cuando se necesitan múltiples combinaciones de características.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Para enriquecer elementos de UI con bordes o scrollbars, añadir compresión/cifrado a flujos de datos o incorporar logging y caché a servicios.</li>
+  <li><strong>Composición sobre Herencia:</strong> Ofrece mucha más flexibilidad al permitir añadir o quitar responsabilidades encadenando múltiples envoltorios.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Decoradores en el Ecosistema JavaScript y TypeScript:</strong></p>
+<ul class="concept-list">
+  <li><strong>Decoradores como Envoltorios (Wrappers):</strong> En JS nativo se implementan mediante clases que implementan la misma interfaz envolviendo una instancia interna.</li>
+  <li><strong>Sintaxis @Decorator:</strong> En frameworks como Angular o TypeScript moderno, se utilizan decoradores con <code>@Component</code> o <code>@Injectable</code> basados en este mismo patrón.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Decorator</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Estructurales → Composición de clases y objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 6. Patrón Decorator (Estructural): Canales de Notificación Dinámicos ---
+
+// Componente Base
+class NotificadorBase {
+    enviar(mensaje) {
+        return `[Mensaje de Sistema]: &quot;${mensaje}&quot;`;
+    }
+}
+
+// Decorador Base que envuelve a cualquier notificador
+class NotificadorDecorador {
+    constructor(notificador) {
+        this.notificador = notificador;
+    }
+    enviar(mensaje) {
+        return this.notificador.enviar(mensaje);
+    }
+}
+
+// Decorador Concreto 1: Envío adicional por WhatsApp
+class WhatsAppDecorador extends NotificadorDecorador {
+    enviar(mensaje) {
+        const resultadoBase = super.enviar(mensaje);
+        return `${resultadoBase} ➔ [📱 WhatsApp Enviado]`;
+    }
+}
+
+// Decorador Concreto 2: Registro de auditoría (Logging)
+class AuditLoggingDecorador extends NotificadorDecorador {
+    enviar(mensaje) {
+        const resultadoBase = super.enviar(mensaje);
+        return `${resultadoBase} ➔ [📝 Registro Guardado en Log]`;
+    }
+}
+
+// Composición dinámica en caliente según las preferencias del usuario
+let canal = new NotificadorBase();
+canal = new WhatsAppDecorador(canal);
+canal = new AuditLoggingDecorador(canal);
+
+console.log(canal.enviar(&quot;Calificaciones finales publicadas&quot;));</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Estructurales → Composición de clases y objetos · Patrón 7 de 14</span>
+          <h2>🧩 7. Proxy</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Proxy</strong> proporciona un objeto sustituto o intermediario que <strong>controla y gestiona el acceso</strong> a un objeto original, interceptando las operaciones sobre él:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Permite ejecutar acciones antes o después de que la petición llegue al objeto real (validaciones, control de permisos, caché, lazy loading).</li>
+  <li><strong>Cuándo utilizarlo:</strong> Proxies de caché para llamadas de red costosas, proxies de validación reactiva de formularios, o registro de acceso a propiedades (logging).</li>
+  <li><strong>API Nativa de JavaScript:</strong> ES6 introdujo la clase nativa <code>new Proxy(target, handler)</code> con trampas como <code>get</code>, <code>set</code> y <code>has</code>.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>El Motor de Reactividad en Vue 3 y Frameworks Modernos:</strong></p>
+<ul class="concept-list">
+  <li><strong>Reactividad con Proxy:</strong> Frameworks como Vue 3 basan su sistema de reactividad (<code>reactive()</code>) interceptando las mutaciones de propiedades a través de Proxies nativos para refrescar el DOM automáticamente.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Proxy</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Estructurales → Composición de clases y objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 7. Patrón Proxy (Estructural): Caché y Control de Acceso con Proxy Nativo ES6 ---
+
+// Servicio de Negocio Real (Costoso en red o cómputo)
+const servicioAPIExterna = {
+    obtenerCotizacion(criptomoneda) {
+        console.log(`🌐 [Petición Red] Solicitando cotización remota de: ${criptomoneda}...`);
+        return { moneda: criptomoneda, precioUSD: 62450.50, timestamp: Date.now() };
+    }
+};
+
+// Implementación del Proxy con Caché en Memoria
+const cache = new Map();
+const TIEMPO_VIDA_CACHE_MS = 60000;
+
+const proxyServicio = new Proxy(servicioAPIExterna, {
+    get(target, propiedad) {
+        if (propiedad === &quot;obtenerCotizacion&quot;) {
+            return function(criptomoneda) {
+                const ahora = Date.now();
+                if (cache.has(criptomoneda)) {
+                    const cacheado = cache.get(criptomoneda);
+                    if (ahora - cacheado.timestamp &lt; TIEMPO_VIDA_CACHE_MS) {
+                        console.log(`⚡ [Cache Proxy HIT] Datos servidos desde memoria para: ${criptomoneda}`);
+                        return cacheado;
+                    }
+                }
+                const datosReales = target.obtenerCotizacion(criptomoneda);
+                cache.set(criptomoneda, datosReales);
+                return datosReales;
+            };
+        }
+        return target[propiedad];
+    }
+});
+
+proxyServicio.obtenerCotizacion(&quot;BTC&quot;); // Ejecuta petición de red real
+proxyServicio.obtenerCotizacion(&quot;BTC&quot;); // Servido instantáneamente desde la caché del Proxy</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Estructurales → Composición de clases y objetos · Patrón 8 de 14</span>
+          <h2>🧩 8. Facade</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Facade (Fachada)</strong> proporciona una <strong>interfaz simplificada y unificada</strong> de alto nivel sobre un subsistema complejo o sobre un conjunto de librerías heterogéneas:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Oculta la complejidad de múltiples clases interdependientes, ofreciendo un único punto de entrada accesible y fácil de utilizar.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Procesos de checkout/pago (validar stock, cobrar, emitir factura, enviar email), reproductores multimedia complejos o wrappers sobre librerías del navegador.</li>
+  <li><strong>Bajo Acoplamiento:</strong> Los clientes se comunican con la fachada en lugar de acoplarse con decenas de clases internas del subsistema.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Fachadas en Librerías Frontend Clásicas y Modernas:</strong></p>
+<ul class="concept-list">
+  <li><strong>Ejemplo Histórico:</strong> <code>fetch()</code> de JavaScript o <code>$.ajax()</code> de jQuery actúan como fachadas que ocultan la complejidad de instanciar y configurar <code>XMLHttpRequest</code>, cabeceras HTTP y codificación.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Facade</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Estructurales → Composición de clases y objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 8. Patrón Facade (Estructural): Fachada para Proceso de Compra Online ---
+
+// Subsistemas internos complejos
+class ValidadorStock {
+    verificar(productoId, unidades) {
+        console.log(`[Inventario] Stock verificado para producto: ${productoId} (${unidades} uds).`);
+        return true;
+    }
+}
+
+class PasarelaCobro {
+    procesarPago(usuario, importe) {
+        console.log(`[Banco] Cobro de ${importe}€ realizado a la tarjeta de ${usuario}.`);
+        return true;
+    }
+}
+
+class NotificadorEmail {
+    enviarTicket(usuario, importe) {
+        console.log(`[Email] Confirmación de pedido por ${importe}€ enviada a: ${usuario}.`);
+    }
+}
+
+// Fachada: Proporciona una interfaz unificada y sencilla
+class CompraOnlineFacade {
+    #stock = new ValidadorStock();
+    #cobro = new PasarelaCobro();
+    #email = new NotificadorEmail();
+
+    // Método único y claro expuesto al cliente
+    comprar(usuario, productoId, unidades, precioUnitario) {
+        console.log(`🚀 Iniciando proceso de compra simplificado para ${usuario}...`);
+        this.#stock.verificar(productoId, unidades);
+        const total = unidades * precioUnitario;
+        this.#cobro.procesarPago(usuario, total);
+        this.#email.enviarTicket(usuario, total);
+        console.log(&quot;✅ Proceso de compra finalizado con éxito.&quot;);
+    }
+}
+
+const tienda = new CompraOnlineFacade();
+tienda.comprar(&quot;Lucía Gómez&quot;, &quot;PORTATIL_PRO_16&quot;, 1, 1299);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Estructurales → Composición de clases y objetos · Patrón 9 de 14</span>
+          <h2>🧩 9. Composite</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Composite (Objeto Compuesto)</strong> permite componer objetos en <strong>estructuras jerárquicas en árbol</strong> (relación parte-todo) permitiendo a los clientes tratar objetos individuales y compuestos de manera uniforme:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Evita que el cliente deba comprobar si un elemento es simple o una colección para invocar sus métodos.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Sistemas de archivos (Archivos y Carpetas), árboles del DOM de HTML, menús multinivel, o interfaces gráficas con contenedores y componentes hijos.</li>
+  <li><strong>Recursión Elegante:</strong> Las operaciones se propagan automáticamente a través de todos los nodos descendientes del árbol.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>El Árbol DOM como Composite por Excelencia:</strong></p>
+<ul class="concept-list">
+  <li><strong>Estructura DOM:</strong> Un <code>Node</code> de HTML puede ser un texto individual (hoja) o un elemento como <code>&lt;div&gt;</code> que contiene otros nodos hijos. Los métodos como <code>cloneNode()</code> o <code>textContent</code> se aplican de forma homogénea en todo el árbol.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Composite</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Estructurales → Composición de clases y objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 9. Patrón Composite (Estructural): Estructura Jerárquica de Sistema de Archivos ---
+
+// Componente Hoja (Elemento individual)
+class Archivo {
+    constructor(nombre, tamanioKB) {
+        this.nombre = nombre;
+        this.tamanioKB = tamanioKB;
+    }
+
+    obtenerTamanio() {
+        return this.tamanioKB;
+    }
+}
+
+// Componente Compuesto (Contenedor que almacena hojas u otros compuestos)
+class Carpeta {
+    #elementos = [];
+
+    constructor(nombre) {
+        this.nombre = nombre;
+    }
+
+    agregar(elemento) {
+        this.#elementos.push(elemento);
+    }
+
+    // Trata idénticamente a hojas individuales y a subcarpetas mediante recursión
+    obtenerTamanio() {
+        return this.#elementos.reduce((total, el) =&gt; total + el.obtenerTamanio(), 0);
+    }
+}
+
+// Construcción del árbol jerárquico
+const raiz = new Carpeta(&quot;Proyecto_DWEC&quot;);
+const carpetaSrc = new Carpeta(&quot;src&quot;);
+const carpetaAssets = new Carpeta(&quot;assets&quot;);
+
+carpetaAssets.agregar(new Archivo(&quot;logo.png&quot;, 250));
+carpetaSrc.agregar(new Archivo(&quot;main.js&quot;, 120));
+carpetaSrc.agregar(carpetaAssets); // Carpeta anidada dentro de carpeta
+
+raiz.agregar(carpetaSrc);
+raiz.agregar(new Archivo(&quot;index.html&quot;, 15));
+raiz.agregar(new Archivo(&quot;package.json&quot;, 2));
+
+console.log(`Tamaño total acumulado de [${raiz.nombre}]: ${raiz.obtenerTamanio()} KB`); // 387 KB</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub" style="background: rgba(217, 119, 6, 0.15); color: #059669;">Familia de Patrones · Clasificación GoF</span>
+          <h2>🔄 Comportamentales: Comunicación entre Objetos</h2>
+        </div>
+        <div class="content-card primary-card" style="margin-bottom: 12px;">
+          <div class="card-tag">💡 Definición y Propósito de la Familia</div>
+          <div class="card-text" style="font-size: 0.76em; color: #334155; line-height: 1.5;">Gestionan algoritmos, flujos de control y la distribución de responsabilidades y comunicación reactiva entre objetos independientes.</div>
+        </div>
+        <div class="index-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 8px;">
+          <div class="index-card" style="border-left: 4px solid #059669; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Observer</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 10 de 14</span></div><div class="index-card" style="border-left: 4px solid #059669; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Strategy</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 11 de 14</span></div><div class="index-card" style="border-left: 4px solid #059669; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Command</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 12 de 14</span></div><div class="index-card" style="border-left: 4px solid #059669; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● Mediator</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 13 de 14</span></div><div class="index-card" style="border-left: 4px solid #059669; padding: 10px 14px; background: #ffffff; flex-direction: column; gap: 4px;"><strong style="font-size: 0.82em; color: #0f172a;">● State</strong><span style="font-size: 0.65em; color: #64748b;">Patrón 14 de 14</span></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Comportamentales → Comunicación entre objetos · Patrón 10 de 14</span>
+          <h2>🧩 10. Observer</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Observer (Observador / Pub-Sub)</strong> define una dependencia de uno a muchos entre objetos: cuando el objeto emisor (**Subject**) cambia su estado, **notifica automáticamente** a todos sus suscriptores (**Observers**):</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Permite la comunicación reactiva entre objetos sin acoplamiento directo entre el emisor y los receptores.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Vistas de interfaz que reaccionan a cambios en los modelos de datos, sistemas de eventos del navegador, o flujos reactivos de datos.</li>
+  <li><strong>Pilar del Desarrollo Web Moderno:</strong> Es el principio base de <code>addEventListener</code>, de RxJS en Angular y de las Signals reactivas.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Gestión con Set para Evitar Duplicados:</strong></p>
+<ul class="concept-list">
+  <li><strong>Eficiencia en Suscripciones:</strong> El sujeto almacena los observadores en un <code>new Set()</code>, garantizando inserción y eliminación en tiempo constante $O(1)$ sin suscriptores repetidos.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Observer</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Comportamentales → Comunicación entre objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 10. Patrón Observer (Comportamental): Emisor y Suscriptores Reactivos ---
+
+class EmisorEventos {
+    #suscriptores = new Set(); // Evita registros duplicados
+
+    suscribir(observador) {
+        this.#suscriptores.add(observador);
+        console.log(`+ Suscriptor registrado. Total activos: ${this.#suscriptores.size}`);
+    }
+
+    desuscribir(observador) {
+        this.#suscriptores.delete(observador);
+        console.log(`- Suscriptor eliminado. Restantes: ${this.#suscriptores.size}`);
+    }
+
+    notificar(evento, datos) {
+        console.log(`📢 [EVENTO: ${evento}] Notificando a todos los observadores...`);
+        this.#suscriptores.forEach(obs =&gt; obs.actualizar(evento, datos));
+    }
+}
+
+// Observadores desacoplados
+const monitorConsola = { actualizar: (e, d) =&gt; console.log(`  [Monitor Consola] Evento: ${e}`, d) };
+const alertaVisualUI = { actualizar: (e, d) =&gt; console.log(`  [Banner UI] Mostrando notificación: &quot;${d.mensaje}&quot;`) };
 
 const emisor = new EmisorEventos();
-emisor.suscribir(visorConsola);
-emisor.suscribir(alertaUI);
+emisor.suscribir(monitorConsola);
+emisor.suscribir(alertaVisualUI);
 
-emisor.notificar(&quot;CAMBIO_ESTADO&quot;, { mensaje: &quot;El usuario ha actualizado su perfil&quot; });
-emisor.desuscribir(alertaUI);
-emisor.notificar(&quot;PING&quot;, { mensaje: &quot;Comprobación de conectividad&quot; });</code></pre>
+emisor.notificar(&quot;LOGIN_USUARIO&quot;, { usuario: &quot;Marta&quot;, rol: &quot;Editor&quot; });
+emisor.desuscribir(alertaVisualUI);
+emisor.notificar(&quot;PING_SERVIDOR&quot;, { latenciaMs: 14 });</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Comportamentales → Comunicación entre objetos · Patrón 11 de 14</span>
+          <h2>🧩 11. Strategy</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Strategy (Estrategia)</strong> define una familia de <strong>algoritmos intercambiables</strong>, encapsulando cada uno de ellos en una clase u objeto independiente y haciéndolos intercambiables en tiempo de ejecución:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Elimina estructuras complejas y difíciles de mantener basadas en múltiples condicionales <code>if-else</code> o <code>switch</code>.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Diferentes algoritmos de ordenación o compresión, cálculo dinámico de impuestos o descuentos comerciales, y estrategias de validación de formularios.</li>
+  <li><strong>Principio de Responsabilidad Única:</strong> Cada algoritmo se prueba, aísla y evoluciona de manera independiente.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Estrategias en JavaScript Funcional:</strong></p>
+<ul class="concept-list">
+  <li><strong>Objetos Literales y Funciones:</strong> En JavaScript, las estrategias no requieren necesariamente jerarquías complejas de clases; pueden implementarse elegantemente como funciones puras u objetos con métodos directos.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Strategy</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Comportamentales → Comunicación entre objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 11. Patrón Strategy (Comportamental): Estrategias de Descuento en Carrito ---
+
+// Familia de Estrategias de Descuento Intercambiables
+const EstrategiaSinDescuento = {
+    calcular: (precioBase) =&gt; precioBase
+};
+
+const EstrategiaBlackFriday = {
+    calcular: (precioBase) =&gt; Number((precioBase * 0.70).toFixed(2)) // 30% descuento
+};
+
+const EstrategiaCuponEstudiante = {
+    calcular: (precioBase) =&gt; Number((precioBase * 0.85).toFixed(2)) // 15% descuento
+};
+
+// Contexto que utiliza una estrategia dinámicamente
+class CarritoCompras {
+    constructor(estrategia = EstrategiaSinDescuento) {
+        this.estrategia = estrategia;
+        this.precioBase = 100;
+    }
+
+    setEstrategia(nuevaEstrategia) {
+        this.estrategia = nuevaEstrategia;
+    }
+
+    obtenerTotal() {
+        return this.estrategia.calcular(this.precioBase);
+    }
+}
+
+const pedido = new CarritoCompras();
+console.log(&quot;Total Estándar:&quot;, pedido.obtenerTotal(), &quot;€&quot;); // 100 €
+
+pedido.setEstrategia(EstrategiaCuponEstudiante);
+console.log(&quot;Total con Cupón Estudiante:&quot;, pedido.obtenerTotal(), &quot;€&quot;); // 85 €
+
+pedido.setEstrategia(EstrategiaBlackFriday);
+console.log(&quot;Total en Black Friday:&quot;, pedido.obtenerTotal(), &quot;€&quot;); // 70 €</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Comportamentales → Comunicación entre objetos · Patrón 12 de 14</span>
+          <h2>🧩 12. Command</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Command (Comando)</strong> encapsula una petición o acción como un <strong>objeto independiente</strong> con toda la información necesaria para ejecutarla en cualquier momento:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Desacopla el objeto que invoca la operación del objeto que realmente sabe cómo ejecutarla.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Operaciones de <em>Deshacer / Rehacer (Undo / Redo)</em> en editores de texto, encolamiento y planificación de tareas en segundo plano o transacciones transaccionales.</li>
+  <li><strong>Parametrización de Clientes:</strong> Los botones de la UI no conocen los detalles del modelo, solo despachan un comando.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>El Método Inverso <code>deshacer()</code>:</strong></p>
+<ul class="concept-list">
+  <li><strong>Historial de Comandos:</strong> Al mantener una pila (stack LIFO) de comandos ejecutados, revertir operaciones consiste simplemente en desapilar y ejecutar <code>comando.deshacer()</code>.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Command</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Comportamentales → Comunicación entre objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 12. Patrón Command (Comportamental): Historial con Deshacer (Undo) ---
+
+// Receptor: Objeto que sabe cómo modificar el texto real
+class DocumentoTexto {
+    constructor() { this.texto = &quot;&quot;; }
+    insertar(cadena) { this.texto += cadena; }
+    borrar(longitud) { this.texto = this.texto.slice(0, -longitud); }
+}
+
+// Comando Concreto: Escribir texto
+class ComandoEscribir {
+    constructor(documento, fragmento) {
+        this.documento = documento;
+        this.fragmento = fragmento;
+    }
+    ejecutar() { this.documento.insertar(this.fragmento); }
+    deshacer() { this.documento.borrar(this.fragmento.length); }
+}
+
+// Invocador: Gestiona el ciclo de vida y la pila de comandos
+class GestorComandos {
+    #historial = [];
+
+    ejecutar(comando) {
+        comando.ejecutar();
+        this.#historial.push(comando);
+    }
+
+    deshacer() {
+        const ultimoComando = this.#historial.pop();
+        if (ultimoComando) {
+            ultimoComando.deshacer();
+            console.log(&quot;⏪ Operación revertida exitosamente.&quot;);
+        }
+    }
+}
+
+const doc = new DocumentoTexto();
+const gestor = new GestorComandos();
+
+gestor.ejecutar(new ComandoEscribir(doc, &quot;¡Hola &quot;));
+gestor.ejecutar(new ComandoEscribir(doc, &quot;Mundo DWEC!&quot;));
+console.log(&quot;Texto Actual:&quot;, doc.texto); // &quot;¡Hola Mundo DWEC!&quot;
+
+gestor.deshacer();
+console.log(&quot;Texto tras Deshacer:&quot;, doc.texto); // &quot;¡Hola &quot;</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Comportamentales → Comunicación entre objetos · Patrón 13 de 14</span>
+          <h2>🧩 13. Mediator</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>Mediator (Mediador)</strong> reduce el acoplamiento caótico entre múltiples objetos impidiendo que se comuniquen directamente entre sí y obligándolos a colaborar <strong>únicamente a través de un objeto mediador central</strong>:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Evita una red enredada de dependencias en "tela de araña" donde cada objeto necesita referencias directas a todos los demás.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Salas de chat multiusuario, formularios complejos donde un campo altera el estado de múltiples selectores y botones, o torres de control de tráfico.</li>
+  <li><strong>Relación 1 a N Centralizada:</strong> Los componentes (colegas) solo conocen al mediador central.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Mediator frente a Observer:</strong></p>
+<ul class="concept-list">
+  <li><strong>Observer:</strong> La comunicación fluye unidireccionalmente desde el emisor hacia los observadores suscritos.</li>
+  <li><strong>Mediator:</strong> Coordina y arbitra bidireccionalmente la interacción cruzada entre múltiples componentes participantes.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de Mediator</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Comportamentales → Comunicación entre objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 13. Patrón Mediator (Comportamental): Sala de Chat Centralizada ---
+
+// Mediador Central
+class SalaChatMediador {
+    #participantes = new Map();
+
+    registrar(usuario) {
+        this.#participantes.set(usuario.nombre, usuario);
+        usuario.sala = this;
+        console.log(`[Sala] ${usuario.nombre} se ha unido.`);
+    }
+
+    enviar(mensaje, remitente, destinatario = null) {
+        if (destinatario) {
+            // Comunicación privada directa mediante el mediador
+            const receptor = this.#participantes.get(destinatario);
+            receptor?.recibir(`(Privado de ${remitente.nombre}): ${mensaje}`);
+        } else {
+            // Emisión broadcast a todos excepto el remitente
+            this.#participantes.forEach(u =&gt; {
+                if (u !== remitente) {
+                    u.recibir(`(${remitente.nombre}): ${mensaje}`);
+                }
+            });
+        }
+    }
+}
+
+// Participante que solo conoce al mediador
+class UsuarioChat {
+    constructor(nombre) {
+        this.nombre = nombre;
+        this.sala = null;
+    }
+    enviar(mensaje, para = null) { this.sala.enviar(mensaje, this, para); }
+    recibir(mensaje) { console.log(`[${this.nombre} recibe] ${mensaje}`); }
+}
+
+const chat = new SalaChatMediador();
+const ana = new UsuarioChat(&quot;Ana&quot;);
+const pedro = new UsuarioChat(&quot;Pedro&quot;);
+const maria = new UsuarioChat(&quot;María&quot;);
+
+chat.registrar(ana);
+chat.registrar(pedro);
+chat.registrar(maria);
+
+ana.enviar(&quot;¡Hola a todos los compañeros!&quot;);
+pedro.enviar(&quot;Hola Ana, ¿tienes las notas?&quot;, &quot;Ana&quot;);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Comportamentales → Comunicación entre objetos · Patrón 14 de 14</span>
+          <h2>🧩 14. State</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El patrón <strong>State (Estado)</strong> permite a un objeto <strong>alterar su comportamiento cuando cambia su estado interno</strong>, aparentando que el objeto ha cambiado de clase:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Sustituye enormes bloques de condicionales (<code>if (estado === "reproduciendo") ... else if ...</code>) por clases de estado polimórficas.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Máquinas de estados finitos (FSM), reproductores multimedia, flujos de pedidos (Pendiente ➔ Pagado ➔ Enviado ➔ Entregado), o personajes de videojuegos.</li>
+  <li><strong>Transición Limpia:</strong> El propio estado activo o el contexto determinan cuándo y cómo transicionar al siguiente estado.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Ventajas de Encapsular Estados:</strong></p>
+<ul class="concept-list">
+  <li><strong>Estados como Clases Independientes:</strong> Añadir un nuevo estado (ej. <code>EstadoEnBucle</code>) solo requiere crear una nueva clase implementando los métodos, sin tocar los estados existentes.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación de State</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Comportamentales → Comunicación entre objetos</span>
+          </div>
+          <pre><code class="language-javascript">// --- 14. Patrón State (Comportamental): Máquina de Estados de Reproductor Multimedia ---
+
+// Estados Polimórficos Concretos
+class EstadoReproduciendo {
+    play(player) { console.log(&quot;⚠️ Ya se está reproduciendo audio.&quot;); }
+    pause(player) {
+        console.log(&quot;⏸️ Pausando reproducción...&quot;);
+        player.setEstado(new EstadoPausado());
+    }
+    stop(player) {
+        console.log(&quot;⏹️ Deteniendo reproducción...&quot;);
+        player.setEstado(new EstadoDetenido());
+    }
+}
+
+class EstadoPausado {
+    play(player) {
+        console.log(&quot;▶️ Reanudando reproducción...&quot;);
+        player.setEstado(new EstadoReproduciendo());
+    }
+    pause(player) { console.log(&quot;⚠️ Ya se encuentra pausado.&quot;); }
+    stop(player) {
+        console.log(&quot;⏹️ Deteniendo reproducción desde pausa...&quot;);
+        player.setEstado(new EstadoDetenido());
+    }
+}
+
+class EstadoDetenido {
+    play(player) {
+        console.log(&quot;▶️ Iniciando reproducción desde el principio...&quot;);
+        player.setEstado(new EstadoReproduciendo());
+    }
+    pause(player) { console.log(&quot;⚠️ No es posible pausar un audio detenido.&quot;); }
+    stop(player) { console.log(&quot;⚠️ Ya se encuentra detenido.&quot;); }
+}
+
+// Contexto cuyo comportamiento cambia dinámicamente según su estado activo
+class ReproductorAudio {
+    constructor() {
+        this.estado = new EstadoDetenido(); // Estado inicial
+    }
+
+    setEstado(nuevoEstado) {
+        this.estado = nuevoEstado;
+    }
+
+    // Delega el comportamiento en el estado activo
+    play() { this.estado.play(this); }
+    pause() { this.estado.pause(this); }
+    stop() { this.estado.stop(this); }
+}
+
+const miPlayer = new ReproductorAudio();
+miPlayer.play();  // ▶️ Iniciando reproducción desde el principio...
+miPlayer.pause(); // ⏸️ Pausando reproducción...
+miPlayer.play();  // ▶️ Reanudando reproducción...
+miPlayer.stop();  // ⏹️ Deteniendo reproducción...</code></pre>
         </div>
       </section>
 
@@ -1885,7 +2670,7 @@ calc.analizar([10, &quot;veinte&quot;, 30]);</code></pre>
         <span class="final-ex-badge" style="background: #4f46e5; flex-shrink: 0;">Reto 5</span>
         <div class="final-ex-text" style="flex-grow: 1; min-width: 0;">
           <strong style="font-size: 0.76em; color: #0f172a;">Implementación de Patrón Factoría y Singleton para un Gestor de Notificaciones</strong>
-          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño Básicos</p>
+          <p style="font-size: 0.64em; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bloque 5: Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño (Creacionales, Estructurales y Comportamentales)</p>
         </div>
         <a href="ejercicios.html?item=reto-5" target="_blank" class="btn-primary" style="padding: 5px 10px; font-size: 0.66em; flex-shrink: 0;">
           🚀 Ver Solución
