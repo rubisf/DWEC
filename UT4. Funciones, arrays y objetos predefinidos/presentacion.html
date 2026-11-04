@@ -453,7 +453,7 @@
             <div class="index-badge" style="">3</div>
             <div class="index-info">
               <div class="index-title">Operaciones Agregadas en Arrays: Mapeo, Filtrado, Reducción y Ordenación</div>
-              <p class="index-desc">La programación funcional en JavaScript se fundamenta en métodos iteradores inmutables que procesan colecciones de datos sin alterar el array de origen.</p>
+              <p class="index-desc">La programación funcional en JavaScript se fundamenta en métodos iteradores inmutables que procesan colecciones de datos sin alterar el array de origen: ⚡ Probar map, filter, reduce, find, sort... en JSFiddle 🔗.</p>
             </div>
           </div>
           <div class="index-card" style="">
@@ -467,7 +467,7 @@
             <div class="index-badge" style="">5</div>
             <div class="index-info">
               <div class="index-title">Uso de Objetos de Usuario en Aplicaciones y Patrones de Diseño Básicos</div>
-              <p class="index-desc">En el desarrollo de software frontend, los patrones de diseño proporcionan soluciones probadas y estandarizadas a problemas arquitectónicos comunes.</p>
+              <p class="index-desc">En el desarrollo de software frontend, los patrones de diseño son soluciones arquitectónicas probadas a problemas habituales en la organización de código, gestión del estado y desacoplamiento de componentes.</p>
             </div>
           </div>
           <div class="index-card" style="">
@@ -493,7 +493,9 @@
   <li><strong>Funciones Predefinidas Globales:</strong>
     <ul>
       <li>Conversión y comprobación numérica: <code>parseInt(cadena, base)</code>, <code>parseFloat(cadena)</code>, <code>isNaN()</code>, <code>isFinite()</code>.</li>
-      <li>Codificación de URLs: <code>encodeURI()</code> (codifica URLs completas conservando delimitadores de protocolo/path) y <code>encodeURIComponent()</code> (codifica todos los caracteres especiales para parámetros de consulta <code>?query=...</code>). Funciones inversas: <code>decodeURI()</code> y <code>decodeURIComponent()</code>.</li>
+      <li>Codificación de URLs: <code>encodeURI()</code> (codifica URLs completas conservando delimitadores de protocolo/path) y <code>encodeURIComponent()</code> (codifica todos los caracteres especiales para parámetros de consulta <code>?query=...</code>). Funciones inversas: <code>decodeURI()</code> y <code>decodeURIComponent()</code>.
+        <a href="https://jsfiddle.net/rubisf/h6qgbs2y/2/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar encodeURI y encodeURIComponent en JSFiddle 🔗</a>
+      </li>
       <li>Evaluación dinámica: <code>eval()</code>. ⚠️ <em>Desaconsejada y prohibida en Modo Estricto</em> por representar un grave vector de inyección de código y degradar la optimización del compilador JIT.</li>
     </ul>
   </li>
@@ -501,25 +503,33 @@
     <ul>
       <li><strong>Declaración de Función (Function Declaration):</strong> <code>function calcular() {}</code>. Posee elevación completa (hoisting), pudiendo invocarse antes de su línea de definición.</li>
       <li><strong>Expresión de Función (Function Expression):</strong> <code>const sumar = function(a, b) { return a + b; };</code>. No sufre hoisting de inicialización.</li>
-      <li><strong>Funciones Flecha (Arrow Functions):</strong> Sintaxis concisa (<code>(a, b) =&gt; a + b</code>). Tienen retorno implícito para expresiones directas y <strong>enlace léxico de <code>this</code></strong> (no poseen su propio <code>this</code>, sino que heredan el contexto envolvente donde fueron creadas). No pueden utilizarse como constructoras con <code>new</code>.</li>
+      <li><strong>Funciones Flecha (Arrow Functions):</strong> Sintaxis concisa (<code>(a, b) =&gt; a + b</code>). Tienen retorno implícito para expresiones directas y <strong>enlace léxico de <code>this</code></strong> (no poseen su propio <code>this</code>, sino que heredan el contexto envolvente donde fueron creadas). No pueden utilizarse como constructoras con <code>new</code>.
+        <a href="https://jsfiddle.net/rubisf/Lwkoscdz/16/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Uso de this en JSFiddle 🔗</a>
+      </li>
     </ul>
   </li>
-  <li><strong>Parámetros Avanzados:</strong> Parámetros por defecto (<code>(x = 10)</code>), parámetros Rest para aridad indefinida (<code>(...valores)</code>) y desestructuración directa de argumentos.</li>
+  <li><strong>Parámetros Avanzados:</strong> Parámetros por defecto (<code>(x = 10)</code>), parámetros Rest para aridad indefinida o infinitos (<code>(...valores)</code>) y desestructuración directa de argumentos.
+    <a href="https://jsfiddle.net/rubisf/zx3wLkta/12/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Parámetros Infinitos y por Defecto en JSFiddle 🔗</a>
+  </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
             <div class="card-text"><p><strong>El Contexto de Ejecución y Enlace de <code>this</code>:</strong></p>
 <ul class="concept-list">
-  <li><strong>Diferencia Crítica de <code>this</code>:</strong> En funciones clásicas, <code>this</code> se determina dinámicamente en el momento de la llamada (el objeto que invoca la función). En funciones flecha, <code>this</code> queda fijado estáticamente en tiempo de compilación según el ámbito léxico donde se escribió la función.</li>
-  <li><strong>Métodos de Enlace Explícito:</strong> <code>fn.call(contexto, arg1, arg2)</code>, <code>fn.apply(contexto, [args])</code> y <code>fn.bind(contexto)</code> (devuelve una nueva función permanentemente vinculada).</li>
+  <li><strong>Diferencia Crítica de <code>this</code>:</strong> En funciones clásicas, <code>this</code> se determina dinámicamente en el momento de la llamada (el objeto que invoca la función). En funciones flecha, <code>this</code> queda fijado estáticamente en tiempo de compilación según el ámbito léxico donde se escribió la función.
+    <a href="https://jsfiddle.net/rubisf/Lwkoscdz/16/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Uso de this en JSFiddle 🔗</a>
+  </li>
+  <li><strong>Métodos de Enlace Explícito:</strong> <code>fn.call(contexto, arg1, arg2)</code>, <code>fn.apply(contexto, [args])</code> y <code>fn.bind(contexto)</code> (devuelve una nueva función permanentemente vinculada).
+    <a href="https://jsfiddle.net/rubisf/579q0x1h/16/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Call, Apply y Bind en JSFiddle 🔗</a>
+  </li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;"><a href="https://jsfiddle.net/rubisf/h6qgbs2y/2/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar encodeURI vs encodeURIComponent en JSFiddle">⚡ encodeURI vs encodeURIComponent 🔗</a><a href="https://jsfiddle.net/rubisf/zx3wLkta/12/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Parámetros Infinitos y por Defecto en JSFiddle">⚡ Parámetros Infinitos y por Defecto 🔗</a><a href="https://jsfiddle.net/rubisf/Lwkoscdz/16/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Uso de this (Léxico vs Dinámico) en JSFiddle">⚡ Uso de this (Léxico vs Dinámico) 🔗</a><a href="https://jsfiddle.net/rubisf/579q0x1h/16/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Call, Apply y Bind en JSFiddle">⚡ Call, Apply y Bind 🔗</a></div>
           </div>
           <pre><code class="language-javascript">// Comparativa de Funciones Clásicas vs Funciones Flecha y Parámetros Rest
 const gestorEventos = {
@@ -676,7 +686,9 @@ laboratorioFunciones();</code></pre>
   <li><strong>Transformación y Extracción:</strong>
     <ul>
       <li><code>splice(inicio, borrarConteo, ...insertar)</code>: <em>Método mutador versátil</em>. Elimina elementos, inserta nuevos o sustituye en cualquier posición del array.</li>
-      <li><code>slice(inicio, fin)</code>: <em>Método inmutable</em>. Extrae una porción superficial (shallow copy) del array sin modificar el original.</li>
+      <li><code>slice(inicio, fin)</code>: <em>Método inmutable</em>. Extrae una porción superficial (shallow copy) del array sin modificar el original.
+        <a href="https://jsfiddle.net/rubisf/L29zokpt/8/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Spread y Slice en JSFiddle 🔗</a>
+      </li>
       <li><code>concat(...arrays)</code> y <code>join(separador)</code>: Combinación de arrays y serialización a cadena de texto.</li>
     </ul>
   </li>
@@ -693,15 +705,17 @@ laboratorioFunciones();</code></pre>
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
             <div class="card-text"><p><strong>Copia Superficial vs Copia Profunda en Arrays:</strong></p>
 <ul class="concept-list">
-  <li><strong>El operador Spread (<code>[...original]</code>) y <code>slice()</code>:</strong> Realizan copias superficiales (Shallow Copy). Si el array contiene objetos internos, las referencias a dichos objetos se comparten entre ambas copias.</li>
+  <li><strong>El operador Spread (<code>[...original]</code>) y <code>slice()</code>:</strong> Realizan copias superficiales (Shallow Copy). Si el array contiene objetos internos, las referencias a dichos objetos se comparten entre ambas copias.
+    <a href="https://jsfiddle.net/rubisf/L29zokpt/8/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Spread y Slice en JSFiddle 🔗</a>
+  </li>
   <li><strong>Copia Profunda Moderna con <code>structuredClone()</code>:</strong> API estándar nativa para clonar arrays u objetos anidados sin compartir referencias internas, superando las limitaciones de <code>JSON.parse(JSON.stringify())</code>.</li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;"><a href="https://jsfiddle.net/rubisf/L29zokpt/8/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Spread Operator y Slice en JSFiddle">⚡ Spread Operator y Slice 🔗</a></div>
           </div>
           <pre><code class="language-javascript">// Manipulación avanzada de arrays: Mutaciones con splice vs Copias inmutables
 const colaProcesos = [&quot;PID_101&quot;, &quot;PID_102&quot;, &quot;PID_103&quot;, &quot;PID_104&quot;];
@@ -818,7 +832,9 @@ gestor.mostrar();</code></pre>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>La programación funcional en JavaScript se fundamenta en <strong>métodos iteradores inmutables</strong> que procesan colecciones de datos sin alterar el array de origen:</p>
+            <div class="card-text"><p>La programación funcional en JavaScript se fundamenta en <strong>métodos iteradores inmutables</strong> que procesan colecciones de datos sin alterar el array de origen:
+  <a href="https://jsfiddle.net/rubisf/46whm9pu/28/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar map, filter, reduce, find, sort... en JSFiddle 🔗</a>
+</p>
 <ul class="concept-list">
   <li><strong>Transformación con <code>map(callback)</code>:</strong> Aplica una función a cada elemento y genera un nuevo array de la misma longitud con los resultados transformados.</li>
   <li><strong>Filtrado con <code>filter(callback)</code>:</strong> Evalúa un predicado booleano y devuelve un nuevo array conteniendo únicamente aquellos elementos que cumplan la condición.</li>
@@ -847,13 +863,16 @@ gestor.mostrar();</code></pre>
 <ul class="concept-list">
   <li><strong>Métodos <code>flat()</code> y <code>flatMap()</code>:</strong> <code>array.flat(profundidad)</code> aplana sub-arrays anidados. <code>flatMap()</code> combina un mapeo y un aplanamiento de un solo nivel de profundidad de manera óptima en una sola iteración.</li>
   <li><strong>Reducción a Objetos Agrupados (GroupBy):</strong> Usar <code>reduce</code> para agrupar colecciones por categoría: <code>datos.reduce((acc, el) => { (acc[el.cat] ??= []).push(el); return acc; }, {})</code>.</li>
+  <li><strong>Laboratorio Práctico JSFiddle:</strong> Experimenta con transformaciones completas combinando map, filter, reduce, find, findIndex, every, includes y sort:
+    <a href="https://jsfiddle.net/rubisf/46whm9pu/28/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Abrir Sandbox de Iteradores en JSFiddle 🔗</a>
+  </li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;"><a href="https://jsfiddle.net/rubisf/46whm9pu/28/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Map, Filter, Reduce, Find, Sort... en JSFiddle">⚡ Map, Filter, Reduce, Find, Sort... 🔗</a></div>
           </div>
           <pre><code class="language-javascript">// Pipeline Funcional de Datos con filter, map, reduce y toSorted
 const catalogoCursos = [
@@ -994,7 +1013,7 @@ console.table(analisis.rankingCategorias);</code></pre>
           </div>
         </div>
         <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
             
           </div>
@@ -1191,31 +1210,27 @@ comparativaOrientacionObjetos();</code></pre>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>En el desarrollo de software frontend, los <strong>patrones de diseño</strong> proporcionan soluciones probadas y estandarizadas a problemas arquitectónicos comunes:</p>
+            <div class="card-text"><p>En el desarrollo de software frontend, los <strong>patrones de diseño</strong> son soluciones arquitectónicas probadas a problemas habituales en la organización de código, gestión del estado y desacoplamiento de componentes:</p>
 <ul class="concept-list">
-  <li><strong>Modelado de Entidades del Dominio:</strong> Organización de los datos del negocio mediante colecciones de objetos interactivos que encapsulan estado y operaciones lógicas (ej. Clases <code>Usuario</code>, <code>ItemCarrito</code>, <code>Catalogo</code>).</li>
-  <li><strong>Patrón Módulo (Module Pattern):</strong>
-    <p>Aísla la lógica privada exponiendo únicamente una API pública. Históricamente implementado mediante IIFEs (Immediately Invoked Function Expressions); hoy estandarizado de forma nativa con los <strong>ES Modules</strong> (ficheros <code>.js</code> con declaraciones <code>export</code> e <code>import</code>).</p>
-  </li>
-  <li><strong>Patrón Factoría (Factory Pattern):</strong>
-    <p>Función o método que encapsula y abstrae la instanciación de objetos complejos. En lugar de invocar directamente <code>new Clase()</code> en múltiples sitios, la factoría decide qué subclase o estructura crear según los parámetros facilitados.</p>
-  </li>
-  <li><strong>Patrón Singleton Simple (Instancia Única):</strong>
-    <p>Garantiza que una clase posea una <strong>única instancia compartida</strong> a lo largo de todo el ciclo de vida de la aplicación web, proporcionando un punto de acceso global unificado. Fundamental para gestores de estado, servicios de configuración o buses de eventos.</p>
-  </li>
+  <li><strong>Modelado de Entidades del Dominio:</strong> Organización de datos mediante colecciones de objetos interactivos que encapsulan estado y operaciones de negocio (ej. <code>Usuario</code>, <code>Producto</code>, <code>Carrito</code>).</li>
+  <li><strong>1. Patrón Módulo (Module Pattern):</strong> Aísla variables y funciones privadas exponiendo únicamente una API pública. Histórico con closures en IIFEs; estandarizado modernamente con los <strong>ES Modules</strong> nativos.</li>
+  <li><strong>2. Patrón Singleton (Instancia Única):</strong> Garantiza que una clase posea una única instancia en toda la aplicación y proporciona un punto de acceso global compartido.</li>
+  <li><strong>3. Patrón Factoría (Factory Pattern):</strong> Centraliza y abstrae la instanciación de familias de objetos dinámicamente según parámetros recibidos.</li>
+  <li><strong>4. Patrón Observador (Observer / Pub-Sub):</strong> Mecanismo de suscripción donde un sujeto notifica automáticamente a múltiples observadores ante cambios de estado.</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>El Patrón Módulo Nativo y el Singleton en ES Modules:</strong></p>
+            <div class="card-text"><p><strong>Clasificación y Buenas Prácticas en Patrones de Diseño Frontend:</strong></p>
 <ul class="concept-list">
-  <li><strong>Los Módulos ES son Singletons por Especificación:</strong> Cuando un fichero módulo exporta una instancia de objeto (ej. <code>export const servicioAuth = new AuthService();</code>), el motor del navegador evalúa y ejecuta el módulo una sola vez. Cualquier otro fichero que lo importe compartirá exactamente la misma instancia en memoria.</li>
-  <li><strong>Desacoplamiento con Factorías:</strong> El patrón factoría facilita el testing unitario, permitiendo inyectar objetos falsos (mocks) o cambiar de implementación sin alterar el código cliente.</li>
+  <li><strong>Patrones Creacionales (Singleton, Factory, Builder):</strong> Gestionan los mecanismos de creación de objetos desacoplando al cliente de las clases concretas.</li>
+  <li><strong>Patrones Estructurales (Module, Facade, Adapter):</strong> Organizan las relaciones entre clases y objetos formando arquitecturas más amplias y mantenibles.</li>
+  <li><strong>Patrones de Comportamiento (Observer, Strategy, Command):</strong> Definen la comunicación y el flujo de control entre objetos independientes sin acoplamiento estrecho.</li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
             
           </div>
@@ -1264,6 +1279,282 @@ console.log(&quot;¿Son la misma instancia Singleton?:&quot;, config1 === config
 
 const aviso = FactoriaNotificaciones.crear(&quot;exito&quot;, &quot;Operación completada con éxito.&quot;);
 console.log(&quot;Notificación generada:&quot;, aviso);</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Patrones de Diseño (1 de 4)</span>
+          <h2>🧩 1. Patrón Módulo (Module Pattern)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El <strong>Patrón Módulo</strong> proporciona un mecanismo estricto de <strong>encapsulamiento</strong>, permitiendo empaquetar variables y métodos privados dentro de un ámbito protegido y exponer públicamente solo los métodos deseados:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Evita la contaminación del espacio de nombres global (<code>window</code>) y previene colisiones accidentales entre scripts.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Al construir librerías utilitarias, servicios de cálculo, módulos de persistencia o componentes con lógica interna sensible que no deba mutarse directamente.</li>
+  <li><strong>Principio de Mínimo Privilegio:</strong> Solo se hace accesible lo estrictamente indispensable para el resto de la aplicación.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Evolución Técnica: de IIFEs a ES Modules:</strong></p>
+<ul class="concept-list">
+  <li><strong>Enfoque Clásico (IIFE):</strong> Mediante una función autoejecutable <code>(function() { ... return { publico }; })()</code>. Las variables internas quedan retenidas en un <em>closure</em> inaccesible.</li>
+  <li><strong>Estándar Moderno (ES Modules):</strong> Cada archivo <code>.js</code> constituye un módulo aislado por especificación (<code>&lt;script type="module"&gt;</code>). Se exportan explícitamente constantes, funciones o clases con <code>export</code> y se importan con <code>import</code>, disfrutando de modo estricto automático.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación del Patrón Módulo (Module Pattern)</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Patrón Estructural / Creacional</span>
+          </div>
+          <pre><code class="language-javascript">// --- Patrón Módulo: Implementación Clásica con IIFE y Closures Privados ---
+
+const ModuloInventario = (function() {
+    // 🔒 Variables estrictamente privadas (inaccesibles desde fuera)
+    const stock = new Map();
+    const IVA = 0.21;
+
+    function calcularValorItem(precio, cantidad) {
+        return precio * cantidad;
+    }
+
+    // 🌐 Objeto público que expone la API del módulo
+    return {
+        registrar(codigo, nombre, precio, cantidad = 1) {
+            stock.set(codigo, { nombre, precio, cantidad });
+            console.log(`✓ Registrado en módulo: [${codigo}] ${nombre} (${precio}€ x ${cantidad})`);
+        },
+        consultar(codigo) {
+            const item = stock.get(codigo);
+            return item ? { ...item } : null; // Retorna copia para evitar mutación directa
+        },
+        calcularValorTotal() {
+            let total = 0;
+            stock.forEach(item =&gt; {
+                total += calcularValorItem(item.precio, item.cantidad);
+            });
+            return Number((total * (1 + IVA)).toFixed(2));
+        }
+    };
+})();
+
+ModuloInventario.registrar(&quot;P100&quot;, &quot;Ratón Gaming&quot;, 45, 10);
+ModuloInventario.registrar(&quot;P200&quot;, &quot;Alfombrilla XL&quot;, 15, 20);
+
+console.log(&quot;Total Inventario con IVA:&quot;, ModuloInventario.calcularValorTotal(), &quot;€&quot;);
+console.log(&quot;Acceso directo a stock privado:&quot;, ModuloInventario.stock); // undefined (¡Encapsulado!)</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Patrones de Diseño (2 de 4)</span>
+          <h2>🧩 2. Patrón Singleton (Instancia Única)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El <strong>Patrón Singleton</strong> garantiza que una clase posea <strong>una única instancia compartida</strong> durante todo el ciclo de vida de la aplicación web y proporciona un punto de acceso global y centralizado a ella:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Evita múltiples estados dispersos o instancias duplicadas de recursos compartidos que deben ser únicos en la app.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Gestores de configuración global, clientes de conexión a APIs REST/WebSockets, servicios de autenticación y sesión, carritos de compra o sistemas de telemetría y logs.</li>
+  <li><strong>Identidad en Memoria:</strong> Múltiples referencias <code>configA === configB</code> evalúan exactamente a <code>true</code>.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Implementación Moderna con Clases ES6 y Campos Privados:</strong></p>
+<ul class="concept-list">
+  <li><strong>Campo Estático Privado:</strong> Se declara <code>static #instancia = null;</code> dentro de la clase para almacenar la referencia única.</li>
+  <li><strong>Constructor Guard:</strong> Si <code>#instancia</code> ya existe en el momento de invocar <code>new</code>, se devuelve la instancia existente impidiendo recreaciones.</li>
+  <li><strong>Método Factoría Estático:</strong> Se expone <code>static getInstancia()</code> para obtenerla de forma declarativa sin requerir el operador <code>new</code>.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación del Patrón Singleton (Instancia Única)</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Patrón Creacional</span>
+          </div>
+          <pre><code class="language-javascript">// --- Patrón Singleton con Campos Privados Estáticos en ES6+ ---
+
+class ConfiguracionSistema {
+    static #instancia = null; // Instancia única compartida a nivel de clase
+
+    constructor() {
+        if (ConfiguracionSistema.#instancia) {
+            // Si ya existe la instancia, devolvemos la misma referencia en memoria
+            return ConfiguracionSistema.#instancia;
+        }
+        this.entorno = &quot;producción&quot;;
+        this.apiURL = &quot;https://api.empresa.es/v2&quot;;
+        this.limitePeticiones = 100;
+        this.sesionActiva = false;
+        this.usuarioActual = null;
+        
+        ConfiguracionSistema.#instancia = this; // Almacenamos la primera y única instancia
+    }
+
+    static getInstancia() {
+        if (!this.#instancia) {
+            this.#instancia = new ConfiguracionSistema();
+        }
+        return this.#instancia;
+    }
+
+    iniciarSesion(usuario) {
+        this.sesionActiva = true;
+        this.usuarioActual = usuario;
+        console.log(`Sesión iniciada correctamente para: ${usuario}`);
+    }
+}
+
+// Comprobación: Ambas variables apuntan al mismo objeto en memoria
+const configA = new ConfiguracionSistema();
+const configB = new ConfiguracionSistema();
+
+configA.iniciarSesion(&quot;Rubén (Docente DWEC)&quot;);
+console.log(&quot;¿Usuario en configB?:&quot;, configB.usuarioActual); // &quot;Rubén (Docente DWEC)&quot;
+console.log(&quot;¿Son idénticas en memoria?:&quot;, configA === configB); // true</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Patrones de Diseño (3 de 4)</span>
+          <h2>🧩 3. Patrón Factoría (Factory Pattern)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El <strong>Patrón Factoría</strong> proporciona una interfaz o método centralizado para <strong>crear familias de objetos</strong> sin especificar explícitamente sus clases concretas en el código cliente:</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Desacopla la lógica de instanciación (<code>new Subclase()</code>), centralizando la decisión de qué objeto crear según los parámetros facilitados.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Creación de componentes de interfaz (botones, modales), generadores de notificaciones según su canal (email, push, sms), o modelado de usuarios con roles heterogéneos.</li>
+  <li><strong>Principio Abierto/Cerrado (OCP):</strong> Permite añadir nuevos tipos de objetos creando nuevas clases sin tener que modificar el código que los consume.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Ventajas de la Abstracción y Testing:</strong></p>
+<ul class="concept-list">
+  <li><strong>Polimorfismo Compartido:</strong> Todos los objetos fabricados comparten una interfaz común (mismos métodos públicos como <code>enviar()</code> o <code>renderizar()</code>).</li>
+  <li><strong>Inyección y Mocks:</strong> En pruebas unitarias, la factoría permite sustituir fácilmente las instancias reales por objetos simulados (mocks) sin tocar el cliente.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación del Patrón Factoría (Factory Pattern)</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Patrón Creacional</span>
+          </div>
+          <pre><code class="language-javascript">// --- Patrón Factoría: Creación Centralizada y Desacoplada de Notificaciones ---
+
+class NotificacionPush {
+    constructor(mensaje) { this.tipo = &quot;PUSH&quot;; this.mensaje = mensaje; this.prioridad = &quot;ALTA&quot;; }
+    enviar() { console.log(`[📱 PUSH] Notificación enviada al dispositivo: &quot;${this.mensaje}&quot;`); }
+}
+
+class NotificacionEmail {
+    constructor(mensaje) { this.tipo = &quot;EMAIL&quot;; this.mensaje = mensaje; this.prioridad = &quot;MEDIA&quot;; }
+    enviar() { console.log(`[📧 EMAIL] Correo enviado a la bandeja: &quot;${this.mensaje}&quot;`); }
+}
+
+class NotificacionSMS {
+    constructor(mensaje) { this.tipo = &quot;SMS&quot;; this.mensaje = mensaje; this.prioridad = &quot;URGENTE&quot;; }
+    enviar() { console.log(`[💬 SMS] Mensaje de texto enviado a red móvil: &quot;${this.mensaje}&quot;`); }
+}
+
+// Factoría que centraliza la instanciación según el canal/tipo
+class FactoriaNotificaciones {
+    static crear(canal, mensaje) {
+        switch (canal.toLowerCase()) {
+            case &quot;push&quot;: return new NotificacionPush(mensaje);
+            case &quot;email&quot;: return new NotificacionEmail(mensaje);
+            case &quot;sms&quot;: return new NotificacionSMS(mensaje);
+            default: throw new Error(`El canal de notificación &#x27;${canal}&#x27; no es soportado.`);
+        }
+    }
+}
+
+const alerta1 = FactoriaNotificaciones.crear(&quot;push&quot;, &quot;Nueva tarea asignada en el tablero Scrum&quot;);
+const alerta2 = FactoriaNotificaciones.crear(&quot;sms&quot;, &quot;Código de autenticación 2FA: 948210&quot;);
+alerta1.enviar();
+alerta2.enviar();</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="slide-header">
+          <span class="badge-sub">Bloque 5 · Patrones de Diseño (4 de 4)</span>
+          <h2>🧩 4. Patrón Observador (Observer / Pub-Sub)</h2>
+        </div>
+        <div class="theory-grid">
+          <div class="content-card primary-card">
+            <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
+            <div class="card-text"><p>El <strong>Patrón Observador</strong> define una dependencia de uno a muchos entre objetos: cuando el objeto emisor (**Subject**) cambia su estado, **notifica automáticamente** a todos sus suscriptores (**Observers**):</p>
+<ul class="concept-list">
+  <li><strong>¿Qué problema resuelve?</strong> Permite la comunicación reactiva entre objetos sin que exista un acoplamiento directo entre emisor y receptores.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Interfaces reactivas donde múltiples vistas reaccionan a cambios de un modelo, buses de eventos globales, o suscripciones asíncronas en tiempo real.</li>
+  <li><strong>Fundamento del Frontend Moderno:</strong> Es el pilar sobre el que funcionan los eventos del DOM (<code>addEventListener</code>), librerías reactivas como RxJS en Angular, o gestores de estado como Redux y Signals.</li>
+</ul></div>
+          </div>
+          <div class="content-card accent-card">
+            <div class="card-tag">🔍 Características Clave y Estándares</div>
+            <div class="card-text"><p><strong>Estructura del Sujeto y Colecciones Set:</strong></p>
+<ul class="concept-list">
+  <li><strong>Gestión de Suscriptores con Set:</strong> La clase Subject almacena los observadores en un <code>new Set()</code>, lo que garantiza O(1) en inserción/borrado y previene registros duplicados.</li>
+  <li><strong>Métodos Clave del Patrón:</strong> <code>suscribir(observador)</code>, <code>desuscribir(observador)</code> y <code>notificar(evento, datos)</code>.</li>
+</ul></div>
+          </div>
+        </div>
+        <div class="code-demo-card">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>💻 Código de Ejemplo: Implementación del Patrón Observador (Observer / Pub-Sub)</span>
+            <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Patrón de Comportamiento</span>
+          </div>
+          <pre><code class="language-javascript">// --- Patrón Observador (Observer / Pub-Sub) en JavaScript ---
+
+class EmisorEventos {
+    constructor() {
+        this.suscriptores = new Set(); // Colección Set para evitar observadores duplicados
+    }
+
+    suscribir(observador) {
+        this.suscriptores.add(observador);
+        console.log(`+ Suscriptor añadido. Total activos: ${this.suscriptores.size}`);
+    }
+
+    desuscribir(observador) {
+        this.suscriptores.delete(observador);
+        console.log(`- Suscriptor eliminado. Restantes: ${this.suscriptores.size}`);
+    }
+
+    notificar(evento, datos) {
+        console.log(`📢 [EVENTO: ${evento}] Emitiendo a ${this.suscriptores.size} suscriptores...`);
+        this.suscriptores.forEach(obs =&gt; {
+            if (typeof obs.actualizar === &quot;function&quot;) {
+                obs.actualizar(evento, datos);
+            }
+        });
+    }
+}
+
+// Observadores desacoplados que reaccionan a los cambios
+const visorConsola = { actualizar: (e, d) =&gt; console.log(`  [Consola] Evento: ${e}`, d) };
+const alertaUI = { actualizar: (e, d) =&gt; console.log(`  [Banner UI] Renderizando alerta: ${d.mensaje}`) };
+
+const emisor = new EmisorEventos();
+emisor.suscribir(visorConsola);
+emisor.suscribir(alertaUI);
+
+emisor.notificar(&quot;CAMBIO_ESTADO&quot;, { mensaje: &quot;El usuario ha actualizado su perfil&quot; });
+emisor.desuscribir(alertaUI);
+emisor.notificar(&quot;PING&quot;, { mensaje: &quot;Comprobación de conectividad&quot; });</code></pre>
         </div>
       </section>
 
@@ -1401,7 +1692,7 @@ console.table(gestorA.obtenerHistorial());</code></pre>
           </div>
         </div>
         <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
             
           </div>
