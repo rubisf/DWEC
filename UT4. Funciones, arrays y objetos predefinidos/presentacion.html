@@ -1557,19 +1557,20 @@ console.log(&quot;Petición Ensamblada:&quot;, peticionLogin);</code></pre>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El patrón <strong>Prototype</strong> especifica las clases de objetos a crear mediante una <strong>instancia prototípica</strong>, creando nuevos objetos copiando o clonando dicho prototipo existente:</p>
+            <div class="card-text"><p>El patrón <strong>Prototype</strong> crea nuevos objetos clonando o delegando en una <strong>instancia prototípica existente</strong> mediante <code>Object.create(prototipo)</code>:</p>
 <ul class="concept-list">
-  <li><strong>¿Qué problema resuelve?</strong> Ahorra el elevado coste computacional de instanciar e inicializar objetos complejos desde cero repetidamente.</li>
-  <li><strong>Cuándo utilizarlo:</strong> En sistemas con generación masiva de objetos similares (partículas en Canvas, filas de hojas de cálculo, plantillas de documentos predefinidas).</li>
-  <li><strong>Naturaleza Prototípica de JavaScript:</strong> Es el modelo fundacional nativo del lenguaje JavaScript mediante <code>Object.create(prototipo)</code> y la propiedad <code>prototype</code>.</li>
+  <li><strong>¿Qué problema resuelve?</strong> Ahorra el coste de instanciar e inicializar objetos complejos desde cero y permite herencia directa sin necesidad de clases.</li>
+  <li><strong>Delegación Prototípica:</strong> <code>Object.create(original)</code> <strong>no copia</strong> los datos; crea un objeto vacío que apunta a <code>original</code> como su prototipo en memoria.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Creación rápida de elementos masivos o entidades configurables (vehículos, personajes, plantillas de documentos).</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>Delegación Prototípica vs Copia Superficial:</strong></p>
+            <div class="card-text"><p><strong>Claves Críticas: Shadowing y Peligro de Referencias:</strong></p>
 <ul class="concept-list">
-  <li><strong>Delegación Prototípica (<code>Object.create</code>):</strong> Las propiedades y métodos del prototipo se comparten en memoria; los cambios en el prototipo se reflejan automáticamente en los clones.</li>
-  <li><strong>Clonación de Estado:</strong> Permite personalizar propiedades individuales en cada clon sin alterar el prototipo base.</li>
+  <li><strong>Shadowing (Ocultación):</strong> Al asignar un primitivo al clon (<code>clon.tipo = "Deportivo"</code>), JS <strong>no</strong> modifica el prototipo; crea una propiedad propia en el clon que <em>oculta</em> la heredada.</li>
+  <li><strong>La Trampa de los Arrays y Objetos:</strong> Los tipos por referencia se comparten. Si haces <code>clon.extras.push("GPS")</code> sobre un array heredado, <strong>¡modificarás el prototipo original!</strong></li>
+  <li><strong>Solución:</strong> En el método <code>clonar()</code>, desacoplar los arrays u objetos anidados copiándolos (por ejemplo con spread: <code>[...this.extras]</code>).</li>
 </ul></div>
           </div>
         </div>
@@ -1578,41 +1579,48 @@ console.log(&quot;Petición Ensamblada:&quot;, peticionLogin);</code></pre>
             <span>💻 Código de Ejemplo: Implementación de Prototype</span>
             <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Creacionales → Creación de objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- 4. Patrón Prototype (Creacional): Clonación Prototípica Nativa en JS ---
+          <pre><code class="language-javascript">// --- 4. Patrón Prototype (Creacional): Delegación, Shadowing y Referencias ---
 
-const prototipoEnemigo = {
-    tipo: &quot;Soldado Básico&quot;,
-    puntosVida: 100,
-    armadura: 15,
-    habilidades: [&quot;Ataque cuerpo a cuerpo&quot;],
+// 1. Objeto Prototipo Base
+const prototipoCoche = {
+    tipo: &quot;Coche Estándar&quot;,
+    ruedas: 4,
+    extras: [&quot;Aire Acondicionado&quot;, &quot;Radio&quot;], // ⚠️ Array (tipo por referencia)
 
-    atacar() {
-        console.log(`⚔️ ${this.nombre ?? this.tipo} inflige 20 puntos de daño.`);
-    },
-
-    clonar(nombrePersonalizado) {
-        // Crea un nuevo objeto delegando en el prototipo actual
-        const nuevoEnemigo = Object.create(this);
-        nuevoEnemigo.nombre = nombrePersonalizado;
-        return nuevoEnemigo;
+    // Método de clonación con delegación prototípica y protección de referencias
+    clonar(nombreModelo) {
+        const nuevoCoche = Object.create(this); // Crea objeto delegando en este prototipo
+        nuevoCoche.nombre = nombreModelo;       // Shadowing: crea propiedad propia en el clon
+        nuevoCoche.extras = [...this.extras];   // Desacopla la referencia del array
+        return nuevoCoche;
     }
 };
 
-// Crear prototipo especializado para arqueros
-const prototipoArquero = prototipoEnemigo.clonar(&quot;Arquero Base&quot;);
-prototipoArquero.puntosVida = 70;
-prototipoArquero.arma = &quot;Arco Largo&quot;;
-prototipoArquero.atacar = function() {
-    console.log(`🏹 ${this.nombre} dispara una flecha a distancia.`);
-};
+// 2. DEMOSTRACIÓN 1: ¿Qué es el &quot;Shadowing&quot; (Ocultación)?
+const clonBasico = Object.create(prototipoCoche);
+clonBasico.tipo = &quot;Deportivo&quot;; // Crea propiedad propia en clonBasico que oculta la heredada
 
-// Clonación rápida de múltiples instancias particulares
-const arquero1 = prototipoArquero.clonar(&quot;Robin Hood&quot;);
-const arquero2 = prototipoArquero.clonar(&quot;Legolas&quot;);
+console.log(&quot;clonBasico.tipo:&quot;, clonBasico.tipo);         // &quot;Deportivo&quot; (Propiedad propia)
+console.log(&quot;prototipoCoche.tipo:&quot;, prototipoCoche.tipo); // &quot;Coche Estándar&quot; (¡El original NO cambia!)
 
-arquero1.atacar(); // 🏹 Robin Hood dispara una flecha a distancia.
-arquero2.atacar(); // 🏹 Legolas dispara una flecha a distancia.
-console.log(&quot;Vida de arquero1:&quot;, arquero1.puntosVida); // 70 (Heredado de prototipoArquero)</code></pre>
+// 3. DEMOSTRACIÓN 2: El Peligro de mutar Arrays heredados
+// Si hiciéramos: clonBasico.extras.push(&quot;GPS&quot;);
+// ¡Modificaría el array de prototipoCoche porque ambos comparten la misma referencia!
+
+// 4. DEMOSTRACIÓN 3: Clonación Segura con el método clonar()
+const cocheA = prototipoCoche.clonar(&quot;Audi R8&quot;);
+const cocheB = prototipoCoche.clonar(&quot;Seat Ibiza&quot;);
+
+cocheA.extras.push(&quot;Frenos Carbocerámicos&quot;);
+
+console.log(&quot;Extras cocheA:&quot;, cocheA.extras);
+// [&quot;Aire Acondicionado&quot;, &quot;Radio&quot;, &quot;Frenos Carbocerámicos&quot;]
+
+console.log(&quot;Extras cocheB:&quot;, cocheB.extras);
+// [&quot;Aire Acondicionado&quot;, &quot;Radio&quot;] (¡Totalmente independiente!)
+
+console.log(&quot;Extras prototipo original:&quot;, prototipoCoche.extras);
+// [&quot;Aire Acondicionado&quot;, &quot;Radio&quot;] (¡Intacto!)</code></pre>
         </div>
       </section>
 
