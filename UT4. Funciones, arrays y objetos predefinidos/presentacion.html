@@ -2215,18 +2215,26 @@ console.log(&quot;Total en Black Friday:&quot;, pedido.obtenerTotal(), &quot;€
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El patrón <strong>Command (Comando)</strong> encapsula una petición o acción como un <strong>objeto independiente</strong> con toda la información necesaria para ejecutarla en cualquier momento:</p>
+            <div class="card-text"><p>El patrón <strong>Command (Comando)</strong> consiste en <strong>convertir una acción o petición en un objeto independiente</strong>. En lugar de invocar directamente métodos sobre un receptor, encapsulamos la orden dentro de un objeto con su método <code>ejecutar()</code> y <code>deshacer()</code>:</p>
 <ul class="concept-list">
-  <li><strong>¿Qué problema resuelve?</strong> Desacopla el objeto que invoca la operación del objeto que realmente sabe cómo ejecutarla.</li>
-  <li><strong>Cuándo utilizarlo:</strong> Operaciones de <em>Deshacer / Rehacer (Undo / Redo)</em> en editores de texto, encolamiento y planificación de tareas en segundo plano o transacciones transaccionales.</li>
-  <li><strong>Parametrización de Clientes:</strong> Los botones de la UI no conocen los detalles del modelo, solo despachan un comando.</li>
+  <li><strong>La Metáfora del Mando a Distancia:</strong> Un mando tiene botones que no saben de electrónica ni de cómo funciona un televisor o aire acondicionado; solo disparan el comando asignado.</li>
+  <li><strong>Los 4 Protagonistas del Patrón:</strong>
+    <ul>
+      <li><strong>Invocador (Mando / Botón de UI):</strong> Solicita la orden llamando a <code>comando.ejecutar()</code>.</li>
+      <li><strong>Comando:</strong> Encapsula la acción y delega en el receptor adecuado.</li>
+      <li><strong>Receptor (Televisión / Base de datos):</strong> Quien realmente sabe realizar el trabajo.</li>
+      <li><strong>Cliente:</strong> Crea y vincula los comandos específicos con el invocador.</li>
+    </ul>
+  </li>
+  <li><strong>Superpoderes:</strong> Permite implementar fácilmente <strong>Deshacer (Ctrl + Z)</strong>, repetición de órdenes, colas de tareas asíncronas y macros (secuencias de comandos agrupadas).</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>El Método Inverso <code>deshacer()</code>:</strong></p>
+            <div class="card-text"><p><strong>Diferencia clave entre Command y Strategy:</strong></p>
 <ul class="concept-list">
-  <li><strong>Historial de Comandos:</strong> Al mantener una pila (stack LIFO) de comandos ejecutados, revertir operaciones consiste simplemente en desapilar y ejecutar <code>comando.deshacer()</code>.</li>
+  <li><strong>Strategy:</strong> Encapsula <em>algoritmos alternativos</em> (cambia <strong>cómo</strong> se calcula algo, ej. 3 formas de aplicar un descuento comercial).</li>
+  <li><strong>Command:</strong> Encapsula <em>una orden/acción concreta</em> (permite <strong>guardarla, diferirla, encolarla o deshacerla</strong> en el tiempo).</li>
 </ul></div>
           </div>
         </div>
@@ -2235,52 +2243,62 @@ console.log(&quot;Total en Black Friday:&quot;, pedido.obtenerTotal(), &quot;€
             <span>💻 Código de Ejemplo: Implementación de Command</span>
             <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Comportamentales → Comunicación entre objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- 12. Patrón Command (Comportamental): Historial con Deshacer (Undo) ---
+          <pre><code class="language-javascript">// --- 12. Patrón Command (Comportamental): Mando a Distancia con Deshacer (Undo) ---
 
-// Receptor: Objeto que sabe cómo modificar el texto real
-class DocumentoTexto {
-    constructor() { this.texto = &quot;&quot;; }
-    insertar(cadena) { this.texto += cadena; }
-    borrar(longitud) { this.texto = this.texto.slice(0, -longitud); }
+// 1. RECEPTOR: El dispositivo que sabe cómo realizar el trabajo real
+class Television {
+    encender() { console.log(&quot;📺 Televisión encendida.&quot;); }
+    apagar() { console.log(&quot;📺 Televisión apagada.&quot;); }
+    subirVolumen() { console.log(&quot;🔊 Volumen subido (+1).&quot;); }
+    bajarVolumen() { console.log(&quot;🔉 Volumen bajado (-1).&quot;); }
 }
 
-// Comando Concreto: Escribir texto
-class ComandoEscribir {
-    constructor(documento, fragmento) {
-        this.documento = documento;
-        this.fragmento = fragmento;
-    }
-    ejecutar() { this.documento.insertar(this.fragmento); }
-    deshacer() { this.documento.borrar(this.fragmento.length); }
+// 2. COMANDOS: Encapsulan cada orden y su acción inversa (deshacer)
+class EncenderTVComando {
+    constructor(television) { this.tv = television; }
+    ejecutar() { this.tv.encender(); }
+    deshacer() { this.tv.apagar(); }
 }
 
-// Invocador: Gestiona el ciclo de vida y la pila de comandos
-class GestorComandos {
+class SubirVolumenComando {
+    constructor(television) { this.tv = television; }
+    ejecutar() { this.tv.subirVolumen(); }
+    deshacer() { this.tv.bajarVolumen(); }
+}
+
+// 3. INVOCADOR: El Mando a Distancia (No conoce dispositivos, solo ejecuta comandos)
+class MandoADistancia {
     #historial = [];
 
-    ejecutar(comando) {
+    pulsarBoton(comando) {
         comando.ejecutar();
-        this.#historial.push(comando);
+        this.#historial.push(comando); // Guarda la orden para poder deshacerla
     }
 
-    deshacer() {
+    pulsarBotonDeshacer() {
         const ultimoComando = this.#historial.pop();
         if (ultimoComando) {
+            console.log(&quot;⏪ [Ctrl+Z]: Deshaciendo última acción...&quot;);
             ultimoComando.deshacer();
-            console.log(&quot;⏪ Operación revertida exitosamente.&quot;);
+        } else {
+            console.log(&quot;⚠️ No hay más acciones en el historial.&quot;);
         }
     }
 }
 
-const doc = new DocumentoTexto();
-const gestor = new GestorComandos();
+// 4. CLIENTE: Configura los dispositivos, comandos y mando
+const miTV = new Television();
+const mando = new MandoADistancia();
 
-gestor.ejecutar(new ComandoEscribir(doc, &quot;¡Hola &quot;));
-gestor.ejecutar(new ComandoEscribir(doc, &quot;Mundo DWEC!&quot;));
-console.log(&quot;Texto Actual:&quot;, doc.texto); // &quot;¡Hola Mundo DWEC!&quot;
+// Ejecutamos diferentes órdenes desde el mismo mando
+mando.pulsarBoton(new EncenderTVComando(miTV));   // 📺 Televisión encendida.
+mando.pulsarBoton(new SubirVolumenComando(miTV)); // 🔊 Volumen subido (+1).
+mando.pulsarBoton(new SubirVolumenComando(miTV)); // 🔊 Volumen subido (+1).
 
-gestor.deshacer();
-console.log(&quot;Texto tras Deshacer:&quot;, doc.texto); // &quot;¡Hola &quot;</code></pre>
+// Deshacer operaciones en orden inverso (Ctrl + Z)
+mando.pulsarBotonDeshacer(); // ⏪ Deshace: 🔉 Volumen bajado (-1).
+mando.pulsarBotonDeshacer(); // ⏪ Deshace: 🔉 Volumen bajado (-1).
+mando.pulsarBotonDeshacer(); // ⏪ Deshace: 📺 Televisión apagada.</code></pre>
         </div>
       </section>
 
