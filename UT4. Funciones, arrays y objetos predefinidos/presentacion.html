@@ -1793,18 +1793,19 @@ notificadorCompleto.enviar(&quot;Aviso: Calificaciones del examen publicadas&quo
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El patrón <strong>Proxy</strong> proporciona un objeto sustituto o intermediario que <strong>controla y gestiona el acceso</strong> a un objeto original, interceptando las operaciones sobre él:</p>
+            <div class="card-text"><p>El patrón <strong>Proxy</strong> proporciona un intermediario que <strong>controla, audita y gestiona el acceso</strong> a un objeto real, interceptando sus operaciones tanto <strong>ANTES</strong> como <strong>DESPUÉS</strong> de ejecutarse:</p>
 <ul class="concept-list">
-  <li><strong>¿Qué problema resuelve?</strong> Permite ejecutar acciones antes o después de que la petición llegue al objeto real (validaciones, control de permisos, caché, lazy loading).</li>
-  <li><strong>Cuándo utilizarlo:</strong> Proxies de caché para llamadas de red costosas, proxies de validación reactiva de formularios, o registro de acceso a propiedades (logging).</li>
-  <li><strong>API Nativa de JavaScript:</strong> ES6 introdujo la clase nativa <code>new Proxy(target, handler)</code> con trampas como <code>get</code>, <code>set</code> y <code>has</code>.</li>
+  <li><strong>Fase ANTES (Pre-procesamiento):</strong> Validación de tipos/parámetros, control de permisos/seguridad, comprobación previa de caché e inicio de cronómetros (telemetría).</li>
+  <li><strong>Fase DESPUÉS (Post-procesamiento):</strong> Almacenamiento en caché del resultado, medición de tiempos de respuesta (auditoría/benchmarking), enriquecimiento/formateo de la respuesta devuelta y registro de logs de éxito/error.</li>
+  <li><strong>API Nativa de JavaScript:</strong> ES6 proporciona <code>new Proxy(target, handler)</code> con trampas como <code>get</code>, <code>set</code> y <code>apply</code> para interceptar lectura, mutación o invocación.</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>El Motor de Reactividad en Vue 3 y Frameworks Modernos:</strong></p>
+            <div class="card-text"><p><strong>El Doble Momento de Interceptación (Antes y Después):</strong></p>
 <ul class="concept-list">
-  <li><strong>Reactividad con Proxy:</strong> Frameworks como Vue 3 basan su sistema de reactividad (<code>reactive()</code>) interceptando las mutaciones de propiedades a través de Proxies nativos para refrescar el DOM automáticamente.</li>
+  <li><strong>Antes:</strong> Si el proxy resuelve la petición (ej. con caché o rechazando por falta de permisos), <em>ahorra por completo</em> la llamada al objeto real.</li>
+  <li><strong>Después:</strong> Si la llamada al objeto real se produce, el proxy tiene acceso al resultado devuelto para auditarlo, modificarlo o almacenar métricas antes de entregarlo al cliente.</li>
 </ul></div>
           </div>
         </div>
@@ -1813,43 +1814,79 @@ notificadorCompleto.enviar(&quot;Aviso: Calificaciones del examen publicadas&quo
             <span>💻 Código de Ejemplo: Implementación de Proxy</span>
             <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Estructurales → Composición de clases y objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- 7. Patrón Proxy (Estructural): Caché y Control de Acceso con Proxy Nativo ES6 ---
+          <pre><code class="language-javascript">// --- 7. Patrón Proxy (Estructural): Acciones ANTES y DESPUÉS con Proxy ES6 ---
 
-// Servicio de Negocio Real (Costoso en red o cómputo)
-const servicioAPIExterna = {
-    obtenerCotizacion(criptomoneda) {
-        console.log(`🌐 [Petición Red] Solicitando cotización remota de: ${criptomoneda}...`);
-        return { moneda: criptomoneda, precioUSD: 62450.50, timestamp: Date.now() };
+// 1. Servicio Real (Operación costosa en cómputo o red)
+const servicioAPI = {
+    obtenerCotizacion(cripto) {
+        console.log(`🌐 [Servicio Real] Solicitando cotización remota de: ${cripto}...`);
+        return { cripto, precioUSD: 62450.50 };
     }
 };
 
-// Implementación del Proxy con Caché en Memoria
-const cache = new Map();
-const TIEMPO_VIDA_CACHE_MS = 60000;
+// 2. Proxy Intermediario: Control Total ANTES y DESPUÉS
+const cacheMemoria = new Map();
 
-const proxyServicio = new Proxy(servicioAPIExterna, {
+const proxyServicio = new Proxy(servicioAPI, {
     get(target, propiedad) {
         if (propiedad === &quot;obtenerCotizacion&quot;) {
-            return function(criptomoneda) {
-                const ahora = Date.now();
-                if (cache.has(criptomoneda)) {
-                    const cacheado = cache.get(criptomoneda);
-                    if (ahora - cacheado.timestamp &lt; TIEMPO_VIDA_CACHE_MS) {
-                        console.log(`⚡ [Cache Proxy HIT] Datos servidos desde memoria para: ${criptomoneda}`);
-                        return cacheado;
-                    }
+            return function(cripto) {
+                // ==========================================
+                // 🔹 1. ACCIONES &quot;ANTES&quot; DE LLAMAR A LA FUNCIÓN
+                // ==========================================
+                console.log(`
+➡️ [Proxy ANTES]: Validando entrada y comprobando caché para &#x27;${cripto}&#x27;...`);
+                
+                // Validación de entrada previa
+                if (!cripto || typeof cripto !== &quot;string&quot;) {
+                    throw new Error(&quot;Parámetro de criptomoneda inválido.&quot;);
                 }
-                const datosReales = target.obtenerCotizacion(criptomoneda);
-                cache.set(criptomoneda, datosReales);
-                return datosReales;
+
+                // Ahorro de llamada si ya está en memoria caché
+                if (cacheMemoria.has(cripto)) {
+                    console.log(`⚡ [Proxy HIT]: Servido desde memoria caché (ahorra llamada real).`);
+                    return cacheMemoria.get(cripto);
+                }
+
+                // Inicio de cronómetro para auditoría de rendimiento
+                const tInicio = performance.now();
+
+                // ==========================================
+                // ⚙️ LLAMADA AL MÉTODO DEL OBJETO REAL
+                // ==========================================
+                const resultadoReal = target[propiedad](cripto);
+
+                // ==========================================
+                // 🔹 2. ACCIONES &quot;DESPUÉS&quot; DE LLAMAR A LA FUNCIÓN
+                // ==========================================
+                const duracionMs = (performance.now() - tInicio).toFixed(2);
+
+                // 1. Guardar en caché el resultado recién obtenido
+                cacheMemoria.set(cripto, resultadoReal);
+
+                // 2. Registro de auditoría y métricas de rendimiento
+                console.log(`⬅️ [Proxy DESPUÉS]: Guardado en caché y auditado (${duracionMs} ms de cómputo).`);
+
+                // 3. Post-procesamiento: enriquecer la respuesta antes de devolverla
+                resultadoReal.auditadoPor = &quot;ProxySeguridadV1&quot;;
+                resultadoReal.recuperadoEn = new Date().toLocaleTimeString();
+
+                return resultadoReal; // El cliente recibe el objeto final enriquecido
             };
         }
         return target[propiedad];
     }
 });
 
-proxyServicio.obtenerCotizacion(&quot;BTC&quot;); // Ejecuta petición de red real
-proxyServicio.obtenerCotizacion(&quot;BTC&quot;); // Servido instantáneamente desde la caché del Proxy</code></pre>
+// --- Demostración práctica ---
+console.log(&quot;=== 1. Primera llamada (sin caché previa) ===&quot;);
+const res1 = proxyServicio.obtenerCotizacion(&quot;BTC&quot;);
+console.log(&quot;Resultado final recibido por el cliente:&quot;, res1);
+
+console.log(&quot;
+=== 2. Segunda llamada (con caché activa) ===&quot;);
+const res2 = proxyServicio.obtenerCotizacion(&quot;BTC&quot;);
+console.log(&quot;Resultado final recibido por el cliente:&quot;, res2);</code></pre>
         </div>
       </section>
 
