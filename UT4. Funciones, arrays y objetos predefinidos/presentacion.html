@@ -1389,9 +1389,42 @@ console.log(&quot;¿Son idénticas en memoria?:&quot;, configA === configB); // 
             <span>💻 Código de Ejemplo: Implementación de Factory Method</span>
             <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Creacionales → Creación de objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- 2. Patrón Factory Method (Creacional) en JavaScript ---
+          <pre><code class="language-javascript">// ========================================================
+// 1. FACTORÍA SIMPLE (Simple Factory - Condicional)
+// ========================================================
+// Un método o clase con switch/case que decide qué objeto crear según un parámetro:
 
-// Clase Creadora Base (Abstracta)
+class BotonHTML {
+    dibujar() { return &quot;&lt;button&gt;Aceptar (HTML5)&lt;/button&gt;&quot;; }
+}
+
+class BotonWindows {
+    dibujar() { return &quot;🔘 Botón Windows 11 Fluent&quot;; }
+}
+
+class FactoriaBotonesSimple {
+    static crear(tipo) {
+        switch (tipo.toLowerCase()) {
+            case &quot;html&quot;:
+                return new BotonHTML();
+            case &quot;windows&quot;:
+                return new BotonWindows();
+            default:
+                throw new Error(`Tipo de botón no válido: ${tipo}`);
+        }
+    }
+}
+
+// Uso de Factoría Simple:
+const btn1 = FactoriaBotonesSimple.crear(&quot;html&quot;);
+console.log(&quot;Factoría Simple:&quot;, btn1.dibujar());
+
+
+// ========================================================
+// 2. FACTORY METHOD (GoF Puro - Polimórfico con Herencia)
+// ========================================================
+// La clase base define el flujo y delega la instanciación en subclases mediante un método abstracto:
+
 class DialogoUI {
     // Operación principal que depende del Factory Method
     renderizar() {
@@ -1399,32 +1432,31 @@ class DialogoUI {
         return `&lt;div class=&quot;dialogo&quot;&gt;Ventana Modal con [${boton.dibujar()}]&lt;/div&gt;`;
     }
 
-    // Factory Method (debe ser implementado por subclases)
+    // Factory Method (abstracto: debe implementarse en cada subclase)
     crearBoton() {
         throw new Error(&quot;El método crearBoton() debe ser implementado por la subclase.&quot;);
     }
 }
 
 // Subclases creadoras concretas
+class DialogoHTML extends DialogoUI {
+    crearBoton() {
+        return new BotonHTML();
+    }
+}
+
 class DialogoWindows extends DialogoUI {
     crearBoton() {
-        return { dibujar: () =&gt; &quot;🔘 Botón Estilo Windows 11 Fluent&quot; };
+        return new BotonWindows();
     }
 }
 
-class DialogoHTML5 extends DialogoUI {
-    crearBoton() {
-        return { dibujar: () =&gt; &quot;&lt;button class=&#x27;btn-moderno&#x27;&gt;Aceptar&lt;/button&gt;&quot; };
-    }
-}
-
-const modalWeb = new DialogoHTML5();
+// Uso de Factory Method:
+const modalWeb = new DialogoHTML();
 console.log(modalWeb.renderizar());
-// &lt;div class=&quot;dialogo&quot;&gt;Ventana Modal con [&lt;button class=&#x27;btn-moderno&#x27;&gt;Aceptar&lt;/button&gt;]&lt;/div&gt;
 
 const modalWin = new DialogoWindows();
-console.log(modalWin.renderizar());
-// &lt;div class=&quot;dialogo&quot;&gt;Ventana Modal con [🔘 Botón Estilo Windows 11 Fluent]&lt;/div&gt;</code></pre>
+console.log(modalWin.renderizar());</code></pre>
         </div>
       </section>
 
