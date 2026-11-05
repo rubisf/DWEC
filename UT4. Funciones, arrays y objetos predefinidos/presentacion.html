@@ -1672,19 +1672,23 @@ realizarCompra(adaptador, 89.95);</code></pre>
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El patrón <strong>Decorator (Decorador)</strong> permite añadir responsabilidades y comportamientos adicionales a objetos de forma <strong>dinámica en tiempo de ejecución</strong> envolviéndolos en objetos decoradores:</p>
+            <div class="card-text"><p>El patrón <strong>Decorator (Decorador / Envoltorio)</strong> añade funcionalidades a un objeto existente <strong>sin modificar su clase original</strong>, envolviéndolo en capas como ponerle una funda al móvil o las capas de una cebolla:</p>
 <ul class="concept-list">
-  <li><strong>¿Qué problema resuelve?</strong> Evita la proliferación incontrolada de subclases por herencia estática cuando se necesitan múltiples combinaciones de características.</li>
-  <li><strong>Cuándo utilizarlo:</strong> Para enriquecer elementos de UI con bordes o scrollbars, añadir compresión/cifrado a flujos de datos o incorporar logging y caché a servicios.</li>
-  <li><strong>Composición sobre Herencia:</strong> Ofrece mucha más flexibilidad al permitir añadir o quitar responsabilidades encadenando múltiples envoltorios.</li>
+  <li><strong>¿Por qué no usar Herencia?</strong> Si queremos combinar canales (WhatsApp, Email, SMS, Telegram), la herencia exigiría crear clases para cada combinación (<code>NotificadorWhatsAppEmail</code>, <code>NotificadorWhatsAppSMS</code>, etc.). ¡Una explosión inmanejable de decenas de clases rígidas!</li>
+  <li><strong>La Idea del Envoltorio (Wrapper):</strong> En lugar de modificar el objeto original, creamos un decorador que <strong>lo recibe en su constructor</strong> (<code>constructor(notificador)</code>) y lo guarda dentro.</li>
+  <li><strong>Mecanismo de Ejecución:</strong> Al invocar <code>enviar()</code>, el decorador primero delega en el objeto original (<code>this.notificador.enviar()</code>) y a continuación añade su comportamiento adicional.</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>Decoradores en el Ecosistema JavaScript y TypeScript:</strong></p>
+            <div class="card-text"><p><strong>Las 3 Claves del Patrón y Comparativa con Herencia:</strong></p>
 <ul class="concept-list">
-  <li><strong>Decoradores como Envoltorios (Wrappers):</strong> En JS nativo se implementan mediante clases que implementan la misma interfaz envolviendo una instancia interna.</li>
-  <li><strong>Sintaxis @Decorator:</strong> En frameworks como Angular o TypeScript moderno, se utilizan decoradores con <code>@Component</code> o <code>@Injectable</code> basados en este mismo patrón.</li>
+  <li><strong>1. No modificamos la clase original:</strong> La clase base sigue intacta y funcionando exactamente igual.</li>
+  <li><strong>2. Mismo método / interfaz:</strong> El decorador expone el mismo método (<code>enviar()</code>), por lo que el cliente no nota si usa el objeto base o decorado.</li>
+  <li><strong>3. Encadenamiento libre por capas:</strong> Podemos apilar decoradores en cualquier orden:
+    <div style="background: #0f172a; color: #38bdf8; padding: 6px 10px; border-radius: 6px; font-size: 0.72em; margin: 4px 0; font-family: monospace;">[ SMS ➔ [ Email ➔ [ WhatsApp ➔ [ NotificadorBase ] ] ] ]</div>
+  </li>
+  <li><strong>Herencia vs Decorator:</strong> La <em>herencia</em> es estática en compilación; el <em>decorator</em> es dinámico en tiempo de ejecución (añades o quitas capas según lo necesite el usuario).</li>
 </ul></div>
           </div>
         </div>
@@ -1693,47 +1697,59 @@ realizarCompra(adaptador, 89.95);</code></pre>
             <span>💻 Código de Ejemplo: Implementación de Decorator</span>
             <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Estructurales → Composición de clases y objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- 6. Patrón Decorator (Estructural): Canales de Notificación Dinámicos ---
+          <pre><code class="language-javascript">// --- 6. Patrón Decorator (Estructural): Envolver Objetos como Capas sin Modificar la Base ---
 
-// Componente Base
-class NotificadorBase {
+// 1. Objeto Base Original (no se modifica)
+class Notificador {
     enviar(mensaje) {
-        return `[Mensaje de Sistema]: &quot;${mensaje}&quot;`;
+        console.log(`[Sistema Base]: ${mensaje}`);
     }
 }
 
-// Decorador Base que envuelve a cualquier notificador
-class NotificadorDecorador {
+// 2. Decorador WhatsApp: Recibe el notificador y añade su canal
+class WhatsAppDecorador {
+    constructor(notificador) {
+        this.notificador = notificador; // Guarda el objeto envuelto
+    }
+    enviar(mensaje) {
+        this.notificador.enviar(mensaje); // 1. Delega en el objeto original
+        console.log(` ➔ [📱 WhatsApp]: ${mensaje}`); // 2. Añade funcionalidad extra
+    }
+}
+
+// 3. Decorador Email: Envuelve cualquier notificador y añade correo
+class EmailDecorador {
     constructor(notificador) {
         this.notificador = notificador;
     }
     enviar(mensaje) {
-        return this.notificador.enviar(mensaje);
+        this.notificador.enviar(mensaje);
+        console.log(` ➔ [📧 Email]: ${mensaje}`);
     }
 }
 
-// Decorador Concreto 1: Envío adicional por WhatsApp
-class WhatsAppDecorador extends NotificadorDecorador {
+// 4. Decorador SMS: Envuelve cualquier notificador y añade mensaje de texto
+class SMSDecorador {
+    constructor(notificador) {
+        this.notificador = notificador;
+    }
     enviar(mensaje) {
-        const resultadoBase = super.enviar(mensaje);
-        return `${resultadoBase} ➔ [📱 WhatsApp Enviado]`;
+        this.notificador.enviar(mensaje);
+        console.log(` ➔ [💬 SMS]: ${mensaje}`);
     }
 }
 
-// Decorador Concreto 2: Registro de auditoría (Logging)
-class AuditLoggingDecorador extends NotificadorDecorador {
-    enviar(mensaje) {
-        const resultadoBase = super.enviar(mensaje);
-        return `${resultadoBase} ➔ [📝 Registro Guardado en Log]`;
-    }
-}
+// --- DEMOSTRACIÓN: Encadenamiento por Capas en Tiempo de Ejecución ---
+const base = new Notificador();
 
-// Composición dinámica en caliente según las preferencias del usuario
-let canal = new NotificadorBase();
-canal = new WhatsAppDecorador(canal);
-canal = new AuditLoggingDecorador(canal);
+// Envolvemos capa sobre capa como una cebolla (SMS envuelve a Email, que envuelve a WhatsApp, que envuelve a Base)
+const notificadorCompleto = new SMSDecorador(
+    new EmailDecorador(
+        new WhatsAppDecorador(base)
+    )
+);
 
-console.log(canal.enviar(&quot;Calificaciones finales publicadas&quot;));</code></pre>
+notificadorCompleto.enviar(&quot;Aviso: Calificaciones del examen publicadas&quot;);</code></pre>
         </div>
       </section>
 
