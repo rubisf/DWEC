@@ -2062,18 +2062,20 @@ console.log(`Tamaño total acumulado de [${raiz.nombre}]: ${raiz.obtenerTamanio(
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El patrón <strong>Observer (Observador / Pub-Sub)</strong> define una dependencia de uno a muchos entre objetos: cuando el objeto emisor (**Subject**) cambia su estado, **notifica automáticamente** a todos sus suscriptores (**Observers**):</p>
+            <div class="card-text"><p>El patrón <strong>Observer (Observador)</strong> define una relación de 1 a N entre objetos: cuando el emisor (**Subject**) cambia de estado o realiza una acción, **notifica automáticamente** a todos sus escuchadores (**Observers**):</p>
 <ul class="concept-list">
-  <li><strong>¿Qué problema resuelve?</strong> Permite la comunicación reactiva entre objetos sin acoplamiento directo entre el emisor y los receptores.</li>
-  <li><strong>Cuándo utilizarlo:</strong> Vistas de interfaz que reaccionan a cambios en los modelos de datos, sistemas de eventos del navegador, o flujos reactivos de datos.</li>
-  <li><strong>Pilar del Desarrollo Web Moderno:</strong> Es el principio base de <code>addEventListener</code>, de RxJS en Angular y de las Signals reactivas.</li>
+  <li><strong>¿Qué problema resuelve?</strong> Permite la comunicación reactiva y desacoplada: el emisor no necesita saber quién lo escucha ni cuántos observadores hay.</li>
+  <li><strong>Integración Nativa en JavaScript:</strong> En JavaScript no hace falta programar listas manuales de callbacks; el propio lenguaje implementa el patrón mediante la clase nativa <code>EventTarget</code> y el estándar de eventos.</li>
+  <li><strong>Cuándo utilizarlo:</strong> Modelos de datos reactivos (carritos, almacenes de estado, autenticación), comunicación entre componentes y actualización de interfaces.</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>Gestión con Set para Evitar Duplicados:</strong></p>
+            <div class="card-text"><p><strong>La Tríada Nativa del Patrón Observer en JavaScript:</strong></p>
 <ul class="concept-list">
-  <li><strong>Eficiencia en Suscripciones:</strong> El sujeto almacena los observadores en un <code>new Set()</code>, garantizando inserción y eliminación en tiempo constante $O(1)$ sin suscriptores repetidos.</li>
+  <li><strong>1. Sujeto Observable (Subject):</strong> Cualquier clase que hereda de <code>extends EventTarget</code>.</li>
+  <li><strong>2. Suscripción (Subscribe):</strong> <code>objeto.addEventListener("evento", callback)</code>.</li>
+  <li><strong>3. Notificación (Notify):</strong> <code>this.dispatchEvent(new CustomEvent("evento", { detail: datos }))</code>.</li>
 </ul></div>
           </div>
         </div>
@@ -2082,38 +2084,56 @@ console.log(`Tamaño total acumulado de [${raiz.nombre}]: ${raiz.obtenerTamanio(
             <span>💻 Código de Ejemplo: Implementación de Observer</span>
             <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Comportamentales → Comunicación entre objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- 10. Patrón Observer (Comportamental): Emisor y Suscriptores Reactivos ---
+          <pre><code class="language-javascript">// --- 10. Patrón Observer (Comportamental): Implementación Nativa con EventTarget ---
 
-class EmisorEventos {
-    #suscriptores = new Set(); // Evita registros duplicados
+// 1. Sujeto Observable (Hereda de la clase nativa EventTarget)
+class CarritoCompras extends EventTarget {
+    #productos = [];
 
-    suscribir(observador) {
-        this.#suscriptores.add(observador);
-        console.log(`+ Suscriptor registrado. Total activos: ${this.#suscriptores.size}`);
+    agregarProducto(nombre, precio) {
+        const item = { nombre, precio };
+        this.#productos.push(item);
+
+        // Notificación nativa (Notify) a todos los observadores suscritos:
+        const evento = new CustomEvent(&quot;productoAgregado&quot;, {
+            detail: {
+                producto: item,
+                totalArticulos: this.#productos.length
+            }
+        });
+        this.dispatchEvent(evento); // Dispara el evento nativo
     }
 
-    desuscribir(observador) {
-        this.#suscriptores.delete(observador);
-        console.log(`- Suscriptor eliminado. Restantes: ${this.#suscriptores.size}`);
-    }
-
-    notificar(evento, datos) {
-        console.log(`📢 [EVENTO: ${evento}] Notificando a todos los observadores...`);
-        this.#suscriptores.forEach(obs =&gt; obs.actualizar(evento, datos));
+    vaciar() {
+        this.#productos = [];
+        this.dispatchEvent(new CustomEvent(&quot;carritoVaciado&quot;));
     }
 }
 
-// Observadores desacoplados
-const monitorConsola = { actualizar: (e, d) =&gt; console.log(`  [Monitor Consola] Evento: ${e}`, d) };
-const alertaVisualUI = { actualizar: (e, d) =&gt; console.log(`  [Banner UI] Mostrando notificación: &quot;${d.mensaje}&quot;`) };
+// 2. Instancia del Sujeto
+const miCarrito = new CarritoCompras();
 
-const emisor = new EmisorEventos();
-emisor.suscribir(monitorConsola);
-emisor.suscribir(alertaVisualUI);
+// 3. Observadores (Suscripción mediante addEventListener)
+// Observador A: Actualización de la Interfaz de Usuario
+miCarrito.addEventListener(&quot;productoAgregado&quot;, (evento) =&gt; {
+    const { producto, totalArticulos } = evento.detail;
+    console.log(`🖥️ [UI]: Se añadió &quot;${producto.nombre}&quot;. Total en cesta: ${totalArticulos} artículos.`);
+});
 
-emisor.notificar(&quot;LOGIN_USUARIO&quot;, { usuario: &quot;Marta&quot;, rol: &quot;Editor&quot; });
-emisor.desuscribir(alertaVisualUI);
-emisor.notificar(&quot;PING_SERVIDOR&quot;, { latenciaMs: 14 });</code></pre>
+// Observador B: Servicio de Analítica / Telemetría
+miCarrito.addEventListener(&quot;productoAgregado&quot;, (evento) =&gt; {
+    console.log(`📊 [Analítica]: Conversión registrada para producto de ${evento.detail.producto.precio}€.`);
+});
+
+// Observador C: Escucha un evento diferente del mismo sujeto
+miCarrito.addEventListener(&quot;carritoVaciado&quot;, () =&gt; {
+    console.log(&quot;🗑️ [Alerta]: El carrito ha sido vaciado por completo.&quot;);
+});
+
+// --- Demostración del flujo reactivo ---
+miCarrito.agregarProducto(&quot;Portátil Gaming&quot;, 1250);
+miCarrito.agregarProducto(&quot;Ratón Inalámbrico&quot;, 35);
+miCarrito.vaciar();</code></pre>
         </div>
       </section>
 
