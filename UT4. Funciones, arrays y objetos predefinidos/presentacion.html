@@ -1801,20 +1801,19 @@ notificadorCompleto.enviar(&quot;Aviso: Calificaciones del examen publicadas&quo
         <div class="theory-grid">
           <div class="content-card primary-card">
             <div class="card-tag">💡 Propósito y Cuándo Utilizarlo</div>
-            <div class="card-text"><p>El patrón <strong>Proxy</strong> proporciona un intermediario que <strong>controla, valida y audita el acceso</strong> a un objeto o función, interceptando sus operaciones mediante tres trampas fundamentales de ES6:</p>
+            <div class="card-text"><p>El patrón <strong>Proxy</strong> proporciona un intermediario que <strong>controla, valida y audita el acceso</strong> a un objeto o función mediante tres trampas fundamentales unificadas en ES6:</p>
 <ul class="concept-list">
-  <li><strong>Trampa <code>get</code> (Lectura de Objetos):</strong> Se dispara al leer una propiedad (<code>objeto.prop</code>). Permite auditar accesos, retornar valores calculados o implementar cachés.</li>
-  <li><strong>Trampa <code>set</code> (Escritura en Objetos):</strong> Se dispara al modificar una propiedad (<code>objeto.prop = valor</code>). Permite validar datos y tipos <strong>ANTES</strong> de guardar y disparar reactividad.</li>
-  <li><strong>Trampa <code>apply</code> (Invocación de Funciones):</strong> Se dispara al ejecutar directamente una función envuelta (<code>fn(...args)</code>). Permite ejecutar lógica <strong>ANTES</strong> (validar argumentos, cronómetro) y <strong>DESPUÉS</strong> (telemetría, formateo del resultado).</li>
+  <li><strong>Trampa <code>get</code> (Lectura de Propiedades):</strong> Intercepta lecturas (<code>proxy.prop</code>) para auditar accesos, retornar valores por defecto o formatear salidas.</li>
+  <li><strong>Trampa <code>set</code> (Escritura de Propiedades):</strong> Intercepta mutaciones (<code>proxy.prop = val</code>) para validar tipos y reglas <strong>ANTES</strong> de guardar. Obligatorio retornar <code>true</code>.</li>
+  <li><strong>Trampa <code>apply</code> (Invocación Directa):</strong> Intercepta la llamada (<code>proxy(...args)</code>) para ejecutar lógica <strong>ANTES</strong> (seguridad, cronómetro) y <strong>DESPUÉS</strong> (telemetría, transformación del resultado).</li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Características Clave y Estándares</div>
-            <div class="card-text"><p><strong>Reglas de Oro de las 3 Trampas en JavaScript:</strong></p>
+            <div class="card-text"><p><strong>¿Por qué usar una Función con Propiedades para unificar el Proxy?</strong></p>
 <ul class="concept-list">
-  <li><strong><code>get(target, prop, receiver)</code>:</strong> Debe devolver el valor deseado (o delegar con <code>Reflect.get</code>).</li>
-  <li><strong><code>set(target, prop, value, receiver)</code>:</strong> Debe retornar <strong>obligatoriamente <code>true</code></strong> para confirmar la escritura exitosa (en modo estricto, retornar <code>false</code> lanza un <code>TypeError</code>).</li>
-  <li><strong><code>apply(target, thisArg, args)</code>:</strong> Solo se puede usar cuando el <code>target</code> es una función. Delega la ejecución real mediante <code>Reflect.apply(target, thisArg, args)</code>.</li>
+  <li><strong>Matiz clave de JavaScript:</strong> La trampa <code>apply</code> solo se activa cuando el propio Proxy se invoca directamente con paréntesis <code>proxy()</code> (en un objeto plano <code>obj.metodo()</code> solo saltaría <code>get</code>).</li>
+  <li><strong>Funciones como Objetos:</strong> En JS las funciones son objetos de primer nivel: pueden almacenar propiedades de estado y ser ejecutadas. Así, <strong>un único Proxy gestiona <code>get</code>, <code>set</code> y <code>apply</code> sobre la misma variable</strong>.</li>
 </ul></div>
           </div>
         </div>
@@ -1823,80 +1822,81 @@ notificadorCompleto.enviar(&quot;Aviso: Calificaciones del examen publicadas&quo
             <span>💻 Código de Ejemplo: Implementación de Proxy</span>
             <span style="font-size: 0.75em; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.3);">Estructurales → Composición de clases y objetos</span>
           </div>
-          <pre><code class="language-javascript">// --- 7. Patrón Proxy (Estructural): Implementación de GET, SET y APPLY ---
+          <pre><code class="language-javascript">// --- 7. Patrón Proxy (Estructural): GET, SET y APPLY en un ÚNICO Proxy ---
+
+// En JavaScript las funciones son objetos: tienen propiedades de datos y son ejecutables
+function procesarPago(importe) {
+    console.log(`⚙️ [Función Real]: Procesando cobro de ${importe}€ para [${procesarPago.comercio}]...`);
+    return { exito: true, importe, idTransaccion: &quot;TX-&quot; + Date.now() };
+}
+
+// Añadimos propiedades de estado al objeto-función
+procesarPago.comercio = &quot;Librería RAMA&quot;;
+procesarPago.comisionPorcentaje = 2.5;
 
 // ========================================================
-// 1. TRAMPAS GET Y SET (Interceptar Lectura y Escritura de Objetos)
+// UN ÚNICO PROXY QUE IMPLEMENTA GET, SET Y APPLY JUNTOS
 // ========================================================
-const usuarioReal = { nombre: &quot;Rubén&quot;, edad: 35 };
-
-const proxyUsuario = new Proxy(usuarioReal, {
-    // TRAMPA GET: Se activa al LEER cualquier propiedad
+const proxyPago = new Proxy(procesarPago, {
+    // 1. TRAMPA GET: Se activa al LEER propiedades del proxy
     get(target, propiedad) {
-        console.log(`👁️ [Proxy GET]: Leyendo propiedad &#x27;${propiedad}&#x27;`);
+        console.log(`👁️ [Proxy GET]: Consultando propiedad &#x27;${propiedad}&#x27;`);
         return propiedad in target ? target[propiedad] : &quot;⚠️ Propiedad inexistente&quot;;
     },
 
-    // TRAMPA SET: Se activa al ESCRIBIR / ASIGNAR una propiedad
+    // 2. TRAMPA SET: Se activa al MODIFICAR propiedades (Validación de negocio)
     set(target, propiedad, valor) {
-        console.log(`✏️ [Proxy SET]: Intentando asignar ${propiedad} = ${valor}`);
-        
-        // Validación de negocio ANTES de permitir la escritura:
-        if (propiedad === &quot;edad&quot;) {
-            if (typeof valor !== &quot;number&quot; || valor &lt; 0 || valor &gt; 120) {
-                throw new Error(&quot;La edad debe ser un número entero entre 0 y 120.&quot;);
+        console.log(`✏️ [Proxy SET]: Intentando modificar ${propiedad} = ${valor}`);
+
+        if (propiedad === &quot;comisionPorcentaje&quot;) {
+            if (typeof valor !== &quot;number&quot; || valor &lt; 0 || valor &gt; 20) {
+                throw new Error(&quot;La comisión debe ser un porcentaje numérico entre 0% y 20%.&quot;);
             }
         }
 
-        target[propiedad] = valor; // Modificación en el objeto real
-        console.log(`✅ [Proxy SET]: Propiedad &#x27;${propiedad}&#x27; actualizada con éxito.`);
-        return true; // ⚠️ OBLIGATORIO: Debe devolver true para confirmar la asignación
-    }
-});
+        target[propiedad] = valor;
+        console.log(`✅ [Proxy SET]: &#x27;${propiedad}&#x27; actualizada a ${valor} correctamente.`);
+        return true; // ⚠️ OBLIGATORIO: Confirmar la escritura
+    },
 
-// Prueba GET y SET:
-console.log(&quot;Nombre:&quot;, proxyUsuario.nombre); // Dispara GET
-proxyUsuario.edad = 36;                     // Dispara SET (válido)
-console.log(&quot;Edad actualizada:&quot;, proxyUsuario.edad);
-// proxyUsuario.edad = -10;                 // ❌ Lanzaría Error en la validación del SET
-
-
-// ========================================================
-// 2. TRAMPA APPLY (Interceptar la Invocación Directa de una Función)
-// ========================================================
-// Función que realiza una operación costosa o cálculo de negocio
-function calcularPrecioFinal(precioBase, descuentoPorcentaje) {
-    console.log(`⚙️ [Función Real]: Calculando ${precioBase}€ con -${descuentoPorcentaje}%...`);
-    return precioBase * (1 - descuentoPorcentaje / 100);
-}
-
-// Proxy sobre la función interceptando la ejecución con &#x27;apply&#x27;
-const proxyCalculo = new Proxy(calcularPrecioFinal, {
+    // 3. TRAMPA APPLY: Se activa al INVOCAR la función: proxyPago(...)
     apply(target, thisArg, argumentos) {
-        const [precio, descuento] = argumentos;
+        const [importe] = argumentos;
 
         // --- ACCIONES &quot;ANTES&quot; DE LA INVOCACIÓN ---
         console.log(`
-➡️ [Proxy APPLY - ANTES]: Validando argumentos: [${precio}€, ${descuento}%]`);
-        if (typeof precio !== &quot;number&quot; || precio &lt;= 0 || descuento &lt; 0 || descuento &gt; 100) {
-            throw new Error(&quot;Parámetros de precio o descuento inválidos.&quot;);
+➡️ [Proxy APPLY - ANTES]: Validando cobro de ${importe}€...`);
+        if (typeof importe !== &quot;number&quot; || importe &lt;= 0) {
+            throw new Error(&quot;El importe a cobrar debe ser un valor positivo.&quot;);
         }
-        const tInicio = performance.now(); // Cronómetro
+        const tInicio = performance.now(); // Inicio del cronómetro
 
         // --- INVOCACIÓN REAL MEDIANTE REFLECT ---
-        const resultadoReal = Reflect.apply(target, thisArg, argumentos);
+        const resultado = Reflect.apply(target, thisArg, argumentos);
 
         // --- ACCIONES &quot;DESPUÉS&quot; DE LA INVOCACIÓN ---
         const duracionMs = (performance.now() - tInicio).toFixed(3);
-        console.log(`⬅️ [Proxy APPLY - DESPUÉS]: Cálculo completado en ${duracionMs} ms.`);
+        console.log(`⬅️ [Proxy APPLY - DESPUÉS]: Cobro auditado en ${duracionMs} ms.`);
 
-        return Number(resultadoReal.toFixed(2)); // Resultado formateado para el cliente
+        return resultado; // Retorna la respuesta enriquecida al cliente
     }
 });
 
-// Invocación como función habitual:
-const totalPagar = proxyCalculo(120, 15);
-console.log(&quot;Total final devuelto al cliente:&quot;, totalPagar, &quot;€&quot;);</code></pre>
+// ========================================================
+// DEMOSTRACIÓN: Todo funcionando sobre la misma variable &#x27;proxyPago&#x27;
+// ========================================================
+
+// A) Dispara la trampa GET (Lectura de propiedad)
+console.log(&quot;Comercio:&quot;, proxyPago.comercio);
+
+// B) Dispara la trampa SET (Escritura de propiedad con validación previa)
+proxyPago.comisionPorcentaje = 3.5;
+console.log(&quot;Nueva comisión:&quot;, proxyPago.comisionPorcentaje); // Dispara GET
+// proxyPago.comisionPorcentaje = 50; // ❌ Lanzaría Error por superar el 20%
+
+// C) Dispara la trampa APPLY (Ejecución directa con acciones ANTES y DESPUÉS)
+const ticket = proxyPago(75.50);
+console.log(&quot;Ticket recibido por el cliente:&quot;, ticket);</code></pre>
         </div>
       </section>
 
