@@ -446,7 +446,7 @@
             <div class="index-badge" style="">2</div>
             <div class="index-info">
               <div class="index-title">Fases de Propagación de Eventos: Captura, Destino, Burbujeo y Delegación</div>
-              <p class="index-desc">Cuando ocurre un evento en un elemento del DOM, viaja a través de la jerarquía de nodos en un ciclo formal de propagación en tres fases.</p>
+              <p class="index-desc">Cuando ocurre un evento en un elemento del DOM, viaja a través de la jerarquía de nodos en un ciclo formal de propagación en tres fases: ⚡ Probar <a href="https://jsfiddle.net/rubisf/97pkrjon/4/" target="_blank" style="color: inherit; text-decoration: underline; font-weight: 600;">Burbujeo</a>, <a href="https://jsfiddle.net/rubisf/yre8t7ad/2/" target="_blank" style="color: inherit; text-decoration: underline; font-weight: 600;">target/currentTarget</a> y <a href="https://jsfiddle.net/rubisf/7knbLs2j/4/" target="_blank" style="color: inherit; text-decoration: underline; font-weight: 600;">closest</a> en JSFiddle 🔗.</p>
             </div>
           </div>
           <div class="index-card" style="">
@@ -631,8 +631,12 @@ botonAccion.addEventListener(&quot;click&quot;, function(e) {
             <div class="card-text"><p>Cuando ocurre un evento en un elemento del DOM, viaja a través de la jerarquía de nodos en un <strong>ciclo formal de propagación en tres fases</strong>:</p>
 <ul class="concept-list">
   <li><strong>1. Fase de Captura (Capturing Phase):</strong> El evento desciende por el árbol DOM desde el objeto <code>window</code>, pasando por <code>document</code>, <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code> y ancestros hasta llegar al elemento objetivo. Por defecto, los escuchadores no se disparan en esta fase a menos que se configure explícitamente <code>{ capture: true }</code>.</li>
-  <li><strong>2. Fase de Destino (Target Phase):</strong> El evento alcanza el elemento exacto donde se originó la interacción (<code>e.target</code>).</li>
-  <li><strong>3. Fase de Burbujeo (Bubbling Phase):</strong> El evento asciende de vuelta desde el elemento objetivo hacia arriba a través de todos sus padres hasta <code>window</code>. La inmensa mayoría de escuchadores operan en esta fase por defecto.</li>
+  <li><strong>2. Fase de Destino (Target Phase):</strong> El evento alcanza el elemento exacto donde se originó la interacción (<code>e.target</code> frente a <code>e.currentTarget</code>).
+    <a href="https://jsfiddle.net/rubisf/yre8t7ad/2/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Target y currentTarget en JSFiddle 🔗</a>
+  </li>
+  <li><strong>3. Fase de Burbujeo (Bubbling Phase):</strong> El evento asciende de vuelta desde el elemento objetivo hacia arriba a través de todos sus padres hasta <code>window</code>. La inmensa mayoría de escuchadores operan en esta fase por defecto.
+    <a href="https://jsfiddle.net/rubisf/97pkrjon/4/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Burbujeo en JSFiddle 🔗</a>
+  </li>
   <li><strong>Control de la Propagación:</strong>
     <ul>
       <li><code>e.stopPropagation()</code>: Detiene la propagación del evento, impidiendo que siga ascendiendo o descendiendo por el árbol DOM hacia los demás elementos ancestros.</li>
@@ -640,7 +644,9 @@ botonAccion.addEventListener(&quot;click&quot;, function(e) {
       <li><code>e.preventDefault()</code>: Cancela la acción predeterminada que el navegador realiza por defecto (ej. navegar al enlace en un <code>&lt;a&gt;</code>, enviar formulario en <code>submit</code> o escribir texto en <code>keydown</code>). <em>No detiene la propagación</em>.</li>
     </ul>
   </li>
-  <li><strong>Técnica de Delegación de Eventos (Event Delegation):</strong> En lugar de vincular un escuchador a cientos de elementos hijos individuales (lo que consume excesiva memoria), se vincula un <strong>único escuchador en el contenedor padre</strong>. Gracias al burbujeo, el padre intercepta los clics de cualquier hijo presente o futuro mediante <code>e.target.closest(selector)</code>.</li>
+  <li><strong>Técnica de Delegación de Eventos (Event Delegation):</strong> En lugar de vincular un escuchador a cientos de elementos hijos individuales (lo que consume excesiva memoria), se vincula un <strong>único escuchador en el contenedor padre</strong>. Gracias al burbujeo, el padre intercepta los clics de cualquier hijo presente o futuro mediante <code>e.target.closest(selector)</code>.
+    <a href="https://jsfiddle.net/rubisf/7knbLs2j/4/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Closest en JSFiddle 🔗</a>
+  </li>
 </ul></div>
           </div>
           <div class="content-card accent-card">
@@ -649,13 +655,24 @@ botonAccion.addEventListener(&quot;click&quot;, function(e) {
 <ul class="concept-list">
   <li><strong>Elementos Creados Dinámicamente:</strong> La delegación es la solución por excelencia para listas dinámicas o tablas donde se añaden o eliminan filas continuamente: no es necesario adjuntar nuevos listeners a cada fila creada porque el contenedor padre ya los gestiona todos.</li>
   <li><strong>Eventos que no Burbujean:</strong> Eventos como <code>focus</code>, <code>blur</code>, <code>mouseenter</code> y <code>mouseleave</code> no burbujean. Para delegarlos se debe usar la fase de captura (<code>{ capture: true }</code>) o sus variantes que sí burbujean: <code>focusin</code>, <code>focusout</code>, <code>mouseover</code> y <code>mouseout</code>.</li>
+  <li><strong>Laboratorios Prácticos JSFiddle:</strong> Demostraciones interactivas en vivo para afianzar estos conceptos:
+    <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px;">
+      <a href="https://jsfiddle.net/rubisf/97pkrjon/4/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 3px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px;">⚡ Burbujeo de Eventos en JSFiddle 🔗</a>
+      <a href="https://jsfiddle.net/rubisf/yre8t7ad/2/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 3px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px;">⚡ Target vs currentTarget en JSFiddle 🔗</a>
+      <a href="https://jsfiddle.net/rubisf/7knbLs2j/4/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 3px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px;">⚡ Closest y Delegación en JSFiddle 🔗</a>
+    </div>
+  </li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+              <a href="https://jsfiddle.net/rubisf/97pkrjon/4/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Burbujeo en JSFiddle">⚡ Burbujeo 🔗</a>
+              <a href="https://jsfiddle.net/rubisf/yre8t7ad/2/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Target y currentTarget en JSFiddle">⚡ Target y currentTarget 🔗</a>
+              <a href="https://jsfiddle.net/rubisf/7knbLs2j/4/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Closest en JSFiddle">⚡ Closest 🔗</a>
+            </div>
           </div>
           <pre><code class="language-javascript">// Demostración de Delegación de Eventos con e.target.closest()
 const listaTareas = document.getElementById(&quot;contenedor-tareas&quot;);
