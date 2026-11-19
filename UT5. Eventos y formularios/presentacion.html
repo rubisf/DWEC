@@ -271,51 +271,92 @@
     /* Ajuste para diapositivas compactas que garantiza encajar sin scroll vertical ni horizontal */
     .slide-compact {
       padding: 16px 36px 20px 36px !important;
-      overflow-y: hidden !important;
-      overflow-x: hidden !important;
+      overflow: hidden !important;
       justify-content: flex-start !important;
     }
     .slide-compact .slide-header {
-      margin-bottom: 6px !important;
+      margin-bottom: 8px !important;
+      flex-shrink: 0;
     }
     .slide-compact .slide-header h2 {
-      font-size: 1.15em !important;
+      font-size: 24px !important;
+      color: #0f172a;
       margin: 2px 0 0 0 !important;
+      line-height: 1.2;
+      font-weight: 800;
     }
     .slide-compact .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
+      flex-shrink: 0;
       margin-bottom: 0;
     }
     .slide-compact .content-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
       padding: 8px 12px !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
     }
     .slide-compact .card-tag {
-      font-size: 0.60em !important;
-      margin-bottom: 3px !important;
+      font-size: 11px !important;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px !important;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .slide-compact .card-text {
-      font-size: 0.68em !important;
-      line-height: 1.36 !important;
+      font-size: 13.5px !important;
+      line-height: 1.35 !important;
+      color: #334155;
+      margin: 0;
     }
     .slide-compact .card-text ul {
-      margin: 2px 0 3px 0 !important;
-      padding-left: 16px !important;
+      margin: 2px 0 !important;
+      padding-left: 14px !important;
     }
     .slide-compact .card-text li {
       margin-bottom: 2px !important;
-      line-height: 1.32 !important;
+      line-height: 1.30 !important;
+    }
+    .slide-compact .card-text code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
     }
     .slide-compact .code-demo-card {
-      margin-top: 6px !important;
-      padding: 6px 12px !important;
+      margin-top: 8px !important;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 8px 12px !important;
+      flex-shrink: 0;
     }
     .slide-compact .code-demo-tag {
-      font-size: 0.58em !important;
-      margin-bottom: 3px !important;
+      font-size: 11.5px !important;
+      font-weight: 700;
+      color: #79c0ff;
+      text-transform: uppercase;
+      margin-bottom: 4px !important;
+    }
+    .slide-compact .code-demo-card pre {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
     }
     .slide-compact .code-demo-card code {
-      font-size: 0.63em !important;
+      font-family: 'Fira Code', monospace !important;
+      font-size: 13px !important;
       line-height: 1.32 !important;
+      color: #f0f6fc !important;
+      white-space: pre-wrap !important;
     }
 
     /* Contenedor de Reto Limpio */
@@ -985,38 +1026,38 @@ inicializarAtajosGlobales();</code></pre>
               <ul class="concept-list">
                 <li><strong>Acceso a Formularios y Controles:</strong>
                   <ul>
-                    <li>Selector moderno: <code>const form = document.querySelector("#registro-form");</code></li>
-                    <li>Colección interna: <code>form.elements["email"]</code> o <code>form.elements[0]</code> (agrupa inputs, selects, textareas y buttons).</li>
+                    <li>Selector moderno: <code>const form = document.querySelector("#registro");</code></li>
+                    <li>Colección interna: <code>form.elements["email"]</code> (o por índice <code>[0]</code>).</li>
                   </ul>
                 </li>
-                <li><strong>Eventos Clave de Formulario:</strong>
+                <li><strong>Ciclo de Eventos Clave:</strong>
                   <ul>
-                    <li><code>input</code>: Emisión instantánea a cada pulsación de tecla (validación en tiempo real).</li>
-                    <li><code>change</code>: Al cambiar valor y perder foco (o al instante en <code>&lt;select&gt;</code>, checkbox y radio).</li>
-                    <li><code>focus</code> / <code>blur</code>: Foco del campo (usar <code>focusin</code>/<code>focusout</code> si se delegan).</li>
-                    <li><code>submit</code>: Se activa al enviar; <code>e.preventDefault()</code> detiene la recarga HTTP tradicional para procesar vía Fetch API.</li>
-                    <li><code>reset</code>: Se activa al restaurar el formulario.</li>
+                    <li><code>input</code>: Emisión instantánea a cada pulsación (validación reactiva).</li>
+                    <li><code>change</code>: Al cambiar valor y perder foco (o al seleccionar en <code>&lt;select&gt;</code>).</li>
+                    <li><code>focus</code> / <code>blur</code>: Ganancia/pérdida de foco (usar <code>focusin/out</code> si se delega).</li>
+                    <li><code>submit</code>: Envío del formulario; <code>e.preventDefault()</code> detiene la recarga.</li>
+                    <li><code>reset</code>: Se activa al restaurar los campos a su estado inicial.</li>
                   </ul>
                 </li>
               </ul>
             </div>
           </div>
           <div class="content-card accent-card">
-            <div class="card-tag">🔍 Manipulación de Controles y FormData</div>
+            <div class="card-tag">🔍 Controles y Objeto FormData</div>
             <div class="card-text">
               <ul class="concept-list">
                 <li><strong>Lectura y Modificación por Tipo de Control:</strong>
                   <ul>
                     <li><em>Texto y Textarea:</em> <code>input.value</code> (cadena textual).</li>
                     <li><em>Checkbox:</em> Booleano <code>checkbox.checked</code>.</li>
-                    <li><em>Radio:</em> <code>form.querySelector('input[name="x"]:checked')?.value</code>.</li>
-                    <li><em>Select:</em> <code>select.value</code> (valor) y <code>select.selectedIndex</code> (índice).</li>
+                    <li><em>Radio:</em> <code>form.querySelector(':checked')?.value</code>.</li>
+                    <li><em>Select:</em> Valor <code>select.value</code> e índice <code>select.selectedIndex</code>.</li>
                   </ul>
                 </li>
                 <li><strong>Objeto <code>FormData</code> (Estándar Moderno):</strong>
                   <ul>
-                    <li><code>const datos = new FormData(form);</code> empaqueta en lote todos los campos con atributo <code>name</code> (incluyendo ficheros).</li>
-                    <li><code>Object.fromEntries(datos.entries())</code> genera un objeto JavaScript plano listo para serializar a JSON en llamadas <code>fetch()</code>.</li>
+                    <li><code>const fd = new FormData(form);</code> empaqueta todos los campos con <code>name</code>.</li>
+                    <li><code>Object.fromEntries(fd.entries())</code> genera objeto JS plano listo para Fetch API.</li>
                   </ul>
                 </li>
               </ul>
@@ -1024,22 +1065,20 @@ inicializarAtajosGlobales();</code></pre>
           </div>
         </div>
         <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
-            <span>💻 Demostración Práctica: Intercepción, FormData y Validación</span>
-          </div>
-          <pre><code class="language-javascript">const formulario = document.querySelector("#formulario-contacto");
+          <div class="code-demo-tag">💻 Demostración Práctica: Intercepción, FormData y Validación</div>
+          <pre><code class="language-javascript">const form = document.querySelector("#registro-form");
 
-formulario.addEventListener("submit", (e) => {
-    e.preventDefault(); // 1. Detiene el envío y recarga HTTP tradicional
+form.addEventListener("submit", (e) => {
+    e.preventDefault(); // 1. Detiene la recarga HTTP tradicional
 
-    // 2. Validación directa de control individual (checkbox de términos)
-    if (!formulario.elements["terminos"]?.checked) {
-        return console.warn("Debe aceptar las condiciones legales antes de continuar.");
+    // 2. Validación de control individual (checkbox de términos)
+    if (!form.elements["terminos"]?.checked) {
+        return console.warn("Debe aceptar las condiciones legales.");
     }
 
     // 3. Extracción automática con FormData y conversión a objeto JS plano
-    const datosUsuario = Object.fromEntries(new FormData(formulario).entries());
-    console.log("Datos de formulario listos para Fetch API:", datosUsuario);
+    const datos = Object.fromEntries(new FormData(form).entries());
+    console.log("Datos listos para enviar vía Fetch API:", datos);
 });</code></pre>
         </div>
       </section>
@@ -1307,17 +1346,16 @@ function auditarSeguridadContrasena(inputPassword) {
               <ul class="concept-list">
                 <li><strong>Control de Clases con <code>classList</code>:</strong>
                   <ul>
-                    <li><code>elemento.classList.add("activo", "visible")</code>: Añade una o varias clases.</li>
-                    <li><code>elemento.classList.remove("error")</code>: Retira clases especificadas.</li>
-                    <li><code>elemento.classList.toggle("dark", condicion)</code>: Conmuta según presencia o booleano.</li>
-                    <li><code>elemento.classList.contains("open")</code>: Retorna <code>true</code> o <code>false</code>.</li>
-                    <li><code>elemento.classList.replace("vieja", "nueva")</code>: Sustitución atómica directa.</li>
+                    <li><code>el.classList.add("activo")</code> / <code>el.classList.remove("error")</code>: Clases CSS.</li>
+                    <li><code>el.classList.toggle("dark", cond)</code>: Conmuta según presencia o booleano.</li>
+                    <li><code>el.classList.contains("open")</code>: Comprueba existencia (retorna booleano).</li>
+                    <li><code>el.classList.replace("vieja", "nueva")</code>: Sustitución atómica directa.</li>
                   </ul>
                 </li>
                 <li><strong>Estilos en Línea vs Estilos Calculados:</strong>
                   <ul>
-                    <li><code>elemento.style.propiedad</code>: Lectura/escritura en camelCase (ej. <code>style.color = "red"</code>). <em>Solo accede a estilos inline del atributo style</em>.</li>
-                    <li><code>window.getComputedStyle(elemento)</code>: Objeto de solo lectura con los valores calculados finales reales tras aplicar cascada y herencia CSS.</li>
+                    <li><code>el.style.color = "red"</code>: Escritura/lectura camelCase (solo atributo inline <code>style</code>).</li>
+                    <li><code>window.getComputedStyle(el)</code>: Valores finales reales calculados tras cascada.</li>
                   </ul>
                 </li>
               </ul>
@@ -1329,16 +1367,16 @@ function auditarSeguridadContrasena(inputPassword) {
               <ul class="concept-list">
                 <li><strong>Separación de Responsabilidades y Variables CSS:</strong>
                   <ul>
-                    <li>Preferir clases sobre <code>style.property</code> directo para mantener el diseño en CSS.</li>
-                    <li>Para estilado reactivo dinámico, modificar Variables CSS con <code>elemento.style.setProperty("--color-tema", "#2563eb")</code>.</li>
-                    <li>Evento <code>transitionend</code>: Sincroniza lógica JS al terminar una animación CSS.</li>
+                    <li>Preferir clases sobre <code>style.property</code> para mantener diseño en CSS.</li>
+                    <li>Variables CSS reactivas: <code>el.style.setProperty("--color", val)</code>.</li>
+                    <li>Evento <code>transitionend</code>: Sincroniza lógica al terminar animación CSS.</li>
                   </ul>
                 </li>
                 <li><strong>Pruebas y Simulación Programática de Eventos:</strong>
                   <ul>
-                    <li>Disparo rápido: <code>elemento.click()</code> o <code>elemento.focus()</code>.</li>
-                    <li>Disparo sintético estándar: <code>elemento.dispatchEvent(new Event("change", { bubbles: true }))</code>.</li>
-                    <li>Depuración: <code>monitorEvents(elemento)</code> en la consola de DevTools.</li>
+                    <li>Disparo directo: <code>el.click()</code> o <code>el.focus()</code>.</li>
+                    <li>Evento sintético estándar: <code>el.dispatchEvent(new Event("change", { bubbles: true }))</code>.</li>
+                    <li>Depuración: <code>monitorEvents(el)</code> en la consola de DevTools.</li>
                   </ul>
                 </li>
               </ul>
@@ -1346,19 +1384,15 @@ function auditarSeguridadContrasena(inputPassword) {
           </div>
         </div>
         <div class="code-demo-card">
-          <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
-            <span>💻 Demostración Práctica: classList, Variables CSS y Simulación</span>
-          </div>
+          <div class="code-demo-tag">💻 Demostración Práctica: classList, Variables CSS y Simulación</div>
           <pre><code class="language-javascript">function conmutarTemaOscuro() {
     const esOscuro = document.body.classList.toggle("dark-mode");
-
-    // Reactividad visual con Variable CSS y persistencia en localStorage
     document.documentElement.style.setProperty("--fondo-principal", esOscuro ? "#0f172a" : "#f8fafc");
     localStorage.setItem("tema_usuario", esOscuro ? "oscuro" : "claro");
-    console.log("Tema conmutado dinámicamente:", esOscuro ? "Oscuro 🌙" : "Claro ☀️");
+    console.log("Tema dinámico conmutado:", esOscuro ? "Oscuro 🌙" : "Claro ☀️");
 }
 
-// Lectura de estilos calculados reales y despacho programático de prueba
+// Lectura de estilo calculado real y despacho programático de prueba
 const fondoActual = window.getComputedStyle(document.body).backgroundColor;
 console.log("Color de fondo calculado actualmente:", fondoActual);
 document.getElementById("btn-tema")?.dispatchEvent(new Event("change", { bubbles: true }));</code></pre>
