@@ -268,6 +268,56 @@
       white-space: pre-wrap !important;
     }
 
+    /* Ajuste para diapositivas compactas que garantiza encajar sin scroll vertical ni horizontal */
+    .slide-compact {
+      padding: 16px 36px 20px 36px !important;
+      overflow-y: hidden !important;
+      overflow-x: hidden !important;
+      justify-content: flex-start !important;
+    }
+    .slide-compact .slide-header {
+      margin-bottom: 6px !important;
+    }
+    .slide-compact .slide-header h2 {
+      font-size: 1.15em !important;
+      margin: 2px 0 0 0 !important;
+    }
+    .slide-compact .theory-grid {
+      gap: 12px;
+      margin-bottom: 0;
+    }
+    .slide-compact .content-card {
+      padding: 8px 12px !important;
+    }
+    .slide-compact .card-tag {
+      font-size: 0.60em !important;
+      margin-bottom: 3px !important;
+    }
+    .slide-compact .card-text {
+      font-size: 0.68em !important;
+      line-height: 1.36 !important;
+    }
+    .slide-compact .card-text ul {
+      margin: 2px 0 3px 0 !important;
+      padding-left: 16px !important;
+    }
+    .slide-compact .card-text li {
+      margin-bottom: 2px !important;
+      line-height: 1.32 !important;
+    }
+    .slide-compact .code-demo-card {
+      margin-top: 6px !important;
+      padding: 6px 12px !important;
+    }
+    .slide-compact .code-demo-tag {
+      font-size: 0.58em !important;
+      margin-bottom: 3px !important;
+    }
+    .slide-compact .code-demo-card code {
+      font-size: 0.63em !important;
+      line-height: 1.32 !important;
+    }
+
     /* Contenedor de Reto Limpio */
     .reto-slide-container {
       display: flex;
@@ -923,78 +973,73 @@ inicializarAtajosGlobales();</code></pre>
         </div>
       </section>
 
-      <section>
+      <section class="slide-compact">
         <div class="slide-header">
           <span class="badge-sub">Bloque 4 de 6 · Teoría y Demostración</span>
           <h2>4. Interacción con Formularios y Controles desde Código</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
-            <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>Los formularios HTML constituyen el principal medio de entrada de datos en la web. JavaScript permite interceptar, manipular y controlar el ciclo de vida de sus campos:</p>
-<ul class="concept-list">
-  <li><strong>Acceso a Formularios y Elementos:</strong>
-    <ul>
-      <li>Colección histórica: <code>document.forms["miFormulario"]</code>.</li>
-      <li>Selector moderno: <code>const form = document.querySelector("#registro-form");</code></li>
-      <li>Colección interna de controles: <code>form.elements["email"]</code> o <code>form.elements[0]</code>. Agrupa todos los inputs, selects, textareas y buttons del formulario.</li>
-    </ul>
-  </li>
-  <li><strong>Eventos de Formulario Clave:</strong>
-    <ul>
-      <li><code>input</code>: Se dispara de forma inmediata en tiempo real cada vez que el valor del campo cambia (al escribir cada letra). Indispensable para validación instantánea y feedback visual.</li>
-      <li><code>change</code>: Se dispara cuando el valor cambia y el campo <strong>pierde el foco</strong> (en inputs de texto) o de inmediato al seleccionar una opción (en <code>&lt;select&gt;</code>, checkboxes y radios).</li>
-      <li><code>focus</code> y <code>blur</code>: Se activan al recibir o perder el foco de interacción (no burbujean; usar <code>focusin</code>/<code>focusout</code> si se requiere delegación).</li>
-      <li><code>submit</code>: Se activa en el formulario al pulsar un botón <code>type="submit"</code> o presionar Enter. La llamada a <code>e.preventDefault()</code> detiene el envío HTTP tradicional para procesarlo de forma asíncrona (AJAX/Fetch).</li>
-      <li><code>reset</code>: Se activa al restablecer el formulario con un botón <code>type="reset"</code>.</li>
-    </ul>
-  </li>
-  <li><strong>Lectura y Manipulación de Tipos de Controles:</strong>
-    <ul>
-      <li>Campos de texto y textareas: Propiedad <code>input.value</code> (siempre devuelve un string).</li>
-      <li>Casillas de verificación (Checkbox): Propiedad booleana <code>checkbox.checked</code>.</li>
-      <li>Botones de opción (Radio): Mismo atributo <code>name</code>; se localiza el seleccionado mediante <code>form.querySelector('input[name="genero"]:checked')?.value</code>.</li>
-      <li>Desplegables (Select): <code>select.value</code> (valor de la opción seleccionada) y <code>select.selectedIndex</code> (índice numérico).</li>
-    </ul>
-  </li>
-</ul></div>
+            <div class="card-tag">💡 Acceso DOM y Ciclo de Eventos</div>
+            <div class="card-text">
+              <ul class="concept-list">
+                <li><strong>Acceso a Formularios y Controles:</strong>
+                  <ul>
+                    <li>Selector moderno: <code>const form = document.querySelector("#registro-form");</code></li>
+                    <li>Colección interna: <code>form.elements["email"]</code> o <code>form.elements[0]</code> (agrupa inputs, selects, textareas y buttons).</li>
+                  </ul>
+                </li>
+                <li><strong>Eventos Clave de Formulario:</strong>
+                  <ul>
+                    <li><code>input</code>: Emisión instantánea a cada pulsación de tecla (validación en tiempo real).</li>
+                    <li><code>change</code>: Al cambiar valor y perder foco (o al instante en <code>&lt;select&gt;</code>, checkbox y radio).</li>
+                    <li><code>focus</code> / <code>blur</code>: Foco del campo (usar <code>focusin</code>/<code>focusout</code> si se delegan).</li>
+                    <li><code>submit</code>: Se activa al enviar; <code>e.preventDefault()</code> detiene la recarga HTTP tradicional para procesar vía Fetch API.</li>
+                    <li><code>reset</code>: Se activa al restaurar el formulario.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="content-card accent-card">
-            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>El Objeto <code>FormData</code> para Formularios Complejos:</strong></p>
-<ul class="concept-list">
-  <li><strong>Extracción Instantánea de Datos:</strong> Al invocar <code>const datos = new FormData(formulario);</code>, se empaquetan automáticamente todos los campos con atributo <code>name</code>, incluyendo ficheros subidos (<code>&lt;input type="file"&gt;</code>).</li>
-  <li><strong>Conversión a Objeto Plano:</strong> La instrucción moderna <code>const json = Object.fromEntries(datos.entries());</code> transforma el formulario entero en un objeto JavaScript listo para serializar a JSON y enviar vía API Fetch.</li>
-</ul></div>
+            <div class="card-tag">🔍 Manipulación de Controles y FormData</div>
+            <div class="card-text">
+              <ul class="concept-list">
+                <li><strong>Lectura y Modificación por Tipo de Control:</strong>
+                  <ul>
+                    <li><em>Texto y Textarea:</em> <code>input.value</code> (cadena textual).</li>
+                    <li><em>Checkbox:</em> Booleano <code>checkbox.checked</code>.</li>
+                    <li><em>Radio:</em> <code>form.querySelector('input[name="x"]:checked')?.value</code>.</li>
+                    <li><em>Select:</em> <code>select.value</code> (valor) y <code>select.selectedIndex</code> (índice).</li>
+                  </ul>
+                </li>
+                <li><strong>Objeto <code>FormData</code> (Estándar Moderno):</strong>
+                  <ul>
+                    <li><code>const datos = new FormData(form);</code> empaqueta en lote todos los campos con atributo <code>name</code> (incluyendo ficheros).</li>
+                    <li><code>Object.fromEntries(datos.entries())</code> genera un objeto JavaScript plano listo para serializar a JSON en llamadas <code>fetch()</code>.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
-            <span>💻 Demostración Práctica e Implementación de Código</span>
-            
+            <span>💻 Demostración Práctica: Intercepción, FormData y Validación</span>
           </div>
-          <pre><code class="language-javascript">// Intercepción del formulario, lectura con FormData y prevención de recarga
-const formulario = document.getElementById(&quot;formulario-contacto&quot;);
+          <pre><code class="language-javascript">const formulario = document.querySelector("#formulario-contacto");
 
-formulario.addEventListener(&quot;submit&quot;, (e) =&gt; {
-    // 1. Detener el envío tradicional del navegador (evita recarga)
-    e.preventDefault();
+formulario.addEventListener("submit", (e) => {
+    e.preventDefault(); // 1. Detiene el envío y recarga HTTP tradicional
 
-    // 2. Empaquetar los datos del formulario automáticamente
-    const formData = new FormData(formulario);
-
-    // 3. Convertir a objeto plano JavaScript
-    const datosUsuario = Object.fromEntries(formData.entries());
-    console.log(&quot;Datos de formulario extraídos listos para enviar:&quot;, datosUsuario);
-
-    // 4. Ejemplo de lectura de campos individuales
-    const aceptaTerminos = formulario.elements[&quot;terminos&quot;].checked;
-    if (!aceptaTerminos) {
-        console.warn(&quot;Debe aceptar las condiciones legales.&quot;);
-        return;
+    // 2. Validación directa de control individual (checkbox de términos)
+    if (!formulario.elements["terminos"]?.checked) {
+        return console.warn("Debe aceptar las condiciones legales antes de continuar.");
     }
 
-    console.log(&quot;Formulario válido. Transmitiendo por Fetch API...&quot;);
+    // 3. Extracción automática con FormData y conversión a objeto JS plano
+    const datosUsuario = Object.fromEntries(new FormData(formulario).entries());
+    console.log("Datos de formulario listos para Fetch API:", datosUsuario);
 });</code></pre>
         </div>
       </section>
@@ -1250,77 +1295,73 @@ function auditarSeguridadContrasena(inputPassword) {
         </div>
       </section>
 
-      <section>
+      <section class="slide-compact">
         <div class="slide-header">
           <span class="badge-sub">Bloque 6 de 6 · Teoría y Demostración</span>
           <h2>6. Modificación Dinámica de Apariencia, Comportamiento y Pruebas del Código</h2>
         </div>
         <div class="theory-grid">
           <div class="content-card primary-card">
-            <div class="card-tag">💡 Fundamentos Conceptuales</div>
-            <div class="card-text"><p>La interacción con el usuario se complementa con la <strong>modificación dinámica de estilos y clases</strong> y el testeo automatizado de eventos:</p>
-<ul class="concept-list">
-  <li><strong>Gestión Dinámica de Clases CSS con <code>classList</code>:</strong>
-    <p>Forma estándar y óptima para alterar la apariencia de los elementos sin manipular cadenas directas:</p>
-    <ul>
-      <li><code>elemento.classList.add("clase1", "clase2")</code>: Añade clases.</li>
-      <li><code>elemento.classList.remove("clase")</code>: Elimina clases.</li>
-      <li><code>elemento.classList.toggle("clase", condicionBooleana)</code>: Conmuta la presencia de la clase (la añade si no está, la elimina si ya está presente).</li>
-      <li><code>elemento.classList.contains("clase")</code>: Comprueba la existencia devolviendo un booleano.</li>
-      <li><code>elemento.classList.replace("vieja", "nueva")</code>: Sustituye una clase por otra atómicamente.</li>
-    </ul>
-  </li>
-  <li><strong>Estilos en Línea vs Estilos Calculados:</strong>
-    <ul>
-      <li><code>elemento.style.propiedadCSS</code>: Permite leer y escribir estilos en línea (en formato camelCase, ej. <code>elemento.style.backgroundColor = "red"</code>). <em>Solo lee estilos definidos en línea en el atributo style</em>.</li>
-      <li><code>window.getComputedStyle(elemento)</code>: Devuelve un objeto de solo lectura con los valores calculados finales reales de todas las propiedades CSS del elemento tras aplicar la cascada y la herencia del navegador.</li>
-    </ul>
-  </li>
-  <li><strong>Pruebas y Simulación Programática de Eventos:</strong>
-    <p>Para testing unitario o automatización de interfaces, JavaScript permite despachar eventos sintéticos de forma programática:</p>
-    <ul>
-      <li>Disparo simplificado: <code>elemento.click()</code>, <code>elemento.focus()</code>.</li>
-      <li>Disparo estándar: <code>elemento.dispatchEvent(new Event("change", { bubbles: true }))</code>.</li>
-      <li>Herramienta de depuración en consola: <code>monitorEvents(elemento)</code> en DevTools para ver en directo cualquier evento emitido.</li>
-    </ul>
-  </li>
-</ul></div>
+            <div class="card-tag">💡 Gestión Dinámica de Clases y Estilos</div>
+            <div class="card-text">
+              <ul class="concept-list">
+                <li><strong>Control de Clases con <code>classList</code>:</strong>
+                  <ul>
+                    <li><code>elemento.classList.add("activo", "visible")</code>: Añade una o varias clases.</li>
+                    <li><code>elemento.classList.remove("error")</code>: Retira clases especificadas.</li>
+                    <li><code>elemento.classList.toggle("dark", condicion)</code>: Conmuta según presencia o booleano.</li>
+                    <li><code>elemento.classList.contains("open")</code>: Retorna <code>true</code> o <code>false</code>.</li>
+                    <li><code>elemento.classList.replace("vieja", "nueva")</code>: Sustitución atómica directa.</li>
+                  </ul>
+                </li>
+                <li><strong>Estilos en Línea vs Estilos Calculados:</strong>
+                  <ul>
+                    <li><code>elemento.style.propiedad</code>: Lectura/escritura en camelCase (ej. <code>style.color = "red"</code>). <em>Solo accede a estilos inline del atributo style</em>.</li>
+                    <li><code>window.getComputedStyle(elemento)</code>: Objeto de solo lectura con los valores calculados finales reales tras aplicar cascada y herencia CSS.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="content-card accent-card">
-            <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>Separación de Responsabilidades en Estilos:</strong></p>
-<ul class="concept-list">
-  <li><strong>Preferir Clases sobre <code>style.property</code>:</strong> El código JavaScript nunca debe definir valores específicos de diseño (colores hex, márgenes o fuentes) mediante <code>elemento.style</code>. La buena práctica consiste en definir las clases de diseño en CSS y hacer que JavaScript se limite a añadir o quitar dichas clases (<code>classList.add('error')</code>) o modificar Variables CSS (<code>elemento.style.setProperty('--color-tema', '#2563eb')</code>).</li>
-  <li><strong>Coordinación con Transiciones CSS:</strong> Al añadir una clase con animación, el evento <code>transitionend</code> permite ejecutar lógica JavaScript justo en el instante en que la animación visual ha finalizado.</li>
-</ul></div>
+            <div class="card-tag">🔍 Buenas Prácticas, Animaciones y Testing</div>
+            <div class="card-text">
+              <ul class="concept-list">
+                <li><strong>Separación de Responsabilidades y Variables CSS:</strong>
+                  <ul>
+                    <li>Preferir clases sobre <code>style.property</code> directo para mantener el diseño en CSS.</li>
+                    <li>Para estilado reactivo dinámico, modificar Variables CSS con <code>elemento.style.setProperty("--color-tema", "#2563eb")</code>.</li>
+                    <li>Evento <code>transitionend</code>: Sincroniza lógica JS al terminar una animación CSS.</li>
+                  </ul>
+                </li>
+                <li><strong>Pruebas y Simulación Programática de Eventos:</strong>
+                  <ul>
+                    <li>Disparo rápido: <code>elemento.click()</code> o <code>elemento.focus()</code>.</li>
+                    <li>Disparo sintético estándar: <code>elemento.dispatchEvent(new Event("change", { bubbles: true }))</code>.</li>
+                    <li>Depuración: <code>monitorEvents(elemento)</code> en la consola de DevTools.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
-            <span>💻 Demostración Práctica e Implementación de Código</span>
-            
+            <span>💻 Demostración Práctica: classList, Variables CSS y Simulación</span>
           </div>
-          <pre><code class="language-javascript">// Conmutador de Temas (Dark/Light Mode) con classList y Variables CSS
-function conmutarTemaOscuro() {
-    const body = document.body;
-    
-    // Conmutar clase de tema oscuro
-    const esOscuro = body.classList.toggle(&quot;dark-mode&quot;);
+          <pre><code class="language-javascript">function conmutarTemaOscuro() {
+    const esOscuro = document.body.classList.toggle("dark-mode");
 
-    // Guardar preferencia persistente en localStorage
-    localStorage.setItem(&quot;tema_usuario&quot;, esOscuro ? &quot;oscuro&quot; : &quot;claro&quot;);
-    console.log(&quot;Tema conmutado dinámicamente:&quot;, esOscuro ? &quot;Modo Oscuro 🌙&quot; : &quot;Modo Claro ☀️&quot;);
-
-    // Modificación de variable CSS global reactiva
-    document.documentElement.style.setProperty(
-        &quot;--fondo-principal&quot;,
-        esOscuro ? &quot;#0f172a&quot; : &quot;#f8fafc&quot;
-    );
+    // Reactividad visual con Variable CSS y persistencia en localStorage
+    document.documentElement.style.setProperty("--fondo-principal", esOscuro ? "#0f172a" : "#f8fafc");
+    localStorage.setItem("tema_usuario", esOscuro ? "oscuro" : "claro");
+    console.log("Tema conmutado dinámicamente:", esOscuro ? "Oscuro 🌙" : "Claro ☀️");
 }
 
-// Lectura de estilos calculados reales del navegador
-const estiloReal = window.getComputedStyle(document.body);
-console.log(&quot;Color de fondo calculado actualmente:&quot;, estiloReal.backgroundColor);</code></pre>
+// Lectura de estilos calculados reales y despacho programático de prueba
+const fondoActual = window.getComputedStyle(document.body).backgroundColor;
+console.log("Color de fondo calculado actualmente:", fondoActual);
+document.getElementById("btn-tema")?.dispatchEvent(new Event("change", { bubbles: true }));</code></pre>
         </div>
       </section>
 
