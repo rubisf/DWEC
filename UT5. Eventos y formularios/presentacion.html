@@ -453,7 +453,7 @@
             <div class="index-badge" style="">3</div>
             <div class="index-info">
               <div class="index-title">Catálogo de Tipos de Eventos: Ratón, Teclado, Formulario, Ventana y Personalizados</div>
-              <p class="index-desc">El navegador emite una amplia variedad de eventos clasificados según la naturaleza del dispositivo de entrada o la fuente generadora.</p>
+              <p class="index-desc">El navegador emite una amplia variedad de eventos clasificados según la naturaleza del dispositivo de entrada o la fuente generadora: ⚡ Probar <a href="https://jsfiddle.net/rubisf/8ogb4mfu/14/" target="_blank" style="color: inherit; text-decoration: underline; font-weight: 600;">Listener de Teclas Pulsadas</a> en JSFiddle 🔗.</p>
             </div>
           </div>
           <div class="index-card" style="">
@@ -791,7 +791,9 @@ listaTareas.addEventListener(&quot;click&quot;, (e) =&gt; {
   </li>
   <li><strong>Eventos de Teclado (KeyboardEvent):</strong>
     <ul>
-      <li><code>keydown</code> (al presionar la tecla, se repite si se mantiene pulsada) y <code>keyup</code> (al soltarla).</li>
+      <li><code>keydown</code> (al presionar la tecla, se repite si se mantiene pulsada) y <code>keyup</code> (al soltarla).
+        <a href="https://jsfiddle.net/rubisf/8ogb4mfu/14/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 2px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;">⚡ Probar Listener de Teclas Pulsadas en JSFiddle 🔗</a>
+      </li>
       <li>Propiedades modernas: <code>e.key</code> (carácter textual producido, ej. <code>"Enter"</code>, <code>"a"</code>, <code>"Escape"</code>) y <code>e.code</code> (código físico del botón del teclado, ej. <code>"KeyA"</code>, <code>"Digit1"</code>). Teclas modificadoras booleanas: <code>e.ctrlKey</code>, <code>e.shiftKey</code>, <code>e.altKey</code>, <code>e.metaKey</code> (Cmd en Mac).</li>
     </ul>
   </li>
@@ -807,17 +809,23 @@ listaTareas.addEventListener(&quot;click&quot;, (e) =&gt; {
           </div>
           <div class="content-card accent-card">
             <div class="card-tag">🔍 Ampliación y Estándares 2026</div>
-            <div class="card-text"><p><strong>Optimización de Eventos de Alta Frecuencia con Debounce y Throttle:</strong></p>
+            <div class="card-text"><p><strong>Optimización y Manejo de Eventos de Teclado:</strong></p>
 <ul class="concept-list">
-  <li><strong>Debounce:</strong> Pospone la ejecución del manejador hasta que transcurra un periodo de inactividad (ideal para barras de búsqueda predictiva en el evento <code>input</code>).</li>
-  <li><strong>Throttle:</strong> Limita la frecuencia de ejecución a un intervalo fijo regular (ej. ejecutar como máximo una vez cada 100 ms durante el evento <code>scroll</code> o <code>resize</code> para evitar caídas de fotogramas).</li>
+  <li><strong>Debounce y Throttle:</strong> Pospone la ejecución hasta transcurrir inactividad (debounce en <code>input</code>) o limita la frecuencia a intervalos fijos (throttle en <code>scroll</code>/<code>resize</code>).</li>
+  <li><strong>Laboratorio Práctico JSFiddle:</strong> Monitorización en tiempo real de teclas pulsadas, detección de códigos físicos y combinaciones de teclas:
+    <div style="margin-top: 6px;">
+      <a href="https://jsfiddle.net/rubisf/8ogb4mfu/14/" target="_blank" class="jsfiddle-link" style="color: #0284c7; font-weight: 700; text-decoration: underline; background: #e0f2fe; padding: 3px 8px; border-radius: 4px; font-size: 0.82em; display: inline-flex; align-items: center; gap: 4px;">⚡ Listener de Teclas Pulsadas en JSFiddle 🔗</a>
+    </div>
+  </li>
 </ul></div>
           </div>
         </div>
         <div class="code-demo-card">
           <div class="code-demo-tag" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
             <span>💻 Demostración Práctica e Implementación de Código</span>
-            
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+              <a href="https://jsfiddle.net/rubisf/8ogb4mfu/14/" target="_blank" style="color: #38bdf8; font-weight: bold; text-decoration: none; font-size: 0.82em; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.35); display: inline-flex; align-items: center; gap: 4px;" title="Probar Listener de Teclas Pulsadas en JSFiddle">⚡ Teclas Pulsadas (keydown) 🔗</a>
+            </div>
           </div>
           <pre><code class="language-javascript">// Eventos de Teclado (Atajos Globales) y Creación de CustomEvent
 
