@@ -1,6 +1,8 @@
-# Ignorar todos los archivos PDF
+# Ignorar todos los archivos PDF excepto Manual_Referencia_Examen_DAW_UT1_UT7.pdf
 *.pdf
 **/*.pdf
+!Manual_Referencia_Examen_DAW_UT1_UT7.pdf
+!manual_referencia_examen_daw_ut1_ut7.pdf
 
 # Archivos de sistema y temporales
 .DS_Store
