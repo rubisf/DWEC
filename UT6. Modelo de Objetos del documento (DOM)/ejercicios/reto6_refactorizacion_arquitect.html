@@ -25,7 +25,24 @@
       <h1 class="text-lg sm:text-xl font-extrabold text-white">Reto 6: Refactorización Arquitectónica de Código Espagueti a Tres Capas Desacopladas</h1>
       <div class="mt-3 p-3 bg-slate-950/70 border border-slate-800/80 rounded-xl">
         <span class="text-[11px] font-bold text-indigo-400 block mb-1">📝 Enunciado:</span>
-        <p class="text-xs text-slate-300 leading-relaxed">Dado un componente legado con marcado sucio (etiquetas con estilos en línea `style=&quot;color:red;font-size:18px&quot;`, eventos en línea `onclick=&quot;validar()&quot;` y manipulación directa de cadenas), refactorízalo aplicando la separación estricta de capas: 1) Estructura semántica en HTML5, 2) Reglas de diseño y variables en CSS, y 3) Lógica de interacción en JavaScript moderno mediante `addEventListener()` y manipulación de `classList`.</p>
+        <div class="text-xs text-slate-300 leading-relaxed space-y-2">
+          <p>Dado el siguiente componente legado con código espagueti (marcado sucio, estilos CSS incrustados en línea, eventos en atributos <code>onclick</code> y manipulación directa acoplada a la vista):</p>
+          <pre class="bg-slate-900 border border-slate-800 p-2.5 rounded-lg text-emerald-400 font-mono text-[11px] overflow-x-auto"><code>&lt;!-- CÓDIGO FUENTE LEGADO A REFACTORIZAR --&gt;
+&lt;div id="caja-perfil" style="background:#ffffff; border-radius:8px; padding:24px; box-shadow:0 4px 12px rgba(0,0,0,0.05); font-family:sans-serif;"&gt;
+  &lt;b style="font-size:20px; color:#1e1b4b; display:block; margin-bottom:8px;"&gt;Perfil de Usuario&lt;/b&gt;
+  &lt;span style="font-size:14px; color:#475569;"&gt;Gestión de datos personales y suscripción.&lt;/span&gt;&lt;br&gt;&lt;br&gt;
+  &lt;button id="btn-suscripcion" style="background-color:#4f46e5; color:#ffffff; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;"
+          onclick="if(this.style.backgroundColor=='rgb(5, 150, 105)'||this.style.backgroundColor=='#059669'){ this.style.backgroundColor='#4f46e5'; this.innerHTML='Activar Suscripción'; console.log('Estado de suscripción:', false); } else { this.style.backgroundColor='#059669'; this.innerHTML='Suscripción Activa ✅'; console.log('Estado de suscripción:', true); }"&gt;
+    Activar Suscripción
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          <p>Refactorízalo aplicando la separación estricta en tres capas desacopladas:</p>
+          <ul class="list-disc pl-5 space-y-1 text-slate-400">
+            <li><strong>1) Capa de Estructura:</strong> Marcado semántico HTML5 y accesible (<code>&lt;section&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code> con atributos ARIA <code>aria-labelledby</code> y <code>aria-pressed</code>).</li>
+            <li><strong>2) Capa de Presentación:</strong> Reglas de diseño y variables en CSS independiente (<code>:root</code> con variables de color y radio, clases <code>.tarjeta-perfil</code>, <code>.btn--primario</code> y modificador <code>.is-active</code>).</li>
+            <li><strong>3) Capa de Comportamiento:</strong> JavaScript moderno y desacoplado, escuchando <code>DOMContentLoaded</code>, registrando el manejador con <code>addEventListener()</code> y alternando estados con <code>classList.toggle()</code>.</li>
+          </ul>
+        </div>
       </div>
       <div class="mt-2 text-[11px] text-amber-300/90 bg-amber-950/20 border border-amber-800/30 rounded-lg p-2.5">💡 <strong>Pistas:</strong> Elimina todos los atributos style y onclick del HTML. Crea clases CSS semánticas (.alerta-error, .boton-accion). Vincula los escuchadores en JavaScript tras DOMContentLoaded.</div>
     </div>

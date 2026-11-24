@@ -1273,7 +1273,19 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
         <div class="reto-slide-container">
           <div class="callout tip">
             <div class="callout-title">📝 Enunciado y Especificación del Reto</div>
-            <div class="callout-body">Dado un componente legado con marcado sucio (etiquetas con estilos en línea `style=&quot;color:red;font-size:18px&quot;`, eventos en línea `onclick=&quot;validar()&quot;` y manipulación directa de cadenas), refactorízalo aplicando la separación estricta de capas: 1) Estructura semántica en HTML5, 2) Reglas de diseño y variables en CSS, y 3) Lógica de interacción en JavaScript moderno mediante `addEventListener()` y manipulación de `classList`.</div>
+            <div class="callout-body">
+              <p style="margin: 0 0 4px 0;">Dado el siguiente componente legado con código espagueti (marcado sucio, estilos en línea, eventos en atributos <code>onclick</code> y manipulación directa acoplada a la vista):</p>
+              <pre style="margin: 4px 0; padding: 6px 10px; background: #0f172a; border-radius: 6px; font-size: 0.84em; color: #f8fafc; overflow-x: auto; font-family: 'Fira Code', monospace; line-height: 1.35;"><code>&lt;!-- CÓDIGO FUENTE LEGADO A REFACTORIZAR --&gt;
+&lt;div id="caja-perfil" style="background:#ffffff; border-radius:8px; padding:24px; box-shadow:0 4px 12px rgba(0,0,0,0.05); font-family:sans-serif;"&gt;
+  &lt;b style="font-size:20px; color:#1e1b4b; display:block; margin-bottom:8px;"&gt;Perfil de Usuario&lt;/b&gt;
+  &lt;span style="font-size:14px; color:#475569;"&gt;Gestión de datos personales y suscripción.&lt;/span&gt;&lt;br&gt;&lt;br&gt;
+  &lt;button id="btn-suscripcion" style="background-color:#4f46e5; color:#ffffff; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;"
+          onclick="if(this.style.backgroundColor=='rgb(5, 150, 105)'||this.style.backgroundColor=='#059669'){ this.style.backgroundColor='#4f46e5'; this.innerHTML='Activar Suscripción'; console.log('Estado de suscripción:', false); } else { this.style.backgroundColor='#059669'; this.innerHTML='Suscripción Activa ✅'; console.log('Estado de suscripción:', true); }"&gt;
+    Activar Suscripción
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+              <p style="margin: 4px 0 0 0;">Refactorízalo aplicando la separación estricta en tres capas desacopladas: <strong>1) Estructura semántica en HTML5</strong> (<code>&lt;section&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code> con ARIA), <strong>2) Reglas y variables en CSS independiente</strong> (<code>:root</code>, <code>.tarjeta-perfil</code>, <code>.btn--primario</code>, <code>.is-active</code>), y <strong>3) Lógica de interacción en JavaScript moderno</strong> mediante <code>DOMContentLoaded</code>, <code>addEventListener()</code> y <code>classList.toggle()</code>.</p>
+            </div>
           </div>
           <div class="callout info">
             <div class="callout-title">💡 Pistas Clave y Procedimiento Guiado</div>
